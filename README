@@ -1,0 +1,12 @@
+Thrillcall API Ruby Wrapper
+===========================
+
+Usage:
+
+tc = ThrillcallAPI.new
+tc.events
+tc.event(1)
+
+tc.venues
+tc.zip_codes
+tc.artists

@@ -1,0 +1,10 @@
+pkg/*
+*.gem
+.bundle
+log/
+tmp/
+
+# osx noise
+.DS_Store
+profile
+
