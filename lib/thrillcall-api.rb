@@ -1,10 +1,7 @@
-# require 'nucleus_queue_format/base'
-# require 'nucleus_queue_format/request'
-# require 'nucleus_queue_format/response'
-# require 'nucleus_queue_format/exception'
-# require 'validatable'
 require 'faraday'
+#require 'faraday_middleware'
 require 'json'
+require "#{File.expand_path("../thrillcall-api/result", __FILE__)}"
 
 module ThrillcallAPI
   class << self
@@ -26,10 +23,14 @@ module ThrillcallAPI
       
       @base   = "#{base_url}v#{version}/"
       @conn   = Faraday.new( :url => @base, :headers => @headers ) do |builder|
+        #builder.use Faraday::Response::Mashify
+        #builder.use Faraday::Response::ParseJson
         builder.adapter Faraday.default_adapter
         builder.response :logger
         builder.response :raise_error
       end
+      
+      @result = Result.new
       
       return self
     end
@@ -51,12 +52,10 @@ module ThrillcallAPI
       end
     end
     
-    def events(limit = 10, offset = 0)
-      get 'events', :limit => limit.to_s, :offset => offset.to_s
-    end
-    
-    def zip_codes(limit = 10, offset = 0)
-      get 'zip_codes', :limit => limit.to_s, :offset => offset.to_s
+    def method_missing(method, *args, &block)
+      r = Result.new
+      r.send(method, args, block)
+      return r
     end
   end
 end
