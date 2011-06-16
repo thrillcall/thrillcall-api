@@ -15,9 +15,11 @@ EVENT_TICKET_ID   = 455663
 EVENT_ARTIST_ID   = 2192
 
 VENUE_ID          = 12345
-VENUE_NORM_NAME   = ""
+VENUE_NORM_NAME   = "recordexchange"
 ZIP_CODE_ID       = 12
-TICKET_ID        = 12345
+TICKET_ID         = 12345
+
+POSTAL_CODE       = "94108"
 
 LIMIT             = 14
 TINY_LIMIT        = 3
@@ -45,6 +47,27 @@ describe "ThrillcallAPI" do
     
     before :all do
       @tc = ThrillcallAPI.new(TEST_KEY, LOCALHOST)
+    end
+    it "should be able to handle a method with a block used on fresh data" do
+      e = @tc.events(:limit => LIMIT)
+      c = 0
+      e.each do |ev|
+        c += 1
+      end
+      c.should == e.length
+    end
+    
+    it "should be able to make multiple requests after initialization" do
+      a = @tc.artist(ARTIST_ID)
+      b = @tc.events(:limit => LIMIT)
+      a["artist"]["id"].should == ARTIST_ID
+      b.length.should == LIMIT
+    end
+    
+    it "should not be able to make an additional request after using the data from an intermediate request" do
+      a = @tc.artist(ARTIST_ID)
+      a["artist"]["id"].should == ARTIST_ID
+      lambda { e = a.events }.should raise_error
     end
     
     context "accessing the event endpoint" do
@@ -78,7 +101,7 @@ describe "ThrillcallAPI" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => MIN_DATE)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          Time.parse(ev["start_date"]).should >= Time.parse(MIN_DATE)
+          DateTime.parse(ev["event"]["start_date"]).should >= DateTime.parse(MIN_DATE)
         end
       end
       
@@ -86,7 +109,7 @@ describe "ThrillcallAPI" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => MIN_DATE, :max_date => MAX_DATE)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          Time.parse(ev["start_date"]).should <= Time.parse(MAX_DATE)
+          DateTime.parse(ev["event"]["start_date"]).should < (DateTime.parse(MAX_DATE) + 1)
         end
       end
       
@@ -101,9 +124,10 @@ describe "ThrillcallAPI" do
       
       
       it "should verify the behavior of the confirmed_events_only param" do
+        pending
         e = @tc.events(:limit => LIMIT, :confirmed_events_only => true)
         e.each do |ev|
-          ev["unconfirmed_location"].should == 0
+          ev["event"]["unconfirmed_location"].should == 0
         end
       end
       
@@ -111,14 +135,29 @@ describe "ThrillcallAPI" do
         e = @tc.events(:limit => TINY_LIMIT, :must_have_tickets => true)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          t = @tc.event(ev["id"]).tickets
-          t.length.should_not be_empty
+          t = @tc.event(ev["event"]["id"]).tickets
+          t.length.should_not == 0
         end
       end
       
       
-      it "should verify the behavior of the postalcode param"
-      it "should verify the behavior of the radius param"
+      it "should verify the behavior of the postalcode param" do
+        e = @tc.events(:limit => TINY_LIMIT, :postalcode => POSTAL_CODE)
+        e.length.should <= TINY_LIMIT
+        e.each do |ev|
+          ev["venue_id"].should_not be_nil
+          v = @tc.venue(ev["venue_id"])
+          z_id = v["venue"]["zip_code_id"]
+          z_id.should_not be_nil
+          z = @tc.zip_code(z_id)
+          z["zip_code"]["zip"].should_not be_nil
+          z["zip_code"]["zip"].to_s.should == POSTAL_CODE
+        end
+      end
+      
+      it "should verify the behavior of the radius param" do
+        
+      end
       
       #############
       # Can't verify the behavior below without more access to data on the Rails side
@@ -197,27 +236,39 @@ describe "ThrillcallAPI" do
     context "searching for an object with a term" do
       it "should find the right artists" do
         a = @tc.search.artists(ARTIST_NORM_NAME)
-        ap a
-        a.first["artist"]["id"].should == ARTIST_ID
+        found = false
+        a.each do |artist|
+          if artist["artist"]["id"] == ARTIST_ID
+            found = true
+            break
+          end
+        end
+        found.should be_true
       end
       
-      it "should find the right venues"
-      it "should find the right zip code"
-    end
-    
-    it "should be able to make multiple requests after initialization" do
-      a = @tc.artist(ARTIST_ID)
-      b = @tc.events(:limit => LIMIT)
-      ap a
-      ap b
-      a["artist"]["id"].should == ARTIST_ID
-      b.length.should == LIMIT
-    end
-    
-    it "should not be able to make an additional request after using the data from an intermediate request" do
-      a = @tc.artist(ARTIST_ID)
-      a["artist"]["id"].should == ARTIST_ID
-      lambda { e = a.events }.should raise_error
+      it "should find the right venues" do
+        v = @tc.search.venues(VENUE_NORM_NAME)
+        found = false
+        v.each do |venue|
+          if venue["venue"]["id"] == VENUE_ID
+            found = true
+            break
+          end
+        end
+        found.should be_true
+      end
+      
+      it "should find the right zip code" do
+        z = @tc.search.zip_codes(POSTAL_CODE)
+        found = false
+        z.each do |zip|
+          if zip["zip_code"]["zip"].to_s == POSTAL_CODE
+            found = true
+            break
+          end
+        end
+        found.should be_true
+      end
     end
     
   end

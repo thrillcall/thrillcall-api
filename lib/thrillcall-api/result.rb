@@ -40,14 +40,14 @@ module ThrillcallAPI
       data.public_methods(false).each do |meth|
         @set_methods << meth
         (class << self; self; end).class_eval do
-          define_method meth do |*args|
-            data.send meth, *args
+          define_method meth do |*args, &block|
+            data.send meth, *args, &block
           end
         end
       end
     end
     
-    def append(key, args)
+    def append(key, *args)
       
       if @ran
         reset
@@ -56,21 +56,31 @@ module ThrillcallAPI
       @keys << key
       
       if args
-        unless args.is_a? Array
-          args = [args]
+        if args.is_a? Array
+          args = args.flatten
+        #else
+        #  args = [args]
         end
         args.each do |arg|
-          if arg.is_a? Hash
-            @options.merge!(arg)
-          else
-            @end_of_chain_is_singular = true
-            @keys << arg.to_s
+          if arg
+            a = arg
+            #if a.is_a? Array
+            #  a = arg.first
+            #else
+            #  a = arg
+            #end
+            if a.is_a? Hash
+              @options.merge!(a)
+            else
+              @end_of_chain_is_singular = true
+              @keys << a.to_s
+            end
           end
         end
       end
     end
     
-    def run(method, args, block)
+    def run(method, *args, &block)
       if !@ran
         fetch_data
       end
@@ -95,11 +105,11 @@ module ThrillcallAPI
       @ran = true
     end
     
-    def method_missing(method, args = nil, block = nil)
+    def method_missing(method, *args, &block)
       # by checking result.data, this works for both array and hash
       # bad news is that we can't have any endpoints that map to array or hash methods
       if @data.respond_to?(method)
-        r = run(method, args, block)
+        r = run(method, *args, &block)
         return r
       else
         if @ran
@@ -110,7 +120,7 @@ module ThrillcallAPI
           super
           #raise ThrillcallAPI::Error.new(:type => "Request Failed", :message => "Cannot chain request methods after using an intermediate step.  Create new requests directly from an instance of ThrillcallAPI.")
         else
-          append(method, args)
+          append(method, *args)
           return self
         end
       end

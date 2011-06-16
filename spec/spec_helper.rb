@@ -6,5 +6,6 @@ require 'yaml'
 #Dir["spec/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |c|
+  c.fail_fast = true
   # ....
 end
