@@ -1,7 +1,11 @@
-# Adapted from http://stackoverflow.com/questions/1332404/how-to-detect-the-end-of-a-method-chain-in-ruby
+# Adapted from
+# http://stackoverflow.com/questions/1332404/how-to-detect-the-end-of-a-method-chain-in-ruby
+# and
+# http://blog.jayfields.com/2008/02/ruby-replace-methodmissing-with-dynamic.html
 
 module ThrillcallAPI
   class Result
+    attr_accessor :ran, :end_of_chain_is_singular, :keys, :options, :set_methods
     attr_reader :data
     
     def initialize
@@ -9,11 +13,38 @@ module ThrillcallAPI
     end
     
     def reset
-      @ran      = false
-      @data     = [] # could be a hash after fetch
-      @keys     = []
+      if @set_methods
+        unset_methods
+      end
+      @ran                      = false
+      @data                     = [] # could be a hash after fetch
       @end_of_chain_is_singular = false
-      @options  = {}
+      @options                  = {}
+      @keys                     = []
+      @set_methods              = []
+    end
+    
+    def unset_methods
+      @set_methods.each do |s|
+        (class << self; self; end).class_eval do
+          undef_method s
+        end
+      end
+      
+      @set_methods = []
+    end
+    
+    def reassign(data)
+      unset_methods
+      
+      data.public_methods(false).each do |meth|
+        @set_methods << meth
+        (class << self; self; end).class_eval do
+          define_method meth do |*args|
+            data.send meth, *args
+          end
+        end
+      end
     end
     
     def append(key, args)
@@ -24,9 +55,10 @@ module ThrillcallAPI
       
       @keys << key
       
-      @end_of_chain_is_singular = false
-      
       if args
+        unless args.is_a? Array
+          args = [args]
+        end
         args.each do |arg|
           if arg.is_a? Hash
             @options.merge!(arg)
@@ -43,35 +75,46 @@ module ThrillcallAPI
         fetch_data
       end
       
-      @data.send(method, *args, &block)
+      self.send(method, *args, &block)
     end
     
     def fetch_data
-      #puts "Only runs once!"
-      
       url = @keys.join("/")
       
       @data = ThrillcallAPI.get url, @options
       
-      if @end_of_chain_is_singular && (@data.is_a? Hash)
-        @data = @data.values.first
-      end
+      #if @end_of_chain_is_singular && (@data.is_a? Hash)
+      #  @data = @data.values.first
+      #end
       
-      #puts "Data is: #{@data}"
+      # Now we define the instance methods present in the data object so
+      # that we can use this object *as if* we are using the data object directly
+      # and we don't encounter method_missing
+      reassign(@data)
+      
       @ran = true
     end
     
     def method_missing(method, args = nil, block = nil)
-      # puts "Data: #{@data}"
       # by checking result.data, this works for both array and hash
       # bad news is that we can't have any endpoints that map to array or hash methods
       if @data.respond_to?(method)
         r = run(method, args, block)
         return r
       else
-        append(method, args)
-        return self
+        if @ran
+          # Here be dragons, too much magic
+          # I tried to enable this so that it would create a new Result object from the original's keys and options, resetting
+          # the ran and end_of_chain_singular flags and data.  Then it would run append() on the new copy.
+          # The problem is that you can't reassign self (self = something), so this doesn't work.  Open to suggestions.
+          super
+          #raise ThrillcallAPI::Error.new(:type => "Request Failed", :message => "Cannot chain request methods after using an intermediate step.  Create new requests directly from an instance of ThrillcallAPI.")
+        else
+          append(method, args)
+          return self
+        end
       end
     end
+    
   end
 end

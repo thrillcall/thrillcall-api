@@ -2,6 +2,7 @@ require 'faraday'
 #require 'faraday_middleware'
 require 'json'
 require "#{File.expand_path("../thrillcall-api/result", __FILE__)}"
+require "#{File.expand_path("../thrillcall-api/exceptions", __FILE__)}"
 
 module ThrillcallAPI
   class << self
@@ -42,14 +43,10 @@ module ThrillcallAPI
     end
     
     def get(endpoint, params)
-      begin
-        r = conn.get do |req|
-          req.url endpoint, params.merge(:api_key => @api_key)
-        end
-        JSON.parse(r.body)
-      rescue Exception => e
-        puts "#{e}: #{e.backtrace.join("\n")}"
+      r = conn.get do |req|
+        req.url endpoint, params.merge(:api_key => @api_key)
       end
+      JSON.parse(r.body)
     end
     
     def method_missing(method, *args, &block)
