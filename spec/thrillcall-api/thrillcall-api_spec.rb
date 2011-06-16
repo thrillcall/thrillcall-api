@@ -65,23 +65,23 @@ describe "ThrillcallAPI" do
     it "should be able to make multiple requests after initialization" do
       a = @tc.artist(ARTIST_ID)
       b = @tc.events(:limit => LIMIT)
-      a["artist"]["id"].should == ARTIST_ID
+      a["id"].should == ARTIST_ID
       b.length.should == LIMIT
     end
     
     it "should not be able to make an additional request after using the data from an intermediate request" do
       a = @tc.artist(ARTIST_ID)
-      a["artist"]["id"].should == ARTIST_ID
+      a["id"].should == ARTIST_ID
       lambda { e = a.events }.should raise_error
     end
     
     it "should fetch data when responding to an array or a hash method" do
       a = @tc.artists(:limit => LIMIT)
       r = a.pop
-      r["artist"].should_not be_nil
+      r["id"].should_not be_nil
       
-      e = @tc.artist(r["artist"]["id"])
-      (e.has_key? "artist").should be_true
+      e = @tc.artist(r["id"])
+      (e.has_key? "amg_id").should be_true
     end
     
     it "should raise NoMethodError when given a method the data doesn't respond to after fetched" do
@@ -103,25 +103,25 @@ describe "ThrillcallAPI" do
       
       it "should get a specific event" do
         e = @tc.event(EVENT_ID)
-        e["event"]["id"].should == EVENT_ID
+        e["id"].should == EVENT_ID
       end
       
       it "should get tickets for a specific event" do
         e = @tc.event(EVENT_ID).tickets
         # FIXME: "product" here should be "ticket"
-        e.first["product"]["id"].should == EVENT_TICKET_ID
+        e.first["id"].should == EVENT_TICKET_ID
       end
       
       it "should get artists for a specific event" do
         e = @tc.event(EVENT_ID).artists
-        e.first["artist"]["id"].should == EVENT_ARTIST_ID
+        e.first["id"].should == EVENT_ARTIST_ID
       end
       
       it "should verify the behavior of the min_date param" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => MIN_DATE)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          DateTime.parse(ev["event"]["start_date"]).should >= DateTime.parse(MIN_DATE)
+          DateTime.parse(ev["start_date"]).should >= DateTime.parse(MIN_DATE)
         end
       end
       
@@ -129,7 +129,7 @@ describe "ThrillcallAPI" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => MIN_DATE, :max_date => MAX_DATE)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          DateTime.parse(ev["event"]["start_date"]).should < (DateTime.parse(MAX_DATE) + 1)
+          DateTime.parse(ev["start_date"]).should < (DateTime.parse(MAX_DATE) + 1)
         end
       end
       
@@ -146,7 +146,7 @@ describe "ThrillcallAPI" do
       it "should verify the behavior of the confirmed_events_only param" do
         e = @tc.events(:limit => LIMIT, :confirmed_events_only => true)
         e.each do |ev|
-          ev["event"]["unconfirmed_location"].should == 0
+          ev["unconfirmed_location"].should == 0
         end
       end
       
@@ -154,7 +154,7 @@ describe "ThrillcallAPI" do
         e = @tc.events(:limit => TINY_LIMIT, :must_have_tickets => true)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          t = @tc.event(ev["event"]["id"]).tickets
+          t = @tc.event(ev["id"]).tickets
           t.length.should_not == 0
         end
       end
@@ -166,11 +166,11 @@ describe "ThrillcallAPI" do
         e.each do |ev|
           ev["venue_id"].should_not be_nil
           v = @tc.venue(ev["venue_id"])
-          z_id = v["venue"]["zip_code_id"]
+          z_id = v["zip_code_id"]
           z_id.should_not be_nil
           z = @tc.zip_code(z_id)
-          z["zip_code"]["zip"].should_not be_nil
-          z["zip_code"]["zip"].to_s.should == POSTAL_CODE
+          z["zip"].should_not be_nil
+          z["zip"].to_s.should == POSTAL_CODE
         end
       end
       
@@ -191,7 +191,7 @@ describe "ThrillcallAPI" do
         e.each do |ev|
           t = @tc.event(ev["id"]).tickets(:ticket_type => "primary")
           t.each do |ticket|
-            ticket["product"]
+            ticket
           end
           t.length.should be_empty
         end
@@ -208,12 +208,12 @@ describe "ThrillcallAPI" do
       
       it "should get a specific artist" do
         a = @tc.artist(ARTIST_ID)
-        a["artist"]["id"].should == ARTIST_ID
+        a["id"].should == ARTIST_ID
       end
       
       it "should get a list of events for a specific artist" do
         a = @tc.artist(ARTIST_ID).events
-        a.first["event"]["id"].should == ARTIST_EVENT_ID
+        a.first["id"].should == ARTIST_EVENT_ID
       end
     end
     
@@ -225,7 +225,7 @@ describe "ThrillcallAPI" do
       
       it "should get a specific venue" do
         v = @tc.venue(VENUE_ID)
-        v["venue"]["id"].should == VENUE_ID
+        v["id"].should == VENUE_ID
       end
     end
     
@@ -237,7 +237,7 @@ describe "ThrillcallAPI" do
       
       it "should get a specific zip_code" do
         z = @tc.zip_code(ZIP_CODE_ID)
-        z["zip_code"]["id"].should == ZIP_CODE_ID
+        z["id"].should == ZIP_CODE_ID
       end
     end
     
@@ -250,7 +250,7 @@ describe "ThrillcallAPI" do
       it "should get a specific ticket" do
         p = @tc.ticket(TICKET_ID)
         # FIXME: "product" here should be "ticket"
-        p["product"]["id"].should == TICKET_ID
+        p["id"].should == TICKET_ID
       end
     end
     
@@ -259,7 +259,7 @@ describe "ThrillcallAPI" do
         a = @tc.search.artists(ARTIST_NORM_NAME)
         found = false
         a.each do |artist|
-          if artist["artist"]["id"] == ARTIST_ID
+          if artist["id"] == ARTIST_ID
             found = true
             break
           end
@@ -271,7 +271,7 @@ describe "ThrillcallAPI" do
         v = @tc.search.venues(VENUE_NORM_NAME)
         found = false
         v.each do |venue|
-          if venue["venue"]["id"] == VENUE_ID
+          if venue["id"] == VENUE_ID
             found = true
             break
           end
@@ -283,7 +283,7 @@ describe "ThrillcallAPI" do
         z = @tc.search.zip_codes(POSTAL_CODE)
         found = false
         z.each do |zip|
-          if zip["zip_code"]["zip"].to_s == POSTAL_CODE
+          if zip["zip"].to_s == POSTAL_CODE
             found = true
             break
           end
