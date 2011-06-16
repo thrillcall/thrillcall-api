@@ -24,10 +24,8 @@ module ThrillcallAPI
       
       @base   = "#{base_url}v#{version}/"
       @conn   = Faraday.new( :url => @base, :headers => @headers ) do |builder|
-        #builder.use Faraday::Response::Mashify
-        #builder.use Faraday::Response::ParseJson
         builder.adapter Faraday.default_adapter
-        builder.response :logger
+        #builder.response :logger
         builder.response :raise_error
       end
       

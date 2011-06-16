@@ -9,6 +9,7 @@ LOCALHOST = "http://localhost:#{PORT}/api/"
 ARTIST_ID         = 22210
 ARTIST_NORM_NAME  = "ladygaga"
 ARTIST_EVENT_ID   = 589331
+
 # this event will stop working if min_date is specified after august 2011
 EVENT_ID          = 753419
 EVENT_TICKET_ID   = 455663
@@ -26,14 +27,18 @@ TINY_LIMIT        = 3
 MIN_DATE          = "2011-01-01"
 MAX_DATE          = "2011-01-07"
 
+FLUSH_CACHE       = true # false
+
 describe "ThrillcallAPI" do
   
   before :all do
-    fork do
-      exec "echo 'flush_all' | nc localhost 11211"
+    if FLUSH_CACHE
+      fork do
+        exec "echo 'flush_all' | nc localhost 11211"
+      end
+      
+      Process.wait
     end
-    
-    Process.wait
   end
   
   it "should initialize properly with faraday" do
@@ -70,6 +75,21 @@ describe "ThrillcallAPI" do
       lambda { e = a.events }.should raise_error
     end
     
+    it "should fetch data when responding to an array or a hash method" do
+      a = @tc.artists(:limit => LIMIT)
+      r = a.pop
+      r["artist"].should_not be_nil
+      
+      e = @tc.artist(r["artist"]["id"])
+      (e.has_key? "artist").should be_true
+    end
+    
+    it "should raise NoMethodError when given a method the data doesn't respond to after fetched" do
+      a = @tc.artists(:limit => LIMIT)
+      a.length.should == LIMIT
+      lambda { a.bazooka }.should raise_error NoMethodError
+    end
+    
     context "accessing the event endpoint" do
       it "should get a list of events" do
         # This call sets up the Result object and returns an instance of ThrillcallAPI
@@ -78,7 +98,7 @@ describe "ThrillcallAPI" do
         # This call executes fetch_data because @data responds_to .length
         e.length.should == LIMIT
         
-        # Now e behaves as an array
+        # Now e behaves as a hash
       end
       
       it "should get a specific event" do
@@ -124,7 +144,6 @@ describe "ThrillcallAPI" do
       
       
       it "should verify the behavior of the confirmed_events_only param" do
-        pending
         e = @tc.events(:limit => LIMIT, :confirmed_events_only => true)
         e.each do |ev|
           ev["event"]["unconfirmed_location"].should == 0
@@ -161,20 +180,22 @@ describe "ThrillcallAPI" do
       
       #############
       # Can't verify the behavior below without more access to data on the Rails side
-      it "should verify the behavior of the suppress param"
-      it "should verify the behavior of the ticket_type param"
-      #do
-      #  e = @tc.events(:limit => TINY_LIMIT, , :must_have_tickets => true)
-      #  e.length.should == TINY_LIMIT
-      #  e.each do |ev|
-      #    t = @tc.event(ev["id"]).tickets(:ticket_type => "primary")
-      #    t.each do |ticket|
-      #      ticket["product"]
-      #    end
-      #    t = 
-      #    t.length.should be_empty
-      #  end
-      #end
+      it "should verify the behavior of the suppress param" do
+        pending "Need to be able to access the Suppressions table externally from Rails"
+      end
+      
+      it "should verify the behavior of the ticket_type param" do
+        pending "Need to be able to access the Merchants table externally from Rails"
+        e = @tc.events(:limit => TINY_LIMIT, :must_have_tickets => true)
+        e.length.should == TINY_LIMIT
+        e.each do |ev|
+          t = @tc.event(ev["id"]).tickets(:ticket_type => "primary")
+          t.each do |ticket|
+            ticket["product"]
+          end
+          t.length.should be_empty
+        end
+      end
       #################
       
     end
@@ -214,10 +235,10 @@ describe "ThrillcallAPI" do
         z.length.should == LIMIT
       end
       
-      #it "should get a specific zip_code" do
-      #  z = @tc.zip_code(ZIP_CODE_ID)
-      #  z["id"].should == ZIP_CODE_ID
-      #end
+      it "should get a specific zip_code" do
+        z = @tc.zip_code(ZIP_CODE_ID)
+        z["zip_code"]["id"].should == ZIP_CODE_ID
+      end
     end
     
     context "accessing the ticket endpoint" do

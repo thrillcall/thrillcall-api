@@ -17,7 +17,7 @@ module ThrillcallAPI
         unset_methods
       end
       @ran                      = false
-      @data                     = [] # could be a hash after fetch
+      @data                     = {} # could be an array after fetch
       @end_of_chain_is_singular = false
       @options                  = {}
       @keys                     = []
@@ -58,17 +58,10 @@ module ThrillcallAPI
       if args
         if args.is_a? Array
           args = args.flatten
-        #else
-        #  args = [args]
         end
         args.each do |arg|
           if arg
             a = arg
-            #if a.is_a? Array
-            #  a = arg.first
-            #else
-            #  a = arg
-            #end
             if a.is_a? Hash
               @options.merge!(a)
             else
@@ -91,7 +84,9 @@ module ThrillcallAPI
     def fetch_data
       url = @keys.join("/")
       
+      # t = Time.now.to_f
       @data = ThrillcallAPI.get url, @options
+      # puts "Request time: #{Time.now.to_f - t}"
       
       #if @end_of_chain_is_singular && (@data.is_a? Hash)
       #  @data = @data.values.first
@@ -108,18 +103,16 @@ module ThrillcallAPI
     def method_missing(method, *args, &block)
       # by checking result.data, this works for both array and hash
       # bad news is that we can't have any endpoints that map to array or hash methods
-      if @data.respond_to?(method)
-        r = run(method, *args, &block)
-        return r
+      
+      if @ran
+        # NoMethodError
+        super
       else
-        if @ran
-          # Here be dragons, too much magic
-          # I tried to enable this so that it would create a new Result object from the original's keys and options, resetting
-          # the ran and end_of_chain_singular flags and data.  Then it would run append() on the new copy.
-          # The problem is that you can't reassign self (self = something), so this doesn't work.  Open to suggestions.
-          super
-          #raise ThrillcallAPI::Error.new(:type => "Request Failed", :message => "Cannot chain request methods after using an intermediate step.  Create new requests directly from an instance of ThrillcallAPI.")
-        else
+        # We haven't fetched the data yet, but if this method is for a hash or an array, we'd better
+        if {}.respond_to?(method) || [].respond_to?(method)
+          r = run(method, *args, &block)
+          return r
+        else # Keep building the request
           append(method, *args)
           return self
         end
