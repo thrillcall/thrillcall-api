@@ -3,6 +3,7 @@ This document describes the Thrillcall API v2, and usage for the provided Ruby A
 
 # Ruby API Wrapper
 ### Usage:
+
 ``` ruby
 #---------------------------------------------------------------#
 # First, require the gem:
@@ -46,7 +47,9 @@ artist = tc.search.venues("warfield", :postalcode => "94101", :radius => 20)
 ```
 
 ### Advanced Usage:
+
 Provide additional instantiation options:
+
 ``` ruby
 #---------------------------------------------------------------#
 # The default endpoint is "http://thrillcall.com/api/".
@@ -63,6 +66,7 @@ tc = ThrillcallAPI.new(
 ```
 
 Internally, the wrapper returns a ThrillcallAPI::Result class for any call.  Data for the request is fetched only when used.  This allows you to build requests piecemeal before executing them.
+
 ``` ruby
 #---------------------------------------------------------------#
 # Build a partial request, add on to it later
@@ -76,6 +80,7 @@ artist_events.length
 ```
 
 This gem is a convenience wrapper around the excellent Faraday project.  If more complicated use cases are necessary, consider using Faraday directly.
+
 ``` ruby
 require 'faraday'
 require 'json'
