@@ -1,13 +1,27 @@
 require 'faraday'
 #require 'faraday_middleware'
 require 'json'
-require "#{File.expand_path("../thrillcall-api/result", __FILE__)}"
 require "#{File.expand_path("../thrillcall-api/exceptions", __FILE__)}"
+require "#{File.expand_path("../thrillcall-api/result", __FILE__)}"
+require "#{File.expand_path("../thrillcall-api/version", __FILE__)}"
 
 module ThrillcallAPI
   class << self
-    def new(api_key = "1234567890", base_url = "http://api.thrillcall.com/api/", version = 2)
+    attr_accessor :api_key, :base, :result
+    def new(api_key, options = {})
+      
+      default_options = {
+        :base_url   => "http://api.thrillcall.com/api/",
+        :version    => 2,
+        :logger     => false
+      }
+      
+      opts = default_options.merge(options)
+      
       @api_key  = api_key
+      base_url  = opts[:base_url]
+      version   = opts[:version]
+      logger    = opts[:logger]
       
       unless base_url.match /^http:\/\//
         base_url = "http://" + base_url
@@ -25,7 +39,9 @@ module ThrillcallAPI
       @base   = "#{base_url}v#{version}/"
       @conn   = Faraday.new( :url => @base, :headers => @headers ) do |builder|
         builder.adapter Faraday.default_adapter
-        #builder.response :logger
+        if logger
+          builder.response :logger
+        end
         builder.response :raise_error
       end
       

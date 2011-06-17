@@ -43,7 +43,7 @@ describe "ThrillcallAPI" do
   
   it "should initialize properly with faraday" do
     tc = nil
-    lambda { tc = ThrillcallAPI.new(TEST_KEY, LOCALHOST) }.should_not raise_error
+    lambda { tc = ThrillcallAPI.new(TEST_KEY, :base_url => LOCALHOST) }.should_not raise_error
     puts tc.inspect
     tc.conn.class.should == Faraday::Connection
   end
@@ -51,8 +51,9 @@ describe "ThrillcallAPI" do
   context "an authenticated user" do
     
     before :all do
-      @tc = ThrillcallAPI.new(TEST_KEY, LOCALHOST)
+      @tc = ThrillcallAPI.new(TEST_KEY, :base_url => LOCALHOST)
     end
+    
     it "should be able to handle a method with a block used on fresh data" do
       e = @tc.events(:limit => LIMIT)
       c = 0
@@ -65,14 +66,27 @@ describe "ThrillcallAPI" do
     it "should be able to make multiple requests after initialization" do
       a = @tc.artist(ARTIST_ID)
       b = @tc.events(:limit => LIMIT)
+      a.length
+      #ap a.result.data
       a["id"].should == ARTIST_ID
       b.length.should == LIMIT
     end
     
+    # This is the only remaining limitation of the wrapper
     it "should not be able to make an additional request after using the data from an intermediate request" do
       a = @tc.artist(ARTIST_ID)
       a["id"].should == ARTIST_ID
       lambda { e = a.events }.should raise_error
+    end
+    
+    # This behavior cannot be iterated due to the previous limitation
+    it "should be able to build a nested request from a preexisting intermediate request" do
+      artist_request  = @tc.artist(ARTIST_ID)
+      artist_request  = artist_request.events(:limit => TINY_LIMIT)
+      event_id        = artist_request.first["id"]
+      event_request   = @tc.event(event_id)
+      event_request   = event_request.artists
+      event_request.first["id"].should == ARTIST_ID
     end
     
     it "should fetch data when responding to an array or a hash method" do

@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "autotest-growl",         "~> 0.2.6"
   s.add_development_dependency  "autotest-fsevent",       "~> 0.2.3"
   s.add_development_dependency  "awesome_print",          "~> 0.3.2"
+  #s.add_development_dependency  "jekyll",                 "~> 0.10.0"
   
   s.add_dependency              "faraday",                "~> 0.7.0"
   #s.add_dependency              "faraday_middleware",     "~> 0.6.3"
