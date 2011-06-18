@@ -1,5 +1,4 @@
 require 'faraday'
-#require 'faraday_middleware'
 require 'json'
 require "#{File.expand_path("../thrillcall-api/exceptions", __FILE__)}"
 require "#{File.expand_path("../thrillcall-api/result", __FILE__)}"
@@ -7,9 +6,10 @@ require "#{File.expand_path("../thrillcall-api/version", __FILE__)}"
 
 module ThrillcallAPI
   class << self
-    attr_accessor :api_key, :base, :result
+    attr_accessor :api_key, :base, :result, :conn
+    
+    # Set up the Faraday connection based on configruation
     def new(api_key, options = {})
-      
       default_options = {
         :base_url   => "http://api.thrillcall.com/api/",
         :version    => 2,
@@ -23,6 +23,7 @@ module ThrillcallAPI
       version   = opts[:version]
       logger    = opts[:logger]
       
+      # Make sure the base_url is in the form http://.../
       unless base_url.match /^http:\/\//
         base_url = "http://" + base_url
       end
@@ -31,6 +32,7 @@ module ThrillcallAPI
         base_url = base_url + "/"
       end
       
+      # Set JSON accept header and custom user agent
       @headers = { 
         :accept     => 'application/json',
         :user_agent => "Thrillcall API Wrapper version #{ThrillcallAPI::VERSION}"
@@ -42,6 +44,7 @@ module ThrillcallAPI
         if logger
           builder.response :logger
         end
+        # This will raise an exception if an error occurs during a request
         builder.response :raise_error
       end
       
@@ -50,14 +53,8 @@ module ThrillcallAPI
       return self
     end
     
-    def conn
-      return @conn if @conn
-      self.new
-      return @conn
-    end
-    
     def get(endpoint, params)
-      r = conn.get do |req|
+      r = @conn.get do |req|
         req.url endpoint, params.merge(:api_key => @api_key)
       end
       JSON.parse(r.body)

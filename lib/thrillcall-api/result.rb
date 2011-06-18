@@ -5,7 +5,7 @@
 
 module ThrillcallAPI
   class Result
-    attr_accessor :ran, :end_of_chain_is_singular, :keys, :options, :set_methods
+    attr_accessor :ran, :keys, :options, :set_methods
     attr_reader :data
     
     def initialize
@@ -24,6 +24,7 @@ module ThrillcallAPI
       @set_methods              = []
     end
     
+    # Removes any dynamically defined methods
     def unset_methods
       @set_methods.each do |s|
         (class << self; self; end).class_eval do
@@ -34,6 +35,8 @@ module ThrillcallAPI
       @set_methods = []
     end
     
+    # Dynamically defines any methods available to data.
+    # i.e. it puts on a "#{data.class}" costume
     def reassign(data)
       unset_methods
       
@@ -47,8 +50,11 @@ module ThrillcallAPI
       end
     end
     
+    # Append the name of the method and any args to the current
+    # request being built
     def append(key, *args)
       
+      # If this is called but we've already fetched data, reset
       if @ran
         reset
       end
@@ -63,9 +69,11 @@ module ThrillcallAPI
           if arg
             a = arg
             if a.is_a? Hash
+              # Merge this hash on top of the existing options
               @options.merge!(a)
             else
-              @end_of_chain_is_singular = true
+              # This is an ID or search term, add it directly to the
+              # list of keys
               @keys << a.to_s
             end
           end
@@ -74,41 +82,40 @@ module ThrillcallAPI
     end
     
     def run(method, *args, &block)
+      # Fetch data if necessary.  This will also "put on the
+      # data.class costume" and allow the method to respond to a
+      # subsequent send()
       if !@ran
         fetch_data
       end
       
+      # Send the requested method out to the newly defined method
       self.send(method, *args, &block)
     end
     
     def fetch_data
       url = @keys.join("/")
       
-      # t = Time.now.to_f
       @data = ThrillcallAPI.get url, @options
-      # puts "Request time: #{Time.now.to_f - t}"
       
-      #if @end_of_chain_is_singular && (@data.is_a? Hash)
-      #  @data = @data.values.first
-      #end
-      
-      # Now we define the instance methods present in the data object so
-      # that we can use this object *as if* we are using the data object directly
-      # and we don't encounter method_missing
+      # Now we define the instance methods present in the data object
+      # so that we can use this object *as if* we are using the data
+      # object directly and we don't encounter method_missing
       reassign(@data)
       
       @ran = true
     end
     
     def method_missing(method, *args, &block)
-      # by checking result.data, this works for both array and hash
-      # bad news is that we can't have any endpoints that map to array or hash methods
       
       if @ran
         # NoMethodError
         super
       else
-        # We haven't fetched the data yet, but if this method is for a hash or an array, we'd better
+        # We haven't fetched the data yet, but if this method is for
+        # a hash or an array, we'd better.
+        # The bad news about this technique is that we can't have any
+        # endpoints that map to array or hash methods
         if {}.respond_to?(method) || [].respond_to?(method)
           r = run(method, *args, &block)
           return r

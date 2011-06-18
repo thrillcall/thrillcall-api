@@ -42,8 +42,8 @@ events.length
 #---------------------------------------------------------------#
 # Chain methods together for nested routes
 #---------------------------------------------------------------#
-artist = tc.search.venues("warfield", :postalcode => "94101", :radius => 20)
-# => {"name" => "The Warfield", ...}
+venues = tc.search.venues("warfield", :postalcode => "94101", :radius => 20)
+# => [{"name" => "The Warfield", ...}]
 ```
 
 ### Advanced Usage:
@@ -117,59 +117,71 @@ These are valid parameters for any endpoint, however, they will only be used by 
     Your API key.  Required for access to any endpoint.
     
 - <a name="limit" />**limit** _integer_
+    
     _Default: 100_
     
-    Maximum number of results
+    Sets the maximum number of results to return.  Cannot be above 100.
     
 - <a name="page" />**page** _integer_
+    
     _Default: 0_
     
-    Used in conjunction with **limit**
-    Specifies the page number.  If limit is 10, then page = 2 will
-    return results #20 through #29
+    Used in conjunction with **[limit](#limit)**.
+    
+    Specifies the page number.  If limit is 10, then page = 2 will return results #20 through #29
     
 - <a name="min_date" />**min_date** _string (format: YYYY-MM-DD)_
+    
     _Default: Today_
     
     Results before this date will not be returned.
     
 - <a name="max_date" />**max_date** _string (format: YYYY-MM-DD)_
+    
     _Default: 1 year from Today_
     
     Results after this date will not be returned.
     
 - <a name="postalcode" />**postalcode** _string (format: length >= 5)_
+    
     _Default: none_
     
-    Results will be within the **radius** of this postal code.
+    Results will be within the **[radius](#radius)** of this postal code.
     
 - <a name="radius" />**radius** _float_
+    
     _Default: 100_
     
-    Used in conjunction with **postalcode**
+    Used in conjunction with **[postalcode](#postalcode)**
     
 - <a name="suppress" />**suppress** _boolean_
+    
     _Default: false_
     
     If set to _true_ or _1_, will not return any results suppressed by your partner definition.
     
 - <a name="use_partner_id" />**use_partner_id** _boolean_
+    
     _Default: false_
     
     If set to _true_ or _1_, instead of using Thrillcall internal IDs, treat any IDs in a request as belonging to your partner definition.
+    
     Contact us to set up a list of definitions.
     
 - <a name="ticket_type" />**ticket_type** _string (format: "primary" or "resale")_
-    _Default: none_
+    
+    _Default: both_
     
     If specified, will only return tickets from Primary or Resale merchants.
     
 - <a name="must_have_tickets" />**must_have_tickets** _boolean_
+    
     _Default: false_
     
     If set to _true_ or _1_, will only return results that have tickets associated with them.
     
 - <a name="confirmed_events_only" />**confirmed_events_only** _boolean_
+    
     _Default: false_
     
     If set to _true_ or _1_, will not return any UNCONFIRMED / RUMOR results.
@@ -181,12 +193,16 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 
+Returns:  _Array_ of Artists _Hash_
+
 ### GET /artist/:id
 **:id** _integer_  Thrillcall or Partner ID
 
 Params:
 
 - **[use_partner_id](#use_partner_id)**
+
+Returns:  Artist _Hash_
 
 ### GET /artist/:id/events
 **:id** _integer_  Thrillcall or Partner ID
@@ -205,6 +221,8 @@ Params:
 - **[must_have_tickets](#must_have_tickets)**
 - **[confirmed_events_only](#confirmed_events_only)**
 
+Returns:  _Array_ of Events _Hash_
+
 ### GET /search/artists/:term
 **:term** _string_  Arbitrary search string
 
@@ -213,6 +231,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[suppress](#suppress)**
+
+Returns:  _Array_ of Artists _Hash_
 
 ## Events
 ### GET /events
@@ -229,12 +249,16 @@ Params:
 - **[must_have_tickets](#must_have_tickets)**
 - **[confirmed_events_only](#confirmed_events_only)**
 
+Returns:  _Array_ of Events _Hash_
+
 ### GET /event/:id
 **:id** _integer_  Thrillcall ID
 
 Params:
 
 - None
+
+Returns:  Event _Hash_
 
 ### GET /event/:id/artists
 **:id** _integer_  Thrillcall ID
@@ -244,12 +268,16 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 
+Returns:  _Array_ of Artists _Hash_
+
 ### GET /event/:id/venue
 **:id** _integer_  Thrillcall ID
 
 Params:
 
 - None
+
+Returns:  Venue _Hash_
 
 ### GET /event/:id/tickets
 **:id** _integer_  Thrillcall ID
@@ -260,6 +288,8 @@ Params:
 - **[page](#page)**
 - **[ticket_type](#ticket_type)**
 
+Returns:  _Array_ of Tickets _Hash_
+
 ## Venues
 ### GET /venues
 Params:
@@ -269,12 +299,16 @@ Params:
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 
+Returns:  _Array_ of Venues _Hash_
+
 ### GET /venue/:id
 **:id** _integer_  Thrillcall or Partner ID
 
 Params:
 
 - **[use_partner_id](#use_partner_id)**
+
+Returns:  Venue _Hash_
 
 ### GET /venue/:id/events
 **:id** _integer_  Thrillcall or Partner ID
@@ -291,6 +325,8 @@ Params:
 - **[must_have_tickets](#must_have_tickets)**
 - **[confirmed_events_only](#confirmed_events_only)**
 
+Returns:  _Array_ of Events _Hash_
+
 ### GET /search/venues/:term
 **:term** _string_  Arbitrary search string
 
@@ -300,6 +336,8 @@ Params:
 - **[page](#page)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
+
+Returns:  _Array_ of Venues _Hash_
 
 ## Zip Codes
 ### GET /zip_codes
@@ -315,6 +353,8 @@ Params:
 
 - None
 
+Returns:  Zip Code _Hash_
+
 ### GET /search/zip_codes/:term
 **:term** _string_  Arbitrary search string
 
@@ -323,11 +363,13 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 
+Returns:  _Array_ of Zip Codes _Hash_
+
 ## Tickets
 ### GET /tickets
 Params:
 
-- **[limit](#limit)]**
+- **[limit](#limit)**
 - **[page](#page)**
 - **[min_date](#min_date)**
 - **[max_date](#max_date)**
@@ -336,9 +378,13 @@ Params:
 - **[ticket_type](#ticket_type)**
 - **[confirmed_events_only](#confirmed_events_only)**
 
+Returns:  _Array_ of Tickets _Hash_
+
 ### GET /ticket/:id
 **:id** _integer_  Thrillcall ID
 
 Params:
 
 - None
+
+Returns:  Ticket _Hash_
