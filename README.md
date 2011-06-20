@@ -34,6 +34,7 @@ tc.event(1)
 #---------------------------------------------------------------#
 # Provide parameters as arguments
 #---------------------------------------------------------------#
+# GET "/events?limit=5"
 events = tc.events(:limit => 5)
 # => [ {"id" => ... }, {...}, ...]
 events.length
@@ -42,6 +43,7 @@ events.length
 #---------------------------------------------------------------#
 # Chain methods together for nested routes
 #---------------------------------------------------------------#
+# GET "/search/venues/warfield?postalcode=94101&radius=20"
 venues = tc.search.venues("warfield", :postalcode => "94101", :radius => 20)
 # => [{"name" => "The Warfield", ...}]
 ```
@@ -73,6 +75,7 @@ Internally, the wrapper returns a ThrillcallAPI::Result class for any call.  Dat
 #---------------------------------------------------------------#
 request = tc.artist(22210) # Lady Gaga
 
+# GET "/artist/22210/events?limit=2"
 artist_events = request.events(:limit => 2)
 
 artist_events.length
@@ -130,13 +133,13 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Specifies the page number.  If limit is 10, then page = 2 will return results #20 through #29
     
-- <a name="min_date" />**min_date** _string (format: YYYY-MM-DD)_
+- <a name="min_date" />**min_date** _string (format: "YYYY-MM-DD")_
     
     _Default: Today_
     
     Results before this date will not be returned.
     
-- <a name="max_date" />**max_date** _string (format: YYYY-MM-DD)_
+- <a name="max_date" />**max_date** _string (format: "YYYY-MM-DD")_
     
     _Default: 1 year from Today_
     
@@ -150,7 +153,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
 - <a name="radius" />**radius** _float_
     
-    _Default: 100_
+    _Default: 100.0_
     
     Used in conjunction with **[postalcode](#postalcode)**
     

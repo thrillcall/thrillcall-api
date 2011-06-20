@@ -14,6 +14,7 @@ ARTIST_EVENT_ID   = 589331
 EVENT_ID          = 753419
 EVENT_TICKET_ID   = 455663
 EVENT_ARTIST_ID   = 2192
+EVENT_VENUE_ID    = 32065
 
 VENUE_ID          = 12345
 VENUE_NORM_NAME   = "recordexchange"
@@ -104,6 +105,11 @@ describe "ThrillcallAPI" do
       lambda { a.bazooka }.should raise_error NoMethodError
     end
     
+    it "should not return filtered attributes" do
+      v = @tc.venue(VENUE_ID)
+      v["content_source_id"].should be_nil
+    end
+    
     context "accessing the event endpoint" do
       it "should get a list of events" do
         # This call sets up the Result object and returns an instance of ThrillcallAPI
@@ -129,6 +135,11 @@ describe "ThrillcallAPI" do
       it "should get artists for a specific event" do
         e = @tc.event(EVENT_ID).artists
         e.first["id"].should == EVENT_ARTIST_ID
+      end
+      
+      it "should get the venue for a specific event" do
+        e = @tc.event(EVENT_ID).venue
+        e["id"].should == EVENT_VENUE_ID
       end
       
       it "should verify the behavior of the min_date param" do
