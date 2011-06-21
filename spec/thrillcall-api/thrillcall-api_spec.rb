@@ -15,9 +15,12 @@ EVENT_ID          = 753419
 EVENT_TICKET_ID   = 455663
 EVENT_ARTIST_ID   = 2192
 EVENT_VENUE_ID    = 32065
+EVENT_ZIP         = "24901"
 
 VENUE_ID          = 12345
 VENUE_NORM_NAME   = "recordexchange"
+VENUE_ZIP         = "27603"
+
 ZIP_CODE_ID       = 12
 TICKET_ID         = 12345
 
@@ -142,6 +145,11 @@ describe "ThrillcallAPI" do
         e["id"].should == EVENT_VENUE_ID
       end
       
+      it "should get the zip code for a specific event" do
+        e = @tc.event(EVENT_ID).zip_code
+        e["zip"].should == EVENT_ZIP
+      end
+      
       it "should verify the behavior of the min_date param" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => MIN_DATE)
         e.length.should == TINY_LIMIT
@@ -252,6 +260,12 @@ describe "ThrillcallAPI" do
         v = @tc.venue(VENUE_ID)
         v["id"].should == VENUE_ID
       end
+      
+      it "should get the zip code for a specific venue" do
+        z = @tc.venue(VENUE_ID).zip_code
+        z["zip"].should == VENUE_ZIP
+      end
+      
     end
     
     context "accessing the zip_code endpoint" do

@@ -282,6 +282,15 @@ Params:
 
 Returns:  Venue _Hash_
 
+### GET /event/:id/zip_code
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- None
+
+Returns:  ZipCode _Hash_
+
 ### GET /event/:id/tickets
 **:id** _integer_  Thrillcall ID
 
@@ -329,6 +338,15 @@ Params:
 - **[confirmed_events_only](#confirmed_events_only)**
 
 Returns:  _Array_ of Events _Hash_
+
+### GET /venue/:id/zip_code
+**:id** _integer_  Thrillcall or Partner ID
+
+Params:
+
+- **[use_partner_id](#use_partner_id)**
+
+Returns:  ZipCode _Hash_
 
 ### GET /search/venues/:term
 **:term** _string_  Arbitrary search string
