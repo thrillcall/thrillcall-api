@@ -21,7 +21,6 @@ VENUE_ID          = 12345
 VENUE_NORM_NAME   = "recordexchange"
 VENUE_ZIP         = "27603"
 
-ZIP_CODE_ID       = 12
 TICKET_ID         = 12345
 
 POSTAL_CODE       = "94108"
@@ -99,7 +98,7 @@ describe "ThrillcallAPI" do
       r["id"].should_not be_nil
       
       e = @tc.artist(r["id"])
-      (e.has_key? "amg_id").should be_true
+      (e.has_key? "genre_tags").should be_true
     end
     
     it "should raise NoMethodError when given a method the data doesn't respond to after fetched" do
@@ -110,7 +109,7 @@ describe "ThrillcallAPI" do
     
     it "should not return filtered attributes" do
       v = @tc.venue(VENUE_ID)
-      v["content_source_id"].should be_nil
+      v["alt_city"].should be_nil
     end
     
     context "accessing the event endpoint" do
@@ -143,11 +142,6 @@ describe "ThrillcallAPI" do
       it "should get the venue for a specific event" do
         e = @tc.event(EVENT_ID).venue
         e["id"].should == EVENT_VENUE_ID
-      end
-      
-      it "should get the zip code for a specific event" do
-        e = @tc.event(EVENT_ID).zip_code
-        e["zip"].should == EVENT_ZIP
       end
       
       it "should verify the behavior of the min_date param" do
@@ -199,6 +193,7 @@ describe "ThrillcallAPI" do
         e.each do |ev|
           ev["venue_id"].should_not be_nil
           v = @tc.venue(ev["venue_id"])
+          
           z_id = v["zip_code_id"]
           z_id.should_not be_nil
           z = @tc.zip_code(z_id)
@@ -208,7 +203,7 @@ describe "ThrillcallAPI" do
       end
       
       it "should verify the behavior of the radius param" do
-        
+        pending
       end
       
       #############
@@ -261,23 +256,16 @@ describe "ThrillcallAPI" do
         v["id"].should == VENUE_ID
       end
       
-      it "should get the zip code for a specific venue" do
-        z = @tc.venue(VENUE_ID).zip_code
-        z["zip"].should == VENUE_ZIP
+      it "should directly return a postalcode" do
+        v = @tc.venue(VENUE_ID)
+        v["postalcode"].should == VENUE_ZIP
       end
       
-    end
-    
-    context "accessing the zip_code endpoint" do
-      it "should get a list of zip_codes" do 
-        z = @tc.zip_codes(:limit => LIMIT)
-        z.length.should == LIMIT
+      it "should return a list of events for a specific venue" do
+        e = @tc.venue(32065).events
+        e.length.should > 0
       end
       
-      it "should get a specific zip_code" do
-        z = @tc.zip_code(ZIP_CODE_ID)
-        z["id"].should == ZIP_CODE_ID
-      end
     end
     
     context "accessing the ticket endpoint" do
@@ -288,7 +276,6 @@ describe "ThrillcallAPI" do
       
       it "should get a specific ticket" do
         p = @tc.ticket(TICKET_ID)
-        # FIXME: "product" here should be "ticket"
         p["id"].should == TICKET_ID
       end
     end
@@ -318,17 +305,6 @@ describe "ThrillcallAPI" do
         found.should be_true
       end
       
-      it "should find the right zip code" do
-        z = @tc.search.zip_codes(POSTAL_CODE)
-        found = false
-        z.each do |zip|
-          if zip["zip"].to_s == POSTAL_CODE
-            found = true
-            break
-          end
-        end
-        found.should be_true
-      end
     end
     
   end

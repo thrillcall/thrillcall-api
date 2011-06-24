@@ -1,0 +1,823 @@
+
+<style type="text/css">
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #dddddd; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style><h1>HTTP Endpoints</h1>
+
+<h3>Parameters</h3>
+
+<p>These are valid parameters for any endpoint, however, they will only be used by the server where applicable.</p>
+
+<p><strong>api_key</strong> MUST BE SUPPLIED for every endpoint.</p>
+
+<ul>
+<li>
+<p><a name="api_key"></a><strong>api_key</strong> <em>string: (format: length == 16)</em></p>
+
+<p>Your API key.  Required for access to any endpoint.</p>
+</li>
+<li>
+<p><a name="limit"></a><strong>limit</strong> <em>integer</em></p>
+
+<p><em>Default: 100</em></p>
+
+<p>Sets the maximum number of results to return.  Cannot be above 100.</p>
+</li>
+<li>
+<p><a name="page"></a><strong>page</strong> <em>integer</em></p>
+
+<p><em>Default: 0</em></p>
+
+<p>Used in conjunction with <strong><a href="#limit">limit</a></strong>.</p>
+
+<p>Specifies the page number.  If limit is 10, then page = 2 will return results #20 through #29</p>
+</li>
+<li>
+<p><a name="min_date"></a><strong>min_date</strong> <em>string (format: "YYYY-MM-DD")</em></p>
+
+<p><em>Default: Today</em></p>
+
+<p>Results before this date will not be returned.</p>
+</li>
+<li>
+<p><a name="max_date"></a><strong>max_date</strong> <em>string (format: "YYYY-MM-DD")</em></p>
+
+<p><em>Default: 1 year from Today</em></p>
+
+<p>Results after this date will not be returned.</p>
+</li>
+<li>
+<p><a name="postalcode"></a><strong>postalcode</strong> <em>string (format: length &gt;= 5)</em></p>
+
+<p><em>Default: none</em></p>
+
+<p>Results will be within the <strong><a href="#radius">radius</a></strong> of this postal code.</p>
+</li>
+<li>
+<p><a name="radius"></a><strong>radius</strong> <em>float</em></p>
+
+<p><em>Default: 100.0</em></p>
+
+<p>Used in conjunction with <strong><a href="#postalcode">postalcode</a></strong></p>
+</li>
+<li>
+<p><a name="suppress"></a><strong>suppress</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>If set to <em>true</em> or <em>1</em>, will not return any results suppressed by your partner definition.</p>
+</li>
+<li>
+<p><a name="use_partner_id"></a><strong>use_partner_id</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>If set to <em>true</em> or <em>1</em>, instead of using Thrillcall internal IDs, treat any IDs in a request as belonging to your partner definition.</p>
+
+<p>Contact us to set up a list of definitions.</p>
+</li>
+<li>
+<p><a name="ticket_type"></a><strong>ticket_type</strong> <em>string (format: "primary" or "resale")</em></p>
+
+<p><em>Default: both</em></p>
+
+<p>If specified, will only return tickets from Primary or Resale merchants.</p>
+</li>
+<li>
+<p><a name="must_have_tickets"></a><strong>must_have_tickets</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>If set to <em>true</em> or <em>1</em>, will only return results that have tickets associated with them.</p>
+</li>
+<li>
+<p><a name="show_unconfirmed_events"></a><strong>show_unconfirmed_events</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>If set to <em>true</em> or <em>1</em>, will not filter out events with unconfirmed locations.</p>
+</li>
+<li>
+<p><a name="show_rumor_events"></a><strong>show_rumor_events</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>If set to <em>true</em> or <em>1</em>, will not filter out events marked as rumored.</p>
+</li>
+</ul><h2>Artists</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>genre_tags</strong>             <em>string</em>    Semicolon separated list of Genre names</li>
+<li>
+<strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
+<li>
+<strong>name</strong>                    <em>string</em>    Artist / Band Name</li>
+<li>
+<strong>upcoming_events_count</strong> <em>integer</em>   Number of upcoming events associated with this object</li>
+<li>
+<strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>url</strong>                     <em>string</em>    URL for this object on Thrillcall</li>
+</ul><h3>GET /artists</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/artists?limit=14&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"O"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Hyler Jones Proteges"</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-26T16:49:20Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Hyler_Jones_Proteges"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /artist/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+</ul><p>Returns:  Artist <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/artist/22210?api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Pop"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">22210</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Lady GaGa"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">41</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-13T02:02:25Z"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Lady_GaGa"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>GET /artist/:id/events</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#min_date">min_date</a></strong></li>
+<li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+<li><strong><a href="#suppress">suppress</a></strong></li>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
+<li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/artist/22210/events?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">589331</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Lady GaGa @ Pepsi Center"</span><span class="p">,</span>
+        <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-07-28T00:00:00Z"</span><span class="p">,</span>
+        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-13T02:02:59Z"</span><span class="p">,</span>
+        <span class="s2">"utc_time"</span><span class="o">:</span> <span class="s2">"2011-07-29T05:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">45479</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/589331"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /search/artists/:term</h3>
+
+<p><strong>:term</strong> <em>string</em>  Arbitrary search string</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#suppress">suppress</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/search/artists/ladygaga?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Pop"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">22210</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Lady GaGa"</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">41</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-13T02:02:25Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Lady_GaGa"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h2>Events</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>end_date</strong>                <em>string</em>  ISO 8601 representation of the end of the Event</li>
+<li>
+<strong>festival</strong>                <em>boolean</em> Is this event a festival?</li>
+<li>
+<strong>id</strong>                      <em>integer</em> Thrillcall ID</li>
+<li>
+<strong>latitude</strong>                <em>float</em>   Approximate latitude for the Event</li>
+<li>
+<strong>longitude</strong>               <em>float</em>   Approximate longitude for the Event</li>
+<li>
+<strong>name</strong>                    <em>string</em>  Name of the Event</li>
+<li>
+<strong>on_sale_date</strong>          <em>string</em>  ISO 8601 representation of the date when tickets go on sale</li>
+<li>
+<strong>rumor</strong>                   <em>boolean</em> Are the details for this event based on a rumor?</li>
+<li>
+<strong>start_date</strong>             <em>string</em>  ISO 8601 representation of the start of the Event</li>
+<li>
+<strong>unconfirmed_location</strong>   <em>integer</em> If 1, the location if this event is unconfirmed</li>
+<li>
+<strong>updated_at</strong>             <em>string</em>  ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>utc_time</strong>               <em>string</em>  ISO 8601 representation of the start of the Event with local offset</li>
+<li>
+<strong>venue_id</strong>               <em>integer</em> Thrillcall Venue ID</li>
+<li>
+<strong>url</strong>                     <em>string</em>  URL for this object on Thrillcall</li>
+</ul><h3>GET /events</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#min_date">min_date</a></strong></li>
+<li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+<li><strong><a href="#suppress">suppress</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
+<li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/events?limit=3&amp;min_date=2011-01-01&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">598282</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"&lt;span class='cancelledBooking'&gt;[Cancelled]Christina Aguilera, Leona Lewis&lt;/span&gt; @ Susquehanna Bank Center (Formerly Tweeter Center)"</span><span class="p">,</span>
+        <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2012-04-24T00:00:00Z"</span><span class="p">,</span>
+        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-08-20T00:28:43Z"</span><span class="p">,</span>
+        <span class="s2">"utc_time"</span><span class="o">:</span> <span class="s2">"2012-04-25T03:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">11833</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/598282"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /event/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li>None</li>
+</ul><p>Returns:  Event <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/event/753419?api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">753419</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Alice Cooper @ West Virginia State Fair"</span><span class="p">,</span>
+      <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-08-19T07:00:00Z"</span><span class="p">,</span>
+      <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-05-23T21:03:55Z"</span><span class="p">,</span>
+      <span class="s2">"utc_time"</span><span class="o">:</span> <span class="s2">"2011-08-19T11:00:00Z"</span><span class="p">,</span>
+      <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">32065</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/753419"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>GET /event/:id/artists</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/event/589331/artists?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Pop"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">22210</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Lady GaGa"</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">41</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-13T02:02:25Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Lady_GaGa"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /event/:id/venue</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li>None</li>
+</ul><p>Returns:  Venue <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/event/753419/venue?api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"State Fairgrounds"</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Lewisburg"</span><span class="p">,</span>
+      <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">32065</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.801788</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">80.44563</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"West Virginia State Fair"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"WV"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T19:31:40Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"24901"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/West_Virginia_State_Fair_in_Lewisburg_WV"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>GET /event/:id/tickets</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/event/595357/tickets?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">595357</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">286794</span><span class="p">,</span>
+        <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Onsale to General Public"</span><span class="p">,</span>
+        <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"on_sale_end_time"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"on_sale_start_time"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"seat_info"</span><span class="o">:</span> <span class="s2">"[]"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-07-13T22:27:43Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://ticketsus.at/thrillcall?CTY=39&amp;DURL=http://www.ticketmaster.com/event/00004488CCC19DAD?camefrom=CFC_BUYAT&amp;brand=[=BRAND=]"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h2>Venues</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>address1</strong>                <em>string</em>    First address field for the Venue</li>
+<li>
+<strong>address2</strong>                <em>string</em>    Second address field for the Venue</li>
+<li>
+<strong>city</strong>                    <em>string</em>    City the Venue is in</li>
+<li>
+<strong>country</strong>                 <em>string</em>    Country the Venue is in</li>
+<li>
+<strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
+<li>
+<strong>latitude</strong>                <em>float</em>     Approximate Latitude for the Venue</li>
+<li>
+<strong>longitude</strong>               <em>float</em>     Approximate Longitude for the Venue</li>
+<li>
+<strong>name</strong>                    <em>string</em>    Name of the Venue</li>
+<li>
+<strong>state</strong>                   <em>string</em>    State the Venue is in</li>
+<li>
+<strong>upcoming_events_count</strong> <em>integer</em>   Number of upcoming events associated with this object</li>
+<li>
+<strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>postalcode</strong>              <em>string</em>    Postal code for the Venue</li>
+<li>
+<strong>url</strong>                     <em>string</em>    URL for this object on Thrillcall</li>
+</ul><h3>GET /venues</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/venues?limit=14&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Guadalajara"</span><span class="p">,</span>
+        <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Fbolko"</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span><span class="p">,</span>
+        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Fbolko_in_Guadalajara_MX"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /venue/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+</ul><p>Returns:  Venue <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/venue/12345?api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Raleigh"</span><span class="p">,</span>
+      <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Record Exchange"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"NC"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T18:23:27Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"27603"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Record_Exchange_in_Raleigh_NC"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>GET /venue/:id/events</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#min_date">min_date</a></strong></li>
+<li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#suppress">suppress</a></strong></li>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
+<li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/venue/32065/events?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">753419</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Alice Cooper @ West Virginia State Fair"</span><span class="p">,</span>
+        <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-08-19T07:00:00Z"</span><span class="p">,</span>
+        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-05-23T21:03:55Z"</span><span class="p">,</span>
+        <span class="s2">"utc_time"</span><span class="o">:</span> <span class="s2">"2011-08-19T11:00:00Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">32065</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/753419"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /search/venues/:term</h3>
+
+<p><strong>:term</strong> <em>string</em>  Arbitrary search string</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/search/venues/recordexchange?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Chandler"</span><span class="p">,</span>
+        <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">10843</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Zia Record Exchange"</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"AZ"</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T18:17:58Z"</span><span class="p">,</span>
+        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"85249"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Zia_Record_Exchange_in_Chandler_AZ"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h2>Tickets</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>description</strong>            <em>string</em>   Long form description of the ticket</li>
+<li>
+<strong>event_id</strong>              <em>integer</em>  Thrillcall Event ID</li>
+<li>
+<strong>id</strong>                     <em>integer</em>  Thrillcall ID</li>
+<li>
+<strong>marketing_text</strong>        <em>string</em>   Long form description of the ticket</li>
+<li>
+<strong>max_ticket_price</strong>     <em>float</em>    Maximum price for this ticket</li>
+<li>
+<strong>min_ticket_price</strong>     <em>float</em>    Minimum price for this ticket</li>
+<li>
+<strong>name</strong>                   <em>string</em>   Name of this ticket</li>
+<li>
+<strong>on_sale_end_date</strong>    <em>string</em>   ISO 8601 date when the ticket goes off sale</li>
+<li>
+<strong>on_sale_end_time</strong>    <em>string</em>   ISO 8601 time of day when the ticket goes off sale</li>
+<li>
+<strong>on_sale_start_date</strong>  <em>string</em>   ISO 8601 date when the ticket goes on sale</li>
+<li>
+<strong>on_sale_start_time</strong>  <em>string</em>   ISO 8601 time of day when the ticket goes on sale</li>
+<li>
+<strong>seat_info</strong>             <em>string</em>   Additional info about the seat</li>
+<li>
+<strong>updated_at</strong>            <em>string</em>   ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>url</strong>                    <em>string</em>   URL for this object on Thrillcall</li>
+</ul><h3>GET /tickets</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#min_date">min_date</a></strong></li>
+<li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
+<li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/tickets?limit=14&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">455646</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"General Onsale"</span><span class="p">,</span>
+        <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"on_sale_end_time"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"on_sale_start_time"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2009-09-22T22:58:37Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://www.livenation.com/edp/eventId/335800/?c=api-000157"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /ticket/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li>None</li>
+</ul><p>Returns:  Ticket <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/ticket/12345?api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">465757</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span>
+      <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Resale"</span><span class="p">,</span>
+      <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"on_sale_end_time"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"on_sale_start_time"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2009-02-05T19:51:27Z"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://www.ticketcity.com/concert-tickets/world-music-tickets/celtic-woman-tickets/celtic-woman-tickets-nokia-live-april-18-8-00pm.html"</span>
+    <span class="p">}</span>
+</pre>
+</div>
