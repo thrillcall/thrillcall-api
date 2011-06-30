@@ -151,23 +151,30 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Results after this date will not be returned.
     
+- <a name="lat" />**lat** _float_
+    
+    _Default: none_
+    
+    If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, results will be within **[radius](#radius)** of this location.
+    
+- <a name="long" />**long** _float_
+    
+    _Default: none_
+    
+    If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, results will be within **[radius](#radius)** of this location.
+    
 - <a name="postalcode" />**postalcode** _string (format: length >= 5)_
     
     _Default: none_
     
     Results will be within the **[radius](#radius)** of this postal code.
+    If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, this will be ignored.
     
 - <a name="radius" />**radius** _float_
     
     _Default: 100.0_
     
     Used in conjunction with **[postalcode](#postalcode)**
-    
-- <a name="suppress" />**suppress** _boolean_
-    
-    _Default: false_
-    
-    If set to _true_ or _1_, will not return any results suppressed by your partner definition.
     
 - <a name="use_partner_id" />**use\_partner\_id** _boolean_
     
@@ -249,15 +256,15 @@ Params:
 Returns:  Artist _Hash_
 
 ``` js
-    // Example: GET /api/v2/artist/22210?api_key=1234567890abcdef
+    // Example: GET /api/v2/artist/6468?api_key=1234567890abcdef
     
     {
-      "genre_tags": "Pop",
-      "id": 22210,
-      "name": "Lady GaGa",
-      "upcoming_events_count": 41,
-      "updated_at": "2011-01-13T02:02:25Z",
-      "url": "http://thrillcall.com/artist/Lady_GaGa"
+      "genre_tags": "Rock",
+      "id": 6468,
+      "name": "Katy Perry",
+      "upcoming_events_count": 68,
+      "updated_at": "2011-06-24T23:59:52Z",
+      "url": "http://thrillcall.com/artist/Katy_Perry"
     }
 ```
 
@@ -270,9 +277,10 @@ Params:
 - **[page](#page)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
-- **[suppress](#suppress)**
 - **[use\_partner\_id](#use_partner_id)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
@@ -282,50 +290,52 @@ Params:
 Returns:  _Array_ of Events _Hash_
 
 ``` js
-    // Example: GET /api/v2/artist/22210/events?api_key=1234567890abcdef
+    // Example: GET /api/v2/artist/6468/events?api_key=1234567890abcdef
     
     [
       {
         "end_date": null,
         "festival": false,
-        "id": 589331,
-        "latitude": null,
-        "longitude": null,
-        "name": "Lady GaGa @ Pepsi Center",
+        "id": 855667,
+        "latitude": 34.0398,
+        "longitude": -118.266,
+        "name": "Katy Perry @ Staples Center",
         "on_sale_date": null,
         "rumor": false,
-        "start_date": "2011-07-28T00:00:00Z",
+        "start_date": "2011-11-22",
         "unconfirmed_location": 0,
-        "updated_at": "2011-01-13T02:02:59Z",
-        "utc_time": "2011-07-29T05:59:00Z",
-        "venue_id": 45479,
-        "url": "http://thrillcall.com/event/589331"
-      }
+        "updated_at": "2011-06-24T04:04:47Z",
+        "venue_id": 39782,
+        "url": "http://thrillcall.com/event/855667"
+      },
+      {
+        ...
+      },
+      ...
     ]
 ```
 
 ### GET /search/artists/:term
-**:term** _string_  Arbitrary search string
+**:term** _string_  Arbitrary search string on the **name** field.  (alphanumerics only, underscore matches underscore, use '+' for space)
 
 Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
-- **[suppress](#suppress)**
 
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v2/search/artists/ladygaga?api_key=1234567890abcdef
+    // Example: GET /api/v2/search/artists/katyperry?api_key=1234567890abcdef
     
     [
       {
-        "genre_tags": "Pop",
-        "id": 22210,
-        "name": "Lady GaGa",
-        "upcoming_events_count": 41,
-        "updated_at": "2011-01-13T02:02:25Z",
-        "url": "http://thrillcall.com/artist/Lady_GaGa"
+        "genre_tags": "Rock",
+        "id": 6468,
+        "name": "Katy Perry",
+        "upcoming_events_count": 68,
+        "updated_at": "2011-06-24T23:59:52Z",
+        "url": "http://thrillcall.com/artist/Katy_Perry"
       }
     ]
 ```
@@ -333,7 +343,7 @@ Returns:  _Array_ of Artists _Hash_
 ## Events
 Fields:
 
-- **end_date**                _string_  ISO 8601 representation of the end of the Event
+- **end\_date**               _string_  ISO 8601 representation of the end of the Event
 - **festival**                _boolean_ Is this event a festival?
 - **id**                      _integer_ Thrillcall ID
 - **latitude**                _float_   Approximate latitude for the Event
@@ -341,10 +351,9 @@ Fields:
 - **name**                    _string_  Name of the Event
 - **on\_sale\_date**          _string_  ISO 8601 representation of the date when tickets go on sale
 - **rumor**                   _boolean_ Are the details for this event based on a rumor?
-- **start\_date**             _string_  ISO 8601 representation of the start of the Event
+- **start\_date**             _string_  YYYY-MM-DD or, if time of day is known, ISO 8601 representation of the start of the Event
 - **unconfirmed\_location**   _integer_ If 1, the location if this event is unconfirmed
 - **updated\_at**             _string_  ISO 8601 representation of last time this object was updated
-- **utc\_time**               _string_  ISO 8601 representation of the start of the Event with local offset
 - **venue\_id**               _integer_ Thrillcall Venue ID
 - **url**                     _string_  URL for this object on Thrillcall
 
@@ -356,9 +365,10 @@ Params:
 - **[page](#page)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
-- **[suppress](#suppress)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
@@ -367,24 +377,25 @@ Params:
 Returns:  _Array_ of Events _Hash_
 
 ``` js
-    // Example: GET /api/v2/events?limit=3&min_date=2011-01-01&api_key=1234567890abcdef
+    // Example: GET /api/v2/events?limit=3&lat=37.782664&long=-122.410295&radius=0&api_key=1234567890abcdef
     
     [
       {
+        "bearing": "129",
+        "distance": "0.10208889540143654",
         "end_date": null,
         "festival": false,
-        "id": 598282,
-        "latitude": null,
-        "longitude": null,
-        "name": "<span class='cancelledBooking'>[Cancelled]Christina Aguilera, Leona Lewis</span> @ Susquehanna Bank Center (Formerly Tweeter Center)",
+        "id": 862237,
+        "latitude": 37.7816,
+        "longitude": -122.409,
+        "name": "Keith Murray @ Club SIX",
         "on_sale_date": null,
         "rumor": false,
-        "start_date": "2012-04-24T00:00:00Z",
+        "start_date": "2011-07-17T06:59:00Z",
         "unconfirmed_location": 0,
-        "updated_at": "2010-08-20T00:28:43Z",
-        "utc_time": "2012-04-25T03:59:00Z",
-        "venue_id": 11833,
-        "url": "http://thrillcall.com/event/598282"
+        "updated_at": "2011-06-24T03:46:52Z",
+        "venue_id": 39476,
+        "url": "http://thrillcall.com/event/862237"
       },
       {
         ...
@@ -403,24 +414,18 @@ Params:
 Returns:  Event _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/753419?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/753419/artists?api_key=1234567890abcdef
     
-    {
-      "end_date": null,
-      "festival": false,
-      "id": 753419,
-      "latitude": null,
-      "longitude": null,
-      "name": "Alice Cooper @ West Virginia State Fair",
-      "on_sale_date": null,
-      "rumor": false,
-      "start_date": "2011-08-19T07:00:00Z",
-      "unconfirmed_location": 0,
-      "updated_at": "2011-05-23T21:03:55Z",
-      "utc_time": "2011-08-19T11:00:00Z",
-      "venue_id": 32065,
-      "url": "http://thrillcall.com/event/753419"
-    }
+    [
+      {
+        "genre_tags": null,
+        "id": 375669,
+        "name": "The Magnetic Fields",
+        "upcoming_events_count": 0,
+        "updated_at": "2011-06-20T12:52:54Z",
+        "url": "http://thrillcall.com/artist/The_Magnetic_Fields"
+      }
+    ]
 ```
 
 ### GET /event/:id/artists
@@ -434,16 +439,16 @@ Params:
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/589331/artists?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/855667/artists?api_key=1234567890abcdef
     
     [
       {
-        "genre_tags": "Pop",
-        "id": 22210,
-        "name": "Lady GaGa",
-        "upcoming_events_count": 41,
-        "updated_at": "2011-01-13T02:02:25Z",
-        "url": "http://thrillcall.com/artist/Lady_GaGa"
+        "genre_tags": "Rock",
+        "id": 6468,
+        "name": "Katy Perry",
+        "upcoming_events_count": 68,
+        "updated_at": "2011-06-24T23:59:52Z",
+        "url": "http://thrillcall.com/artist/Katy_Perry"
       }
     ]
 ```
@@ -458,22 +463,22 @@ Params:
 Returns:  Venue _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/753419/venue?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/831330/venue?api_key=1234567890abcdef
     
     {
-      "address1": "State Fairgrounds",
+      "address1": "201 Van Ness Avenue",
       "address2": null,
-      "city": "Lewisburg",
+      "city": "San Francisco",
       "country": "US",
-      "id": 32065,
-      "latitude": 37.801788,
-      "longitude": -80.44563,
-      "name": "West Virginia State Fair",
-      "state": "WV",
-      "upcoming_events_count": 0,
-      "updated_at": "2010-03-28T19:31:40Z",
-      "postalcode": "24901",
-      "url": "http://thrillcall.com/venue/West_Virginia_State_Fair_in_Lewisburg_WV"
+      "id": 51886,
+      "latitude": 37.777292,
+      "longitude": -122.419779,
+      "name": "Davies Symphony Hall",
+      "state": "CA",
+      "upcoming_events_count": 85,
+      "updated_at": "2011-02-20T02:15:48Z",
+      "postalcode": "94102",
+      "url": "http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"
     }
 ```
 
@@ -489,24 +494,22 @@ Params:
 Returns:  _Array_ of Tickets _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/595357/tickets?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/753419/tickets?api_key=1234567890abcdef
     
     [
       {
         "description": null,
-        "event_id": 595357,
-        "id": 286794,
+        "event_id": 753419,
+        "id": 456349,
         "marketing_text": null,
         "max_ticket_price": null,
         "min_ticket_price": null,
-        "name": "Onsale to General Public",
+        "name": "Resale",
         "on_sale_end_date": null,
-        "on_sale_end_time": null,
         "on_sale_start_date": null,
-        "on_sale_start_time": null,
-        "seat_info": "[]",
-        "updated_at": "2010-07-13T22:27:43Z",
-        "url": "http://ticketsus.at/thrillcall?CTY=39&DURL=http://www.ticketmaster.com/event/00004488CCC19DAD?camefrom=CFC_BUYAT&brand=[=BRAND=]"
+        "seat_info": null,
+        "updated_at": "2011-01-19T22:28:24Z",
+        "url": "/event/ticketnetwork_tickets/753419"
       }
     ]
 ```
@@ -534,6 +537,8 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 
@@ -584,12 +589,12 @@ Returns:  Venue _Hash_
       "city": "Raleigh",
       "country": "US",
       "id": 12345,
-      "latitude": null,
-      "longitude": null,
+      "latitude": 35.716105,
+      "longitude": -78.65734,
       "name": "Record Exchange",
       "state": "NC",
       "upcoming_events_count": 0,
-      "updated_at": "2010-03-28T18:23:27Z",
+      "updated_at": "2011-06-24T03:46:01Z",
       "postalcode": "27603",
       "url": "http://thrillcall.com/venue/Record_Exchange_in_Raleigh_NC"
     }
@@ -604,7 +609,6 @@ Params:
 - **[page](#page)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
-- **[suppress](#suppress)**
 - **[use\_partner\_id](#use_partner_id)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
@@ -620,18 +624,17 @@ Returns:  _Array_ of Events _Hash_
       {
         "end_date": null,
         "festival": false,
-        "id": 753419,
-        "latitude": null,
-        "longitude": null,
-        "name": "Alice Cooper @ West Virginia State Fair",
+        "id": 824614,
+        "latitude": 37.8016,
+        "longitude": -80.4462,
+        "name": "Colt Ford @ West Virginia State Fair",
         "on_sale_date": null,
         "rumor": false,
-        "start_date": "2011-08-19T07:00:00Z",
+        "start_date": "2011-08-21T03:59:00Z",
         "unconfirmed_location": 0,
-        "updated_at": "2011-05-23T21:03:55Z",
-        "utc_time": "2011-08-19T11:00:00Z",
+        "updated_at": "2011-06-24T05:10:05Z",
         "venue_id": 32065,
-        "url": "http://thrillcall.com/event/753419"
+        "url": "http://thrillcall.com/event/824614"
       },
       {
         ...
@@ -641,12 +644,14 @@ Returns:  _Array_ of Events _Hash_
 ```
 
 ### GET /search/venues/:term
-**:term** _string_  Arbitrary search string
+**:term** _string_  Arbitrary search string on the **name** field.  (alphanumerics only, underscore matches underscore, use '+' for space)
 
 Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 
@@ -662,12 +667,12 @@ Returns:  _Array_ of Venues _Hash_
         "city": "Chandler",
         "country": "US",
         "id": 10843,
-        "latitude": null,
-        "longitude": null,
+        "latitude": 33.237229,
+        "longitude": -111.8004,
         "name": "Zia Record Exchange",
         "state": "AZ",
         "upcoming_events_count": 0,
-        "updated_at": "2010-03-28T18:17:58Z",
+        "updated_at": "2011-06-24T03:45:46Z",
         "postalcode": "85249",
         "url": "http://thrillcall.com/venue/Zia_Record_Exchange_in_Chandler_AZ"
       },
@@ -688,10 +693,8 @@ Fields:
 - **max\_ticket\_price**     _float_    Maximum price for this ticket
 - **min\_ticket\_price**     _float_    Minimum price for this ticket
 - **name**                   _string_   Name of this ticket
-- **on\_sale\_end\_date**    _string_   ISO 8601 date when the ticket goes off sale
-- **on\_sale\_end\_time**    _string_   ISO 8601 time of day when the ticket goes off sale
-- **on\_sale\_start\_date**  _string_   ISO 8601 date when the ticket goes on sale
-- **on\_sale\_start\_time**  _string_   ISO 8601 time of day when the ticket goes on sale
+- **on\_sale\_end\_date**    _string_   YYYY-MM-DD date when the ticket goes off sale
+- **on\_sale\_start\_date**  _string_   YYYY-MM-DD date when the ticket goes on sale
 - **seat\_info**             _string_   Additional info about the seat
 - **updated\_at**            _string_   ISO 8601 representation of last time this object was updated
 - **url**                    _string_   URL for this object on Thrillcall
@@ -703,6 +706,8 @@ Params:
 - **[page](#page)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 - **[ticket\_type](#ticket_type)**
@@ -724,9 +729,7 @@ Returns:  _Array_ of Tickets _Hash_
         "min_ticket_price": null,
         "name": "General Onsale",
         "on_sale_end_date": null,
-        "on_sale_end_time": null,
         "on_sale_start_date": null,
-        "on_sale_start_time": null,
         "seat_info": null,
         "updated_at": "2009-09-22T22:58:37Z",
         "url": "http://www.livenation.com/edp/eventId/335800/?c=api-000157"
@@ -759,9 +762,7 @@ Returns:  Ticket _Hash_
       "min_ticket_price": null,
       "name": "Resale",
       "on_sale_end_date": null,
-      "on_sale_end_time": null,
       "on_sale_start_date": null,
-      "on_sale_start_time": null,
       "seat_info": null,
       "updated_at": "2009-02-05T19:51:27Z",
       "url": "http://www.ticketcity.com/concert-tickets/world-music-tickets/celtic-woman-tickets/celtic-woman-tickets-nokia-live-april-18-8-00pm.html"

@@ -2,24 +2,27 @@ require 'spec_helper'
 require 'thrillcall-api'
 require 'ap'
 
-TEST_KEY  = "374a89fd4629d57c"
+TEST_KEY  = "202c83b947d87687"
 PORT      = 3000
 LOCALHOST = "http://localhost:#{PORT}/api/"
 
-ARTIST_ID         = 22210
-ARTIST_NORM_NAME  = "ladygaga"
-ARTIST_EVENT_ID   = 589331
+ARTIST_ID         = 6468
+ARTIST_NORM_NAME  = "katyperry"
+ARTIST_EVENT_ID   = 855667
 
 # this event will stop working if min_date is specified after august 2011
 EVENT_ID          = 753419
-EVENT_TICKET_ID   = 455663
-EVENT_ARTIST_ID   = 2192
-EVENT_VENUE_ID    = 32065
+EVENT_TICKET_ID   = 456349
+EVENT_ARTIST_ID   = 375669
+EVENT_VENUE_ID    = 65023
 EVENT_ZIP         = "24901"
 
 VENUE_ID          = 12345
 VENUE_NORM_NAME   = "recordexchange"
 VENUE_ZIP         = "27603"
+
+LAT               = 37.782664
+LONG              = -122.410295
 
 TICKET_ID         = 12345
 
@@ -169,7 +172,6 @@ describe "ThrillcallAPI" do
         (e - o).length.should == TINY_LIMIT
       end
       
-      
       it "should verify the behavior of the confirmed_events_only param" do
         e = @tc.events(:limit => LIMIT, :confirmed_events_only => true)
         e.each do |ev|
@@ -186,8 +188,16 @@ describe "ThrillcallAPI" do
         end
       end
       
+      it "should verify the behavior of the lat long params" do
+        e = @tc.events(:limit => TINY_LIMIT, :lat => LAT, :long => LONG, :radius => 0)
+        e.each do |ev|
+          (@tc.event(ev["id"]).venue["latitude"].to_f - LAT).should   <= 0.01
+          (@tc.event(ev["id"]).venue["longitude"].to_f - LONG).should <= 0.01
+        end
+      end
       
       it "should verify the behavior of the postalcode param" do
+        pending "Need to be able to access the ZipCodes table externally from Rails"
         e = @tc.events(:limit => TINY_LIMIT, :postalcode => POSTAL_CODE)
         e.length.should <= TINY_LIMIT
         e.each do |ev|
@@ -208,10 +218,6 @@ describe "ThrillcallAPI" do
       
       #############
       # Can't verify the behavior below without more access to data on the Rails side
-      it "should verify the behavior of the suppress param" do
-        pending "Need to be able to access the Suppressions table externally from Rails"
-      end
-      
       it "should verify the behavior of the ticket_type param" do
         pending "Need to be able to access the Merchants table externally from Rails"
         e = @tc.events(:limit => TINY_LIMIT, :must_have_tickets => true)
