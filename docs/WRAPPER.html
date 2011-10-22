@@ -122,14 +122,14 @@
 
 <div class="highlight">
 <pre>    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># The default endpoint is "http://thrillcall.com/api/".</span>
+    <span class="c1"># The default SSL endpoint is "https://api.thrillcall.com/api/".</span>
     <span class="c1"># The default API version is 2.</span>
     <span class="c1"># By default, Faraday access logging is turned off.</span>
     <span class="c1"># Override if necessary:</span>
     <span class="c1">#---------------------------------------------------------------#</span>
     <span class="n">tc</span> <span class="o">=</span> <span class="no">ThrillcallAPI</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
       <span class="no">MY_API_KEY</span><span class="p">,</span>
-      <span class="ss">:base_url</span> <span class="o">=&gt;</span> <span class="s2">"http://thrillcall.com/custom/"</span><span class="p">,</span>
+      <span class="ss">:base_url</span> <span class="o">=&gt;</span> <span class="s2">"https://api.thrillcall.com/custom/"</span><span class="p">,</span>
       <span class="ss">:version</span>  <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
       <span class="ss">:logger</span>   <span class="o">=&gt;</span> <span class="kp">true</span>
     <span class="p">)</span>
@@ -161,7 +161,7 @@
     <span class="nb">require</span> <span class="s1">'json'</span>
 
     <span class="no">MY_API_KEY</span>  <span class="o">=</span> <span class="s2">"1234567890abcdef"</span>
-    <span class="no">BASE_URL</span>    <span class="o">=</span> <span class="s2">"http://thrillcall.com/api/v2/"</span>
+    <span class="no">BASE_URL</span>    <span class="o">=</span> <span class="s2">"https://api.thrillcall.com/api/v2/"</span>
     <span class="no">HEADERS</span>     <span class="o">=</span> <span class="p">{</span> <span class="ss">:accept</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span> <span class="p">}</span>
 
     <span class="n">connection</span>  <span class="o">=</span> <span class="no">Faraday</span><span class="o">.</span><span class="n">new</span><span class="p">(</span> <span class="ss">:url</span> <span class="o">=&gt;</span> <span class="no">BASE_URL</span><span class="p">,</span> <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="no">HEADERS</span> <span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>

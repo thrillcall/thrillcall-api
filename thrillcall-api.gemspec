@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.homepage    = "http://rubygems.org/gems/thrillcall-api"
   s.summary     = "Simple wrapper around http://www.thrillcall.com's API"
   s.description = "Simple wrapper around http://www.thrillcall.com's API"
-  
+
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "thrillcall-api"
-  
+
   s.add_development_dependency  "bundler",                ">= 1.0.0"
   s.add_development_dependency  "rspec",                  "~> 2.1.0"
   s.add_development_dependency  "ZenTest",                "~> 4.4.0"
@@ -25,12 +25,12 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "nokogiri",               "~> 1.4.6"
   s.add_development_dependency  "albino",                 "~> 1.3.3"
   #s.add_development_dependency  "jekyll",                 "~> 0.10.0"
-  
+
   s.add_dependency              "faraday",                "~> 0.7.0"
   #s.add_dependency              "faraday_middleware",     "~> 0.6.3"
   #s.add_dependency              "multi_json",             "~> 1.0.3"
   #s.add_dependency              "hashie",                 "~> 1.0.0"
-  
+
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
   s.require_path = 'lib'

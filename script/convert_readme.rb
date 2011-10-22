@@ -1,3 +1,15 @@
+#!/usr/bin/env ruby
+
+# USAGE:
+# INSTALL FIRST! : You must have the Python Pygments lib installed
+# before this will run. See : http://pygments.org/docs/installation/
+#
+# Install with:
+#
+#   sudo easy_install Pygments
+#
+# Run me with : 'bundle install' and 'cd script' and 'bundle exec ruby convert_readme.rb'
+
 require 'rubygems'
 require 'bundler'
 Bundler.setup
@@ -88,21 +100,20 @@ convert   = {
 
 convert.each do |name, doc|
   rc = Redcarpet.new(doc, :fenced_code, :space_header, :gh_blockcode)
-  
+
   rc = css + rc.to_html
-  
+
   doc = Nokogiri::HTML.fragment(rc)
-  
+
   doc.search('pre').each do |node|
     next unless lang = node['lang']
     html = Albino.colorize(node.inner_text, lang)
     node.replace(html)
   end
-  
-  
+
   File.open(File.expand_path("../../docs/#{name}.html", __FILE__),"w+") { |f|
       f.write(doc.to_s)
-    }
+  }
 end
 
 puts "Done"

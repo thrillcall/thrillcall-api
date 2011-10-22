@@ -1,4 +1,8 @@
-# HTTP Endpoints
+# HTTPS Endpoints
+
+### SSL/TLS Endpoints Required:
+All API access must use the secure HTTPS endpoint : https://api.thrillcall.com:443
+Access over an insecure HTTP (port 80) endpoint is now deprecated and will be disabled.
 
 ### Parameters
 These are valid parameters for any endpoint, however, they will only be used by the server where applicable.

@@ -55,14 +55,14 @@ Provide additional instantiation options:
 ``` ruby
     
     #---------------------------------------------------------------#
-    # The default endpoint is "http://thrillcall.com/api/".
+    # The default SSL endpoint is "https://api.thrillcall.com/api/".
     # The default API version is 2.
     # By default, Faraday access logging is turned off.
     # Override if necessary:
     #---------------------------------------------------------------#
     tc = ThrillcallAPI.new(
       MY_API_KEY,
-      :base_url => "http://thrillcall.com/custom/",
+      :base_url => "https://api.thrillcall.com/custom/",
       :version  => 3,
       :logger   => true
     )
@@ -94,7 +94,7 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
     require 'json'
     
     MY_API_KEY  = "1234567890abcdef"
-    BASE_URL    = "http://thrillcall.com/api/v2/"
+    BASE_URL    = "https://api.thrillcall.com/api/v2/"
     HEADERS     = { :accept => 'application/json' }
     
     connection  = Faraday.new( :url => BASE_URL, :headers => HEADERS ) do |builder|
