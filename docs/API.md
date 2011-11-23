@@ -402,6 +402,209 @@ Returns:  _Array_ of Tickets _Hash_
     ]
 ```
 
+## Genre
+Fields:
+
+- **description**             _string_    Description of the Genre
+- **id**                      _integer_   Thrillcall ID
+- **name**                    _string_    Name of the Genre
+- **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
+
+### GET /genres
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+
+Returns:  _Array_ of Genres _Hash_
+
+``` js
+    // Example: GET /api/v2/genres?limit=14&api_key=1234567890abcdef
+    
+    [
+      {
+        "description": "Shawn Colvin, Loudon Wainwright III etc...",
+        "id": 1,
+        "name": "Folk",
+        "updated_at": "2010-03-28T17:24:20Z"
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
+### GET /genre/:id
+**:id** _integer_  Thrillcall or Partner ID
+
+Params:
+
+- **[use\_partner\_id](#use_partner_id)**
+
+Returns: Genre _Hash_
+
+``` js
+    // Example: GET /api/v2/genre/27?api_key=1234567890abcdef
+    
+    {
+        "description": "Shawn Colvin, Loudon Wainwright III etc...",
+        "id": 1,
+        "name": "Folk",
+        "updated_at": "2010-03-28T17:24:20Z"
+     }
+```
+
+### GET /genre/:id/artists
+**:id** _integer_  Thrillcall or Partner ID
+
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+- **[use\_partner\_id](#use_partner_id)**
+
+Returns:  _Array_ of Artists _Hash_
+
+``` js
+    // Example: GET /api/v2/genre/27/artists?api_key=1234567890abcdef
+
+    [
+      {
+        "end_date": null,
+        "festival": false,
+        "id": 855667,
+        "latitude": 34.0398,
+        "longitude": -118.266,
+        "name": "Katy Perry @ Staples Center",
+        "on_sale_date": null,
+        "rumor": false,
+        "start_date": "2011-11-22",
+        "unconfirmed_location": 0,
+        "updated_at": "2011-06-24T04:04:47Z",
+        "venue_id": 39782,
+        "url": "http://thrillcall.com/event/855667"
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
+
+## Metro Area
+Fields:
+
+- **city**                    _string_    City of the Metro Area
+- **country**                 _string_    Country of the Metro Area
+- **id**                      _integer_   Thrillcall ID
+- **latitude**                _float_     Latitude of the Metro Area
+- **longitude**               _float_     Longitude of the Metro Area
+- **state**                   _string_    State of the Metro Area
+- **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
+- **url**                     _string_    URL for this object on Thrillcall
+
+
+### GET /metro_areas
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+
+Returns:  _Array_ of Metro Areas _Hash_
+
+``` js
+    // Example: GET /api/v2/metro_areas?limit=14&api_key=1234567890abcdef
+    
+    [
+      {
+        "city": "Seattle",
+        "country": "US",
+        "id": 1,
+        "latitude": null,
+        "longitude": null,
+        "state": "WA",
+        "updated_at": "2010-03-28T17:24:20Z",
+        "url": "http://thrillcall.com/live-music/seattle"
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
+### GET /metro_area/:id
+**:id** _integer_  Thrillcall or Partner ID
+
+Params:
+
+- **[use\_partner\_id](#use_partner_id)**
+
+Returns:  Metro Area _Hash_
+
+``` js
+    // Example: GET /api/v2/metro_area/104?api_key=1234567890abcdef
+    
+    {
+        "city": "Seattle",
+        "country": "US",
+        "id": 1,
+        "latitude": null,
+        "longitude": null,
+        "state": "WA",
+        "updated_at": "2010-03-28T17:24:20Z",
+        "url": "http://thrillcall.com/live-music/seattle"
+      }
+```
+
+### GET /metro_area/:id/events
+**:id** _integer_  Thrillcall or Partner ID
+
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+- **[min\_date](#min_date)**
+- **[max\_date](#max_date)**
+- **[use\_partner\_id](#use_partner_id)**
+- **[ticket\_type](#ticket_type)**
+- **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
+- **[show\_rumor\_events](#show_rumor_events)**
+
+Returns:  _Array_ of Metro Areas _Hash_
+
+``` js
+    // Example: GET /api/v2/metro_area/104/events?api_key=1234567890abcdef
+    
+    [
+      {
+        "bearing": "129",
+        "distance": "0.10208889540143654",
+        "end_date": null,
+        "festival": false,
+        "id": 862237,
+        "latitude": 37.7816,
+        "longitude": -122.409,
+        "name": "Keith Murray @ Club SIX",
+        "on_sale_date": null,
+        "rumor": false,
+        "start_date": "2011-07-17T06:59:00Z",
+        "unconfirmed_location": 0,
+        "updated_at": "2011-06-24T03:46:52Z",
+        "venue_id": 39476,
+        "url": "http://thrillcall.com/event/862237"
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
+
 ## Venues
 Fields:
 

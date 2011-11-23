@@ -16,6 +16,7 @@ HOST      = "https://api.thrillcall.com:443/api/"           if TEST_ENV == :prod
 ARTIST_ID         = 6468
 ARTIST_NORM_NAME  = "katyperry"
 ARTIST_EVENT_ID   = 855667
+ARTIST_GENRE_ID   = 2
 
 # this event will stop working if min_date is specified after august 2011
 EVENT_ID          = 753419
@@ -23,6 +24,7 @@ EVENT_TICKET_ID   = 456349
 EVENT_ARTIST_ID   = 375669
 EVENT_VENUE_ID    = 65023
 EVENT_ZIP         = "24901"
+EVENT_METRO_AREA_ID = 981230
 
 VENUE_ID          = 12345
 VENUE_NORM_NAME   = "recordexchange"
@@ -39,6 +41,10 @@ LIMIT             = 14
 TINY_LIMIT        = 3
 MIN_DATE          = "2011-01-01"
 MAX_DATE          = "2011-01-07"
+
+METRO_AREA_ID     = 104
+
+GENRE_ID          = 27
 
 FLUSH_CACHE       = true # false
 
@@ -323,6 +329,40 @@ describe "ThrillcallAPI" do
         found.should be_true
       end
 
+    end
+    
+    context "accessing the metro area endpoint" do
+      it "should get a specific metro area" do
+        m = @tc.metro_area(METRO_AREA_ID)
+        m["id"].should == METRO_AREA_ID
+      end
+      
+      it "should get a list of metro areas" do
+        m = @tc.metro_areas(:limit => LIMIT)
+        m.length.should == LIMIT
+      end
+      
+      it "should get a list of events for a specific metro" do
+        m = @tc.metro_area(METRO_AREA_ID).events
+        m.first["id"].should == EVENT_METRO_AREA_ID
+      end
+    end
+
+    context "accesing the genre endpoint" do
+      it "should get a specific genre" do
+        g = @tc.genre(GENRE_ID)
+        g["id"].should == GENRE_ID
+      end
+      
+      it "should get a list of genres" do
+        g = @tc.genres(:limit => LIMIT)
+        g.length.should == LIMIT
+      end
+      
+      it "should get a list of artists for a specific genre" do
+        g = @tc.genre(GENRE_ID).artists
+        g.first["id"].should == ARTIST_GENRE_ID
+      end
     end
 
   end

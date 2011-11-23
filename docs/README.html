@@ -649,6 +649,238 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </div>
 
 
+<h2>Genre</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>description</strong>             <em>string</em>    Description of the Genre</li>
+<li>
+<strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
+<li>
+<strong>name</strong>                    <em>string</em>    Name of the Genre</li>
+<li>
+<strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
+</ul><h3>GET /genres</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Genres <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/genres?limit=14&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Shawn Colvin, Loudon Wainwright III etc..."</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Folk"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /genre/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+</ul><p>Returns: Genre <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/genre/27?api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Shawn Colvin, Loudon Wainwright III etc..."</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Folk"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span>
+     <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>GET /genre/:id/artists</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/genre/27/artists?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">855667</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">34.0398</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">118.266</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry @ Staples Center"</span><span class="p">,</span>
+        <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-11-22"</span><span class="p">,</span>
+        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T04:04:47Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">39782</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/855667"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h2>Metro Area</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>city</strong>                    <em>string</em>    City of the Metro Area</li>
+<li>
+<strong>country</strong>                 <em>string</em>    Country of the Metro Area</li>
+<li>
+<strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
+<li>
+<strong>latitude</strong>                <em>float</em>     Latitude of the Metro Area</li>
+<li>
+<strong>longitude</strong>               <em>float</em>     Longitude of the Metro Area</li>
+<li>
+<strong>state</strong>                   <em>string</em>    State of the Metro Area</li>
+<li>
+<strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>url</strong>                     <em>string</em>    URL for this object on Thrillcall</li>
+</ul><h3>GET /metro_areas</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/metro_areas?limit=14&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Seattle"</span><span class="p">,</span>
+        <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"WA"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/seattle"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /metro_area/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+</ul><p>Returns:  Metro Area <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/metro_area/104?api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Seattle"</span><span class="p">,</span>
+        <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"WA"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/seattle"</span>
+      <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>GET /metro_area/:id/events</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#min_date">min_date</a></strong></li>
+<li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
+<li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+</ul><p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/metro_area/104/events?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"129"</span><span class="p">,</span>
+        <span class="s2">"distance"</span><span class="o">:</span> <span class="s2">"0.10208889540143654"</span><span class="p">,</span>
+        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">862237</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7816</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.409</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Keith Murray @ Club SIX"</span><span class="p">,</span>
+        <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-07-17T06:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:46:52Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">39476</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/862237"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
 <h2>Venues</h2>
 
 <p>Fields:</p>
