@@ -13,38 +13,10 @@ HOST      = "http://localhost:3000/api/"                    if TEST_ENV == :deve
 HOST      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
 HOST      = "https://api.thrillcall.com:443/api/"           if TEST_ENV == :production     # SSL!
 
-ARTIST_ID         = 6468
-ARTIST_NORM_NAME  = "katyperry"
-ARTIST_EVENT_ID   = 855667
-ARTIST_GENRE_ID   = 2
-
-# this event will stop working if min_date is specified after august 2011
-EVENT_ID          = 753419
-EVENT_TICKET_ID   = 456349
-EVENT_ARTIST_ID   = 375669
-EVENT_VENUE_ID    = 65023
-EVENT_ZIP         = "24901"
-EVENT_METRO_AREA_ID = 981230
-
-VENUE_ID          = 12345
-VENUE_NORM_NAME   = "recordexchange"
-VENUE_ZIP         = "27603"
-
-LAT               = 37.782664
-LONG              = -122.410295
-
-TICKET_ID         = 12345
-
-POSTAL_CODE       = "94108"
-
 LIMIT             = 14
 TINY_LIMIT        = 3
-MIN_DATE          = "2011-01-01"
-MAX_DATE          = "2011-01-07"
 
-METRO_AREA_ID     = 104
-
-GENRE_ID          = 27
+POSTAL_CODE       = "94108"
 
 FLUSH_CACHE       = true # false
 
@@ -73,6 +45,57 @@ describe "ThrillcallAPI" do
 
     before :all do
       @tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST)
+
+      day_buffer            = 0
+      range                 = 365
+
+      @min_date             = (Time.now - 60*60*24*(range+day_buffer)).to_date.to_s
+      @max_date             = (Time.now - 60*60*24*day_buffer).to_date.to_s
+
+      event_finder          = {
+        :must_have_tickets    => true,
+        :postalcode           => POSTAL_CODE,
+        :radius               => 10,
+        #:min_date             => @min_date,
+        #:max_date             => @max_date,
+        :limit                => TINY_LIMIT
+      }
+
+      events                = @tc.events(event_finder)
+      events.length
+
+      puts events.inspect
+
+      @event                = events.first
+      @event_id             = @event["id"]
+
+      @ticket               = @tc.event(@event_id).tickets.first
+      @artist               = @tc.event(@event_id).artists.first
+      @venue                = @tc.event(@event_id).venue
+
+      @artist_id            = @artist["id"]
+      @artist_norm_name     = @artist["name"]
+
+      @venue_id             = @venue["id"]
+      @venue_norm_name      = @venue["name"]
+      @venue_zip            = @venue["postalcode"]
+
+      @event_zip            = @venue_zip
+
+      @ticket_id            = @ticket["id"]
+
+      @lat                  = @venue["latitude"]
+      @long                 = @venue["longitude"]
+
+      @genre_id             = @artist["primary_genre_id"]
+      @metro_area_id        = @venue["metro_area_id"]
+
+      puts "Event:    #{@event_id}"
+      puts "Artist:   #{@artist_id} #{@artist_norm_name}"
+      puts "Venue:    #{@venue_id} #{@venue_norm_name}"
+      puts "Ticket:   #{@ticket_id}"
+      puts "Metro:    #{@metro_area_id}"
+      puts "Genre:    #{@genre_id}"
     end
 
     it "should be able to handle a method with a block used on fresh data" do
@@ -85,30 +108,28 @@ describe "ThrillcallAPI" do
     end
 
     it "should be able to make multiple requests after initialization" do
-      a = @tc.artist(ARTIST_ID)
+      a = @tc.artist(@artist_id)
       b = @tc.events(:limit => LIMIT)
-      a.length
-      #ap a.result.data
-      a["id"].should == ARTIST_ID
+      a["id"].should == @artist_id
       b.length.should == LIMIT
     end
 
     # This is the only remaining limitation of the wrapper
     it "should not be able to make an additional request after using the data from an intermediate request" do
-      a = @tc.artist(ARTIST_ID)
-      a["id"].should == ARTIST_ID
+      a = @tc.artist(@artist_id)
+      a["id"].should == @artist_id
       lambda { e = a.events }.should raise_error
     end
 
     # This behavior cannot be iterated due to the previous limitation
     it "should be able to build a nested request from a preexisting intermediate request" do
       pending "FIXME"
-      artist_request  = @tc.artist(ARTIST_ID)
+      artist_request  = @tc.artist(@artist_id)
       artist_request  = artist_request.events(:limit => TINY_LIMIT)
       event_id        = artist_request.first["id"]
       event_request   = @tc.event(event_id)
       event_request   = event_request.artists
-      event_request.first["id"].should == ARTIST_ID
+      event_request.first["id"].should == @artist_id
     end
 
     it "should fetch data when responding to an array or a hash method" do
@@ -127,7 +148,7 @@ describe "ThrillcallAPI" do
     end
 
     it "should not return filtered attributes" do
-      v = @tc.venue(VENUE_ID)
+      v = @tc.venue(@venue_id)
       v["alt_city"].should be_nil
     end
 
@@ -143,39 +164,39 @@ describe "ThrillcallAPI" do
       end
 
       it "should get a specific event" do
-        e = @tc.event(EVENT_ID)
-        e["id"].should == EVENT_ID
+        e = @tc.event(@event_id)
+        e["id"].should == @event_id
       end
 
       it "should get tickets for a specific event" do
-        e = @tc.event(EVENT_ID).tickets
+        e = @tc.event(@event_id).tickets
         # FIXME: "product" here should be "ticket"
-        e.first["id"].should == EVENT_TICKET_ID
+        e.first["id"].should == @ticket_id
       end
 
       it "should get artists for a specific event" do
-        e = @tc.event(EVENT_ID).artists
-        e.first["id"].should == EVENT_ARTIST_ID
+        e = @tc.event(@event_id).artists
+        e.first["id"].should == @artist_id
       end
 
       it "should get the venue for a specific event" do
-        e = @tc.event(EVENT_ID).venue
-        e["id"].should == EVENT_VENUE_ID
+        e = @tc.event(@event_id).venue
+        e["id"].should == @venue_id
       end
 
       it "should verify the behavior of the min_date param" do
-        e = @tc.events(:limit => TINY_LIMIT, :min_date => MIN_DATE)
+        e = @tc.events(:limit => TINY_LIMIT, :min_date => @min_date)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          DateTime.parse(ev["start_date"]).should >= DateTime.parse(MIN_DATE)
+          DateTime.parse(ev["start_date"]).should >= DateTime.parse(@min_date)
         end
       end
 
       it "should verify the behavior of the max_date param" do
-        e = @tc.events(:limit => TINY_LIMIT, :min_date => MIN_DATE, :max_date => MAX_DATE)
+        e = @tc.events(:limit => TINY_LIMIT, :min_date => @min_date, :max_date => @max_date)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          DateTime.parse(ev["start_date"]).should < (DateTime.parse(MAX_DATE) + 1)
+          DateTime.parse(ev["start_date"]).should < (DateTime.parse(@max_date) + 1)
         end
       end
 
@@ -205,10 +226,10 @@ describe "ThrillcallAPI" do
       end
 
       it "should verify the behavior of the lat long params" do
-        e = @tc.events(:limit => TINY_LIMIT, :lat => LAT, :long => LONG, :radius => 0)
+        e = @tc.events(:limit => TINY_LIMIT, :lat => @lat, :long => @long, :radius => 0)
         e.each do |ev|
-          (@tc.event(ev["id"]).venue["latitude"].to_f - LAT).should   <= 0.01
-          (@tc.event(ev["id"]).venue["longitude"].to_f - LONG).should <= 0.01
+          (@tc.event(ev["id"]).venue["latitude"].to_f - @lat).should   <= 1.0
+          (@tc.event(ev["id"]).venue["longitude"].to_f - @long).should <= 1.0
         end
       end
 
@@ -220,11 +241,7 @@ describe "ThrillcallAPI" do
           ev["venue_id"].should_not be_nil
           v = @tc.venue(ev["venue_id"])
 
-          z_id = v["zip_code_id"]
-          z_id.should_not be_nil
-          z = @tc.zip_code(z_id)
-          z["zip"].should_not be_nil
-          z["zip"].to_s.should == POSTAL_CODE
+          v["postalcode"].should == POSTAL_CODE
         end
       end
 
@@ -257,14 +274,18 @@ describe "ThrillcallAPI" do
       end
 
       it "should get a specific artist" do
-        a = @tc.artist(ARTIST_ID)
-        a["id"].should == ARTIST_ID
+        a = @tc.artist(@artist_id)
+        a["id"].should == @artist_id
       end
 
       it "should get a list of events for a specific artist" do
-        pending "FIXME"
-        a = @tc.artist(ARTIST_ID).events
-        a.first["id"].should == ARTIST_EVENT_ID
+        a = @tc.artist(@artist_id).events
+        found = false
+        a.each do |event|
+          found = found || (event["id"] == @event_id)
+          break if found
+        end
+        found.should be_true
       end
     end
 
@@ -275,13 +296,13 @@ describe "ThrillcallAPI" do
       end
 
       it "should get a specific venue" do
-        v = @tc.venue(VENUE_ID)
-        v["id"].should == VENUE_ID
+        v = @tc.venue(@venue_id)
+        v["id"].should == @venue_id
       end
 
       it "should directly return a postalcode" do
-        v = @tc.venue(VENUE_ID)
-        v["postalcode"].should == VENUE_ZIP
+        v = @tc.venue(@venue_id)
+        v["postalcode"].should == @venue_zip
       end
 
       it "should return a list of events for a specific venue" do
@@ -299,17 +320,17 @@ describe "ThrillcallAPI" do
       end
 
       it "should get a specific ticket" do
-        p = @tc.ticket(TICKET_ID)
-        p["id"].should == TICKET_ID
+        p = @tc.ticket(@ticket_id)
+        p["id"].should == @ticket_id
       end
     end
 
     context "searching for an object with a term" do
       it "should find the right artists" do
-        a = @tc.search.artists(ARTIST_NORM_NAME)
+        a = @tc.search.artists(@artist_norm_name)
         found = false
         a.each do |artist|
-          if artist["id"] == ARTIST_ID
+          if artist["id"] == @artist_id
             found = true
             break
           end
@@ -318,10 +339,10 @@ describe "ThrillcallAPI" do
       end
 
       it "should find the right venues" do
-        v = @tc.search.venues(VENUE_NORM_NAME)
+        v = @tc.search.venues(@venue_norm_name)
         found = false
         v.each do |venue|
-          if venue["id"] == VENUE_ID
+          if venue["id"] == @venue_id
             found = true
             break
           end
@@ -330,38 +351,40 @@ describe "ThrillcallAPI" do
       end
 
     end
-    
+
     context "accessing the metro area endpoint" do
       it "should get a specific metro area" do
-        m = @tc.metro_area(METRO_AREA_ID)
-        m["id"].should == METRO_AREA_ID
+        m = @tc.metro_area(@metro_area_id)
+        m["id"].should == @metro_area_id
       end
-      
+
       it "should get a list of metro areas" do
         m = @tc.metro_areas(:limit => LIMIT)
         m.length.should == LIMIT
       end
-      
+
       it "should get a list of events for a specific metro" do
-        m = @tc.metro_area(METRO_AREA_ID).events
-        m.first["id"].should == EVENT_METRO_AREA_ID
+        e = @tc.metro_area(@metro_area_id).events
+        cur_venue_id = e.first["venue_id"]
+
+        @tc.venue(cur_venue_id)["metro_area_id"].should == @metro_area_id
       end
     end
 
     context "accesing the genre endpoint" do
       it "should get a specific genre" do
-        g = @tc.genre(GENRE_ID)
-        g["id"].should == GENRE_ID
+        g = @tc.genre(@genre_id)
+        g["id"].should == @genre_id
       end
-      
+
       it "should get a list of genres" do
         g = @tc.genres(:limit => LIMIT)
         g.length.should == LIMIT
       end
-      
+
       it "should get a list of artists for a specific genre" do
-        g = @tc.genre(GENRE_ID).artists
-        g.first["id"].should == ARTIST_GENRE_ID
+        g = @tc.genre(@genre_id).artists
+        g.first["primary_genre_id"].should == @genre_id
       end
     end
 

@@ -5,7 +5,7 @@
 
 module ThrillcallAPI
   class Result
-    attr_accessor :ran, :keys, :options, :set_methods
+    attr_accessor :ran, :request_keys, :options, :set_methods
     attr_reader :data
     
     def initialize
@@ -20,7 +20,7 @@ module ThrillcallAPI
       @data                     = {} # could be an array after fetch
       @end_of_chain_is_singular = false
       @options                  = {}
-      @keys                     = []
+      @request_keys             = []
       @set_methods              = []
     end
     
@@ -59,7 +59,7 @@ module ThrillcallAPI
         reset
       end
       
-      @keys << key
+      @request_keys << key
       
       if args
         if args.is_a? Array
@@ -74,7 +74,7 @@ module ThrillcallAPI
             else
               # This is an ID or search term, add it directly to the
               # list of keys
-              @keys << a.to_s
+              @request_keys << a.to_s
             end
           end
         end
@@ -94,7 +94,7 @@ module ThrillcallAPI
     end
     
     def fetch_data
-      url = @keys.join("/")
+      url = URI.escape(@request_keys.join("/"))
       
       @data = ThrillcallAPI.get url, @options
       
