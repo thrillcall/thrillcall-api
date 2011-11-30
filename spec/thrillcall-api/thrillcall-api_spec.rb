@@ -1,61 +1,58 @@
 require 'spec_helper'
 require 'thrillcall-api'
 require 'ap'
-require 'faker'
 
 # Set to one of :development, :staging, :production
-TEST_ENV  = :development
+TEST_ENV                  = :development
 
-TEST_KEY  = "202c83b947d87687" if TEST_ENV == :development
-TEST_KEY  = "xxxxxxxxxxxxxxxx" if TEST_ENV == :staging
-TEST_KEY  = "xxxxxxxxxxxxxxxx" if TEST_ENV == :production
+env_prefix = TEST_ENV.to_s.upcase
 
-HOST      = "http://localhost:3000/api/"                    if TEST_ENV == :development
-HOST      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
-HOST      = "https://api.thrillcall.com:443/api/"           if TEST_ENV == :production     # SSL!
+# Get environment variables
+TEST_KEY                  = ENV["TC_#{env_prefix}_API_KEY"]
+PERSON_LOGIN              = ENV["TC_#{env_prefix}_LOGIN"]
+PERSON_PASSWORD           = ENV["TC_#{env_prefix}_PASSWORD"]
 
-LIMIT             = 14
-TINY_LIMIT        = 3
+HOST                      = "http://localhost:3000/api/"                    if TEST_ENV == :development
+HOST                      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
+HOST                      = "https://api.thrillcall.com:443/api/"           if TEST_ENV == :production     # SSL!
 
-POSTAL_CODE       = "94108"
+LIMIT                     = 14
+TINY_LIMIT                = 3
 
-# You need to create this user on your localhost
-PERSON_LOGIN      = "test@example.com"
-PERSON_PASSWORD   = "testtest"
+POSTAL_CODE               = "94108"
 
-PERSON_CREATE_FIRSTNAME = Faker::Name.first_name
-PERSON_CREATE_EMAIL = Faker::Internet.email
-PERSON_CREATE_PASSWORD = Faker::Lorem.words(2).join('')
-PERSON_CREATE_POSTALCODE = POSTAL_CODE
+PERSON_CREATE_FIRSTNAME   = Faker::Name.first_name
+PERSON_CREATE_EMAIL       = Faker::Internet.email
+PERSON_CREATE_PASSWORD    = Faker::Lorem.words(2).join('')
+PERSON_CREATE_POSTALCODE  = POSTAL_CODE
 
-FLUSH_CACHE       = true # false
+FLUSH_CACHE               = true # false
 
 describe "ThrillcallAPI" do
 
-  before :all do
-    if TEST_ENV == :development
-      if FLUSH_CACHE
-        fork do
-          exec "echo 'flush_all' | nc localhost 11211"
-        end
+  def setup_key
+    @tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST)
+    
+    @tc_permissions = @tc.api_key.permissions
+    @tc_permissions.length
+    @tc_permissions = @tc_permissions.data
+    
+    # api_auth permission allows you to access the Person endpoints.
+    # api_read permission allows you to access all other endpoints.
+  end
 
-        Process.wait
-      end
+  def has_permission?(p=:api_read)
+    (@tc_permissions.include? p.to_s)
+  end
+
+  def mark_pending_if_no_permission(p = :api_read)
+    unless has_permission? p
+      pending "TEST_KEY permissions #{@tc_permissions} do not include #{p}"
     end
   end
 
-  it "should initialize properly with faraday" do
-    tc = nil
-    lambda { tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST) }.should_not raise_error
-    puts tc.inspect
-    tc.conn.class.should == Faraday::Connection
-  end
-
-  context "an authenticated user" do
-
-    before :all do
-      @tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST)
-
+  def setup_read
+    if has_permission? :api_read
       day_buffer            = 0
       range                 = 365
 
@@ -66,15 +63,11 @@ describe "ThrillcallAPI" do
         :must_have_tickets    => true,
         :postalcode           => POSTAL_CODE,
         :radius               => 10,
-        #:min_date             => @min_date,
-        #:max_date             => @max_date,
         :limit                => TINY_LIMIT
       }
 
       events                = @tc.events(event_finder)
       events.length
-
-      puts events.inspect
 
       @event                = events.first
       @event_id             = @event["id"]
@@ -100,12 +93,57 @@ describe "ThrillcallAPI" do
       @genre_id             = @artist["primary_genre_id"]
       @metro_area_id        = @venue["metro_area_id"]
 
+      puts "Using Thrillcall objects:"
       puts "Event:    #{@event_id}"
       puts "Artist:   #{@artist_id} #{@artist_norm_name}"
       puts "Venue:    #{@venue_id} #{@venue_norm_name}"
       puts "Ticket:   #{@ticket_id}"
       puts "Metro:    #{@metro_area_id}"
       puts "Genre:    #{@genre_id}"
+    end
+  end
+
+  # Flush memcache results
+  before :all do
+    if TEST_ENV == :development
+      if FLUSH_CACHE
+        fork do
+          exec "echo 'flush_all' | nc localhost 11211"
+        end
+
+        Process.wait
+      end
+    end
+  end
+
+  it "the test suite should be able to retrieve the environment variables correctly" do
+    TEST_KEY.should_not be_nil
+  end
+
+  it "should initialize properly with faraday" do
+    tc = nil
+    lambda { tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST) }.should_not raise_error
+    puts tc.inspect
+    tc.conn.class.should == Faraday::Connection
+  end
+
+  it "should be able to retrieve the permissions for the api key" do
+    tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST)
+    tc_permissions = tc.api_key.permissions
+    tc_permissions.length
+    tc_permissions = tc_permissions.data
+    tc_permissions.class.should == Array
+  end
+
+  context "an authenticated user with get permission" do
+
+    before :all do
+      setup_key
+      setup_read
+    end
+
+    before :each do
+      mark_pending_if_no_permission(:api_read)
     end
 
     it "should be able to handle a method with a block used on fresh data" do
@@ -132,14 +170,10 @@ describe "ThrillcallAPI" do
     end
 
     # This behavior cannot be iterated due to the previous limitation
-    it "should be able to build a nested request from a preexisting intermediate request" do
-      pending "FIXME"
-      artist_request  = @tc.artist(@artist_id)
-      artist_request  = artist_request.events(:limit => TINY_LIMIT)
-      event_id        = artist_request.first["id"]
-      event_request   = @tc.event(event_id)
-      event_request   = event_request.artists
-      event_request.first["id"].should == @artist_id
+    it "should be able to build a nested request from a preexisting intermediate unfetched request" do
+      venue_intermediate_request = @tc.event(@event_id)
+      v = venue_intermediate_request.venue
+      v["id"].should == @venue_id
     end
 
     it "should fetch data when responding to an array or a hash method" do
@@ -316,8 +350,7 @@ describe "ThrillcallAPI" do
       end
 
       it "should return a list of events for a specific venue" do
-        pending "FIXME"
-        e = @tc.venue(32065).events
+        e = @tc.venue(@venue_id).events
         e.length.should > 0
       end
 
@@ -398,13 +431,25 @@ describe "ThrillcallAPI" do
       end
     end
 
+  end
+
+  context "an authenticated user with api_auth permission" do
+    before :all do
+      setup_key
+    end
+
+    before :each do
+      mark_pending_if_no_permission(:api_auth)
+    end
+
     context "accesing the person endpoint" do
-      it "should get an existing person" do
+      it "should be able to login a person" do
+        # Don't forget to change the credentials in your environment variables
         p = @tc.person.signin.post(:login => PERSON_LOGIN, :password => PERSON_PASSWORD)
         p["login"].should == PERSON_LOGIN
       end
       
-      it "should create a person" do
+      it "should be able to create a person" do
         p = @tc.person.signup.post(:first_name => PERSON_CREATE_FIRSTNAME,
                                    :email => PERSON_CREATE_EMAIL,
                                    :password => PERSON_CREATE_PASSWORD,
@@ -413,7 +458,6 @@ describe "ThrillcallAPI" do
         p["login"].should == PERSON_CREATE_EMAIL
       end
     end
-
   end
 
 end

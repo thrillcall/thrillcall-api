@@ -6,10 +6,10 @@ require "#{File.expand_path("../thrillcall-api/version", __FILE__)}"
 
 module ThrillcallAPI
   class << self
-    attr_accessor :api_key, :base, :result, :conn
+    attr_accessor :cur_api_key, :base, :result, :conn
 
     # Set up the Faraday connection based on configuration
-    def new(api_key, options = {})
+    def new(cur_api_key, options = {})
       default_options = {
         :base_url   => "https://api.thrillcall.com/api/",
         :version    => 2,
@@ -18,10 +18,10 @@ module ThrillcallAPI
 
       opts = default_options.merge(options)
 
-      @api_key  = api_key
-      base_url  = opts[:base_url]
-      version   = opts[:version]
-      logger    = opts[:logger]
+      @cur_api_key  = cur_api_key
+      base_url      = opts[:base_url]
+      version       = opts[:version]
+      logger        = opts[:logger]
 
       # Make sure the base_url is in the form https://.../
       unless base_url.match /^(http|https):\/\//
@@ -55,14 +55,14 @@ module ThrillcallAPI
 
     def get(endpoint, params)
       r = @conn.get do |req|
-        req.url endpoint, params.merge(:api_key => @api_key)
+        req.url endpoint, params.merge(:api_key => @cur_api_key)
       end
       JSON.parse(r.body)
     end
 
     def post(endpoint, params)
       r = @conn.post do |req|
-        req.url endpoint, params.merge(:api_key => @api_key)
+        req.url endpoint, params.merge(:api_key => @cur_api_key)
       end
       JSON.parse(r.body)
     end
