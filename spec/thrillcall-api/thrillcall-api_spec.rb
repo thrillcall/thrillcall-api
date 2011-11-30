@@ -19,8 +19,8 @@ TINY_LIMIT        = 3
 
 POSTAL_CODE       = "94108"
 
-# Enter your own credential to test the login
-PERSON_LOGIN      = "test@test.com"
+# You need to create this user on your localhost
+PERSON_LOGIN      = "test@example.com"
 PERSON_PASSWORD   = "testtest"
 
 PERSON_CREATE_FIRSTNAME = Faker::Name.first_name
@@ -400,7 +400,6 @@ describe "ThrillcallAPI" do
 
     context "accesing the person endpoint" do
       it "should get an existing person" do
-        # Don't forget to change the credentials at the top of the file
         p = @tc.person.signin.post(:login => PERSON_LOGIN, :password => PERSON_PASSWORD)
         p["login"].should == PERSON_LOGIN
       end
