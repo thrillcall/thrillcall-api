@@ -5,7 +5,7 @@
 
 module ThrillcallAPI
   class Result
-    attr_accessor :ran, :request_keys, :options, :set_methods
+    attr_accessor :ran, :request_keys, :options, :set_methods, :http_method
     attr_reader :data
     
     def initialize
@@ -22,6 +22,7 @@ module ThrillcallAPI
       @options                  = {}
       @request_keys             = []
       @set_methods              = []
+      @http_method              = :get
     end
     
     # Removes any dynamically defined methods
@@ -96,7 +97,7 @@ module ThrillcallAPI
     def fetch_data
       url = URI.escape(@request_keys.join("/"))
       
-      @data = ThrillcallAPI.get url, @options
+      @data = ThrillcallAPI.send(@http_method, url, @options)
       
       # Now we define the instance methods present in the data object
       # so that we can use this object *as if* we are using the data
@@ -104,6 +105,17 @@ module ThrillcallAPI
       reassign(@data)
       
       @ran = true
+    end
+    
+    def post(args = {})
+      if @ran
+        raise ArgumentError, "This request has already been made!"
+      else
+        @http_method = :post
+        @options.merge!(args)
+        fetch_data
+      end
+      @data
     end
     
     def method_missing(method, *args, &block)
