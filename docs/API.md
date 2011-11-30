@@ -96,6 +96,30 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     If set to _true_ or _1_, will not filter out events marked as rumored.
 
+- <a name="login" />**login** _string_
+
+    Required to authenticate/register a user.
+
+- <a name="password" />**password** _string (format: 40 >= length >= 5)_
+
+    Required to authenticate/register a user.
+
+- <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
+
+    Required to register a user.
+
+- <a name="last_name" />**last\_name** _string (format: 50 >= length >= 2)_
+
+    Optional for registering a user.
+
+- <a name="email" />**email** _string_
+
+    Required to register a user.
+
+- <a name="gender" />**gender** _string (format: length == 1)_
+
+    Optional for registering a user.
+
 ## Artists
 Fields:
 
@@ -120,6 +144,7 @@ Returns:  _Array_ of Artists _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "genre_tags": "O",
         "id": 1,
         "name": "Hyler Jones Proteges",
@@ -147,6 +172,7 @@ Returns:  Artist _Hash_
     // Example: GET /api/v2/artist/6468?api_key=1234567890abcdef
     
     {
+      "created_at": "2000-11-09T19:09:23Z",
       "genre_tags": "Rock",
       "id": 6468,
       "name": "Katy Perry",
@@ -182,6 +208,7 @@ Returns:  _Array_ of Events _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",        
         "end_date": null,
         "festival": false,
         "id": 855667,
@@ -218,6 +245,7 @@ Returns:  _Array_ of Artists _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "genre_tags": "Rock",
         "id": 6468,
         "name": "Katy Perry",
@@ -270,6 +298,7 @@ Returns:  _Array_ of Events _Hash_
     [
       {
         "bearing": "129",
+        "created_at": "2000-11-09T19:09:23Z",
         "distance": "0.10208889540143654",
         "end_date": null,
         "festival": false,
@@ -306,6 +335,7 @@ Returns:  Event _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "genre_tags": null,
         "id": 375669,
         "name": "The Magnetic Fields",
@@ -331,6 +361,7 @@ Returns:  _Array_ of Artists _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "genre_tags": "Rock",
         "id": 6468,
         "name": "Katy Perry",
@@ -358,6 +389,7 @@ Returns:  Venue _Hash_
       "address2": null,
       "city": "San Francisco",
       "country": "US",
+      "created_at": "2000-11-09T19:09:23Z",
       "id": 51886,
       "latitude": 37.777292,
       "longitude": -122.419779,
@@ -386,6 +418,7 @@ Returns:  _Array_ of Tickets _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "description": null,
         "event_id": 753419,
         "id": 456349,
@@ -423,6 +456,7 @@ Returns:  _Array_ of Genres _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "description": "Shawn Colvin, Loudon Wainwright III etc...",
         "id": 1,
         "name": "Folk",
@@ -448,6 +482,7 @@ Returns: Genre _Hash_
     // Example: GET /api/v2/genre/27?api_key=1234567890abcdef
     
     {
+        "created_at": "2000-11-09T19:09:23Z",
         "description": "Shawn Colvin, Loudon Wainwright III etc...",
         "id": 1,
         "name": "Folk",
@@ -471,6 +506,7 @@ Returns:  _Array_ of Artists _Hash_
 
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "end_date": null,
         "festival": false,
         "id": 855667,
@@ -521,6 +557,7 @@ Returns:  _Array_ of Metro Areas _Hash_
       {
         "city": "Seattle",
         "country": "US",
+        "created_at": "2000-11-09T19:09:23Z",
         "id": 1,
         "latitude": null,
         "longitude": null,
@@ -550,6 +587,7 @@ Returns:  Metro Area _Hash_
     {
         "city": "Seattle",
         "country": "US",
+        "created_at": "2000-11-09T19:09:23Z",
         "id": 1,
         "latitude": null,
         "longitude": null,
@@ -582,6 +620,7 @@ Returns:  _Array_ of Metro Areas _Hash_
     [
       {
         "bearing": "129",
+        "created_at": "2000-11-09T19:09:23Z",
         "distance": "0.10208889540143654",
         "end_date": null,
         "festival": false,
@@ -602,6 +641,68 @@ Returns:  _Array_ of Metro Areas _Hash_
       },
       ...
     ]
+```
+
+## Person
+Fields:
+
+- **first\_name**             _string_    First name of the Person
+- **gender**                  _string_    Gender of the Person
+- **id**                      _integer_   Thrillcall ID
+- **last\_name**              _string_    Last name of the Person
+- **login**                   _string_    Login of the Person
+- **created\_at**             _string_    ISO 8601 representation of the time this object was created
+- **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
+- **postalcode**              _string_    Postalcode of the Person
+
+### POST /person/signin
+Params:
+
+- **[login](#login)**
+- **[password](#password)**
+
+Returns: Person _Hash_
+
+``` js
+    // Example: POST /api/v2/person/signin
+    
+    {
+      "created_at": "2000-11-09T19:09:23Z",
+      "first_name": "John",
+      "gender": null,
+      "id": 49,
+      "last_name": "Do",
+      "login": "john@example.com",
+      "updated_at": "2011-11-09T19:09:23Z",
+      "postalcode": "94104"
+    }
+```
+
+### POST /person/signup
+Params:
+
+- **[first\_name](#first_name)**
+- **[last\_name](#last_name)**
+- **[gender](#gender)**
+- **[email](#email)**
+- **[password](#password)**
+- **[postalcode](#postalcode)**
+
+Returns: Person _Hash_
+
+``` js
+    // Example: POST /api/v2/person/signup
+    
+    {
+        "created_at": "2000-11-09T19:09:23Z",
+        "first_name": "John",
+        "gender": null,
+        "id": 49,
+        "last_name": "Do",
+        "login": "john@example.com",
+        "updated_at": "2011-11-09T19:09:23Z",
+        "postalcode": "94104"
+     }
 ```
 
 
@@ -644,6 +745,7 @@ Returns:  _Array_ of Venues _Hash_
         "address2": null,
         "city": "Guadalajara",
         "country": "MX",
+        "created_at": "2000-11-09T19:09:23Z",
         "id": 1,
         "latitude": null,
         "longitude": null,
@@ -679,6 +781,7 @@ Returns:  Venue _Hash_
       "address2": null,
       "city": "Raleigh",
       "country": "US",
+      "created_at": "2000-11-09T19:09:23Z",
       "id": 12345,
       "latitude": 35.716105,
       "longitude": -78.65734,
@@ -713,6 +816,7 @@ Returns:  _Array_ of Events _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",        
         "end_date": null,
         "festival": false,
         "id": 824614,
@@ -757,6 +861,7 @@ Returns:  _Array_ of Venues _Hash_
         "address2": null,
         "city": "Chandler",
         "country": "US",
+        "created_at": "2000-11-09T19:09:23Z",
         "id": 10843,
         "latitude": 33.237229,
         "longitude": -111.8004,
@@ -812,6 +917,7 @@ Returns:  _Array_ of Tickets _Hash_
     
     [
       {
+        "created_at": "2000-11-09T19:09:23Z",
         "description": null,
         "event_id": 455646,
         "id": 1,
@@ -845,6 +951,7 @@ Returns:  Ticket _Hash_
     // Example: GET /api/v2/ticket/12345?api_key=1234567890abcdef
     
     {
+      "created_at": "2000-11-09T19:09:23Z",
       "description": null,
       "event_id": 465757,
       "id": 12345,

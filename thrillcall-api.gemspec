@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "redcarpet",              "~> 1.17.2"
   s.add_development_dependency  "nokogiri",               "~> 1.4.6"
   s.add_development_dependency  "albino",                 "~> 1.3.3"
+  s.add_development_dependency  "faker",                  "~> 0.9.5"
   #s.add_development_dependency  "jekyll",                 "~> 0.10.0"
 
   s.add_dependency              "faraday",                "~> 0.7.0"

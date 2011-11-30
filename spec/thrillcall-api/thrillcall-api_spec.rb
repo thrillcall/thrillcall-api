@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'thrillcall-api'
 require 'ap'
+require 'faker'
 
 # Set to one of :development, :staging, :production
 TEST_ENV  = :development
@@ -17,6 +18,15 @@ LIMIT             = 14
 TINY_LIMIT        = 3
 
 POSTAL_CODE       = "94108"
+
+# Enter your own credential to test the login
+PERSON_LOGIN      = "test@test.com"
+PERSON_PASSWORD   = "testtest"
+
+PERSON_CREATE_FIRSTNAME = Faker::Name.first_name
+PERSON_CREATE_EMAIL = Faker::Internet.email
+PERSON_CREATE_PASSWORD = Faker::Lorem.words(2).join('')
+PERSON_CREATE_POSTALCODE = POSTAL_CODE
 
 FLUSH_CACHE       = true # false
 
@@ -385,6 +395,23 @@ describe "ThrillcallAPI" do
       it "should get a list of artists for a specific genre" do
         g = @tc.genre(@genre_id).artists
         g.first["primary_genre_id"].should == @genre_id
+      end
+    end
+
+    context "accesing the person endpoint" do
+      it "should get an existing person" do
+        # Don't forget to change the credentials at the top of the file
+        p = @tc.person.signin.post(:login => PERSON_LOGIN, :password => PERSON_PASSWORD)
+        p["login"].should == PERSON_LOGIN
+      end
+      
+      it "should create a person" do
+        p = @tc.person.signup.post(:first_name => PERSON_CREATE_FIRSTNAME,
+                                   :email => PERSON_CREATE_EMAIL,
+                                   :password => PERSON_CREATE_PASSWORD,
+                                   :postalcode => PERSON_CREATE_POSTALCODE,
+                                   :test => true)
+        p["login"].should == PERSON_CREATE_EMAIL
       end
     end
 

@@ -297,6 +297,36 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
 <p>If set to <em>true</em> or <em>1</em>, will not filter out events marked as rumored.</p>
 </li>
+<li>
+<p><a name="login"></a><strong>login</strong> <em>string</em></p>
+
+<p>Required to authenticate/register a user.</p>
+</li>
+<li>
+<p><a name="password"></a><strong>password</strong> <em>string (format: 40 &gt;= length &gt;= 5)</em></p>
+
+<p>Required to authenticate/register a user.</p>
+</li>
+<li>
+<p><a name="first_name"></a><strong>first_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
+
+<p>Required to register a user.</p>
+</li>
+<li>
+<p><a name="last_name"></a><strong>last_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
+
+<p>Optional for registering a user.</p>
+</li>
+<li>
+<p><a name="email"></a><strong>email</strong> <em>string</em></p>
+
+<p>Required to register a user.</p>
+</li>
+<li>
+<p><a name="gender"></a><strong>gender</strong> <em>string (format: length == 1)</em></p>
+
+<p>Optional for registering a user.</p>
+</li>
 </ul><h2>Artists</h2>
 
 <p>Fields:</p>
@@ -328,6 +358,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"O"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Hyler Jones Proteges"</span><span class="p">,</span>
@@ -358,6 +389,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <pre>    <span class="c1">// Example: GET /api/v2/artist/6468?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
       <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6468</span><span class="p">,</span>
       <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry"</span><span class="p">,</span>
@@ -396,6 +428,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>        
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">855667</span><span class="p">,</span>
@@ -435,6 +468,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6468</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry"</span><span class="p">,</span>
@@ -503,6 +537,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
     <span class="p">[</span>
       <span class="p">{</span>
         <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"129"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"distance"</span><span class="o">:</span> <span class="s2">"0.10208889540143654"</span><span class="p">,</span>
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -542,6 +577,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">375669</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Magnetic Fields"</span><span class="p">,</span>
@@ -570,6 +606,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6468</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry"</span><span class="p">,</span>
@@ -600,6 +637,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
       <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.777292</span><span class="p">,</span>
       <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.419779</span><span class="p">,</span>
@@ -631,6 +669,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">753419</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">456349</span><span class="p">,</span>
@@ -676,6 +715,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Shawn Colvin, Loudon Wainwright III etc..."</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Folk"</span><span class="p">,</span>
@@ -704,6 +744,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <pre>    <span class="c1">// Example: GET /api/v2/genre/27?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Shawn Colvin, Loudon Wainwright III etc..."</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Folk"</span><span class="p">,</span>
@@ -730,6 +771,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">855667</span><span class="p">,</span>
@@ -790,6 +832,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="p">{</span>
         <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Seattle"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -822,6 +865,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
     <span class="p">{</span>
         <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Seattle"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -857,6 +901,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
     <span class="p">[</span>
       <span class="p">{</span>
         <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"129"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"distance"</span><span class="o">:</span> <span class="s2">"0.10208889540143654"</span><span class="p">,</span>
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -877,6 +922,83 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="p">},</span>
       <span class="p">...</span>
     <span class="p">]</span>
+</pre>
+</div>
+
+
+<h2>Person</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>first_name</strong>             <em>string</em>    First name of the Person</li>
+<li>
+<strong>gender</strong>                  <em>string</em>    Gender of the Person</li>
+<li>
+<strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
+<li>
+<strong>last_name</strong>              <em>string</em>    Last name of the Person</li>
+<li>
+<strong>login</strong>                   <em>string</em>    Login of the Person</li>
+<li>
+<strong>created_at</strong>             <em>string</em>    ISO 8601 representation of the time this object was created</li>
+<li>
+<strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>postalcode</strong>              <em>string</em>    Postalcode of the Person</li>
+</ul><h3>POST /person/signin</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#login">login</a></strong></li>
+<li><strong><a href="#password">password</a></strong></li>
+</ul><p>Returns: Person <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: POST /api/v2/person/signin</span>
+
+    <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Do"</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>POST /person/signup</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#first_name">first_name</a></strong></li>
+<li><strong><a href="#last_name">last_name</a></strong></li>
+<li><strong><a href="#gender">gender</a></strong></li>
+<li><strong><a href="#email">email</a></strong></li>
+<li><strong><a href="#password">password</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+</ul><p>Returns: Person <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: POST /api/v2/person/signup</span>
+
+    <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+        <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
+        <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Do"</span><span class="p">,</span>
+        <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
+     <span class="p">}</span>
 </pre>
 </div>
 
@@ -934,6 +1056,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Guadalajara"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -971,6 +1094,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Raleigh"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span>
       <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">35.716105</span><span class="p">,</span>
       <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">78.65734</span><span class="p">,</span>
@@ -1008,6 +1132,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>        
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">824614</span><span class="p">,</span>
@@ -1055,6 +1180,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Chandler"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">10843</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">33.237229</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">111.8004</span><span class="p">,</span>
@@ -1126,6 +1252,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">455646</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -1162,6 +1289,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <pre>    <span class="c1">// Example: GET /api/v2/ticket/12345?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
       <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">465757</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span>
