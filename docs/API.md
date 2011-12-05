@@ -696,8 +696,10 @@ Fields:
 - **id**                      _integer_   Thrillcall ID
 - **last\_name**              _string_    Last name of the Person
 - **login**                   _string_    Login of the Person
-- **created\_at**             _string_    ISO 8601 representation of the time this object was created
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
+- **referral\_code**          _string_    Referral code of the Person
+- **referral\_code\_count**   _integer_   Number of Referral code used for the Person
+- **postalcode**              _string_    Postalcode of the Person
 - **postalcode**              _string_    Postalcode of the Person
 
 ### POST /person/signin
@@ -719,6 +721,8 @@ Returns: Person _Hash_
       "last_name": "Doe",
       "login": "john@example.com",
       "updated_at": "2011-11-09T19:09:23Z",
+      "referral_code": "fhskjfhk3j43h43hjkh",
+      "referral_code_count": 0,
       "postalcode": "94104"
     }
 ```
@@ -746,6 +750,8 @@ Returns: Person _Hash_
         "last_name": "Doe",
         "login": "john@example.com",
         "updated_at": "2011-11-09T19:09:23Z",
+        "referral_code": "fhskjfhk3j43h43hjkh",
+        "referral_code_count": 0,
         "postalcode": "94104"
      }
 ```
