@@ -1,13 +1,27 @@
 require 'spec_helper'
 require 'thrillcall-api'
 require 'ap'
+require 'faker'
 
 # Set to one of :development, :staging, :production
 TEST_ENV                  = :development
 
+# For the environment specified in TEST_ENV, you must have set a few system environment variables.
+# For example, if your TEST_ENV is :development, you need:
+# TC_DEVELOPMENT_API_KEY  : your API key
+# TC_DEVELOPMENT_LOGIN    : the login (email address) for the test account if testing the Person endpoint
+# TC_DEVELOPMENT_PASSWORD : the password for the test account if testing the Person endpoint
+
+# Place something like this in your bash_login script:
+# export TC_DEVELOPMENT_API_KEY="1234567890abcdef"
+# export TC_DEVELOPMENT_LOGIN="some_account@thrillcall.com"
+# export TC_DEVELOPMENT_PASSWORD="some_password"
+
+# You should not have to edit anything below this line.
+#####################################################################
+
 env_prefix = TEST_ENV.to_s.upcase
 
-# Get environment variables
 TEST_KEY                  = ENV["TC_#{env_prefix}_API_KEY"]
 PERSON_LOGIN              = ENV["TC_#{env_prefix}_LOGIN"]
 PERSON_PASSWORD           = ENV["TC_#{env_prefix}_PASSWORD"]

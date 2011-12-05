@@ -96,36 +96,44 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     If set to _true_ or _1_, will not filter out events marked as rumored.
 
-- <a name="login" />**login** _string_
+- <a name="primary_genre_id" />**primary\_genre\_id** _integer_
+    
+    _Default: none_
+    
+    If set, will filter Artist results to only those with the specified **[primary\_genre\_id](#primary_genre_id)**
 
+- <a name="login" />**login** _string_
+    
     Required to authenticate/register a user.
 
 - <a name="password" />**password** _string (format: 40 >= length >= 5)_
-
+    
     Required to authenticate/register a user.
 
 - <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
-
+    
     Required to register a user.
 
 - <a name="last_name" />**last\_name** _string (format: 50 >= length >= 2)_
-
+    
     Optional for registering a user.
 
 - <a name="email" />**email** _string_
-
+    
     Required to register a user.
 
 - <a name="gender" />**gender** _string (format: length == 1)_
-
+    
     Optional for registering a user.
 
 ## Artists
 Fields:
 
+- **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **genre\_tags**             _string_    Semicolon separated list of Genre names
 - **id**                      _integer_   Thrillcall ID
 - **name**                    _string_    Artist / Band Name
+- **primary\_genre\_id**      _integer_   The Thrillcall ID for this artist's primary Genre
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **url**                     _string_    URL for this object on Thrillcall
@@ -136,6 +144,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[primary\_genre\_id](#primary_genre_id)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -144,10 +153,11 @@ Returns:  _Array_ of Artists _Hash_
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",
+        "created_at": "2008-04-29T10:19:45Z",
         "genre_tags": "O",
         "id": 1,
         "name": "Hyler Jones Proteges",
+        "primary_genre_id": 61,
         "upcoming_events_count": 0,
         "updated_at": "2010-03-26T16:49:20Z",
         "url": "http://thrillcall.com/artist/Hyler_Jones_Proteges"
@@ -169,16 +179,17 @@ Params:
 Returns:  Artist _Hash_
 
 ``` js
-    // Example: GET /api/v2/artist/6468?api_key=1234567890abcdef
+    // Example: GET /api/v2/artist/4802?api_key=1234567890abcdef
     
     {
-      "created_at": "2000-11-09T19:09:23Z",
+      "created_at": "2008-04-28T18:56:09Z",
       "genre_tags": "Rock",
-      "id": 6468,
-      "name": "Katy Perry",
-      "upcoming_events_count": 68,
-      "updated_at": "2011-06-24T23:59:52Z",
-      "url": "http://thrillcall.com/artist/Katy_Perry"
+      "id": 4802,
+      "name": "The Sea and Cake",
+      "primary_genre_id": 27,
+      "upcoming_events_count": 8,
+      "updated_at": "2011-09-20T19:12:57Z",
+      "url": "http://thrillcall.com/artist/The_Sea_and_Cake"
     }
 ```
 
@@ -204,24 +215,28 @@ Params:
 Returns:  _Array_ of Events _Hash_
 
 ``` js
-    // Example: GET /api/v2/artist/6468/events?api_key=1234567890abcdef
+    // Example: GET /api/v2/artist/4802/events?api_key=1234567890abcdef
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",        
+        "created_at": "2011-06-23T23:10:31Z",
         "end_date": null,
         "festival": false,
-        "id": 855667,
-        "latitude": 34.0398,
-        "longitude": -118.266,
-        "name": "Katy Perry @ Staples Center",
+        "id": 862618,
+        "latitude": 30.2729,
+        "longitude": -97.7405,
+        "name": "The Sea and Cake @ The Mohawk",
+        "num_cancelled_bookings": 0,
+        "num_confirmed_bookings": 1,
+        "num_disabled_bookings": 0,
+        "num_unconfirmed_bookings": 0,
         "on_sale_date": null,
         "rumor": false,
-        "start_date": "2011-11-22",
+        "start_date": "2011-12-09T05:59:00Z",
         "unconfirmed_location": 0,
-        "updated_at": "2011-06-24T04:04:47Z",
-        "venue_id": 39782,
-        "url": "http://thrillcall.com/event/855667"
+        "updated_at": "2011-09-28T04:01:56Z",
+        "venue_id": 10116,
+        "url": "http://thrillcall.com/event/862618"
       },
       {
         ...
@@ -241,37 +256,47 @@ Params:
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v2/search/artists/katyperry?api_key=1234567890abcdef
+    // Example: GET /api/v2/search/artists/The%20Sea%20and%20Cake?api_key=1234567890abcdef
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",
+        "created_at": "2008-04-28T18:56:09Z",
         "genre_tags": "Rock",
-        "id": 6468,
-        "name": "Katy Perry",
-        "upcoming_events_count": 68,
-        "updated_at": "2011-06-24T23:59:52Z",
-        "url": "http://thrillcall.com/artist/Katy_Perry"
-      }
+        "id": 4802,
+        "name": "The Sea and Cake",
+        "primary_genre_id": 27,
+        "upcoming_events_count": 8,
+        "updated_at": "2011-09-20T19:12:57Z",
+        "url": "http://thrillcall.com/artist/The_Sea_and_Cake"
+      },
+      {
+        ...
+      },
+      ...
     ]
 ```
 
 ## Events
 Fields:
 
-- **end\_date**               _string_  ISO 8601 representation of the end of the Event
-- **festival**                _boolean_ Is this event a festival?
-- **id**                      _integer_ Thrillcall ID
-- **latitude**                _float_   Approximate latitude for the Event
-- **longitude**               _float_   Approximate longitude for the Event
-- **name**                    _string_  Name of the Event
-- **on\_sale\_date**          _string_  ISO 8601 representation of the date when tickets go on sale
-- **rumor**                   _boolean_ Are the details for this event based on a rumor?
-- **start\_date**             _string_  YYYY-MM-DD or, if time of day is known, ISO 8601 representation of the start of the Event
-- **unconfirmed\_location**   _integer_ If 1, the location if this event is unconfirmed
-- **updated\_at**             _string_  ISO 8601 representation of last time this object was updated
-- **venue\_id**               _integer_ Thrillcall Venue ID
-- **url**                     _string_  URL for this object on Thrillcall
+- **created\_at**                 _string_  ISO 8601 representation the time this object was created
+- **end\_date**                   _string_  ISO 8601 representation of the end of the Event
+- **festival**                    _boolean_ Is this event a festival?
+- **id**                          _integer_ Thrillcall ID
+- **latitude**                    _float_   Approximate latitude for the Event
+- **longitude**                   _float_   Approximate longitude for the Event
+- **name**                        _string_  Name of the Event
+- **num\_confirmed\_bookings**    _integer_ The number of confirmed Artist bookings for this event.  Only Artists with a confirmed booking are returned when requesting artists for an event.
+- **num\_unconfirmed\_bookings**  _integer_ The number of unconfirmed Artist bookings for this event
+- **num\_disabled\_bookings**     _integer_ The number of disabled Artist bookings for this event
+- **num\_cancelled\_bookings**    _integer_ The number of cancelled Artist bookings for this event
+- **on\_sale\_date**              _string_  ISO 8601 representation of the date when tickets go on sale
+- **rumor**                       _boolean_ Are the details for this event based on a rumor?
+- **start\_date**                 _string_  YYYY-MM-DD or, if time of day is known, ISO 8601 representation of the start of the Event
+- **unconfirmed\_location**       _integer_ If 1, the location if this event is unconfirmed
+- **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
+- **venue\_id**                   _integer_ Thrillcall Venue ID
+- **url**                         _string_  URL for this object on Thrillcall
 
 
 ### GET /events
@@ -293,26 +318,28 @@ Params:
 Returns:  _Array_ of Events _Hash_
 
 ``` js
-    // Example: GET /api/v2/events?limit=3&lat=37.782664&long=-122.410295&radius=0&api_key=1234567890abcdef
+    // Example: GET /api/v2/events?must_have_tickets=true&postalcode=94108&radius=10&limit=3&api_key=1234567890abcdef
     
     [
       {
-        "bearing": "129",
-        "created_at": "2000-11-09T19:09:23Z",
-        "distance": "0.10208889540143654",
+        "created_at": "2011-06-14T00:09:13Z",
         "end_date": null,
         "festival": false,
-        "id": 862237,
-        "latitude": 37.7816,
-        "longitude": -122.409,
-        "name": "Keith Murray @ Club SIX",
+        "id": 858707,
+        "latitude": 37.7951,
+        "longitude": -122.421,
+        "name": "The Sea and Cake @ Great American Music Hall",
+        "num_cancelled_bookings": 0,
+        "num_confirmed_bookings": 1,
+        "num_disabled_bookings": 0,
+        "num_unconfirmed_bookings": 0,
         "on_sale_date": null,
         "rumor": false,
-        "start_date": "2011-07-17T06:59:00Z",
+        "start_date": "2011-12-06T07:59:00Z",
         "unconfirmed_location": 0,
-        "updated_at": "2011-06-24T03:46:52Z",
-        "venue_id": 39476,
-        "url": "http://thrillcall.com/event/862237"
+        "updated_at": "2011-09-28T04:00:41Z",
+        "venue_id": 27418,
+        "url": "http://thrillcall.com/event/858707"
       },
       {
         ...
@@ -331,19 +358,28 @@ Params:
 Returns:  Event _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/753419/artists?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/858707?api_key=1234567890abcdef
     
-    [
-      {
-        "created_at": "2000-11-09T19:09:23Z",
-        "genre_tags": null,
-        "id": 375669,
-        "name": "The Magnetic Fields",
-        "upcoming_events_count": 0,
-        "updated_at": "2011-06-20T12:52:54Z",
-        "url": "http://thrillcall.com/artist/The_Magnetic_Fields"
-      }
-    ]
+    {
+      "created_at": "2011-06-14T00:09:13Z",
+      "end_date": null,
+      "festival": false,
+      "id": 858707,
+      "latitude": 37.7951,
+      "longitude": -122.421,
+      "name": "The Sea and Cake @ Great American Music Hall",
+      "num_cancelled_bookings": 0,
+      "num_confirmed_bookings": 1,
+      "num_disabled_bookings": 0,
+      "num_unconfirmed_bookings": 0,
+      "on_sale_date": null,
+      "rumor": false,
+      "start_date": "2011-12-06T07:59:00Z",
+      "unconfirmed_location": 0,
+      "updated_at": "2011-09-28T04:00:41Z",
+      "venue_id": 27418,
+      "url": "http://thrillcall.com/event/858707"
+    }
 ```
 
 ### GET /event/:id/artists
@@ -357,18 +393,23 @@ Params:
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/855667/artists?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/858707/artists?api_key=1234567890abcdef
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",
+        "created_at": "2008-04-28T18:56:09Z",
         "genre_tags": "Rock",
-        "id": 6468,
-        "name": "Katy Perry",
-        "upcoming_events_count": 68,
-        "updated_at": "2011-06-24T23:59:52Z",
-        "url": "http://thrillcall.com/artist/Katy_Perry"
-      }
+        "id": 4802,
+        "name": "The Sea and Cake",
+        "primary_genre_id": 27,
+        "upcoming_events_count": 8,
+        "updated_at": "2011-09-20T19:12:57Z",
+        "url": "http://thrillcall.com/artist/The_Sea_and_Cake"
+      },
+      {
+        ...
+      },
+      ...
     ]
 ```
 
@@ -382,23 +423,24 @@ Params:
 Returns:  Venue _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/831330/venue?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/858707/venue?api_key=1234567890abcdef
     
     {
-      "address1": "201 Van Ness Avenue",
+      "address1": "859 O'Farrell St.",
       "address2": null,
       "city": "San Francisco",
       "country": "US",
-      "created_at": "2000-11-09T19:09:23Z",
-      "id": 51886,
-      "latitude": 37.777292,
-      "longitude": -122.419779,
-      "name": "Davies Symphony Hall",
+      "created_at": "2008-04-21T16:52:31Z",
+      "id": 27418,
+      "latitude": 37.784796,
+      "longitude": -122.418819,
+      "name": "Great American Music Hall",
       "state": "CA",
-      "upcoming_events_count": 85,
-      "updated_at": "2011-02-20T02:15:48Z",
-      "postalcode": "94102",
-      "url": "http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"
+      "upcoming_events_count": 34,
+      "updated_at": "2011-01-20T21:04:37Z",
+      "postalcode": "94109",
+      "metro_area_id": 105,
+      "url": "http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"
     }
 ```
 
@@ -414,30 +456,35 @@ Params:
 Returns:  _Array_ of Tickets _Hash_
 
 ``` js
-    // Example: GET /api/v2/event/753419/tickets?api_key=1234567890abcdef
+    // Example: GET /api/v2/event/858707/tickets?api_key=1234567890abcdef
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",
+        "created_at": "2011-06-14T00:09:16Z",
         "description": null,
-        "event_id": 753419,
-        "id": 456349,
+        "event_id": 858707,
+        "id": 599794,
         "marketing_text": null,
-        "max_ticket_price": null,
+        "max_ticket_price": 21,
         "min_ticket_price": null,
-        "name": "Resale",
+        "name": "Gen. Admission Seating Limited",
         "on_sale_end_date": null,
         "on_sale_start_date": null,
         "seat_info": null,
-        "updated_at": "2011-01-19T22:28:24Z",
-        "url": "/event/ticketnetwork_tickets/753419"
-      }
+        "updated_at": "2011-06-14T00:09:16Z",
+        "url": "http://tickets.gamh.com/evinfo.php?eventid=154723&amp;r=affi&amp;u=210785"
+      },
+      {
+        ...
+      },
+      ...
     ]
 ```
 
 ## Genre
 Fields:
 
+- **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **description**             _string_    Description of the Genre
 - **id**                      _integer_   Thrillcall ID
 - **name**                    _string_    Name of the Genre
@@ -456,11 +503,11 @@ Returns:  _Array_ of Genres _Hash_
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",
+        "created_at": "2008-07-09T19:17:45Z",
         "description": "Shawn Colvin, Loudon Wainwright III etc...",
-        "id": 1,
+        "id": 6,
         "name": "Folk",
-        "updated_at": "2010-03-28T17:24:20Z"
+        "updated_at": "2010-03-25T23:51:55Z"
       },
       {
         ...
@@ -470,11 +517,11 @@ Returns:  _Array_ of Genres _Hash_
 ```
 
 ### GET /genre/:id
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall ID
 
 Params:
 
-- **[use\_partner\_id](#use_partner_id)**
+- None
 
 Returns: Genre _Hash_
 
@@ -482,44 +529,37 @@ Returns: Genre _Hash_
     // Example: GET /api/v2/genre/27?api_key=1234567890abcdef
     
     {
-        "created_at": "2000-11-09T19:09:23Z",
-        "description": "Shawn Colvin, Loudon Wainwright III etc...",
-        "id": 1,
-        "name": "Folk",
-        "updated_at": "2010-03-28T17:24:20Z"
-     }
+      "created_at": "2008-07-09T19:17:45Z",
+      "description": "U2, 30 Seconds To Mars etc...",
+      "id": 27,
+      "name": "Rock",
+      "updated_at": "2010-03-25T23:52:21Z"
+    }
 ```
 
 ### GET /genre/:id/artists
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall ID
 
 Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
-- **[use\_partner\_id](#use_partner_id)**
 
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
     // Example: GET /api/v2/genre/27/artists?api_key=1234567890abcdef
-
+    
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",
-        "end_date": null,
-        "festival": false,
-        "id": 855667,
-        "latitude": 34.0398,
-        "longitude": -118.266,
-        "name": "Katy Perry @ Staples Center",
-        "on_sale_date": null,
-        "rumor": false,
-        "start_date": "2011-11-22",
-        "unconfirmed_location": 0,
-        "updated_at": "2011-06-24T04:04:47Z",
-        "venue_id": 39782,
-        "url": "http://thrillcall.com/event/855667"
+        "created_at": "2008-04-29T10:06:05Z",
+        "genre_tags": "Folk;Other;psychedelic",
+        "id": 2,
+        "name": "Espers",
+        "primary_genre_id": 27,
+        "upcoming_events_count": 1,
+        "updated_at": "2011-01-03T22:14:36Z",
+        "url": "http://thrillcall.com/artist/Espers"
       },
       {
         ...
@@ -528,19 +568,19 @@ Returns:  _Array_ of Artists _Hash_
     ]
 ```
 
-
 ## Metro Area
 Fields:
 
 - **city**                    _string_    City of the Metro Area
 - **country**                 _string_    Country of the Metro Area
+- **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **id**                      _integer_   Thrillcall ID
 - **latitude**                _float_     Latitude of the Metro Area
 - **longitude**               _float_     Longitude of the Metro Area
+- **radius**                  _integer_   Radius of the Metro Area from the Lat/Long center
 - **state**                   _string_    State of the Metro Area
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **url**                     _string_    URL for this object on Thrillcall
-
 
 ### GET /metro_areas
 Params:
@@ -555,15 +595,16 @@ Returns:  _Array_ of Metro Areas _Hash_
     
     [
       {
-        "city": "Seattle",
+        "city": "Chicago",
         "country": "US",
-        "created_at": "2000-11-09T19:09:23Z",
-        "id": 1,
-        "latitude": null,
-        "longitude": null,
-        "state": "WA",
-        "updated_at": "2010-03-28T17:24:20Z",
-        "url": "http://thrillcall.com/live-music/seattle"
+        "created_at": "2011-06-24T03:23:57Z",
+        "id": 104,
+        "latitude": 41.8842,
+        "longitude": -87.6324,
+        "radius": 50,
+        "state": "IL",
+        "updated_at": "2011-07-05T23:11:24Z",
+        "url": "http://thrillcall.com/live-music/chicago"
       },
       {
         ...
@@ -573,32 +614,33 @@ Returns:  _Array_ of Metro Areas _Hash_
 ```
 
 ### GET /metro_area/:id
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall ID
 
 Params:
 
-- **[use\_partner\_id](#use_partner_id)**
+- None
 
 Returns:  Metro Area _Hash_
 
 ``` js
-    // Example: GET /api/v2/metro_area/104?api_key=1234567890abcdef
+    // Example: GET /api/v2/metro_area/105?api_key=1234567890abcdef
     
     {
-        "city": "Seattle",
-        "country": "US",
-        "created_at": "2000-11-09T19:09:23Z",
-        "id": 1,
-        "latitude": null,
-        "longitude": null,
-        "state": "WA",
-        "updated_at": "2010-03-28T17:24:20Z",
-        "url": "http://thrillcall.com/live-music/seattle"
-      }
+      "city": "San Francisco",
+      "country": "US",
+      "created_at": "2011-06-24T03:23:57Z",
+      "id": 105,
+      "latitude": 37.7771,
+      "longitude": -122.42,
+      "radius": 50,
+      "state": "CA",
+      "updated_at": "2011-07-05T23:11:24Z",
+      "url": "http://thrillcall.com/live-music/san-francisco"
+    }
 ```
 
 ### GET /metro_area/:id/events
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall ID
 
 Params:
 
@@ -606,7 +648,7 @@ Params:
 - **[page](#page)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
-- **[use\_partner\_id](#use_partner_id)**
+- **[radius](#radius)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
@@ -615,26 +657,28 @@ Params:
 Returns:  _Array_ of Metro Areas _Hash_
 
 ``` js
-    // Example: GET /api/v2/metro_area/104/events?api_key=1234567890abcdef
+    // Example: GET /api/v2/metro_area/105/events?api_key=1234567890abcdef
     
     [
       {
-        "bearing": "129",
-        "created_at": "2000-11-09T19:09:23Z",
-        "distance": "0.10208889540143654",
+        "created_at": "2011-04-24T02:12:09Z",
         "end_date": null,
         "festival": false,
-        "id": 862237,
-        "latitude": 37.7816,
-        "longitude": -122.409,
-        "name": "Keith Murray @ Club SIX",
+        "id": 831330,
+        "latitude": 37.7794,
+        "longitude": -122.418,
+        "name": "Philadelphia Orchestra @ Davies Symphony Hall",
+        "num_cancelled_bookings": 0,
+        "num_confirmed_bookings": 1,
+        "num_disabled_bookings": 0,
+        "num_unconfirmed_bookings": 0,
         "on_sale_date": null,
         "rumor": false,
-        "start_date": "2011-07-17T06:59:00Z",
+        "start_date": "2012-06-11T06:59:00Z",
         "unconfirmed_location": 0,
-        "updated_at": "2011-06-24T03:46:52Z",
-        "venue_id": 39476,
-        "url": "http://thrillcall.com/event/862237"
+        "updated_at": "2011-09-28T03:51:22Z",
+        "venue_id": 51886,
+        "url": "http://thrillcall.com/event/831330"
       },
       {
         ...
@@ -646,6 +690,7 @@ Returns:  _Array_ of Metro Areas _Hash_
 ## Person
 Fields:
 
+- **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **first\_name**             _string_    First name of the Person
 - **gender**                  _string_    Gender of the Person
 - **id**                      _integer_   Thrillcall ID
@@ -671,7 +716,7 @@ Returns: Person _Hash_
       "first_name": "John",
       "gender": null,
       "id": 49,
-      "last_name": "Do",
+      "last_name": "Doe",
       "login": "john@example.com",
       "updated_at": "2011-11-09T19:09:23Z",
       "postalcode": "94104"
@@ -698,7 +743,7 @@ Returns: Person _Hash_
         "first_name": "John",
         "gender": null,
         "id": 49,
-        "last_name": "Do",
+        "last_name": "Doe",
         "login": "john@example.com",
         "updated_at": "2011-11-09T19:09:23Z",
         "postalcode": "94104"
@@ -713,10 +758,12 @@ Fields:
 - **address2**                _string_    Second address field for the Venue
 - **city**                    _string_    City the Venue is in
 - **country**                 _string_    Country the Venue is in
+- **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **id**                      _integer_   Thrillcall ID
 - **latitude**                _float_     Approximate Latitude for the Venue
 - **longitude**               _float_     Approximate Longitude for the Venue
 - **name**                    _string_    Name of the Venue
+- **metro\_area\_id**         _integer_   Thrillcall ID of the Metro Area this Venue is in, if any
 - **state**                   _string_    State the Venue is in
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
@@ -774,23 +821,24 @@ Params:
 Returns:  Venue _Hash_
 
 ``` js
-    // Example: GET /api/v2/venue/12345?api_key=1234567890abcdef
+    // Example: GET /api/v2/venue/27418?api_key=1234567890abcdef
     
     {
-      "address1": null,
+      "address1": "859 O'Farrell St.",
       "address2": null,
-      "city": "Raleigh",
+      "city": "San Francisco",
       "country": "US",
-      "created_at": "2000-11-09T19:09:23Z",
-      "id": 12345,
-      "latitude": 35.716105,
-      "longitude": -78.65734,
-      "name": "Record Exchange",
-      "state": "NC",
-      "upcoming_events_count": 0,
-      "updated_at": "2011-06-24T03:46:01Z",
-      "postalcode": "27603",
-      "url": "http://thrillcall.com/venue/Record_Exchange_in_Raleigh_NC"
+      "created_at": "2008-04-21T16:52:31Z",
+      "id": 27418,
+      "latitude": 37.784796,
+      "longitude": -122.418819,
+      "name": "Great American Music Hall",
+      "state": "CA",
+      "upcoming_events_count": 34,
+      "updated_at": "2011-01-20T21:04:37Z",
+      "postalcode": "94109",
+      "metro_area_id": 105,
+      "url": "http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"
     }
 ```
 
@@ -816,7 +864,7 @@ Returns:  _Array_ of Events _Hash_
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",        
+        "created_at": "2000-11-09T19:09:23Z",
         "end_date": null,
         "festival": false,
         "id": 824614,
@@ -853,24 +901,25 @@ Params:
 Returns:  _Array_ of Venues _Hash_
 
 ``` js
-    // Example: GET /api/v2/search/venues/recordexchange?api_key=1234567890abcdef
+    // Example: GET /api/v2/search/venues/Great%20American%20Music%20Hall?api_key=1234567890abcdef
     
     [
       {
-        "address1": null,
+        "address1": "859 O'Farrell St.",
         "address2": null,
-        "city": "Chandler",
+        "city": "San Francisco",
         "country": "US",
-        "created_at": "2000-11-09T19:09:23Z",
-        "id": 10843,
-        "latitude": 33.237229,
-        "longitude": -111.8004,
-        "name": "Zia Record Exchange",
-        "state": "AZ",
-        "upcoming_events_count": 0,
-        "updated_at": "2011-06-24T03:45:46Z",
-        "postalcode": "85249",
-        "url": "http://thrillcall.com/venue/Zia_Record_Exchange_in_Chandler_AZ"
+        "created_at": "2008-04-21T16:52:31Z",
+        "id": 27418,
+        "latitude": 37.784796,
+        "longitude": -122.418819,
+        "name": "Great American Music Hall",
+        "state": "CA",
+        "upcoming_events_count": 34,
+        "updated_at": "2011-01-20T21:04:37Z",
+        "postalcode": "94109",
+        "metro_area_id": 105,
+        "url": "http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"
       },
       {
         ...
@@ -882,6 +931,7 @@ Returns:  _Array_ of Venues _Hash_
 ## Tickets
 Fields:
 
+- **created\_at**            _string_   ISO 8601 representation the time this object was created
 - **description**            _string_   Long form description of the ticket
 - **event\_id**              _integer_  Thrillcall Event ID
 - **id**                     _integer_  Thrillcall ID
@@ -917,7 +967,7 @@ Returns:  _Array_ of Tickets _Hash_
     
     [
       {
-        "created_at": "2000-11-09T19:09:23Z",
+        "created_at": "2008-12-06T00:19:59Z",
         "description": null,
         "event_id": 455646,
         "id": 1,
@@ -948,21 +998,21 @@ Params:
 Returns:  Ticket _Hash_
 
 ``` js
-    // Example: GET /api/v2/ticket/12345?api_key=1234567890abcdef
+    // Example: GET /api/v2/ticket/599794?api_key=1234567890abcdef
     
     {
-      "created_at": "2000-11-09T19:09:23Z",
+      "created_at": "2011-06-14T00:09:16Z",
       "description": null,
-      "event_id": 465757,
-      "id": 12345,
+      "event_id": 858707,
+      "id": 599794,
       "marketing_text": null,
-      "max_ticket_price": null,
+      "max_ticket_price": 21,
       "min_ticket_price": null,
-      "name": "Resale",
+      "name": "Gen. Admission Seating Limited",
       "on_sale_end_date": null,
       "on_sale_start_date": null,
       "seat_info": null,
-      "updated_at": "2009-02-05T19:51:27Z",
-      "url": "http://www.ticketcity.com/concert-tickets/world-music-tickets/celtic-woman-tickets/celtic-woman-tickets-nokia-live-april-18-8-00pm.html"
+      "updated_at": "2011-06-14T00:09:16Z",
+      "url": "http://tickets.gamh.com/evinfo.php?eventid=154723&amp;r=affi&amp;u=210785"
     }
 ```

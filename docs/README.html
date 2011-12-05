@@ -298,6 +298,13 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>If set to <em>true</em> or <em>1</em>, will not filter out events marked as rumored.</p>
 </li>
 <li>
+<p><a name="primary_genre_id"></a><strong>primary_genre_id</strong> <em>integer</em></p>
+
+<p><em>Default: none</em></p>
+
+<p>If set, will filter Artist results to only those with the specified <strong><a href="#primary_genre_id">primary_genre_id</a></strong></p>
+</li>
+<li>
 <p><a name="login"></a><strong>login</strong> <em>string</em></p>
 
 <p>Required to authenticate/register a user.</p>
@@ -333,11 +340,15 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
 <ul>
 <li>
+<strong>created_at</strong>             <em>string</em>    ISO 8601 representation the time this object was created</li>
+<li>
 <strong>genre_tags</strong>             <em>string</em>    Semicolon separated list of Genre names</li>
 <li>
 <strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
 <li>
 <strong>name</strong>                    <em>string</em>    Artist / Band Name</li>
+<li>
+<strong>primary_genre_id</strong>      <em>integer</em>   The Thrillcall ID for this artist's primary Genre</li>
 <li>
 <strong>upcoming_events_count</strong> <em>integer</em>   Number of upcoming events associated with this object</li>
 <li>
@@ -351,6 +362,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#primary_genre_id">primary_genre_id</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
@@ -358,10 +370,11 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:19:45Z"</span><span class="p">,</span>
         <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"O"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Hyler Jones Proteges"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
         <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-26T16:49:20Z"</span><span class="p">,</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Hyler_Jones_Proteges"</span>
@@ -386,16 +399,17 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/artist/6468?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/artist/4802?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T18:56:09Z"</span><span class="p">,</span>
       <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6468</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">68</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T23:59:52Z"</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Katy_Perry"</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4802</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake"</span><span class="p">,</span>
+      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-20T19:12:57Z"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/The_Sea_and_Cake"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -424,24 +438,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/artist/6468/events?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/artist/4802/events?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>        
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-23T23:10:31Z"</span><span class="p">,</span>
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">855667</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">34.0398</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">118.266</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry @ Staples Center"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">862618</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">30.2729</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">97.7405</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake @ The Mohawk"</span><span class="p">,</span>
+        <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-11-22"</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-12-09T05:59:00Z"</span><span class="p">,</span>
         <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T04:04:47Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">39782</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/855667"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T04:01:56Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">10116</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/862618"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -464,18 +482,23 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/search/artists/katyperry?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/search/artists/The%20Sea%20and%20Cake?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T18:56:09Z"</span><span class="p">,</span>
         <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6468</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry"</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">68</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T23:59:52Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Katy_Perry"</span>
-      <span class="p">}</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4802</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-20T19:12:57Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/The_Sea_and_Cake"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
     <span class="p">]</span>
 </pre>
 </div>
@@ -487,31 +510,41 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
 <ul>
 <li>
-<strong>end_date</strong>               <em>string</em>  ISO 8601 representation of the end of the Event</li>
+<strong>created_at</strong>                 <em>string</em>  ISO 8601 representation the time this object was created</li>
 <li>
-<strong>festival</strong>                <em>boolean</em> Is this event a festival?</li>
+<strong>end_date</strong>                   <em>string</em>  ISO 8601 representation of the end of the Event</li>
 <li>
-<strong>id</strong>                      <em>integer</em> Thrillcall ID</li>
+<strong>festival</strong>                    <em>boolean</em> Is this event a festival?</li>
 <li>
-<strong>latitude</strong>                <em>float</em>   Approximate latitude for the Event</li>
+<strong>id</strong>                          <em>integer</em> Thrillcall ID</li>
 <li>
-<strong>longitude</strong>               <em>float</em>   Approximate longitude for the Event</li>
+<strong>latitude</strong>                    <em>float</em>   Approximate latitude for the Event</li>
 <li>
-<strong>name</strong>                    <em>string</em>  Name of the Event</li>
+<strong>longitude</strong>                   <em>float</em>   Approximate longitude for the Event</li>
 <li>
-<strong>on_sale_date</strong>          <em>string</em>  ISO 8601 representation of the date when tickets go on sale</li>
+<strong>name</strong>                        <em>string</em>  Name of the Event</li>
 <li>
-<strong>rumor</strong>                   <em>boolean</em> Are the details for this event based on a rumor?</li>
+<strong>num_confirmed_bookings</strong>    <em>integer</em> The number of confirmed Artist bookings for this event.  Only Artists with a confirmed booking are returned when requesting artists for an event.</li>
 <li>
-<strong>start_date</strong>             <em>string</em>  YYYY-MM-DD or, if time of day is known, ISO 8601 representation of the start of the Event</li>
+<strong>num_unconfirmed_bookings</strong>  <em>integer</em> The number of unconfirmed Artist bookings for this event</li>
 <li>
-<strong>unconfirmed_location</strong>   <em>integer</em> If 1, the location if this event is unconfirmed</li>
+<strong>num_disabled_bookings</strong>     <em>integer</em> The number of disabled Artist bookings for this event</li>
 <li>
-<strong>updated_at</strong>             <em>string</em>  ISO 8601 representation of last time this object was updated</li>
+<strong>num_cancelled_bookings</strong>    <em>integer</em> The number of cancelled Artist bookings for this event</li>
 <li>
-<strong>venue_id</strong>               <em>integer</em> Thrillcall Venue ID</li>
+<strong>on_sale_date</strong>              <em>string</em>  ISO 8601 representation of the date when tickets go on sale</li>
 <li>
-<strong>url</strong>                     <em>string</em>  URL for this object on Thrillcall</li>
+<strong>rumor</strong>                       <em>boolean</em> Are the details for this event based on a rumor?</li>
+<li>
+<strong>start_date</strong>                 <em>string</em>  YYYY-MM-DD or, if time of day is known, ISO 8601 representation of the start of the Event</li>
+<li>
+<strong>unconfirmed_location</strong>       <em>integer</em> If 1, the location if this event is unconfirmed</li>
+<li>
+<strong>updated_at</strong>                 <em>string</em>  ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>venue_id</strong>                   <em>integer</em> Thrillcall Venue ID</li>
+<li>
+<strong>url</strong>                         <em>string</em>  URL for this object on Thrillcall</li>
 </ul><h3>GET /events</h3>
 
 <p>Params:</p>
@@ -532,26 +565,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/events?limit=3&amp;lat=37.782664&amp;long=-122.410295&amp;radius=0&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/events?must_have_tickets=true&amp;postalcode=94108&amp;radius=10&amp;limit=3&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"129"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"distance"</span><span class="o">:</span> <span class="s2">"0.10208889540143654"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:13Z"</span><span class="p">,</span>
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">862237</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7816</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.409</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Keith Murray @ Club SIX"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7951</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.421</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake @ Great American Music Hall"</span><span class="p">,</span>
+        <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-07-17T06:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-12-06T07:59:00Z"</span><span class="p">,</span>
         <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:46:52Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">39476</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/862237"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T04:00:41Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/858707"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -573,19 +608,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Event <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/753419/artists?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/event/858707?api_key=1234567890abcdef</span>
 
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">375669</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Magnetic Fields"</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-20T12:52:54Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/The_Magnetic_Fields"</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
+    <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:13Z"</span><span class="p">,</span>
+      <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7951</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.421</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake @ Great American Music Hall"</span><span class="p">,</span>
+      <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-12-06T07:59:00Z"</span><span class="p">,</span>
+      <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T04:00:41Z"</span><span class="p">,</span>
+      <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/858707"</span>
+    <span class="p">}</span>
 </pre>
 </div>
 
@@ -602,18 +646,23 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/855667/artists?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/event/858707/artists?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T18:56:09Z"</span><span class="p">,</span>
         <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6468</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry"</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">68</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T23:59:52Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Katy_Perry"</span>
-      <span class="p">}</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4802</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-20T19:12:57Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/The_Sea_and_Cake"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
     <span class="p">]</span>
 </pre>
 </div>
@@ -630,23 +679,24 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/831330/venue?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/event/858707/venue?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"201 Van Ness Avenue"</span><span class="p">,</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"859 O'Farrell St."</span><span class="p">,</span>
       <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.777292</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.419779</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Davies Symphony Hall"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:31Z"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.784796</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418819</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Great American Music Hall"</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">85</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-02-20T02:15:48Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94102"</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">34</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-20T21:04:37Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94109"</span><span class="p">,</span>
+      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -665,24 +715,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/753419/tickets?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/event/858707/tickets?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">753419</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">456349</span><span class="p">,</span>
+        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">599794</span><span class="p">,</span>
         <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
         <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Resale"</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Gen. Admission Seating Limited"</span><span class="p">,</span>
         <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-19T22:28:24Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"/event/ticketnetwork_tickets/753419"</span>
-      <span class="p">}</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://tickets.gamh.com/evinfo.php?eventid=154723&amp;amp;r=affi&amp;amp;u=210785"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
     <span class="p">]</span>
 </pre>
 </div>
@@ -693,6 +747,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Fields:</p>
 
 <ul>
+<li>
+<strong>created_at</strong>             <em>string</em>    ISO 8601 representation the time this object was created</li>
 <li>
 <strong>description</strong>             <em>string</em>    Description of the Genre</li>
 <li>
@@ -715,11 +771,11 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Shawn Colvin, Loudon Wainwright III etc..."</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Folk"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:51:55Z"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -732,38 +788,37 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
 <h3>GET /genre/:id</h3>
 
-<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
 
 <p>Params:</p>
 
 <ul>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li>None</li>
 </ul><p>Returns: Genre <em>Hash</em></p>
 
 <div class="highlight">
 <pre>    <span class="c1">// Example: GET /api/v2/genre/27?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Shawn Colvin, Loudon Wainwright III etc..."</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Folk"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span>
-     <span class="p">}</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
+      <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"U2, 30 Seconds To Mars etc..."</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:52:21Z"</span>
+    <span class="p">}</span>
 </pre>
 </div>
 
 
 <h3>GET /genre/:id/artists</h3>
 
-<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
 
 <p>Params:</p>
 
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
@@ -771,20 +826,14 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">855667</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">34.0398</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">118.266</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Katy Perry @ Staples Center"</span><span class="p">,</span>
-        <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-11-22"</span><span class="p">,</span>
-        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T04:04:47Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">39782</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/855667"</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:06:05Z"</span><span class="p">,</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Folk;Other;psychedelic"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Espers"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-03T22:14:36Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Espers"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -805,11 +854,15 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <strong>country</strong>                 <em>string</em>    Country of the Metro Area</li>
 <li>
+<strong>created_at</strong>             <em>string</em>    ISO 8601 representation the time this object was created</li>
+<li>
 <strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
 <li>
 <strong>latitude</strong>                <em>float</em>     Latitude of the Metro Area</li>
 <li>
 <strong>longitude</strong>               <em>float</em>     Longitude of the Metro Area</li>
+<li>
+<strong>radius</strong>                  <em>integer</em>   Radius of the Metro Area from the Lat/Long center</li>
 <li>
 <strong>state</strong>                   <em>string</em>    State of the Metro Area</li>
 <li>
@@ -830,15 +883,16 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Seattle"</span><span class="p">,</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Chicago"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"WA"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/seattle"</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:23:57Z"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">104</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">41.8842</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">87.6324</span><span class="p">,</span>
+        <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"IL"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-07-05T23:11:24Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/chicago"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -851,35 +905,36 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
 <h3>GET /metro_area/:id</h3>
 
-<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
 
 <p>Params:</p>
 
 <ul>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li>None</li>
 </ul><p>Returns:  Metro Area <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/metro_area/104?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/metro_area/105?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Seattle"</span><span class="p">,</span>
-        <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"WA"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/seattle"</span>
-      <span class="p">}</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
+      <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:23:57Z"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7771</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.42</span><span class="p">,</span>
+      <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-07-05T23:11:24Z"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/san-francisco"</span>
+    <span class="p">}</span>
 </pre>
 </div>
 
 
 <h3>GET /metro_area/:id/events</h3>
 
-<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
 
 <p>Params:</p>
 
@@ -888,7 +943,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#page">page</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
@@ -896,26 +951,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/metro_area/104/events?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/metro_area/105/events?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"129"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"distance"</span><span class="o">:</span> <span class="s2">"0.10208889540143654"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-04-24T02:12:09Z"</span><span class="p">,</span>
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">862237</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7816</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.409</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Keith Murray @ Club SIX"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">831330</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7794</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Philadelphia Orchestra @ Davies Symphony Hall"</span><span class="p">,</span>
+        <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-07-17T06:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2012-06-11T06:59:00Z"</span><span class="p">,</span>
         <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:46:52Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">39476</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/862237"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T03:51:22Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/831330"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -931,6 +988,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Fields:</p>
 
 <ul>
+<li>
+<strong>created_at</strong>             <em>string</em>    ISO 8601 representation the time this object was created</li>
 <li>
 <strong>first_name</strong>             <em>string</em>    First name of the Person</li>
 <li>
@@ -964,7 +1023,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
       <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Do"</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
       <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
@@ -994,7 +1053,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
         <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-        <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Do"</span><span class="p">,</span>
+        <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
         <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
@@ -1017,6 +1076,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <strong>country</strong>                 <em>string</em>    Country the Venue is in</li>
 <li>
+<strong>created_at</strong>             <em>string</em>    ISO 8601 representation the time this object was created</li>
+<li>
 <strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
 <li>
 <strong>latitude</strong>                <em>float</em>     Approximate Latitude for the Venue</li>
@@ -1024,6 +1085,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <strong>longitude</strong>               <em>float</em>     Approximate Longitude for the Venue</li>
 <li>
 <strong>name</strong>                    <em>string</em>    Name of the Venue</li>
+<li>
+<strong>metro_area_id</strong>         <em>integer</em>   Thrillcall ID of the Metro Area this Venue is in, if any</li>
 <li>
 <strong>state</strong>                   <em>string</em>    State the Venue is in</li>
 <li>
@@ -1087,23 +1150,24 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/venue/12345?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/venue/27418?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"859 O'Farrell St."</span><span class="p">,</span>
       <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Raleigh"</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">35.716105</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">78.65734</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Record Exchange"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"NC"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:46:01Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"27603"</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Record_Exchange_in_Raleigh_NC"</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:31Z"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.784796</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418819</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Great American Music Hall"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">34</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-20T21:04:37Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94109"</span><span class="p">,</span>
+      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1132,7 +1196,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>        
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
         <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">824614</span><span class="p">,</span>
@@ -1172,24 +1236,25 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/search/venues/recordexchange?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/search/venues/Great%20American%20Music%20Hall?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"859 O'Farrell St."</span><span class="p">,</span>
         <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Chandler"</span><span class="p">,</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">10843</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">33.237229</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">111.8004</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Zia Record Exchange"</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"AZ"</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:45:46Z"</span><span class="p">,</span>
-        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"85249"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Zia_Record_Exchange_in_Chandler_AZ"</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:31Z"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.784796</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418819</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Great American Music Hall"</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">34</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-20T21:04:37Z"</span><span class="p">,</span>
+        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94109"</span><span class="p">,</span>
+        <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1205,6 +1270,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Fields:</p>
 
 <ul>
+<li>
+<strong>created_at</strong>            <em>string</em>   ISO 8601 representation the time this object was created</li>
 <li>
 <strong>description</strong>            <em>string</em>   Long form description of the ticket</li>
 <li>
@@ -1252,7 +1319,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-12-06T00:19:59Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">455646</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -1286,22 +1353,22 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Ticket <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/ticket/12345?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v2/ticket/599794?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
       <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">465757</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12345</span><span class="p">,</span>
+      <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">599794</span><span class="p">,</span>
       <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
       <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Resale"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Gen. Admission Seating Limited"</span><span class="p">,</span>
       <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2009-02-05T19:51:27Z"</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://www.ticketcity.com/concert-tickets/world-music-tickets/celtic-woman-tickets/celtic-woman-tickets-nokia-live-april-18-8-00pm.html"</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://tickets.gamh.com/evinfo.php?eventid=154723&amp;amp;r=affi&amp;amp;u=210785"</span>
     <span class="p">}</span>
 </pre>
 </div>
