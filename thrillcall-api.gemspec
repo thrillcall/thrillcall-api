@@ -5,11 +5,11 @@ Gem::Specification.new do |s|
   s.name        = "thrillcall-api"
   s.version     = ThrillcallAPI::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Dan Healy"]
-  s.email       = ["dan@thrillcall.com"]
-  s.homepage    = "http://rubygems.org/gems/thrillcall-api"
-  s.summary     = "Simple wrapper around http://www.thrillcall.com's API"
-  s.description = "Simple wrapper around http://www.thrillcall.com's API"
+  s.authors     = ["Dan Healy", "Eddy Kang", "Glenn Rempe"]
+  s.email       = ["github@thrillcall.com"]
+  s.homepage    = "https://github.com/thrillcall/thrillcall-api"
+  s.summary     = "Simple wrapper around http://thrillcall.com's API"
+  s.description = "Simple wrapper around http://thrillcall.com's API"
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "thrillcall-api"
@@ -25,12 +25,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "nokogiri",               "~> 1.4.6"
   s.add_development_dependency  "albino",                 "~> 1.3.3"
   s.add_development_dependency  "faker",                  "~> 0.9.5"
-  #s.add_development_dependency  "jekyll",                 "~> 0.10.0"
 
   s.add_dependency              "faraday",                "~> 0.7.0"
-  #s.add_dependency              "faraday_middleware",     "~> 0.6.3"
-  #s.add_dependency              "multi_json",             "~> 1.0.3"
-  #s.add_dependency              "hashie",                 "~> 1.0.0"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
