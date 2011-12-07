@@ -8,14 +8,24 @@ TEST_ENV                  = :development
 
 # For the environment specified in TEST_ENV, you must have set a few system environment variables.
 # For example, if your TEST_ENV is :development, you need:
-# TC_DEVELOPMENT_API_KEY  : your API key
-# TC_DEVELOPMENT_LOGIN    : the login (email address) for the test account if testing the Person endpoint
-# TC_DEVELOPMENT_PASSWORD : the password for the test account if testing the Person endpoint
+# TC_DEVELOPMENT_API_KEY        : your API key
+# TC_DEVELOPMENT_EMAIL          : the email address (login) for the test account if testing the Person endpoint
+# TC_DEVELOPMENT_PASSWORD       : the password for the test account if testing the Person endpoint
+# TC_DEVELOPMENT_KNOWN_UID      : a facebook user ID that is known in the database
+# TC_DEVELOPMENT_KNOWN_TOKEN    : a facebook oauth token matching the above ID which is in the database
+# TC_DEVELOPMENT_KNOWN_EMAIL    : an email address matching the above ID which is in the database
+# TC_DEVELOPMENT_UNKNOWN_UID    : a facebook user ID that is not known in the database
+# TC_DEVELOPMENT_UNKNOWN_TOKEN  : a facebook oauth token matching the above ID which is not in the database
+# TC_DEVELOPMENT_UNKNOWN_EMAIL  : an email address matching the above ID which is not in the database
 
 # Place something like this in your bash_login script:
 # export TC_DEVELOPMENT_API_KEY="1234567890abcdef"
-# export TC_DEVELOPMENT_LOGIN="some_account@thrillcall.com"
+# export TC_DEVELOPMENT_EMAIL="some_account@thrillcall.com"
 # export TC_DEVELOPMENT_PASSWORD="some_password"
+# export TC_DEVELOPMENT_KNOWN_UID="12345679"
+# export TC_DEVELOPMENT_KNOWN_TOKEN="AAC93tkWRL4BAFzv8mYYZCEqbZCwvZBJGQ6rbCwwZCXhlcDMj4lI3lJRJzhd7FQPb9bK3J9155eVI0jIACZCoympMm1SYoEJajaRULY"
+# export TC_DEVELOPMENT_UNKNOWN_UID="123123bogus"
+# export TC_DEVELOPMENT_UNKNOWN_TOKEN="123123bogus"
 
 # You should not have to edit anything below this line.
 #####################################################################
@@ -23,8 +33,15 @@ TEST_ENV                  = :development
 env_prefix = TEST_ENV.to_s.upcase
 
 TEST_KEY                  = ENV["TC_#{env_prefix}_API_KEY"]
-PERSON_LOGIN              = ENV["TC_#{env_prefix}_LOGIN"]
+PERSON_EMAIL              = ENV["TC_#{env_prefix}_EMAIL"]
 PERSON_PASSWORD           = ENV["TC_#{env_prefix}_PASSWORD"]
+
+PERSON_KNOWN_UID          = ENV["TC_#{env_prefix}_KNOWN_UID"]
+PERSON_KNOWN_TOKEN        = ENV["TC_#{env_prefix}_KNOWN_TOKEN"]
+PERSON_KNOWN_EMAIL        = ENV["TC_#{env_prefix}_KNOWN_EMAIL"]
+PERSON_UNKNOWN_UID        = ENV["TC_#{env_prefix}_UNKNOWN_UID"]
+PERSON_UNKNOWN_TOKEN      = ENV["TC_#{env_prefix}_UNKNOWN_TOKEN"]
+PERSON_UNKNOWN_EMAIL      = ENV["TC_#{env_prefix}_UNKNOWN_EMAIL"]
 
 HOST                      = "http://localhost:3000/api/"                    if TEST_ENV == :development
 HOST                      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
@@ -35,9 +52,14 @@ TINY_LIMIT                = 3
 
 POSTAL_CODE               = "94108"
 
+PERSON_PROVIDER           = :facebook
 PERSON_CREATE_FIRSTNAME   = Faker::Name.first_name
+PERSON_CREATE_LASTNAME    = Faker::Name.last_name
 PERSON_CREATE_EMAIL       = Faker::Internet.email
 PERSON_CREATE_PASSWORD    = Faker::Lorem.words(2).join('')
+PERSON_CREATE_LOCATION    = "San Francisco, CA"
+PERSON_CREATE_LAT         = 38.5
+PERSON_CREATE_LONG        = -123.0
 PERSON_CREATE_POSTALCODE  = POSTAL_CODE
 
 FLUSH_CACHE               = true # false
@@ -62,6 +84,14 @@ describe "ThrillcallAPI" do
   def mark_pending_if_no_permission(p = :api_read)
     unless has_permission? p
       pending "TEST_KEY permissions #{@tc_permissions} do not include #{p}"
+    end
+  end
+
+  def mark_pending_if_nil_value(h)
+    h.each do |k, v|
+      if v.nil?
+        pending "Required parameter #{k} is nil!"
+      end
     end
   end
 
@@ -457,19 +487,82 @@ describe "ThrillcallAPI" do
     end
 
     context "accesing the person endpoint" do
-      it "should be able to login a person" do
+      it "should be able to login a person using login/password credentials" do
         # Don't forget to change the credentials in your environment variables
-        p = @tc.person.signin.post(:login => PERSON_LOGIN, :password => PERSON_PASSWORD)
-        p["login"].should == PERSON_LOGIN
+        params = {
+          :email    => PERSON_EMAIL,
+          :password => PERSON_PASSWORD
+        }
+        mark_pending_if_nil_value(params)
+        p = @tc.person.signin.post(params)
+        (p["email"] || p["login"]).should == PERSON_EMAIL
+      end
+
+      it "should be able to login a person using provider/uid/token credentials" do
+        params = {
+          :provider => PERSON_PROVIDER,
+          :uid      => PERSON_KNOWN_UID,
+          :token    => PERSON_KNOWN_TOKEN
+        }
+        mark_pending_if_nil_value(params)
+        p = @tc.person.signin.post(params)
+        (p["email"] || p["login"]).should == PERSON_KNOWN_EMAIL
+      end
+
+      it "should be able to create a person using the registration endpoint" do
+        params = {
+          :first_name   => PERSON_CREATE_FIRSTNAME,
+          :email        => PERSON_CREATE_EMAIL,
+          :password     => PERSON_CREATE_PASSWORD,
+          :postalcode   => PERSON_CREATE_POSTALCODE,
+          :test         => true
+        }
+        mark_pending_if_nil_value(params)
+        p = @tc.person.signup.post(params)
+        (p["email"] || p["login"]).should == PERSON_CREATE_EMAIL
       end
       
-      it "should be able to create a person" do
-        p = @tc.person.signup.post(:first_name => PERSON_CREATE_FIRSTNAME,
-                                   :email => PERSON_CREATE_EMAIL,
-                                   :password => PERSON_CREATE_PASSWORD,
-                                   :postalcode => PERSON_CREATE_POSTALCODE,
-                                   :test => true)
-        p["login"].should == PERSON_CREATE_EMAIL
+      context "autoregistration for unknown provider/uid" do
+        it "should be able to create a person using location name" do
+          params = {
+            :provider       => PERSON_PROVIDER,
+            :uid            => PERSON_UNKNOWN_UID,
+            :token          => PERSON_UNKNOWN_TOKEN,
+            :email          => PERSON_UNKNOWN_EMAIL,
+            :first_name     => PERSON_CREATE_FIRSTNAME,
+            :last_name      => PERSON_CREATE_LASTNAME,
+            :location_name  => PERSON_CREATE_LOCATION,
+            :test           => true
+          }
+
+          mark_pending_if_nil_value(params)
+
+          p = @tc.person.signin.post(params)
+
+          (p["email"] || p["login"]).should_not be_nil
+          (p["email"] || p["login"]).should == PERSON_UNKNOWN_EMAIL
+        end
+        
+        it "should be able to create a person using (lat, long) for location" do
+          params = {
+            :provider       => PERSON_PROVIDER,
+            :uid            => PERSON_UNKNOWN_UID,
+            :token          => PERSON_UNKNOWN_TOKEN,
+            :email          => PERSON_UNKNOWN_EMAIL,
+            :first_name     => PERSON_CREATE_FIRSTNAME,
+            :last_name      => PERSON_CREATE_LASTNAME,
+            :lat            => PERSON_CREATE_LAT,
+            :long           => PERSON_CREATE_LONG,
+            :test           => true
+          }
+
+          mark_pending_if_nil_value(params)
+
+          p = @tc.person.signin.post(params)
+
+          (p["email"] || p["login"]).should_not be_nil
+          (p["email"] || p["login"]).should == PERSON_UNKNOWN_EMAIL
+        end
       end
     end
   end
