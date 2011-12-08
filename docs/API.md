@@ -579,6 +579,7 @@ Fields:
 - **longitude**               _float_     Longitude of the Metro Area
 - **radius**                  _integer_   Radius of the Metro Area from the Lat/Long center
 - **state**                   _string_    State of the Metro Area
+- **time\_zone**              _string_    Time zone of the Metro Area
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **url**                     _string_    URL for this object on Thrillcall
 
@@ -603,6 +604,7 @@ Returns:  _Array_ of Metro Areas _Hash_
         "longitude": -87.6324,
         "radius": 50,
         "state": "IL",
+        "time_zone": "America/Chicago",
         "updated_at": "2011-07-05T23:11:24Z",
         "url": "http://thrillcall.com/live-music/chicago"
       },
@@ -634,6 +636,7 @@ Returns:  Metro Area _Hash_
       "longitude": -122.42,
       "radius": 50,
       "state": "CA",
+      "time_zone": "America/Chicago",
       "updated_at": "2011-07-05T23:11:24Z",
       "url": "http://thrillcall.com/live-music/san-francisco"
     }
