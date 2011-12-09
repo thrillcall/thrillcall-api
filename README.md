@@ -887,6 +887,7 @@ Fields:
 - **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **id**                      _integer_   Thrillcall ID
 - **latitude**                _float_     Approximate Latitude for the Venue
+- **long\_description**       _text_      Description of the Venue
 - **longitude**               _float_     Approximate Longitude for the Venue
 - **name**                    _string_    Name of the Venue
 - **metro\_area\_id**         _integer_   Thrillcall ID of the Metro Area this Venue is in, if any
@@ -921,6 +922,7 @@ Returns:  _Array_ of Venues _Hash_
         "created_at": "2000-11-09T19:09:23Z",
         "id": 1,
         "latitude": null,
+        "long_description": "Description of the venue",
         "longitude": null,
         "name": "Fbolko",
         "state": "MX",
@@ -957,6 +959,7 @@ Returns:  Venue _Hash_
       "created_at": "2008-04-21T16:52:31Z",
       "id": 27418,
       "latitude": 37.784796,
+      "long_description": "Description of the venue",
       "longitude": -122.418819,
       "name": "Great American Music Hall",
       "state": "CA",
@@ -995,6 +998,7 @@ Returns:  _Array_ of Events _Hash_
         "festival": false,
         "id": 824614,
         "latitude": 37.8016,
+        "long_description": "Description of the venue",
         "longitude": -80.4462,
         "name": "Colt Ford @ West Virginia State Fair",
         "on_sale_date": null,
@@ -1038,6 +1042,7 @@ Returns:  _Array_ of Venues _Hash_
         "created_at": "2008-04-21T16:52:31Z",
         "id": 27418,
         "latitude": 37.784796,
+        "long_description": "Description of the venue",
         "longitude": -122.418819,
         "name": "Great American Music Hall",
         "state": "CA",
