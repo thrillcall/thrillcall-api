@@ -136,6 +136,7 @@ Fields:
 - **primary\_genre\_id**      _integer_   The Thrillcall ID for this artist's primary Genre
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
+- **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 - **url**                     _string_    URL for this object on Thrillcall
 
 
@@ -160,6 +161,13 @@ Returns:  _Array_ of Artists _Hash_
         "primary_genre_id": 61,
         "upcoming_events_count": 0,
         "updated_at": "2010-03-26T16:49:20Z",
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/artist/_default/default-thumbnail.jpg",
+              "medium": "http://i.tc-core.com/artist/_default/default-medium.jpg",
+              "large": "http://i.tc-core.com/artist/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/artist/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/artist/Hyler_Jones_Proteges"
       },
       {
@@ -189,6 +197,13 @@ Returns:  Artist _Hash_
       "primary_genre_id": 27,
       "upcoming_events_count": 8,
       "updated_at": "2011-09-20T19:12:57Z",
+      "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/artist/_default/default-thumbnail.jpg",
+              "medium": "http://i.tc-core.com/artist/_default/default-medium.jpg",
+              "large": "http://i.tc-core.com/artist/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/artist/_default/default-mobile.jpg"
+            },
       "url": "http://thrillcall.com/artist/The_Sea_and_Cake"
     }
 ```
@@ -236,6 +251,12 @@ Returns:  _Array_ of Events _Hash_
         "unconfirmed_location": 0,
         "updated_at": "2011-09-28T04:01:56Z",
         "venue_id": 10116,
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/event/_default/default-thumbnail.jpg",
+              "large": "http://i.tc-core.com/event/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/event/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/event/862618"
       },
       {
@@ -267,6 +288,13 @@ Returns:  _Array_ of Artists _Hash_
         "primary_genre_id": 27,
         "upcoming_events_count": 8,
         "updated_at": "2011-09-20T19:12:57Z",
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/artist/_default/default-thumbnail.jpg",
+              "medium": "http://i.tc-core.com/artist/_default/default-medium.jpg",
+              "large": "http://i.tc-core.com/artist/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/artist/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/artist/The_Sea_and_Cake"
       },
       {
@@ -296,6 +324,7 @@ Fields:
 - **unconfirmed\_location**       _integer_ If 1, the location if this event is unconfirmed
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
 - **venue\_id**                   _integer_ Thrillcall Venue ID
+- **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
 - **url**                         _string_  URL for this object on Thrillcall
 
 
@@ -339,6 +368,12 @@ Returns:  _Array_ of Events _Hash_
         "unconfirmed_location": 0,
         "updated_at": "2011-09-28T04:00:41Z",
         "venue_id": 27418,
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/event/_default/default-thumbnail.jpg",
+              "large": "http://i.tc-core.com/event/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/event/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/event/858707"
       },
       {
@@ -378,6 +413,12 @@ Returns:  Event _Hash_
       "unconfirmed_location": 0,
       "updated_at": "2011-09-28T04:00:41Z",
       "venue_id": 27418,
+      "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/event/_default/default-thumbnail.jpg",
+              "large": "http://i.tc-core.com/event/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/event/_default/default-mobile.jpg"
+            },
       "url": "http://thrillcall.com/event/858707"
     }
 ```
@@ -404,6 +445,13 @@ Returns:  _Array_ of Artists _Hash_
         "primary_genre_id": 27,
         "upcoming_events_count": 8,
         "updated_at": "2011-09-20T19:12:57Z",
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/artist/_default/default-thumbnail.jpg",
+              "medium": "http://i.tc-core.com/artist/_default/default-medium.jpg",
+              "large": "http://i.tc-core.com/artist/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/artist/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/artist/The_Sea_and_Cake"
       },
       {
@@ -440,6 +488,13 @@ Returns:  Venue _Hash_
       "updated_at": "2011-01-20T21:04:37Z",
       "postalcode": "94109",
       "metro_area_id": 105,
+      "photos":
+          {
+            "thumbnail": "http://i.tc-core.com/venue/_default/default-thumbnail.jpg",
+            "medium": "http://i.tc-core.com/venue/_default/default-medium.jpg",
+            "large": "http://i.tc-core.com/venue/_default/default-large.jpg",
+            "mobile": "http://i.tc-core.com/venue/_default/default-mobile.jpg"
+          }
       "url": "http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"
     }
 ```
@@ -559,6 +614,13 @@ Returns:  _Array_ of Artists _Hash_
         "primary_genre_id": 27,
         "upcoming_events_count": 1,
         "updated_at": "2011-01-03T22:14:36Z",
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/artist/_default/default-thumbnail.jpg",
+              "medium": "http://i.tc-core.com/artist/_default/default-medium.jpg",
+              "large": "http://i.tc-core.com/artist/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/artist/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/artist/Espers"
       },
       {
@@ -681,6 +743,12 @@ Returns:  _Array_ of Metro Areas _Hash_
         "unconfirmed_location": 0,
         "updated_at": "2011-09-28T03:51:22Z",
         "venue_id": 51886,
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/event/_default/default-thumbnail.jpg",
+              "large": "http://i.tc-core.com/event/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/event/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/event/831330"
       },
       {
@@ -703,7 +771,7 @@ Fields:
 - **referral\_code**          _string_    Referral code of the Person
 - **referral\_code\_count**   _integer_   Number of Referral code used for the Person
 - **postalcode**              _string_    Postalcode of the Person
-- **postalcode**              _string_    Postalcode of the Person
+- **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 
 ### POST /person/signin
 Params:
@@ -726,6 +794,12 @@ Returns: Person _Hash_
       "updated_at": "2011-11-09T19:09:23Z",
       "referral_code": "fhskjfhk3j43h43hjkh",
       "referral_code_count": 0,
+      "photos":
+          {
+            "small_thumb": "http://i.tc-core.com/person/_default/default-small_thumb.jpg",
+            "thumbnail": "http://i.tc-core.com/person/_default/default-thumbnail.jpg",
+            "medium": "http://i.tc-core.com/person/_default/default-medium.jpg"
+          },
       "postalcode": "94104"
     }
 ```
@@ -755,6 +829,12 @@ Returns: Person _Hash_
         "updated_at": "2011-11-09T19:09:23Z",
         "referral_code": "fhskjfhk3j43h43hjkh",
         "referral_code_count": 0,
+        "photos":
+          {
+            "small_thumb": "http://i.tc-core.com/person/_default/default-small_thumb.jpg",
+            "thumbnail": "http://i.tc-core.com/person/_default/default-thumbnail.jpg",
+            "medium": "http://i.tc-core.com/person/_default/default-medium.jpg"
+          },
         "postalcode": "94104"
      }
 ```
@@ -778,6 +858,7 @@ Fields:
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **postalcode**              _string_    Postal code for the Venue
+- **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 - **url**                     _string_    URL for this object on Thrillcall
 
 
@@ -812,6 +893,13 @@ Returns:  _Array_ of Venues _Hash_
         "upcoming_events_count": 0,
         "updated_at": "2010-03-28T17:24:20Z",
         "postalcode": null,
+        "photos":
+          {
+            "thumbnail": "http://i.tc-core.com/venue/_default/default-thumbnail.jpg",
+            "medium": "http://i.tc-core.com/venue/_default/default-medium.jpg",
+            "large": "http://i.tc-core.com/venue/_default/default-large.jpg",
+            "mobile": "http://i.tc-core.com/venue/_default/default-mobile.jpg"
+          }
         "url": "http://thrillcall.com/venue/Fbolko_in_Guadalajara_MX"
       },
       {
@@ -850,6 +938,13 @@ Returns:  Venue _Hash_
       "updated_at": "2011-01-20T21:04:37Z",
       "postalcode": "94109",
       "metro_area_id": 105,
+      "photos":
+          {
+            "thumbnail": "http://i.tc-core.com/venue/_default/default-thumbnail.jpg",
+            "medium": "http://i.tc-core.com/venue/_default/default-medium.jpg",
+            "large": "http://i.tc-core.com/venue/_default/default-large.jpg",
+            "mobile": "http://i.tc-core.com/venue/_default/default-mobile.jpg"
+          }
       "url": "http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"
     }
 ```
@@ -890,6 +985,12 @@ Returns:  _Array_ of Events _Hash_
         "unconfirmed_location": 0,
         "updated_at": "2011-06-24T05:10:05Z",
         "venue_id": 32065,
+        "photos":
+            {
+              "thumbnail": "http://i.tc-core.com/event/_default/default-thumbnail.jpg",
+              "large": "http://i.tc-core.com/event/_default/default-large.jpg",
+              "mobile": "http://i.tc-core.com/event/_default/default-mobile.jpg"
+            },
         "url": "http://thrillcall.com/event/824614"
       },
       {
@@ -933,6 +1034,13 @@ Returns:  _Array_ of Venues _Hash_
         "updated_at": "2011-01-20T21:04:37Z",
         "postalcode": "94109",
         "metro_area_id": 105,
+        "photos":
+          {
+            "thumbnail": "http://i.tc-core.com/venue/_default/default-thumbnail.jpg",
+            "medium": "http://i.tc-core.com/venue/_default/default-medium.jpg",
+            "large": "http://i.tc-core.com/venue/_default/default-large.jpg",
+            "mobile": "http://i.tc-core.com/venue/_default/default-mobile.jpg"
+          }
         "url": "http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"
       },
       {
