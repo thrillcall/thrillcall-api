@@ -45,11 +45,15 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, results will be within **[radius](#radius)** of this location.
     
+    For Person queries, this specifies the latitude of the person's location.
+    
 - <a name="long" />**long** _float_
     
     _Default: none_
     
     If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, results will be within **[radius](#radius)** of this location.
+    
+    For Person queries, this specifies the longitude of the person's location.
     
 - <a name="postalcode" />**postalcode** _string (format: length >= 5)_
     
@@ -102,13 +106,25 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     If set, will filter Artist results to only those with the specified **[primary\_genre\_id](#primary_genre_id)**
 
-- <a name="login" />**login** _string_
+- <a name="email" />**email** _string_
     
-    Required to authenticate/register a user.
+    The email address associated with a user, required for registration.
 
 - <a name="password" />**password** _string (format: 40 >= length >= 5)_
     
-    Required to authenticate/register a user.
+    The user's password.  Must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
+
+- <a name="provider" />**provider** _string_
+    
+    The name of the authentication provider (e.g. "facebook").  Must be supplied along with **[uid](#uid)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
+
+- <a name="uid" />**uid** _string_
+    
+    The user's ID with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
+
+- <a name="token" />**token** _string_
+    
+    The user's authentication token with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[uid](#uid)** unless using **[email](#email)**/**[password](#password)** auth.
 
 - <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
     
@@ -118,13 +134,18 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Optional for registering a user.
 
-- <a name="email" />**email** _string_
-    
-    Required to register a user.
-
 - <a name="gender" />**gender** _string (format: length == 1)_
     
     Optional for registering a user.
+
+- <a name="location_name" />**location\_name** _string (format: "City, ST or City, State", length > 0))_
+    
+    The name of the user's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
+
+- <a name="referral_code" />**referral\_code** _string_
+    
+    The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a point on their referral counts.
+
 
 ## Artists
 Fields:
@@ -759,6 +780,8 @@ Returns:  _Array_ of Metro Areas _Hash_
 ```
 
 ## Person
+**Note:** Your API key requires the api\_auth permission to access the endpoints associated with this object.
+
 Fields:
 
 - **created\_at**             _string_    ISO 8601 representation the time this object was created
@@ -766,7 +789,7 @@ Fields:
 - **gender**                  _string_    Gender of the Person
 - **id**                      _integer_   Thrillcall ID
 - **last\_name**              _string_    Last name of the Person
-- **login**                   _string_    Login of the Person
+- **login**                   _string_    Login (Email Address) of the Person
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **referral\_code**          _string_    Referral code of the Person
 - **referral\_code\_count**   _integer_   Number of Referral code used for the Person
@@ -776,8 +799,21 @@ Fields:
 ### POST /person/signin
 Params:
 
-- **[login](#login)**
+- **[email](#email)**
 - **[password](#password)**
+- **[provider](#provider)**
+- **[uid](#uid)**
+- **[token](#token)**
+- **[first\_name](#first_name)**
+- **[last\_name](#last_name)**
+- **[location\_name](#location_name)**
+- **[lat](#lat)**
+- **[long](#long)**
+- **[referral\_code](#referral_code)**
+
+Use either **[email](#email)** / **[password](#password)** or **[provider](#provider)** / **[uid](#uid)** / **[token](#token)**.
+
+May perform registration ("signup") automatically if using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** when no match is found and name, location, and **[referral_code](#referral_code)** are also provided.
 
 Returns: Person _Hash_
 
@@ -813,6 +849,7 @@ Params:
 - **[email](#email)**
 - **[password](#password)**
 - **[postalcode](#postalcode)**
+- **[referral\_code](#referral_code)**
 
 Returns: Person _Hash_
 
