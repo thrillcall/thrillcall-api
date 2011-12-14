@@ -41,7 +41,7 @@ module ThrillcallAPI
     def reassign(data)
       unset_methods
       
-      data.public_methods(false).each do |meth|
+      data.public_methods.each do |meth|
         @set_methods << meth
         (class << self; self; end).class_eval do
           define_method meth do |*args, &block|

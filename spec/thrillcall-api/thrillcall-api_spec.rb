@@ -229,6 +229,16 @@ describe "ThrillcallAPI" do
       (e.has_key? "genre_tags").should be_true
     end
 
+    it "should respond to methods from Enumerable" do
+      a = @tc.artists(:limit => LIMIT)
+      c = 0
+      a.each do |artist|
+        artist["id"].should_not be_nil
+        c += 1
+      end
+      c.should == LIMIT
+    end
+
     it "should raise NoMethodError when given a method the data doesn't respond to after fetched" do
       a = @tc.artists(:limit => LIMIT)
       a.length.should == LIMIT
