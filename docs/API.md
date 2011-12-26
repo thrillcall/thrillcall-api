@@ -633,17 +633,18 @@ Returns:  _Array_ of Artists _Hash_
 ## Metro Area
 Fields:
 
-- **city**                    _string_    City of the Metro Area
-- **country**                 _string_    Country of the Metro Area
-- **created\_at**             _string_    ISO 8601 representation the time this object was created
-- **id**                      _integer_   Thrillcall ID
-- **latitude**                _float_     Latitude of the Metro Area
-- **longitude**               _float_     Longitude of the Metro Area
-- **radius**                  _integer_   Radius of the Metro Area from the Lat/Long center
-- **state**                   _string_    State of the Metro Area
-- **time\_zone**              _string_    Time zone of the Metro Area
-- **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
-- **url**                     _string_    URL for this object on Thrillcall
+- **city**                                _string_    City of the Metro Area
+- **country**                             _string_    Country of the Metro Area
+- **created\_at**                         _string_    ISO 8601 representation the time this object was created
+- **id**                                  _integer_   Thrillcall ID
+- **latitude**                            _float_     Latitude of the Metro Area
+- **longitude**                           _float_     Longitude of the Metro Area
+- **radius**                              _integer_   Radius of the Metro Area from the Lat/Long center
+- **state**                               _string_    State of the Metro Area
+- **time\_zone**                          _string_    Time zone of the Metro Area
+- **updated\_at**                         _string_    ISO 8601 representation of last time this object was updated
+- **url**                                 _string_    URL for this object on Thrillcall
+- **offers\_availability\_status\_code**  _integer_   Offers status for the Metro Area ( no\_offers = 0, available = 1, coming\_soon = 2)
 
 ### GET /metro_areas
 Params:
@@ -664,6 +665,7 @@ Returns:  _Array_ of Metro Areas _Hash_
         "id": 104,
         "latitude": 41.8842,
         "longitude": -87.6324,
+        "offers_availability_status_code": 2,
         "radius": 50,
         "state": "IL",
         "time_zone": "America/Chicago",
@@ -696,6 +698,7 @@ Returns:  Metro Area _Hash_
       "id": 105,
       "latitude": 37.7771,
       "longitude": -122.42,
+      "offers_availability_status_code": 1,
       "radius": 50,
       "state": "CA",
       "time_zone": "America/Chicago",
