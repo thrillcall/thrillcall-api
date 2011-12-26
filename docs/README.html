@@ -938,27 +938,29 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
 <ul>
 <li>
-<strong>city</strong>                    <em>string</em>    City of the Metro Area</li>
+<strong>city</strong>                                <em>string</em>    City of the Metro Area</li>
 <li>
-<strong>country</strong>                 <em>string</em>    Country of the Metro Area</li>
+<strong>country</strong>                             <em>string</em>    Country of the Metro Area</li>
 <li>
-<strong>created_at</strong>             <em>string</em>    ISO 8601 representation the time this object was created</li>
+<strong>created_at</strong>                         <em>string</em>    ISO 8601 representation the time this object was created</li>
 <li>
-<strong>id</strong>                      <em>integer</em>   Thrillcall ID</li>
+<strong>id</strong>                                  <em>integer</em>   Thrillcall ID</li>
 <li>
-<strong>latitude</strong>                <em>float</em>     Latitude of the Metro Area</li>
+<strong>latitude</strong>                            <em>float</em>     Latitude of the Metro Area</li>
 <li>
-<strong>longitude</strong>               <em>float</em>     Longitude of the Metro Area</li>
+<strong>longitude</strong>                           <em>float</em>     Longitude of the Metro Area</li>
 <li>
-<strong>radius</strong>                  <em>integer</em>   Radius of the Metro Area from the Lat/Long center</li>
+<strong>radius</strong>                              <em>integer</em>   Radius of the Metro Area from the Lat/Long center</li>
 <li>
-<strong>state</strong>                   <em>string</em>    State of the Metro Area</li>
+<strong>state</strong>                               <em>string</em>    State of the Metro Area</li>
 <li>
-<strong>time_zone</strong>              <em>string</em>    Time zone of the Metro Area</li>
+<strong>time_zone</strong>                          <em>string</em>    Time zone of the Metro Area</li>
 <li>
-<strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
+<strong>updated_at</strong>                         <em>string</em>    ISO 8601 representation of last time this object was updated</li>
 <li>
-<strong>url</strong>                     <em>string</em>    URL for this object on Thrillcall</li>
+<strong>url</strong>                                 <em>string</em>    URL for this object on Thrillcall</li>
+<li>
+<strong>offers_availability_status_code</strong>  <em>integer</em>   Offers status for the Metro Area ( no_offers = 0, available = 1, coming_soon = 2)</li>
 </ul><h3>GET /metro_areas</h3>
 
 <p>Params:</p>
@@ -979,6 +981,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">104</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">41.8842</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">87.6324</span><span class="p">,</span>
+        <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
         <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
         <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"IL"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Chicago"</span><span class="p">,</span>
@@ -1014,6 +1017,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
       <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7771</span><span class="p">,</span>
       <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.42</span><span class="p">,</span>
+      <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
       <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
       <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Chicago"</span><span class="p">,</span>
