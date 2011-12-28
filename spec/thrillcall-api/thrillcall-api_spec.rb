@@ -179,6 +179,15 @@ describe "ThrillcallAPI" do
     tc_permissions.class.should == Array
   end
 
+  it "should return a 401 error if using an invalid API key" do
+    tc = ThrillcallAPI.new("bogus key", :base_url => HOST)
+
+    tc_permissions = tc.api_key.permissions
+    lambda {
+      tc_permissions.length
+    }.should raise_error
+  end
+
   context "an authenticated user with get permission" do
 
     before :all do
@@ -531,7 +540,17 @@ describe "ThrillcallAPI" do
         p = @tc.person.signup.post(params)
         p["first_name"].should == PERSON_CREATE_FIRSTNAME
       end
-      
+
+      it "should return a proper error message on failed login" do
+        params = {
+          :email    => PERSON_EMAIL,
+          :password => rand(1000000)
+        }
+        lambda {
+          p = @tc.person.signin.post(params)
+        }.should raise_error
+      end
+
       context "autoregistration for unknown provider/uid" do
         it "should be able to create a person using location name" do
           params = {
