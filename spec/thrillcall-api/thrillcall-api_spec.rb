@@ -529,7 +529,7 @@ describe "ThrillcallAPI" do
         }
         mark_pending_if_nil_value(params)
         p = @tc.person.signup.post(params)
-        (p["email"] || p["login"]).should == PERSON_CREATE_EMAIL
+        p["first_name"].should == PERSON_CREATE_FIRSTNAME
       end
       
       context "autoregistration for unknown provider/uid" do
@@ -549,8 +549,7 @@ describe "ThrillcallAPI" do
 
           p = @tc.person.signin.post(params)
 
-          (p["email"] || p["login"]).should_not be_nil
-          (p["email"] || p["login"]).should == PERSON_UNKNOWN_EMAIL
+          p["first_name"].should == PERSON_CREATE_FIRSTNAME
         end
         
         it "should be able to create a person using (lat, long) for location" do
@@ -570,8 +569,7 @@ describe "ThrillcallAPI" do
 
           p = @tc.person.signin.post(params)
 
-          (p["email"] || p["login"]).should_not be_nil
-          (p["email"] || p["login"]).should == PERSON_UNKNOWN_EMAIL
+          p["first_name"].should == PERSON_CREATE_FIRSTNAME
         end
       end
     end
