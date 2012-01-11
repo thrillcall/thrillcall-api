@@ -307,6 +307,20 @@ describe "ThrillcallAPI" do
         end
       end
 
+      it "should verify the behavior of the time_zone param" do
+        tz      = "Asia/Tokyo"
+        offset  = 9/24.0
+        e = @tc.events(:limit => TINY_LIMIT, :min_date => @min_date, :max_date => @max_date, :time_zone => tz)
+        e.length.should == TINY_LIMIT
+        e.each do |ev|
+          
+          d = DateTime.parse(ev["start_date"]).new_offset(offset)
+          
+          d.should >= DateTime.parse(@min_date).new_offset(offset)
+          d.should < (DateTime.parse(@max_date).new_offset(offset) + 1)
+        end
+      end
+
       it "should verify the behavior of the page param" do
         offset = 1
         e = @tc.events(:limit => TINY_LIMIT * 2)

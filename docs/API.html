@@ -98,6 +98,14 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Specifies the page number.  If limit is 10, then page = 2 will return results #20 through #29</p>
 </li>
 <li>
+<p><a name="time_zone"></a><strong>time_zone</strong> <em>string (format: TZ Database string, eg "America/Los</em>Angeles")_</p>
+
+<p><em>Default: UTC</em>
+<em>For Metro Area endpoints, the default is instead the Metro Area's time zone and cannot be overridden.</em></p>
+
+<p><strong><a href="#min_date">min_date</a></strong> and <strong><a href="#max_date">max_date</a></strong> will be calculated based on this time zone.</p>
+</li>
+<li>
 <p><a name="min_date"></a><strong>min_date</strong> <em>string (format: "YYYY-MM-DD")</em></p>
 
 <p><em>Default: Today</em></p>
@@ -344,6 +352,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
 <li><strong><a href="#lat">lat</a></strong></li>
@@ -487,6 +496,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
 <li><strong><a href="#lat">lat</a></strong></li>
@@ -924,7 +934,9 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
-</ul><p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
+</ul><p>Note:  Time Zone is set as the time zone of the Metro Area and cannot be overridden.</p>
+
+<p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
 <div class="highlight">
 <pre>    <span class="c1">// Example: GET /api/v2/metro_area/105/events?api_key=1234567890abcdef</span>
@@ -1220,6 +1232,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
 <li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
@@ -1356,6 +1369,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
 <li><strong><a href="#lat">lat</a></strong></li>

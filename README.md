@@ -144,6 +144,14 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Specifies the page number.  If limit is 10, then page = 2 will return results #20 through #29
     
+
+- <a name="time_zone" />**time\_zone** _string (format: TZ Database string, eg "America/Los\_Angeles")_
+    
+    _Default: UTC_
+    _For Metro Area endpoints, the default is instead the Metro Area's time zone and cannot be overridden._
+    
+    **[min\_date](#min_date)** and **[max\_date](#max_date)** will be calculated based on this time zone.
+    
 - <a name="min_date" />**min\_date** _string (format: "YYYY-MM-DD")_
     
     _Default: Today_
@@ -353,6 +361,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
 - **[lat](#lat)**
@@ -471,6 +480,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
 - **[lat](#lat)**
@@ -860,6 +870,8 @@ Params:
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 
+Note:  Time Zone is set as the time zone of the Metro Area and cannot be overridden.
+
 Returns:  _Array_ of Metro Areas _Hash_
 
 ``` js
@@ -1113,6 +1125,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
 - **[use\_partner\_id](#use_partner_id)**
@@ -1229,6 +1242,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
 - **[lat](#lat)**
