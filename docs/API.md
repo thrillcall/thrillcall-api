@@ -910,6 +910,7 @@ Fields:
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **postalcode**              _string_    Postal code for the Venue
+- **phone\_number**           _string_    Phone number for the Venue (including country code)
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 - **url**                     _string_    URL for this object on Thrillcall
 
