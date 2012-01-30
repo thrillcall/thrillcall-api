@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "thrillcall-api"
 
   s.add_development_dependency  "bundler",                ">= 1.0.0"
+  s.add_development_dependency  "rake",                   "~> 0.9.2.2"
   s.add_development_dependency  "rspec",                  "~> 2.7.0"
   s.add_development_dependency  "ZenTest",                "~> 4.6.2"
   s.add_development_dependency  "autotest",               "~> 4.4.6"
@@ -25,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "nokogiri",               "~> 1.4.6"
   s.add_development_dependency  "albino",                 "~> 1.3.3"
   s.add_development_dependency  "faker",                  "~> 0.9.5"
+  s.add_development_dependency  "tzinfo",                 "~> 0.3.31"
 
   s.add_dependency              "faraday",                "~> 0.7.0"
 

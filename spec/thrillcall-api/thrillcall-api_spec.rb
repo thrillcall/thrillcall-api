@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'thrillcall-api'
 require 'ap'
 require 'faker'
+require 'tzinfo'
 
 # Set to one of :development, :staging, :production
 TEST_ENV                  = :development
@@ -501,13 +502,27 @@ describe "ThrillcallAPI" do
       end
 
       it "should get events based on the time zone of the metro" do
-        puts "Time zone is: #{@metro_area_time_zone}"
-        #e = @tc.metro_area(@metro_area_id).events(:min_date => @min_date, :max_date => @max_date, :limit => TINY_LIMIT)
-        #e.first["venue_id"]
-        #
-        #e.each do |ev|
-        #  puts "Found: #{ev["start_date"]}"
-        #end
+        tz = TZInfo::Timezone.get(@metro_area_time_zone)
+        offset = (tz.current_period.offset.utc_offset / (60 * 60)) / 24.0
+        puts "Time zone is: #{@metro_area_time_zone}, offset #{offset}"
+
+        e = @tc.metro_area(@metro_area_id).events(:min_date => @min_date, :max_date => @max_date, :limit => TINY_LIMIT)
+        e.first["venue_id"]
+
+        after = DateTime.parse(@min_date).new_offset(offset) - offset
+        before = (DateTime.parse(@max_date).new_offset(offset) + 1) - offset
+
+        #puts "min_date: #{@min_date} (#{after})"
+        #puts "max_date: #{@max_date} (#{before})"
+
+        e.each do |ev|
+          d = DateTime.parse(ev["start_date"]).new_offset(offset)
+
+          #puts "Checking #{ev["start_date"]} : #{d}"
+
+          d.should >= after
+          d.should < before
+        end
       end
     end
 
