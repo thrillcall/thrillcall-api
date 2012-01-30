@@ -1006,7 +1006,40 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <strong>postalcode</strong>              <em>string</em>    Postalcode of the Person</li>
 <li>
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
-</ul><h3>POST /person/signin</h3>
+</ul><h3>GET /person/:id</h3>
+
+<p>Params:</p>
+
+<ul>
+<li>None.</li>
+</ul><p>Returns: Person <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v2/person/49</span>
+
+    <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"fhskjfhk3j43h43hjkh"</span><span class="p">,</span>
+      <span class="s2">"referral_code_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span>
+          <span class="p">{</span>
+            <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
+            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-medium.jpg"</span>
+          <span class="p">},</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>POST /person/signin</h3>
 
 <p>Params:</p>
 

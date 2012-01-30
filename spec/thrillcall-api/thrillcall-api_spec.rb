@@ -36,6 +36,7 @@ TEST_KEY                  = ENV["TC_#{env_prefix}_API_KEY"]
 PERSON_EMAIL              = ENV["TC_#{env_prefix}_EMAIL"]
 PERSON_PASSWORD           = ENV["TC_#{env_prefix}_PASSWORD"]
 
+PERSON_KNOWN_ID           = ENV["TC_#{env_prefix}_KNOWN_ID"]
 PERSON_KNOWN_UID          = ENV["TC_#{env_prefix}_KNOWN_UID"]
 PERSON_KNOWN_TOKEN        = ENV["TC_#{env_prefix}_KNOWN_TOKEN"]
 PERSON_KNOWN_EMAIL        = ENV["TC_#{env_prefix}_KNOWN_EMAIL"]
@@ -136,6 +137,7 @@ describe "ThrillcallAPI" do
 
       @genre_id             = @artist["primary_genre_id"]
       @metro_area_id        = @venue["metro_area_id"]
+      @metro_area_time_zone = @tc.metro_area(@metro_area_id)["time_zone"]
 
       puts "Using Thrillcall objects:"
       puts "Event:    #{@event_id}"
@@ -312,12 +314,20 @@ describe "ThrillcallAPI" do
         offset  = 9/24.0
         e = @tc.events(:limit => TINY_LIMIT, :min_date => @min_date, :max_date => @max_date, :time_zone => tz)
         e.length.should == TINY_LIMIT
+
+        after = DateTime.parse(@min_date).new_offset(offset) - offset        # should be 15:00 utc
+        before = (DateTime.parse(@max_date).new_offset(offset) + 1) - offset # should be 15:00 utc
+
+        # puts "min_date: #{@min_date} (#{after})"
+        # puts "max_date: #{@max_date} (#{before})"
+
         e.each do |ev|
-          
           d = DateTime.parse(ev["start_date"]).new_offset(offset)
-          
-          d.should >= DateTime.parse(@min_date).new_offset(offset)
-          d.should < (DateTime.parse(@max_date).new_offset(offset) + 1)
+
+          #puts "Checking #{ev["start_date"]} : #{d}"
+
+          d.should >= after
+          d.should < before
         end
       end
 
@@ -489,6 +499,16 @@ describe "ThrillcallAPI" do
 
         @tc.venue(cur_venue_id)["metro_area_id"].should == @metro_area_id
       end
+
+      it "should get events based on the time zone of the metro" do
+        puts "Time zone is: #{@metro_area_time_zone}"
+        #e = @tc.metro_area(@metro_area_id).events(:min_date => @min_date, :max_date => @max_date, :limit => TINY_LIMIT)
+        #e.first["venue_id"]
+        #
+        #e.each do |ev|
+        #  puts "Found: #{ev["start_date"]}"
+        #end
+      end
     end
 
     context "accesing the genre endpoint" do
@@ -520,6 +540,17 @@ describe "ThrillcallAPI" do
     end
 
     context "accesing the person endpoint" do
+      it "should be able to GET a person using ID" do
+        # Don't forget to change the credentials in your environment variables
+        params = {
+          :email    => PERSON_KNOWN_EMAIL,
+          :id       => PERSON_KNOWN_ID
+        }
+        mark_pending_if_nil_value(params)
+        p = @tc.person(params[:id])
+        (p["email"] || p["login"]).should == PERSON_KNOWN_EMAIL
+      end
+
       it "should be able to login a person using login/password credentials" do
         # Don't forget to change the credentials in your environment variables
         params = {

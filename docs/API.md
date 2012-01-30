@@ -811,6 +811,36 @@ Fields:
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 
+### GET /person/:id
+Params:
+
+- None.
+
+Returns: Person _Hash_
+
+``` js
+    // Example: GET /api/v2/person/49
+    
+    {
+      "created_at": "2000-11-09T19:09:23Z",
+      "first_name": "John",
+      "gender": null,
+      "id": 49,
+      "last_name": "Doe",
+      "login": "john@example.com",
+      "updated_at": "2011-11-09T19:09:23Z",
+      "referral_code": "fhskjfhk3j43h43hjkh",
+      "referral_code_count": 0,
+      "photos":
+          {
+            "small_thumb": "http://i.tc-core.com/person/_default/default-small_thumb.jpg",
+            "thumbnail": "http://i.tc-core.com/person/_default/default-thumbnail.jpg",
+            "medium": "http://i.tc-core.com/person/_default/default-medium.jpg"
+          },
+      "postalcode": "94104"
+    }
+```
+
 ### POST /person/signin
 Params:
 
