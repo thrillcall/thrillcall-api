@@ -244,7 +244,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <p><a name="referral_code"></a><strong>referral_code</strong> <em>string</em></p>
 
-<p>The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a point on their referral counts.</p>
+<p>The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a referral credit point.</p>
 </li>
 </ul><h2>Artists</h2>
 
@@ -1001,7 +1001,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <strong>referral_code</strong>          <em>string</em>    Referral code of the Person</li>
 <li>
-<strong>referral_code_count</strong>   <em>integer</em>   Number of Referral code used for the Person</li>
+<strong>referral_credits</strong>       <em>integer</em>   Number of Referral credits the Person has (including bonus points)</li>
 <li>
 <strong>postalcode</strong>              <em>string</em>    Postalcode of the Person</li>
 <li>
@@ -1025,8 +1025,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
       <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"fhskjfhk3j43h43hjkh"</span><span class="p">,</span>
-      <span class="s2">"referral_code_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span>
           <span class="p">{</span>
             <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
@@ -1072,8 +1072,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
       <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"fhskjfhk3j43h43hjkh"</span><span class="p">,</span>
-      <span class="s2">"referral_code_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span>
           <span class="p">{</span>
             <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
@@ -1111,8 +1111,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
         <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"fhskjfhk3j43h43hjkh"</span><span class="p">,</span>
-        <span class="s2">"referral_code_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+        <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span>
           <span class="p">{</span>
             <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>

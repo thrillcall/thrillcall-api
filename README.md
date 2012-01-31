@@ -269,7 +269,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="referral_code" />**referral\_code** _string_
     
-    The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a point on their referral counts.
+    The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a referral credit point.
 
 
 ## Artists
@@ -924,7 +924,7 @@ Fields:
 - **login**                   _string_    Login (Email Address) of the Person
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **referral\_code**          _string_    Referral code of the Person
-- **referral\_code\_count**   _integer_   Number of Referral code used for the Person
+- **referral\_credits**       _integer_   Number of Referral credits the Person has (including bonus points)
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 
@@ -946,8 +946,8 @@ Returns: Person _Hash_
       "last_name": "Doe",
       "login": "john@example.com",
       "updated_at": "2011-11-09T19:09:23Z",
-      "referral_code": "fhskjfhk3j43h43hjkh",
-      "referral_code_count": 0,
+      "referral_code": "abc123",
+      "referral_credits": 0,
       "photos":
           {
             "small_thumb": "http://i.tc-core.com/person/_default/default-small_thumb.jpg",
@@ -990,8 +990,8 @@ Returns: Person _Hash_
       "last_name": "Doe",
       "login": "john@example.com",
       "updated_at": "2011-11-09T19:09:23Z",
-      "referral_code": "fhskjfhk3j43h43hjkh",
-      "referral_code_count": 0,
+      "referral_code": "abc123",
+      "referral_credits": 0,
       "photos":
           {
             "small_thumb": "http://i.tc-core.com/person/_default/default-small_thumb.jpg",
@@ -1026,8 +1026,8 @@ Returns: Person _Hash_
         "last_name": "Doe",
         "login": "john@example.com",
         "updated_at": "2011-11-09T19:09:23Z",
-        "referral_code": "fhskjfhk3j43h43hjkh",
-        "referral_code_count": 0,
+        "referral_code": "abc123",
+        "referral_credits": 0,
         "photos":
           {
             "small_thumb": "http://i.tc-core.com/person/_default/default-small_thumb.jpg",
