@@ -12,7 +12,7 @@ module ThrillcallAPI
     def new(cur_api_key, options = {})
       default_options = {
         :base_url   => "https://api.thrillcall.com/api/",
-        :version    => 2,
+        :version    => 3,
         :logger     => false
       }
 

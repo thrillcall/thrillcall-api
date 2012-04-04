@@ -298,7 +298,7 @@ describe "ThrillcallAPI" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => @min_date)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          DateTime.parse(ev["start_date"]).should >= DateTime.parse(@min_date)
+          DateTime.parse(ev["starts_at"]).should >= DateTime.parse(@min_date)
         end
       end
 
@@ -306,7 +306,7 @@ describe "ThrillcallAPI" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => @min_date, :max_date => @max_date)
         e.length.should == TINY_LIMIT
         e.each do |ev|
-          DateTime.parse(ev["start_date"]).should < (DateTime.parse(@max_date) + 1)
+          DateTime.parse(ev["starts_at"]).should < (DateTime.parse(@max_date) + 1)
         end
       end
 
@@ -319,13 +319,13 @@ describe "ThrillcallAPI" do
         after = DateTime.parse(@min_date).new_offset(offset) - offset        # should be 15:00 utc
         before = (DateTime.parse(@max_date).new_offset(offset) + 1) - offset # should be 15:00 utc
 
-        # puts "min_date: #{@min_date} (#{after})"
-        # puts "max_date: #{@max_date} (#{before})"
+        puts "min_date: #{@min_date} (#{after})"
+        puts "max_date: #{@max_date} (#{before})"
 
         e.each do |ev|
-          d = DateTime.parse(ev["start_date"]).new_offset(offset)
+          d = DateTime.parse(ev["starts_at_local"])
 
-          #puts "Checking #{ev["start_date"]} : #{d}"
+          puts "Checking #{ev["starts_at_local"]} : #{d}"
 
           d.should >= after
           d.should < before
@@ -512,13 +512,13 @@ describe "ThrillcallAPI" do
         after = DateTime.parse(@min_date).new_offset(offset) - offset
         before = (DateTime.parse(@max_date).new_offset(offset) + 1) - offset
 
-        #puts "min_date: #{@min_date} (#{after})"
-        #puts "max_date: #{@max_date} (#{before})"
+        puts "min_date: #{@min_date} (#{after})"
+        puts "max_date: #{@max_date} (#{before})"
 
         e.each do |ev|
-          d = DateTime.parse(ev["start_date"]).new_offset(offset)
+          d = DateTime.parse(ev["starts_at_local"])
 
-          #puts "Checking #{ev["start_date"]} : #{d}"
+          puts "Checking #{ev["starts_at_local"]} : #{d}"
 
           d.should >= after
           d.should < before

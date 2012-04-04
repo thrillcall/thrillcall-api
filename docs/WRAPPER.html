@@ -64,7 +64,7 @@
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
 </style><h1>Thrillcall API</h1>
 
-<p>This document describes the Thrillcall API v2, and usage for the provided Ruby API wrapper gem.</p>
+<p>This document describes the Thrillcall API v3, and usage for the provided Ruby API wrapper gem.</p>
 
 <h1>Ruby API Wrapper</h1>
 
@@ -123,7 +123,7 @@
 <div class="highlight">
 <pre>    <span class="c1">#---------------------------------------------------------------#</span>
     <span class="c1"># The default SSL endpoint is "https://api.thrillcall.com/api/".</span>
-    <span class="c1"># The default API version is 2.</span>
+    <span class="c1"># The default API version is 3.</span>
     <span class="c1"># By default, Faraday access logging is turned off.</span>
     <span class="c1"># Override if necessary:</span>
     <span class="c1">#---------------------------------------------------------------#</span>
@@ -161,7 +161,7 @@
     <span class="nb">require</span> <span class="s1">'json'</span>
 
     <span class="no">MY_API_KEY</span>  <span class="o">=</span> <span class="s2">"1234567890abcdef"</span>
-    <span class="no">BASE_URL</span>    <span class="o">=</span> <span class="s2">"https://api.thrillcall.com/api/v2/"</span>
+    <span class="no">BASE_URL</span>    <span class="o">=</span> <span class="s2">"https://api.thrillcall.com/api/v3/"</span>
     <span class="no">HEADERS</span>     <span class="o">=</span> <span class="p">{</span> <span class="ss">:accept</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span> <span class="p">}</span>
 
     <span class="n">connection</span>  <span class="o">=</span> <span class="no">Faraday</span><span class="o">.</span><span class="n">new</span><span class="p">(</span> <span class="ss">:url</span> <span class="o">=&gt;</span> <span class="no">BASE_URL</span><span class="p">,</span> <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="no">HEADERS</span> <span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>

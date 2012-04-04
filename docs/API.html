@@ -280,7 +280,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/artists?limit=14&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/artists?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -291,13 +291,12 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
         <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-26T16:49:20Z"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-mobile.jpg"</span>
+        <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Hyler_Jones_Proteges"</span>
       <span class="p">},</span>
       <span class="p">{</span>
@@ -320,24 +319,23 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/artist/4802?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/artist/378465?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T18:56:09Z"</span><span class="p">,</span>
-      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4802</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake"</span><span class="p">,</span>
-      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-20T19:12:57Z"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/The_Sea_and_Cake"</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-05-19T20:27:47Z"</span><span class="p">,</span>
+      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Operatic pop"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
+      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-27T15:59:04Z"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+      <span class="p">},</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Il_Volo"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -367,34 +365,36 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/artist/4802/events?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/artist/378465/events?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-23T23:10:31Z"</span><span class="p">,</span>
-        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T08:01:03Z"</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">862618</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">30.2729</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">97.7405</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake @ The Mohawk"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1046915</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">47.6136</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.332</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Paramount Theatre - Seattle"</span><span class="p">,</span>
         <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-12-09T05:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2012-10-02T19:30:00Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-10-03T02:30:00Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T04:01:56Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">10116</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/862618"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:53Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">61705</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1046915"</span><span class="p">,</span>
+        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-10-02T19:30:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -417,25 +417,24 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/search/artists/The%20Sea%20and%20Cake?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/search/artists/Il%20Volo?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T18:56:09Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4802</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-20T19:12:57Z"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/The_Sea_and_Cake"</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-05-19T20:27:47Z"</span><span class="p">,</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Operatic pop"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-27T15:59:04Z"</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Il_Volo"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -453,8 +452,6 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <ul>
 <li>
 <strong>created_at</strong>                 <em>string</em>  ISO 8601 representation the time this object was created</li>
-<li>
-<strong>end_date</strong>                   <em>string</em>  ISO 8601 representation of the end of the Event</li>
 <li>
 <strong>festival</strong>                    <em>boolean</em> Is this event a festival?</li>
 <li>
@@ -478,7 +475,13 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <strong>rumor</strong>                       <em>boolean</em> Are the details for this event based on a rumor?</li>
 <li>
-<strong>start_date</strong>                 <em>string</em>  YYYY-MM-DD or, if time of day is known, ISO 8601 representation of the start of the Event</li>
+<strong>starts_at</strong>                  <em>string</em>  ISO 8601 representation of the start of the Event in UTC time</li>
+<li>
+<strong>starts_at_local</strong>           <em>string</em>  ISO 8601 representation of the start of the Event in the local timezone</li>
+<li>
+<strong>starts_at_time_trusted</strong>   <em>boolean</em> Do we trust that the time of day component of <strong>starts_at</strong> is valid?</li>
+<li>
+<strong>time_zone</strong>                  <em>string</em>  TZ Database string representing the time zone at the location of the event</li>
 <li>
 <strong>unconfirmed_location</strong>       <em>integer</em> If 1, the location if this event is unconfirmed</li>
 <li>
@@ -510,34 +513,36 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/events?must_have_tickets=true&amp;postalcode=94108&amp;radius=10&amp;limit=3&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/events?must_have_tickets=true&amp;postalcode=94108&amp;radius=10&amp;limit=3&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:13Z"</span><span class="p">,</span>
-        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7951</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.421</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake @ Great American Music Hall"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7915</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.413</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Masonic Center"</span><span class="p">,</span>
         <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-12-06T07:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-09-30T02:30:04Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T04:00:41Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/858707"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
+        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -559,33 +564,33 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Event <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/858707?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/event/1045602/venue?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:13Z"</span><span class="p">,</span>
-      <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7951</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.421</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake @ Great American Music Hall"</span><span class="p">,</span>
-      <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-12-06T07:59:00Z"</span><span class="p">,</span>
-      <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T04:00:41Z"</span><span class="p">,</span>
-      <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/858707"</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
+      <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
+      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-04-04T02:08:50Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
+      <span class="p">},</span>
+      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -603,25 +608,24 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/858707/artists?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/event/1047075/artists?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T18:56:09Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4802</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"The Sea and Cake"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-20T19:12:57Z"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/The_Sea_and_Cake"</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-05-19T20:27:47Z"</span><span class="p">,</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Operatic pop"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-27T15:59:04Z"</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Il_Volo"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -643,31 +647,33 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/858707/venue?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/event/1045602/venue?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"859 O'Farrell St."</span><span class="p">,</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
       <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:31Z"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.784796</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418819</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Great American Music Hall"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
+      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">34</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-20T21:04:37Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94109"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-04-04T02:08:50Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
+      <span class="p">},</span>
       <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span>
-          <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-mobile.jpg"</span>
-          <span class="p">}</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -686,23 +692,23 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/event/858707/tickets?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/event/1047075/tickets?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">599794</span><span class="p">,</span>
+        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">819883</span><span class="p">,</span>
         <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
-        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Gen. Admission Seating Limited"</span><span class="p">,</span>
+        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">85</span><span class="p">,</span>
+        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="mi">29</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Onsale to General Public"</span><span class="p">,</span>
         <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://tickets.gamh.com/evinfo.php?eventid=154723&amp;amp;r=affi&amp;amp;u=210785"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://ticketsus.at/thrillcall?CTY=39&amp;DURL=http://www.ticketmaster.com/event/1C00486178A1251A?camefrom=CFC_BUYAT&amp;brand=[=BRAND=]"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -738,7 +744,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Genres <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/genres?limit=14&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/genres?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -768,7 +774,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns: Genre <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/genre/27?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/genre/27?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
@@ -793,25 +799,24 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/genre/27/artists?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/genre/61/artists?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:06:05Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Folk;Other;psychedelic"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Espers"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-03T22:14:36Z"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/artist/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Espers"</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:19:45Z"</span><span class="p">,</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"O"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Hyler Jones Proteges"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-26T16:49:20Z"</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-mobile.jpg"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Hyler_Jones_Proteges"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -861,7 +866,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/metro_areas?limit=14&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/metro_areas?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -871,11 +876,11 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">104</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">41.8842</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">87.6324</span><span class="p">,</span>
-        <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
         <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"IL"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Chicago"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-07-05T23:11:24Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-12-27T00:44:37Z"</span><span class="p">,</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/chicago"</span>
       <span class="p">},</span>
       <span class="p">{</span>
@@ -898,7 +903,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Metro Area <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/metro_area/105?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/metro_area/105?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
@@ -910,8 +915,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
       <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Chicago"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-07-05T23:11:24Z"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-12-27T00:44:37Z"</span><span class="p">,</span>
       <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/san-francisco"</span>
     <span class="p">}</span>
 </pre>
@@ -939,34 +944,36 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/metro_area/105/events?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/metro_area/105/events?min_date=2011-04-05&amp;max_date=2012-04-04&amp;limit=3&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-04-24T02:12:09Z"</span><span class="p">,</span>
-        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-01-02T08:53:00Z"</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">831330</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7794</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Philadelphia Orchestra @ Davies Symphony Hall"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1011386</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7771</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.42</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Kontrol @ The End Up"</span><span class="p">,</span>
         <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2012-06-11T06:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2012-01-07T00:00:04Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-01-07T08:00:04Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-09-28T03:51:22Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/831330"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:19:31Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">47273</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/event/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/event/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1011386"</span><span class="p">,</span>
+        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-01-07T00:00:04-08:00"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1015,25 +1022,31 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns: Person <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/person/49</span>
+<pre>    <span class="c1">// Example: GET /api/v3/person/49?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
+      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
       <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
-      <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
       <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span>
-          <span class="p">{</span>
-            <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-medium.jpg"</span>
-          <span class="p">},</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
+      <span class="p">}</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1062,25 +1075,30 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Returns: Person <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v2/person/signin</span>
+<pre>    <span class="c1">// Example: POST /api/v3/person/signin?provider=facebook&amp;uid=123123bogus&amp;token=123123bogus&amp;email=123123bogus%40bogus.com&amp;first_name=Mister&amp;last_name=Bogus&amp;lat=38.5&amp;long=-123.0&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"country_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"Mister"</span><span class="p">,</span>
       <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Bogus"</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"timezone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span>
-          <span class="p">{</span>
-            <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-medium.jpg"</span>
-          <span class="p">},</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-medium.jpg"</span>
+      <span class="p">}</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1101,26 +1119,31 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns: Person <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v2/person/signup</span>
+<pre>    <span class="c1">// Example: POST /api/v3/person/signup?first_name=Mister&amp;email=bogus%40bogus.com&amp;password=bogus&amp;postalcode=94108&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
-        <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-        <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-        <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"john@example.com"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"referral_code"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
-        <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-          <span class="p">{</span>
-            <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/person/_default/default-medium.jpg"</span>
-          <span class="p">},</span>
-        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94104"</span>
-     <span class="p">}</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"country_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"Mister"</span><span class="p">,</span>
+      <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"timezone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-medium.jpg"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
 </pre>
 </div>
 
@@ -1180,7 +1203,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/venues?limit=14&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/venues?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1188,23 +1211,25 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Guadalajara"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-05-09T09:29:23Z"</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"long_description"</span><span class="o">:</span> <span class="s2">"Description of the venue"</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">20.666222</span><span class="p">,</span>
+        <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">103.352089</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Fbolko"</span><span class="p">,</span>
+        <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Mexico_City"</span><span class="p">,</span>
         <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-28T17:24:20Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T00:04:23Z"</span><span class="p">,</span>
         <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-          <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-mobile.jpg"</span>
-          <span class="p">}</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-mobile.jpg"</span>
+        <span class="p">},</span>
+        <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Fbolko_in_Guadalajara_MX"</span>
       <span class="p">},</span>
       <span class="p">{</span>
@@ -1227,32 +1252,33 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/venue/27418?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/venue/51886?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"859 O'Farrell St."</span><span class="p">,</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"201 Van Ness Avenue"</span><span class="p">,</span>
       <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:31Z"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.784796</span><span class="p">,</span>
-      <span class="s2">"long_description"</span><span class="o">:</span> <span class="s2">"Description of the venue"</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418819</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Great American Music Hall"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T17:59:32Z"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.777402</span><span class="p">,</span>
+      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.419815</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Davies Symphony Hall"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"(415) 864-6000"</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">34</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-20T21:04:37Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94109"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">48</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T03:13:27Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94102"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"</span>
+      <span class="p">},</span>
       <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span>
-          <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-mobile.jpg"</span>
-          <span class="p">}</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1278,31 +1304,36 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/venue/32065/events?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/venue/63279/events?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2000-11-09T19:09:23Z"</span><span class="p">,</span>
-        <span class="s2">"end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
         <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">824614</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.8016</span><span class="p">,</span>
-        <span class="s2">"long_description"</span><span class="o">:</span> <span class="s2">"Description of the venue"</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">80.4462</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Colt Ford @ West Virginia State Fair"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7915</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.413</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Masonic Center"</span><span class="p">,</span>
+        <span class="s2">"num_cancelled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_confirmed_bookings"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"num_disabled_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"num_unconfirmed_bookings"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"on_sale_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2011-08-21T03:59:00Z"</span><span class="p">,</span>
+        <span class="s2">"start_date"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-09-30T02:30:04Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T05:10:05Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">32065</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-            <span class="p">{</span>
-              <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-              <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-large.jpg"</span><span class="p">,</span>
-              <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/event/_default/default-mobile.jpg"</span>
-            <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/824614"</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
+        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1329,33 +1360,34 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/search/venues/Great%20American%20Music%20Hall?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/search/venues/Masonic%20Center?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"859 O'Farrell St."</span><span class="p">,</span>
+        <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"525 W Riverview Ave"</span><span class="p">,</span>
         <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Dayton"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:31Z"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27418</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.784796</span><span class="p">,</span>
-        <span class="s2">"long_description"</span><span class="o">:</span> <span class="s2">"Description of the venue"</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.418819</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Great American Music Hall"</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">34</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-01-20T21:04:37Z"</span><span class="p">,</span>
-        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94109"</span><span class="p">,</span>
-        <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span>
-          <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.tc-core.com/venue/_default/default-mobile.jpg"</span>
-          <span class="p">}</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Great_American_Music_Hall_in_San_Francisco_CA"</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-06-12T14:12:53Z"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">33642</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">39.765526</span><span class="p">,</span>
+        <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">84.203133</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Dayton Masonic Center"</span><span class="p">,</span>
+        <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"OH"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/New_York"</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T03:11:49Z"</span><span class="p">,</span>
+        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"45405"</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-mobile.jpg"</span>
+        <span class="p">},</span>
+        <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">134</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Dayton_Masonic_Center_in_Dayton_OH"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1417,7 +1449,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/tickets?limit=14&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/tickets?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1455,22 +1487,22 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Ticket <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v2/ticket/599794?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/ticket/819883?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
       <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">858707</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">599794</span><span class="p">,</span>
+      <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">819883</span><span class="p">,</span>
       <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
-      <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Gen. Admission Seating Limited"</span><span class="p">,</span>
+      <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">85</span><span class="p">,</span>
+      <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="mi">29</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Onsale to General Public"</span><span class="p">,</span>
       <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-06-14T00:09:16Z"</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://tickets.gamh.com/evinfo.php?eventid=154723&amp;amp;r=affi&amp;amp;u=210785"</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://ticketsus.at/thrillcall?CTY=39&amp;DURL=http://www.ticketmaster.com/event/1C00486178A1251A?camefrom=CFC_BUYAT&amp;brand=[=BRAND=]"</span>
     <span class="p">}</span>
 </pre>
 </div>

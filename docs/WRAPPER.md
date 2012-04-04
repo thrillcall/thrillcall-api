@@ -1,5 +1,5 @@
 # Thrillcall API
-This document describes the Thrillcall API v2, and usage for the provided Ruby API wrapper gem.
+This document describes the Thrillcall API v3, and usage for the provided Ruby API wrapper gem.
 
 # Ruby API Wrapper
 ### Usage:
@@ -56,7 +56,7 @@ Provide additional instantiation options:
     
     #---------------------------------------------------------------#
     # The default SSL endpoint is "https://api.thrillcall.com/api/".
-    # The default API version is 2.
+    # The default API version is 3.
     # By default, Faraday access logging is turned off.
     # Override if necessary:
     #---------------------------------------------------------------#
@@ -94,7 +94,7 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
     require 'json'
     
     MY_API_KEY  = "1234567890abcdef"
-    BASE_URL    = "https://api.thrillcall.com/api/v2/"
+    BASE_URL    = "https://api.thrillcall.com/api/v3/"
     HEADERS     = { :accept => 'application/json' }
     
     connection  = Faraday.new( :url => BASE_URL, :headers => HEADERS ) do |builder|
