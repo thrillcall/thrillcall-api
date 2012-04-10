@@ -86,7 +86,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 
 <p><em>Default: 100</em></p>
 
-<p>Sets the maximum number of results to return.  Cannot be above 100.</p>
+<p>Sets the maximum number of results to return.  Cannot be above 200.</p>
 </li>
 <li>
 <p><a name="page"></a><strong>page</strong> <em>integer</em></p>
@@ -118,6 +118,20 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p><em>Default: 1 year from Today</em></p>
 
 <p>Results after this date will not be returned.</p>
+</li>
+<li>
+<p><a name="min_updated_at"></a><strong>min_updated_at</strong> <em>string (format: "YYYY-MM-DD")</em></p>
+
+<p><em>Default: none</em></p>
+
+<p>Results with updated_at columns before this date will not be returned.</p>
+</li>
+<li>
+<p><a name="max_date"></a><strong>max_updated_at</strong> <em>string (format: "YYYY-MM-DD")</em></p>
+
+<p><em>Default: none</em></p>
+
+<p>Results ith updated_at columns after this date will not be returned.</p>
 </li>
 <li>
 <p><a name="lat"></a><strong>lat</strong> <em>float</em></p>
@@ -174,6 +188,13 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p><em>Default: false</em></p>
 
 <p>If set to <em>true</em> or <em>1</em>, will only return results that have tickets associated with them.</p>
+</li>
+<li>
+<p><a name="show_disabled_events"></a><strong>show_disabled_events</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>If set to <em>true</em> or <em>1</em>, will not filter out events which have been disabled internally.</p>
 </li>
 <li>
 <p><a name="show_unconfirmed_events"></a><strong>show_unconfirmed_events</strong> <em>boolean</em></p>
@@ -353,6 +374,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
+<li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
 <li><strong><a href="#lat">lat</a></strong></li>
 <li><strong><a href="#long">long</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
@@ -360,6 +383,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
@@ -502,12 +526,15 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
+<li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
 <li><strong><a href="#lat">lat</a></strong></li>
 <li><strong><a href="#long">long</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
 <li><strong><a href="#radius">radius</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
@@ -934,9 +961,12 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#page">page</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
+<li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
 <li><strong><a href="#radius">radius</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
 </ul><p>Note:  Time Zone is set as the time zone of the Metro Area and cannot be overridden.</p>
@@ -1296,9 +1326,12 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
+<li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
 <li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
@@ -1439,11 +1472,14 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#time_zone">time_zone</a></strong></li>
 <li><strong><a href="#min_date">min_date</a></strong></li>
 <li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
+<li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
 <li><strong><a href="#lat">lat</a></strong></li>
 <li><strong><a href="#long">long</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
 <li><strong><a href="#radius">radius</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>

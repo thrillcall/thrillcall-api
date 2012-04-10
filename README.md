@@ -134,7 +134,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     _Default: 100_
     
-    Sets the maximum number of results to return.  Cannot be above 100.
+    Sets the maximum number of results to return.  Cannot be above 200.
     
 - <a name="page" />**page** _integer_
     
@@ -163,6 +163,18 @@ These are valid parameters for any endpoint, however, they will only be used by 
     _Default: 1 year from Today_
     
     Results after this date will not be returned.
+    
+- <a name="min_updated_at" />**min\_updated\_at** _string (format: "YYYY-MM-DD")_
+    
+    _Default: none_
+    
+    Results with updated_at columns before this date will not be returned.
+    
+- <a name="max_date" />**max\_updated\_at** _string (format: "YYYY-MM-DD")_
+  
+    _Default: none_
+    
+    Results ith updated_at columns after this date will not be returned.
     
 - <a name="lat" />**lat** _float_
     
@@ -212,6 +224,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
     _Default: false_
     
     If set to _true_ or _1_, will only return results that have tickets associated with them.
+    
+- <a name="show_disabled_events" />**show\_disabled\_events** _boolean_
+    
+    _Default: false_
+    
+    If set to _true_ or _1_, will not filter out events which have been disabled internally.
     
 - <a name="show_unconfirmed_events" />**show\_unconfirmed\_events** _boolean_
     
@@ -362,6 +380,8 @@ Params:
 - **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
 - **[lat](#lat)**
 - **[long](#long)**
 - **[postalcode](#postalcode)**
@@ -369,6 +389,7 @@ Params:
 - **[use\_partner\_id](#use_partner_id)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 
@@ -484,12 +505,15 @@ Params:
 - **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
 - **[lat](#lat)**
 - **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 
@@ -867,9 +891,12 @@ Params:
 - **[page](#page)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
 - **[radius](#radius)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 
@@ -1183,9 +1210,12 @@ Params:
 - **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
 - **[use\_partner\_id](#use_partner_id)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 
@@ -1306,11 +1336,14 @@ Params:
 - **[time\_zone](#time_zone)**
 - **[min\_date](#min_date)**
 - **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
 - **[lat](#lat)**
 - **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 - **[ticket\_type](#ticket_type)**
+- **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 

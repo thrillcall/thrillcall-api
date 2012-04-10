@@ -13,7 +13,8 @@ module ThrillcallAPI
       default_options = {
         :base_url   => "https://api.thrillcall.com/api/",
         :version    => 3,
-        :logger     => false
+        :logger     => false,
+        :timeout    => 15
       }
 
       opts = default_options.merge(options)
@@ -22,6 +23,11 @@ module ThrillcallAPI
       base_url      = opts[:base_url]
       version       = opts[:version]
       logger        = opts[:logger]
+
+      faraday_opts  = {
+        :timeout      => opts[:timeout],
+        :open_timeout => opts[:timeout]
+      }
 
       # Make sure the base_url is in the form https://.../
       unless base_url.match /^(http|https):\/\//
@@ -39,7 +45,7 @@ module ThrillcallAPI
       }
 
       @base   = "#{base_url}v#{version}/"
-      @conn   = Faraday.new( :url => @base, :headers => @headers ) do |builder|
+      @conn   = Faraday.new( :url => @base, :headers => @headers, :options => faraday_opts ) do |builder|
         builder.adapter Faraday.default_adapter
         if logger
           builder.response :logger

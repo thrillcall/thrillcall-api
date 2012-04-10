@@ -49,6 +49,7 @@ HOST                      = "http://localhost:3000/api/"                    if T
 HOST                      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
 HOST                      = "https://api.thrillcall.com:443/api/"           if TEST_ENV == :production     # SSL!
 
+MAX_LIMIT                 = 200
 LIMIT                     = 14
 TINY_LIMIT                = 3
 
@@ -102,6 +103,7 @@ describe "ThrillcallAPI" do
       day_buffer            = 0
       range                 = 365
 
+      @beginning_of_time    = (Time.now - 60*60*24*((range*5)+day_buffer)).to_date.to_s
       @min_date             = (Time.now - 60*60*24*(range+day_buffer)).to_date.to_s
       @max_date             = (Time.now - 60*60*24*day_buffer).to_date.to_s
 
@@ -294,6 +296,12 @@ describe "ThrillcallAPI" do
         e["id"].should == @venue_id
       end
 
+      it "should verify the behavior of the limit maximum" do
+        e = @tc.events(:limit => MAX_LIMIT, :min_date => @beginning_of_time)
+
+        e.length.should == MAX_LIMIT
+      end
+
       it "should verify the behavior of the min_date param" do
         e = @tc.events(:limit => TINY_LIMIT, :min_date => @min_date)
         e.length.should == TINY_LIMIT
@@ -307,6 +315,22 @@ describe "ThrillcallAPI" do
         e.length.should == TINY_LIMIT
         e.each do |ev|
           DateTime.parse(ev["starts_at"]).should < (DateTime.parse(@max_date) + 1)
+        end
+      end
+
+      it "should verify the behavior of the min_updated_at param" do
+        e = @tc.events(:limit => TINY_LIMIT, :min_updated_at => @min_date)
+        e.length.should == TINY_LIMIT
+        e.each do |ev|
+          DateTime.parse(ev["updated_at"]).should >= DateTime.parse(@min_date)
+        end
+      end
+
+      it "should verify the behavior of the max_updated_at param" do
+        e = @tc.events(:limit => TINY_LIMIT, :min_updated_at => @min_date, :max_updated_at => @max_date)
+        e.length.should == TINY_LIMIT
+        e.each do |ev|
+          DateTime.parse(ev["updated_at"]).should < (DateTime.parse(@max_date) + 1)
         end
       end
 
@@ -339,6 +363,13 @@ describe "ThrillcallAPI" do
         e.length.should == TINY_LIMIT * 2
         o.length.should == TINY_LIMIT
         (e - o).length.should == TINY_LIMIT
+      end
+
+      it "should verify the behavior of the show_disabled_events param" do
+        e = @tc.events(:limit => MAX_LIMIT, :show_disabled_events => false)
+        e.each do |ev|
+          ev["num_disabled_bookings"].should == 0
+        end
       end
 
       it "should verify the behavior of the confirmed_events_only param" do
