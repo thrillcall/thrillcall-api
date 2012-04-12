@@ -49,7 +49,7 @@ HOST                      = "http://localhost:3000/api/"                    if T
 HOST                      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
 HOST                      = "https://api.thrillcall.com:443/api/"           if TEST_ENV == :production     # SSL!
 
-MAX_LIMIT                 = 200
+MAX_LIMIT                 = 175
 LIMIT                     = 14
 TINY_LIMIT                = 3
 
@@ -368,7 +368,7 @@ describe "ThrillcallAPI" do
       it "should verify the behavior of the show_disabled_events param" do
         e = @tc.events(:limit => MAX_LIMIT, :show_disabled_events => false)
         e.each do |ev|
-          ev["num_disabled_bookings"].should == 0
+          ev["status"].should_not == :disabled
         end
       end
 

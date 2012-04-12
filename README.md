@@ -144,7 +144,6 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Specifies the page number.  If limit is 10, then page = 2 will return results #20 through #29
     
-
 - <a name="time_zone" />**time\_zone** _string (format: TZ Database string, eg "America/Los\_Angeles")_
     
     _Default: UTC_
@@ -174,7 +173,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
   
     _Default: none_
     
-    Results ith updated_at columns after this date will not be returned.
+    Results with updated_at columns after this date will not be returned.
     
 - <a name="lat" />**lat** _float_
     
@@ -406,10 +405,6 @@ Returns:  _Array_ of Events _Hash_
         "latitude": 47.6136,
         "longitude": -122.332,
         "name": "Il Volo @ Paramount Theatre - Seattle",
-        "num_cancelled_bookings": 0,
-        "num_confirmed_bookings": 1,
-        "num_disabled_bookings": 0,
-        "num_unconfirmed_bookings": 0,
         "on_sale_date": null,
         "rumor": false,
         "start_date": "2012-10-02T19:30:00Z",
@@ -425,7 +420,8 @@ Returns:  _Array_ of Events _Hash_
         },
         "url": "http://thrillcall.com/event/1046915",
         "starts_at_local": "2012-10-02T19:30:00-07:00",
-        "time_zone": "America/Los_Angeles"
+        "time_zone": "America/Los_Angeles",
+        "status": "confirmed"
       },
       {
         ...
@@ -480,17 +476,14 @@ Fields:
 - **latitude**                    _float_   Approximate latitude for the Event
 - **longitude**                   _float_   Approximate longitude for the Event
 - **name**                        _string_  Name of the Event
-- **num\_confirmed\_bookings**    _integer_ The number of confirmed Artist bookings for this event.  Only Artists with a confirmed booking are returned when requesting artists for an event.
-- **num\_unconfirmed\_bookings**  _integer_ The number of unconfirmed Artist bookings for this event
-- **num\_disabled\_bookings**     _integer_ The number of disabled Artist bookings for this event
-- **num\_cancelled\_bookings**    _integer_ The number of cancelled Artist bookings for this event
 - **on\_sale\_date**              _string_  ISO 8601 representation of the date when tickets go on sale
 - **rumor**                       _boolean_ Are the details for this event based on a rumor?
+- **status**                      _string_  Status of the event (confirmed, unconfirmed, cancelled, or disabled)
 - **starts\_at**                  _string_  ISO 8601 representation of the start of the Event in UTC time
 - **starts\_at\_local**           _string_  ISO 8601 representation of the start of the Event in the local timezone
 - **starts\_at\_time\_trusted**   _boolean_ Do we trust that the time of day component of **starts\_at** is valid?
 - **time\_zone**                  _string_  TZ Database string representing the time zone at the location of the event
-- **unconfirmed\_location**       _integer_ If 1, the location if this event is unconfirmed
+- **unconfirmed\_location**       _integer_ If 1, the location of this event is unconfirmed
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
@@ -530,10 +523,6 @@ Returns:  _Array_ of Events _Hash_
         "latitude": 37.7915,
         "longitude": -122.413,
         "name": "Il Volo @ Masonic Center",
-        "num_cancelled_bookings": 0,
-        "num_confirmed_bookings": 1,
-        "num_disabled_bookings": 0,
-        "num_unconfirmed_bookings": 0,
         "on_sale_date": null,
         "rumor": false,
         "start_date": "2012-09-29T19:30:04Z",
@@ -550,6 +539,7 @@ Returns:  _Array_ of Events _Hash_
         "url": "http://thrillcall.com/event/1047075",
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles"
+        "status": "confirmed"
       },
       {
         ...
@@ -915,10 +905,6 @@ Returns:  _Array_ of Metro Areas _Hash_
         "latitude": 37.7771,
         "longitude": -122.42,
         "name": "Kontrol @ The End Up",
-        "num_cancelled_bookings": 0,
-        "num_confirmed_bookings": 1,
-        "num_disabled_bookings": 0,
-        "num_unconfirmed_bookings": 0,
         "on_sale_date": null,
         "rumor": false,
         "start_date": "2012-01-07T00:00:04Z",
@@ -935,6 +921,7 @@ Returns:  _Array_ of Metro Areas _Hash_
         "url": "http://thrillcall.com/event/1011386",
         "starts_at_local": "2012-01-07T00:00:04-08:00",
         "time_zone": "America/Los_Angeles"
+        "status": "confirmed"
       },
       {
         ...
@@ -1232,10 +1219,6 @@ Returns:  _Array_ of Events _Hash_
         "latitude": 37.7915,
         "longitude": -122.413,
         "name": "Il Volo @ Masonic Center",
-        "num_cancelled_bookings": 0,
-        "num_confirmed_bookings": 1,
-        "num_disabled_bookings": 0,
-        "num_unconfirmed_bookings": 0,
         "on_sale_date": null,
         "rumor": false,
         "start_date": "2012-09-29T19:30:04Z",
@@ -1252,6 +1235,7 @@ Returns:  _Array_ of Events _Hash_
         "url": "http://thrillcall.com/event/1047075",
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles"
+        "status": "confirmed"
       },
       {
         ...

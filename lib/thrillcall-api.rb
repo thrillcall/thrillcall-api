@@ -14,7 +14,7 @@ module ThrillcallAPI
         :base_url   => "https://api.thrillcall.com/api/",
         :version    => 3,
         :logger     => false,
-        :timeout    => 15
+        :timeout    => 20
       }
 
       opts = default_options.merge(options)
