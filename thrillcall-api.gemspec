@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "ZenTest",                "~> 4.6.2"
   s.add_development_dependency  "autotest",               "~> 4.4.6"
   s.add_development_dependency  "autotest-growl",         "~> 0.2.16"
-  s.add_development_dependency  "autotest-fsevent",       "~> 0.2.7"
+  s.add_development_dependency  "autotest-fsevent",       "~> 0.2.8"
   s.add_development_dependency  "awesome_print",          "~> 1.0.1"
   s.add_development_dependency  "redcarpet",              "~> 1.17.2"
   s.add_development_dependency  "nokogiri",               "~> 1.4.6"
