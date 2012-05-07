@@ -202,6 +202,15 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Your API key.  Required for access to any endpoint.</p>
 </li>
 <li>
+<p><a name="ids"></a><strong>ids</strong> <em>string</em></p>
+
+<p><em>Default: nil</em></p>
+
+<p>Comma-separated list of ID integers, like "100,200,300".</p>
+
+<p>If provided to a list endpoint (e.g. /venues), will retrieve only the specific venue ids listed.</p>
+</li>
+<li>
 <p><a name="limit"></a><strong>limit</strong> <em>integer</em></p>
 
 <p><em>Default: 100</em></p>
@@ -1329,6 +1338,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Params:</p>
 
 <ul>
+<li><strong><a href="#ids">ids</a></strong></li>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
 <li><strong><a href="#lat">lat</a></strong></li>

@@ -458,6 +458,15 @@ describe "ThrillcallAPI" do
         v.length.should == LIMIT
       end
 
+      it "should get a list of venues with specific ids" do
+        ids = [200, 300, 400]
+        v = @tc.venues(:ids => ids.join(","))
+        v.length.should == 3
+        v.each do |venue|
+          (ids.include? venue["id"].to_i).should be_true
+        end
+      end
+
       it "should get a specific venue" do
         v = @tc.venue(@venue_id)
         v["id"].should == @venue_id

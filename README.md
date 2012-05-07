@@ -130,6 +130,14 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Your API key.  Required for access to any endpoint.
     
+- <a name="ids" />**ids** _string_
+  
+    _Default: nil_
+    
+    Comma-separated list of ID integers, like "100,200,300".
+    
+    If provided to a list endpoint (e.g. /venues), will retrieve only the specific venue ids listed.
+    
 - <a name="limit" />**limit** _integer_
     
     _Default: 100_
@@ -1100,6 +1108,7 @@ Fields:
 ### GET /venues
 Params:
 
+- **[ids](#ids)**
 - **[limit](#limit)**
 - **[page](#page)**
 - **[lat](#lat)**
