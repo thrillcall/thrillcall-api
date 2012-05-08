@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency              "faraday",                "~> 0.7.0"
 
-  s.files        = `git ls-files`.split("\n")
-  s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
+  s.files = Dir['lib/**/*.rb'] + Dir['bin/*']
   s.require_path = 'lib'
 end
