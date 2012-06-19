@@ -640,6 +640,18 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <strong>photos</strong>                      <em>hash</em>    A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
+<strong>artists</strong>                     <em>array</em>   An array of hashes, each representing an artist at this event.
+
+<ul>
+<li>
+<strong>id</strong>                        <em>integer</em> Thrillcall ID for the artist</li>
+<li>
+<strong>name</strong>                      <em>string</em>  Artist name</li>
+<li>
+<strong>headliner</strong>                 <em>boolean</em> Is this artist a headliner on the bill?</li>
+</ul>
+</li>
+<li>
 <strong>url</strong>                         <em>string</em>  URL for this object on Thrillcall</li>
 </ul><h3>GET /events</h3>
 

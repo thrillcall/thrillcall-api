@@ -384,6 +384,10 @@ Fields:
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
+- **artists**                     _array_   An array of hashes, each representing an artist at this event.
+  - **id**                        _integer_ Thrillcall ID for the artist
+  - **name**                      _string_  Artist name
+  - **headliner**                 _boolean_ Is this artist a headliner on the bill?
 - **url**                         _string_  URL for this object on Thrillcall
 
 
