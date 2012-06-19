@@ -291,6 +291,23 @@ describe "ThrillcallAPI" do
         e.first["id"].should == @artist_id
       end
 
+      it "should get a condensed list of artists for a specific event with headliner info along with the event data" do
+        e = @tc.event(@event_id)
+        (e["artists"].is_a? Array).should be_true
+        e["artists"].length.should > 0
+        found_artist = false
+        e["artists"].each do |art|
+          (art.is_a? Hash).should be_true
+          if art["id"] == @artist_id
+            found_artist = true
+            art["name"].should == @artist_norm_name
+            # Should be a boolean
+            !!art["headliner"].should == art["headliner"]
+          end
+        end
+        found_artist.should be_true
+      end
+
       it "should get the venue for a specific event" do
         e = @tc.event(@event_id).venue
         e["id"].should == @venue_id
@@ -368,7 +385,7 @@ describe "ThrillcallAPI" do
       it "should verify the behavior of the show_disabled_events param" do
         e = @tc.events(:limit => MAX_LIMIT, :show_disabled_events => false)
         e.each do |ev|
-          ev["status"].should_not == :disabled
+          ev["event_status"].should_not == "disabled"
         end
       end
 

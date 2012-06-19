@@ -290,29 +290,34 @@ Returns:  _Array_ of Events _Hash_
     
     [
       {
-        "created_at": "2012-03-02T08:01:03Z",
+        "created_at": "2012-03-02T18:06:14Z",
         "festival": false,
-        "id": 1046915,
-        "latitude": 47.6136,
-        "longitude": -122.332,
-        "name": "Il Volo @ Paramount Theatre - Seattle",
-        "on_sale_date": null,
+        "id": 1047075,
+        "latitude": 37.7915,
+        "longitude": -122.413,
+        "name": "Il Volo @ Masonic Center",
         "rumor": false,
-        "start_date": "2012-10-02T19:30:00Z",
-        "starts_at": "2012-10-03T02:30:00Z",
+        "starts_at": "2012-09-30T02:30:04Z",
         "starts_at_time_trusted": true,
         "unconfirmed_location": 0,
-        "updated_at": "2012-03-29T01:35:53Z",
-        "venue_id": 61705,
+        "updated_at": "2012-03-29T01:35:57Z",
+        "venue_id": 63279,
         "photos": {
           "thumbnail": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
           "large": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
           "mobile": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
         },
-        "url": "http://thrillcall.com/event/1046915",
-        "starts_at_local": "2012-10-02T19:30:00-07:00",
+        "url": "http://thrillcall.com/event/1047075",
+        "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
-        "status": "confirmed"
+        "event_status": "confirmed",
+        "artists": [
+          {
+            "id": 378465,
+            "name": "Il Volo",
+            "headliner": false
+          }
+        ]
       },
       {
         ...
@@ -320,6 +325,7 @@ Returns:  _Array_ of Events _Hash_
       ...
     ]
 ```
+
 
 ### GET /search/artists/:term
 **:term** _string_  Arbitrary search string on the **name** field.  (alphanumerics only, underscore matches underscore, use '+' for space)
@@ -369,7 +375,7 @@ Fields:
 - **name**                        _string_  Name of the Event
 - **on\_sale\_date**              _string_  ISO 8601 representation of the date when tickets go on sale
 - **rumor**                       _boolean_ Are the details for this event based on a rumor?
-- **status**                      _string_  Status of the event (confirmed, unconfirmed, cancelled, or disabled)
+- **event\_status**               _string_  Status of the event (confirmed, unconfirmed, cancelled, or disabled)
 - **starts\_at**                  _string_  ISO 8601 representation of the start of the Event in UTC time
 - **starts\_at\_local**           _string_  ISO 8601 representation of the start of the Event in the local timezone
 - **starts\_at\_time\_trusted**   _boolean_ Do we trust that the time of day component of **starts\_at** is valid?
@@ -414,9 +420,7 @@ Returns:  _Array_ of Events _Hash_
         "latitude": 37.7915,
         "longitude": -122.413,
         "name": "Il Volo @ Masonic Center",
-        "on_sale_date": null,
         "rumor": false,
-        "start_date": "2012-09-29T19:30:04Z",
         "starts_at": "2012-09-30T02:30:04Z",
         "starts_at_time_trusted": true,
         "unconfirmed_location": 0,
@@ -429,8 +433,15 @@ Returns:  _Array_ of Events _Hash_
         },
         "url": "http://thrillcall.com/event/1047075",
         "starts_at_local": "2012-09-29T19:30:04-07:00",
-        "time_zone": "America/Los_Angeles"
-        "status": "confirmed"
+        "time_zone": "America/Los_Angeles",
+        "event_status": "confirmed",
+        "artists": [
+          {
+            "id": 378465,
+            "name": "Il Volo",
+            "headliner": false
+          }
+        ]
       },
       {
         ...
@@ -786,7 +797,7 @@ Note:  Time Zone is set as the time zone of the Metro Area and cannot be overrid
 Returns:  _Array_ of Metro Areas _Hash_
 
 ``` js
-    // Example: GET /api/v3/metro_area/105/events?min_date=2011-04-05&max_date=2012-04-04&limit=3&api_key=1234567890abcdef
+    // Example: GET /api/v3/metro_area/105/events?min_date=2011-06-20&max_date=2012-06-19&limit=3&api_key=1234567890abcdef
     
     [
       {
@@ -796,23 +807,28 @@ Returns:  _Array_ of Metro Areas _Hash_
         "latitude": 37.7771,
         "longitude": -122.42,
         "name": "Kontrol @ The End Up",
-        "on_sale_date": null,
         "rumor": false,
-        "start_date": "2012-01-07T00:00:04Z",
         "starts_at": "2012-01-07T08:00:04Z",
         "starts_at_time_trusted": false,
         "unconfirmed_location": 0,
         "updated_at": "2012-03-29T01:19:31Z",
         "venue_id": 47273,
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/event/_default/default-thumbnail.jpg",
-          "large": "http://i.development.tc-core.com/event/_default/default-large.jpg",
+          "thumbnail": "http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566",
+          "large": "http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566",
           "mobile": "http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"
         },
         "url": "http://thrillcall.com/event/1011386",
         "starts_at_local": "2012-01-07T00:00:04-08:00",
-        "time_zone": "America/Los_Angeles"
-        "status": "confirmed"
+        "time_zone": "America/Los_Angeles",
+        "event_status": "confirmed",
+        "artists": [
+          {
+            "id": 2295,
+            "name": "Kontrol",
+            "headliner": false
+          }
+        ]
       },
       {
         ...
@@ -1111,9 +1127,7 @@ Returns:  _Array_ of Events _Hash_
         "latitude": 37.7915,
         "longitude": -122.413,
         "name": "Il Volo @ Masonic Center",
-        "on_sale_date": null,
         "rumor": false,
-        "start_date": "2012-09-29T19:30:04Z",
         "starts_at": "2012-09-30T02:30:04Z",
         "starts_at_time_trusted": true,
         "unconfirmed_location": 0,
@@ -1126,8 +1140,15 @@ Returns:  _Array_ of Events _Hash_
         },
         "url": "http://thrillcall.com/event/1047075",
         "starts_at_local": "2012-09-29T19:30:04-07:00",
-        "time_zone": "America/Los_Angeles"
-        "status": "confirmed"
+        "time_zone": "America/Los_Angeles",
+        "event_status": "confirmed",
+        "artists": [
+          {
+            "id": 378465,
+            "name": "Il Volo",
+            "headliner": false
+          }
+        ]
       },
       {
         ...
