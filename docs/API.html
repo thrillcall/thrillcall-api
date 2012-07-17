@@ -276,6 +276,31 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 
 <p>The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a referral credit point.</p>
 </li>
+<li>
+<p><a name="name"></a><strong>name</strong> <em>string</em></p>
+
+<p>Name of the Artist.</p>
+</li>
+<li>
+<p><a name="facebook_url"></a><strong>facebook_url</strong> <em>string (format: "http://facebook.com/ladygaga")</em></p>
+
+<p>Facebook URL for the Artist.</p>
+</li>
+<li>
+<p><a name="myspace_url"></a><strong>myspace_url</strong> <em>string (format: "http://myspace.com/ladygaga")</em></p>
+
+<p>Myspace URL for the Artist.</p>
+</li>
+<li>
+<p><a name="official_url"></a><strong>official_url</strong> <em>string (format: "http://www.ladygaga.com/")</em></p>
+
+<p>Official URL for the Artist.</p>
+</li>
+<li>
+<p><a name="wikipedia_url"></a><strong>wikipedia_url</strong> <em>string (format: "http://en.wikipedia.org/wiki/Lady</em>Gaga")_</p>
+
+<p>Wikipedia URL for the Artist.</p>
+</li>
 </ul><h2>Artists</h2>
 
 <p>Fields:</p>
@@ -299,6 +324,14 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
 <strong>url</strong>                     <em>string</em>    URL for this object on Thrillcall</li>
+<li>
+<strong>facebook_url</strong>           <em>string</em>    URL for this object on Facebook</li>
+<li>
+<strong>myspace_url</strong>            <em>string</em>    Myspace URL for this object</li>
+<li>
+<strong>official_url</strong>           <em>string</em>    Official external URL for this object</li>
+<li>
+<strong>wikipedia_url</strong>          <em>string</em>    Wikipedia URL for this object</li>
 </ul><h3>GET /artists</h3>
 
 <p>Params:</p>
@@ -338,6 +371,46 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </div>
 
 
+<h3>POST /artist</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#name">name</a></strong></li>
+<li><strong><a href="#facebook_url">facebook_url</a></strong></li>
+<li><strong><a href="#myspace_url">myspace_url</a></strong></li>
+<li><strong><a href="#official_url">official_url</a></strong></li>
+<li><strong><a href="#wikipedia_url">wikipedia_url</a></strong></li>
+</ul><p>Creates a new Artist record with the provided parameters.</p>
+
+<p>Returns:  Artist <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v3/artist?name=Bleeding%20Chest%20Wounds&amp;wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Bleeding Chest Wounds"</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"permalink"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://test.com"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-mobile.jpg"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
 <h3>GET /artist/:id</h3>
 
 <p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
@@ -349,23 +422,70 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artist/378465?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/artist/12569?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-05-19T20:27:47Z"</span><span class="p">,</span>
-      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Operatic pop"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
-      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-27T15:59:04Z"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
+      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
+      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
       <span class="p">},</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Il_Volo"</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>PUT /artist/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#name">name</a></strong></li>
+<li><strong><a href="#facebook_url">facebook_url</a></strong></li>
+<li><strong><a href="#myspace_url">myspace_url</a></strong></li>
+<li><strong><a href="#official_url">official_url</a></strong></li>
+<li><strong><a href="#wikipedia_url">wikipedia_url</a></strong></li>
+</ul><p>Updates the provided fields on Artist <strong>:id</strong>.</p>
+
+<p>Returns:  Artist <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: PUT /api/v3/artist/12569?wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
+      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
+      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://test.com"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
+      <span class="p">},</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -452,24 +572,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/search/artists/Il%20Volo?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/search/artists/Chris%20Isaak?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-05-19T20:27:47Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Operatic pop"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-27T15:59:04Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
+        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
+        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
+        <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
+        <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
         <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Il_Volo"</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -610,7 +734,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Event <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1045602/venue?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
@@ -618,16 +742,20 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491"</span><span class="p">,</span>
+      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
       <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
       <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/masonicauditorium"</span><span class="p">,</span>
       <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.masonicauditorium.com/"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (877) 598-8497"</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
       <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-04-04T02:08:50Z"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
@@ -654,24 +782,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1047075/artists?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/artists?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-05-19T20:27:47Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Operatic pop"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-27T15:59:04Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
+        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
+        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
+        <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
+        <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
         <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Il_Volo"</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -693,7 +825,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1045602/venue?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
@@ -701,16 +833,20 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491"</span><span class="p">,</span>
+      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
       <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
       <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/masonicauditorium"</span><span class="p">,</span>
       <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.masonicauditorium.com/"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (877) 598-8497"</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
       <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-04-04T02:08:50Z"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
@@ -845,24 +981,28 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/genre/61/artists?api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/genre/27/artists?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:19:45Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"O"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Hyler Jones Proteges"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-26T16:49:20Z"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:06:05Z"</span><span class="p">,</span>
+        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Folk;Other;psychedelic"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/espers"</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Espers"</span><span class="p">,</span>
+        <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.espers.org"</span><span class="p">,</span>
+        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-05-31T09:16:49Z"</span><span class="p">,</span>
+        <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/index.html?curid=4735724"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-mobile.jpg"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-medium.jpg?1328344246"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-large.jpg?1328344246"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-mobile.jpg?1328344246"</span>
         <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Hyler_Jones_Proteges"</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Espers"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1264,17 +1404,21 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Guadalajara"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-05-09T09:29:23Z"</span><span class="p">,</span>
+        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">20.666222</span><span class="p">,</span>
         <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">103.352089</span><span class="p">,</span>
+        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Fbolko"</span><span class="p">,</span>
+        <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Mexico_City"</span><span class="p">,</span>
         <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T00:04:23Z"</span><span class="p">,</span>
-        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-04-20T19:08:53Z"</span><span class="p">,</span>
+        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"0"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
           <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
@@ -1282,7 +1426,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
           <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-mobile.jpg"</span>
         <span class="p">},</span>
         <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Fbolko_in_Guadalajara_MX"</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Fbolko_in_Guadalajara"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1312,16 +1456,20 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T17:59:32Z"</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/sfsymphony"</span><span class="p">,</span>
+      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
       <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.777402</span><span class="p">,</span>
       <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.419815</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Davies Symphony Hall"</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"(415) 864-6000"</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.sfsymphony.org/"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (415) 864-6000"</span><span class="p">,</span>
       <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
       <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">48</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T03:13:27Z"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:37:30Z"</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94102"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154"</span><span class="p">,</span>
@@ -1426,16 +1574,20 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
         <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Dayton"</span><span class="p">,</span>
         <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-06-12T14:12:53Z"</span><span class="p">,</span>
+        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">33642</span><span class="p">,</span>
         <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">39.765526</span><span class="p">,</span>
         <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">84.203133</span><span class="p">,</span>
+        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Dayton Masonic Center"</span><span class="p">,</span>
+        <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"OH"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/New_York"</span><span class="p">,</span>
         <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T03:11:49Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-06-06T03:05:53Z"</span><span class="p">,</span>
         <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"45405"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>

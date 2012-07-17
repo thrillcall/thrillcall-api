@@ -46,6 +46,16 @@ This document describes the Thrillcall API v3, and usage for the provided Ruby A
     # GET "/search/venues/warfield?postalcode=94101&radius=20"
     venues = tc.search.venues("warfield", :postalcode => "94101", :radius => 20)
     # => [{"name" => "The Warfield", ...}]
+    
+    #---------------------------------------------------------------#
+    # POST and PUT are explicit methods
+    #---------------------------------------------------------------#
+    artist = tc.artist.post(:name => "Bleeding Chest Wounds")
+    # => {"id" => 3, "name" => "The Bleeding Chest Wounds", ...}
+    
+    artist = tc.artist(3).put(:name => "Grizzle and The Plenty")
+    # => {"id" => 3, "name" => "Grizzle and The Plenty", ...}
+    
 ```
 
 ### Advanced Usage:
@@ -296,6 +306,25 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a referral credit point.
 
+- <a name="name" />**name** _string_
+    
+    Name of the Artist.
+
+- <a name="facebook_url" />**facebook\_url** _string (format: "http://facebook.com/ladygaga")_
+    
+    Facebook URL for the Artist.
+
+- <a name="myspace_url" />**myspace\_url** _string (format: "http://myspace.com/ladygaga")_
+    
+    Myspace URL for the Artist.
+
+- <a name="official_url" />**official\_url** _string (format: "http://www.ladygaga.com/")_
+    
+    Official URL for the Artist.
+
+- <a name="wikipedia_url" />**wikipedia\_url** _string (format: "http://en.wikipedia.org/wiki/Lady_Gaga")_
+    
+    Wikipedia URL for the Artist.
 
 ## Artists
 Fields:
@@ -309,6 +338,10 @@ Fields:
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 - **url**                     _string_    URL for this object on Thrillcall
+- **facebook\_url**           _string_    URL for this object on Facebook
+- **myspace\_url**            _string_    Myspace URL for this object
+- **official\_url**           _string_    Official external URL for this object
+- **wikipedia\_url**          _string_    Wikipedia URL for this object
 
 
 ### GET /artists
@@ -347,6 +380,44 @@ Returns:  _Array_ of Artists _Hash_
     ]
 ```
 
+### POST /artist
+
+Params:
+
+- **[name](#name)**
+- **[facebook\_url](#facebook_url)**
+- **[myspace\_url](#myspace_url)**
+- **[official\_url](#official_url)**
+- **[wikipedia\_url](#wikipedia_url)**
+
+Creates a new Artist record with the provided parameters.
+
+Returns:  Artist _Hash_
+
+``` js
+    // Example: GET /api/v3/artist?name=Bleeding%20Chest%20Wounds&wikipedia_url=http%3A%2F%2Ftest.com&api_key=1234567890abcdef
+    
+    {
+      "created_at": null,
+      "facebook_url": null,
+      "genre_tags": null,
+      "myspace_url": null,
+      "name": "Bleeding Chest Wounds",
+      "official_url": null,
+      "permalink": null,
+      "primary_genre_id": null,
+      "upcoming_events_count": 0,
+      "updated_at": null,
+      "wikipedia_url": "http://test.com",
+      "photos": {
+        "thumbnail": "http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg",
+        "medium": "http://i.development.tc-core.com/artist/_default/default-medium.jpg",
+        "large": "http://i.development.tc-core.com/artist/_default/default-large.jpg",
+        "mobile": "http://i.development.tc-core.com/artist/_default/default-mobile.jpg"
+      }
+    }
+```
+
 ### GET /artist/:id
 **:id** _integer_  Thrillcall or Partner ID
 
@@ -357,23 +428,67 @@ Params:
 Returns:  Artist _Hash_
 
 ``` js
-    // Example: GET /api/v3/artist/378465?api_key=1234567890abcdef
+    // Example: GET /api/v3/artist/12569?api_key=1234567890abcdef
     
     {
-      "created_at": "2011-05-19T20:27:47Z",
-      "genre_tags": "Operatic pop",
-      "id": 378465,
-      "name": "Il Volo",
-      "primary_genre_id": 61,
-      "upcoming_events_count": 30,
-      "updated_at": "2012-03-27T15:59:04Z",
+      "created_at": "2008-04-21T16:53:17Z",
+      "facebook_url": null,
+      "genre_tags": "acoustic;Country;Rock;rockabilly",
+      "id": 12569,
+      "myspace_url": "http://www.myspace.com/chrisisaak",
+      "name": "Chris Isaak",
+      "official_url": "http://www.chrisisaak.com/",
+      "primary_genre_id": 27,
+      "upcoming_events_count": 58,
+      "updated_at": "2012-07-02T09:55:40Z",
+      "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
       "photos": {
-        "thumbnail": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-        "medium": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426",
-        "large": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-        "mobile": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+        "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
+        "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
+        "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
+        "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
       },
-      "url": "http://thrillcall.com/artist/Il_Volo"
+      "url": "http://thrillcall.com/artist/Chris_Isaak"
+    }
+```
+
+### PUT /artist/:id
+**:id** _integer_  Thrillcall or Partner ID
+
+Params:
+
+- **[name](#name)**
+- **[facebook\_url](#facebook_url)**
+- **[myspace\_url](#myspace_url)**
+- **[official\_url](#official_url)**
+- **[wikipedia\_url](#wikipedia_url)**
+
+Updates the provided fields on Artist **:id**.
+
+Returns:  Artist _Hash_
+
+``` js
+    // Example: PUT /api/v3/artist/12569?wikipedia_url=http%3A%2F%2Ftest.com&api_key=1234567890abcdef
+    
+    {
+      "created_at": "2008-04-21T16:53:17Z",
+      "facebook_url": null,
+      "genre_tags": "acoustic;Country;Rock;rockabilly",
+      "id": 12569,
+      "myspace_url": "http://www.myspace.com/chrisisaak",
+      "name": "Chris Isaak",
+      "official_url": "http://www.chrisisaak.com/",
+      "primary_genre_id": 27,
+      "upcoming_events_count": 58,
+      "updated_at": "2012-07-02T09:55:40Z",
+      "wikipedia_url": "http://test.com",
+      "photos": {
+        "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
+        "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
+        "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
+        "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
+      },
+      "url": "http://thrillcall.com/artist/Chris_Isaak"
     }
 ```
 
@@ -455,24 +570,28 @@ Params:
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v3/search/artists/Il%20Volo?api_key=1234567890abcdef
+    // Example: GET /api/v3/search/artists/Chris%20Isaak?api_key=1234567890abcdef
     
     [
       {
-        "created_at": "2011-05-19T20:27:47Z",
-        "genre_tags": "Operatic pop",
-        "id": 378465,
-        "name": "Il Volo",
-        "primary_genre_id": 61,
-        "upcoming_events_count": 30,
-        "updated_at": "2012-03-27T15:59:04Z",
+        "created_at": "2008-04-21T16:53:17Z",
+        "facebook_url": null,
+        "genre_tags": "acoustic;Country;Rock;rockabilly",
+        "id": 12569,
+        "myspace_url": "http://www.myspace.com/chrisisaak",
+        "name": "Chris Isaak",
+        "official_url": "http://www.chrisisaak.com/",
+        "primary_genre_id": 27,
+        "upcoming_events_count": 58,
+        "updated_at": "2012-07-02T09:55:40Z",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "medium": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426",
-          "large": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
+          "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
+          "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
+          "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
         },
-        "url": "http://thrillcall.com/artist/Il_Volo"
+        "url": "http://thrillcall.com/artist/Chris_Isaak"
       },
       {
         ...
@@ -581,7 +700,7 @@ Params:
 Returns:  Event _Hash_
 
 ``` js
-    // Example: GET /api/v3/event/1045602/venue?api_key=1234567890abcdef
+    // Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef
     
     {
       "address1": "1111 California Street",
@@ -589,16 +708,20 @@ Returns:  Event _Hash_
       "city": "San Francisco",
       "country": "US",
       "created_at": "2009-08-25T19:25:27Z",
+      "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
+      "hide_resale_tickets": false,
       "id": 63279,
       "latitude": 37.79153,
       "long_description": null,
       "longitude": -122.412757,
+      "myspace_url": "http://www.myspace.com/masonicauditorium",
       "name": "Masonic Center",
-      "phone_number": null,
+      "official_url": "http://www.masonicauditorium.com/",
+      "phone_number": "+1 (877) 598-8497",
       "state": "CA",
       "time_zone": "America/Los_Angeles",
-      "upcoming_events_count": 4,
-      "updated_at": "2012-04-04T02:08:50Z",
+      "upcoming_events_count": 10,
+      "updated_at": "2012-07-03T09:41:24Z",
       "postalcode": "94108",
       "photos": {
         "thumbnail": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
@@ -622,24 +745,28 @@ Params:
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v3/event/1047075/artists?api_key=1234567890abcdef
+    // Example: GET /api/v3/event/1113134/artists?api_key=1234567890abcdef
     
     [
       {
-        "created_at": "2011-05-19T20:27:47Z",
-        "genre_tags": "Operatic pop",
-        "id": 378465,
-        "name": "Il Volo",
-        "primary_genre_id": 61,
-        "upcoming_events_count": 30,
-        "updated_at": "2012-03-27T15:59:04Z",
+        "created_at": "2008-04-21T16:53:17Z",
+        "facebook_url": null,
+        "genre_tags": "acoustic;Country;Rock;rockabilly",
+        "id": 12569,
+        "myspace_url": "http://www.myspace.com/chrisisaak",
+        "name": "Chris Isaak",
+        "official_url": "http://www.chrisisaak.com/",
+        "primary_genre_id": 27,
+        "upcoming_events_count": 58,
+        "updated_at": "2012-07-02T09:55:40Z",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "medium": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-medium.jpg?1324561426",
-          "large": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
+          "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
+          "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
+          "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
         },
-        "url": "http://thrillcall.com/artist/Il_Volo"
+        "url": "http://thrillcall.com/artist/Chris_Isaak"
       },
       {
         ...
@@ -658,7 +785,7 @@ Params:
 Returns:  Venue _Hash_
 
 ``` js
-    // Example: GET /api/v3/event/1045602/venue?api_key=1234567890abcdef
+    // Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef
     
     {
       "address1": "1111 California Street",
@@ -666,16 +793,20 @@ Returns:  Venue _Hash_
       "city": "San Francisco",
       "country": "US",
       "created_at": "2009-08-25T19:25:27Z",
+      "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
+      "hide_resale_tickets": false,
       "id": 63279,
       "latitude": 37.79153,
       "long_description": null,
       "longitude": -122.412757,
+      "myspace_url": "http://www.myspace.com/masonicauditorium",
       "name": "Masonic Center",
-      "phone_number": null,
+      "official_url": "http://www.masonicauditorium.com/",
+      "phone_number": "+1 (877) 598-8497",
       "state": "CA",
       "time_zone": "America/Los_Angeles",
-      "upcoming_events_count": 4,
-      "updated_at": "2012-04-04T02:08:50Z",
+      "upcoming_events_count": 10,
+      "updated_at": "2012-07-03T09:41:24Z",
       "postalcode": "94108",
       "photos": {
         "thumbnail": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
@@ -792,24 +923,28 @@ Params:
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v3/genre/61/artists?api_key=1234567890abcdef
+    // Example: GET /api/v3/genre/27/artists?api_key=1234567890abcdef
     
     [
       {
-        "created_at": "2008-04-29T10:19:45Z",
-        "genre_tags": "O",
-        "id": 1,
-        "name": "Hyler Jones Proteges",
-        "primary_genre_id": 61,
-        "upcoming_events_count": 0,
-        "updated_at": "2010-03-26T16:49:20Z",
+        "created_at": "2008-04-29T10:06:05Z",
+        "facebook_url": null,
+        "genre_tags": "Folk;Other;psychedelic",
+        "id": 2,
+        "myspace_url": "http://www.myspace.com/espers",
+        "name": "Espers",
+        "official_url": "http://www.espers.org",
+        "primary_genre_id": 27,
+        "upcoming_events_count": 1,
+        "updated_at": "2012-05-31T09:16:49Z",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/index.html?curid=4735724",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg",
-          "medium": "http://i.development.tc-core.com/artist/_default/default-medium.jpg",
-          "large": "http://i.development.tc-core.com/artist/_default/default-large.jpg",
-          "mobile": "http://i.development.tc-core.com/artist/_default/default-mobile.jpg"
+          "thumbnail": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246",
+          "medium": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-medium.jpg?1328344246",
+          "large": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-large.jpg?1328344246",
+          "mobile": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-mobile.jpg?1328344246"
         },
-        "url": "http://thrillcall.com/artist/Hyler_Jones_Proteges"
+        "url": "http://thrillcall.com/artist/Espers"
       },
       {
         ...
@@ -1148,17 +1283,21 @@ Returns:  _Array_ of Venues _Hash_
         "city": "Guadalajara",
         "country": "MX",
         "created_at": "2008-05-09T09:29:23Z",
+        "facebook_url": null,
+        "hide_resale_tickets": false,
         "id": 1,
         "latitude": 20.666222,
         "long_description": null,
         "longitude": -103.352089,
+        "myspace_url": null,
         "name": "Fbolko",
+        "official_url": null,
         "phone_number": null,
-        "state": "MX",
+        "state": null,
         "time_zone": "America/Mexico_City",
         "upcoming_events_count": 0,
-        "updated_at": "2012-03-29T00:04:23Z",
-        "postalcode": null,
+        "updated_at": "2012-04-20T19:08:53Z",
+        "postalcode": "0",
         "photos": {
           "thumbnail": "http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg",
           "medium": "http://i.development.tc-core.com/venue/_default/default-medium.jpg",
@@ -1166,7 +1305,7 @@ Returns:  _Array_ of Venues _Hash_
           "mobile": "http://i.development.tc-core.com/venue/_default/default-mobile.jpg"
         },
         "metro_area_id": null,
-        "url": "http://thrillcall.com/venue/Fbolko_in_Guadalajara_MX"
+        "url": "http://thrillcall.com/venue/Fbolko_in_Guadalajara"
       },
       {
         ...
@@ -1194,16 +1333,20 @@ Returns:  Venue _Hash_
       "city": "San Francisco",
       "country": "US",
       "created_at": "2008-04-28T17:59:32Z",
+      "facebook_url": "http://www.facebook.com/sfsymphony",
+      "hide_resale_tickets": false,
       "id": 51886,
       "latitude": 37.777402,
       "long_description": null,
       "longitude": -122.419815,
+      "myspace_url": null,
       "name": "Davies Symphony Hall",
-      "phone_number": "(415) 864-6000",
+      "official_url": "http://www.sfsymphony.org/",
+      "phone_number": "+1 (415) 864-6000",
       "state": "CA",
       "time_zone": "America/Los_Angeles",
-      "upcoming_events_count": 48,
-      "updated_at": "2012-03-28T03:13:27Z",
+      "upcoming_events_count": 17,
+      "updated_at": "2012-07-03T09:37:30Z",
       "postalcode": "94102",
       "photos": {
         "thumbnail": "http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154",
@@ -1302,16 +1445,20 @@ Returns:  _Array_ of Venues _Hash_
         "city": "Dayton",
         "country": "US",
         "created_at": "2008-06-12T14:12:53Z",
+        "facebook_url": null,
+        "hide_resale_tickets": false,
         "id": 33642,
         "latitude": 39.765526,
         "long_description": null,
         "longitude": -84.203133,
+        "myspace_url": null,
         "name": "Dayton Masonic Center",
+        "official_url": null,
         "phone_number": null,
         "state": "OH",
         "time_zone": "America/New_York",
         "upcoming_events_count": 0,
-        "updated_at": "2012-03-28T03:11:49Z",
+        "updated_at": "2012-06-06T03:05:53Z",
         "postalcode": "45405",
         "photos": {
           "thumbnail": "http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg",

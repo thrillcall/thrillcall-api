@@ -112,6 +112,15 @@
     <span class="c1"># GET "/search/venues/warfield?postalcode=94101&amp;radius=20"</span>
     <span class="n">venues</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">venues</span><span class="p">(</span><span class="s2">"warfield"</span><span class="p">,</span> <span class="ss">:postalcode</span> <span class="o">=&gt;</span> <span class="s2">"94101"</span><span class="p">,</span> <span class="ss">:radius</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">)</span>
     <span class="c1"># =&gt; [{"name" =&gt; "The Warfield", ...}]</span>
+
+    <span class="c1">#---------------------------------------------------------------#</span>
+    <span class="c1"># POST and PUT are explicit methods</span>
+    <span class="c1">#---------------------------------------------------------------#</span>
+    <span class="n">artist</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Bleeding Chest Wounds"</span><span class="p">)</span>
+    <span class="c1"># =&gt; {"id" =&gt; 3, "name" =&gt; "The Bleeding Chest Wounds", ...}</span>
+
+    <span class="n">artist</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Grizzle and The Plenty"</span><span class="p">)</span>
+    <span class="c1"># =&gt; {"id" =&gt; 3, "name" =&gt; "Grizzle and The Plenty", ...}</span>
 </pre>
 </div>
 
