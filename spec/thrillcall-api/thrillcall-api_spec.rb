@@ -6,6 +6,8 @@ require 'tzinfo'
 
 # Set to one of :development, :staging, :production
 TEST_ENV                  = :development
+#TEST_ENV                  = :staging
+#TEST_ENV                  = :production
 
 # For the environment specified in TEST_ENV, you must have set a few system environment variables.
 # For example, if your TEST_ENV is :development, you need:
@@ -45,6 +47,19 @@ PERSON_UNKNOWN_UID        = ENV["TC_#{env_prefix}_UNKNOWN_UID"]
 PERSON_UNKNOWN_TOKEN      = ENV["TC_#{env_prefix}_UNKNOWN_TOKEN"]
 PERSON_UNKNOWN_EMAIL      = ENV["TC_#{env_prefix}_UNKNOWN_EMAIL"]
 
+puts "Thrillcall API Gem Test running with these environment settings:"
+puts "Environment           = #{env_prefix}"
+puts "TEST_KEY              = #{ENV["TC_#{env_prefix}_API_KEY"]      }"
+puts "PERSON_EMAIL          = #{ENV["TC_#{env_prefix}_EMAIL"]        }"
+puts "PERSON_PASSWORD       = #{ENV["TC_#{env_prefix}_PASSWORD"]     }"
+puts "PERSON_KNOWN_ID       = #{ENV["TC_#{env_prefix}_KNOWN_ID"]     }"
+puts "PERSON_KNOWN_UID      = #{ENV["TC_#{env_prefix}_KNOWN_UID"]    }"
+puts "PERSON_KNOWN_TOKEN    = #{ENV["TC_#{env_prefix}_KNOWN_TOKEN"]  }"
+puts "PERSON_KNOWN_EMAIL    = #{ENV["TC_#{env_prefix}_KNOWN_EMAIL"]  }"
+puts "PERSON_UNKNOWN_UID    = #{ENV["TC_#{env_prefix}_UNKNOWN_UID"]  }"
+puts "PERSON_UNKNOWN_TOKEN  = #{ENV["TC_#{env_prefix}_UNKNOWN_TOKEN"]}"
+puts "PERSON_UNKNOWN_EMAIL  = #{ENV["TC_#{env_prefix}_UNKNOWN_EMAIL"]}"
+
 HOST                      = "http://localhost:3000/api/"                    if TEST_ENV == :development
 HOST                      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
 HOST                      = "https://api.thrillcall.com:443/api/"           if TEST_ENV == :production     # SSL!
@@ -78,6 +93,7 @@ describe "ThrillcallAPI" do
     
     # api_auth permission allows you to access the Person endpoints.
     # api_read permission allows you to access all other endpoints.
+    puts "Available permissions: #{@tc_permissions}"
   end
 
   def has_permission?(p=:api_read)
@@ -414,7 +430,6 @@ describe "ThrillcallAPI" do
       end
 
       it "should verify the behavior of the postalcode param" do
-        pending "Need to be able to access the ZipCodes table externally from Rails"
         e = @tc.events(:limit => TINY_LIMIT, :postalcode => POSTAL_CODE)
         e.length.should <= TINY_LIMIT
         e.each do |ev|
@@ -706,6 +721,99 @@ describe "ThrillcallAPI" do
           p = @tc.person.signin.post(params)
 
           p["first_name"].should == PERSON_CREATE_FIRSTNAME
+        end
+      end
+    end
+  end
+
+  context "an authenticated user with api_artist permission" do
+    before :all do
+      setup_key
+      setup_read
+    end
+
+    before :each do
+      mark_pending_if_no_permission(:api_artist)
+      @new_name = @artist_norm_name + "#{rand(10000)}"
+    end
+
+    context "accesing the artist endpoint" do
+      it "should be able to create an artist using the post /artist endpoint" do
+        params = {
+          :name           => @new_name,
+          :wikipedia_url  => "http://test.com",
+          :test           => true
+        }
+        mark_pending_if_nil_value(params)
+        p = @tc.artist.post(params)
+        p["name"].should == @new_name
+      end
+
+      it "should be able to update an artist using the put /artist/:id endpoint" do
+        params = {
+          :name           => @new_name,
+          :wikipedia_url  => "http://test.com",
+          :test           => true
+        }
+        mark_pending_if_nil_value(params)
+        p = @tc.artist(@artist_id).put(params)
+        p["name"].should == @new_name
+      end
+
+      describe "should raise an error" do
+        describe "creating an artist" do
+          it "with an existing name" do
+            params = {
+              :name           => @artist_norm_name,
+              :wikipedia_url  => "http://test.com"
+            }
+            mark_pending_if_nil_value(params)
+            lambda {
+              @tc.artist.post(params)
+            }.should raise_error
+          end
+
+          it "if no name was provided" do
+            params = {
+              :wikipedia_url  => "http://test.com"
+            }
+            lambda {
+              @tc.artist.post(params)
+            }.should raise_error
+          end
+        end
+
+        describe "updating an artist" do
+          it "to an existing name" do
+            params = {
+              :name           => "Lady Gaga",
+              :wikipedia_url  => "http://test.com"
+            }
+            lambda {
+              @tc.artist(@artist_id).put(params)
+            }.should raise_error
+          end
+
+          it "if an empty name was provided" do
+            params = {
+              :name           => "",
+              :wikipedia_url  => "http://test.com"
+            }
+            lambda {
+              @tc.artist(@artist_id).put(params)
+            }.should raise_error
+          end
+
+          it "if a non-url is provided as a url parameter" do
+            params = {
+              :name           => @new_name,
+              :wikipedia_url  => "bogusbogusbogus"
+            }
+            mark_pending_if_nil_value(params)
+            lambda {
+              @tc.artist(@artist_id).put(params)
+            }.should raise_error
+          end
         end
       end
     end

@@ -66,11 +66,16 @@ module ThrillcallAPI
       JSON.parse(r.body)
     end
 
-    def post(endpoint, params)
-      r = @conn.post do |req|
+    def post(endpoint, params, method = :post)
+      block = lambda do |req|
         req.url endpoint, params.merge(:api_key => @cur_api_key)
       end
+      r = @conn.send(method, &block)
       JSON.parse(r.body)
+    end
+
+    def put(endpoint, params)
+      post(endpoint, params, :put)
     end
 
     def method_missing(method, *args, &block)

@@ -107,15 +107,19 @@ module ThrillcallAPI
       @ran = true
     end
     
-    def post(args = {})
+    def post(args = {}, method = :post)
       if @ran
         raise ArgumentError, "This request has already been made!"
       else
-        @http_method = :post
+        @http_method = method
         @options.merge!(args)
         fetch_data
       end
       @data
+    end
+    
+    def put(args = {})
+      post(args, :put)
     end
     
     def method_missing(method, *args, &block)

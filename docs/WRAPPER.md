@@ -46,6 +46,16 @@ This document describes the Thrillcall API v3, and usage for the provided Ruby A
     # GET "/search/venues/warfield?postalcode=94101&radius=20"
     venues = tc.search.venues("warfield", :postalcode => "94101", :radius => 20)
     # => [{"name" => "The Warfield", ...}]
+    
+    #---------------------------------------------------------------#
+    # POST and PUT are explicit methods
+    #---------------------------------------------------------------#
+    artist = tc.artist.post(:name => "Bleeding Chest Wounds")
+    # => {"id" => 3, "name" => "The Bleeding Chest Wounds", ...}
+    
+    artist = tc.artist(3).put(:name => "Grizzle and The Plenty")
+    # => {"id" => 3, "name" => "Grizzle and The Plenty", ...}
+    
 ```
 
 ### Advanced Usage:
