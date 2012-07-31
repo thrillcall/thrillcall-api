@@ -747,6 +747,41 @@ describe "ThrillcallAPI" do
         }.should raise_error
       end
 
+      it "should be able to update a person using the put /person/:id endpoint" do
+        params = {
+          :first_name => "test",
+          :last_name => "test"
+        }
+        lambda {
+          p = @tc.person.put(params)
+        }
+      end
+
+      it "should be able to update all available put options using the put /person/:id endpoint" do
+        params = {
+          :first_name => "test",
+          :last_name => "test",
+          :address1 => "test address",
+          :address2 => "test address2",
+          :city => "test",
+          :state => "ca",
+          :zip_code => "94080",
+          :gender => "m"
+        }
+        lambda {
+          p = @tc.person.put(params)
+        }
+      end
+
+      it "should return a proper error message using put /person/:id endpoint with invalid first_name" do
+        params = {
+          :first_name => "t"
+        }
+        lambda {
+          p = @tc.person.put(params)
+        }.should raise_error
+      end
+
       context "autoregistration for unknown provider/uid" do
         it "should be able to create a person using location name" do
           params = {

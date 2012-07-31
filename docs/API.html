@@ -258,6 +258,31 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Optional for registering a user.</p>
 </li>
 <li>
+<p><a name="address1"></a><strong>address1</strong> <em>string</em></p>
+
+<p>Optional for registering a user.</p>
+</li>
+<li>
+<p><a name="address2"></a><strong>address2</strong> <em>string</em></p>
+
+<p>Optional for registering a user.</p>
+</li>
+<li>
+<p><a name="city"></a><strong>city</strong> <em>string</em></p>
+
+<p>Optional for registering a user.</p>
+</li>
+<li>
+<p><a name="state"></a><strong>state</strong> <em>string</em></p>
+
+<p>Optional for registering a user.</p>
+</li>
+<li>
+<p><a name="zip_code"></a><strong>zip_code</strong> <em>string (format: length &gt;= 5)</em></p>
+
+<p>Required for registering a user</p>
+</li>
+<li>
 <p><a name="location_name"></a><strong>location_name</strong> <em>string (format: "City, ST or City, State", length &gt; 0))</em></p>
 
 <p>The name of the user's location when auto-registering.  Either this or <strong><a href="#lat">lat</a></strong> / <strong><a href="#long">long</a></strong> must be provided.</p>
@@ -1354,6 +1379,53 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
         <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-medium.jpg"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>PUT /person/:id</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#email">email</a></strong></li>
+<li><strong><a href="#first_name">first_name</a></strong></li>
+<li><strong><a href="#last_name">last_name</a></strong></li>
+<li><strong><a href="#address1">address1</a></strong></li>
+<li><strong><a href="#address2">address2</a></strong></li>
+<li><strong><a href="#city">city</a></strong></li>
+<li><strong><a href="#state">state</a></strong></li>
+<li><strong><a href="#zip_code">zip_code</a></strong></li>
+<li><strong><a href="#gender">gender</a></strong></li>
+</ul><p>Returns: Person <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: PUT /api/v3/person/49?&amp;first_name=John&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
+      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
+      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
       <span class="p">}</span>
     <span class="p">}</span>
 </pre>

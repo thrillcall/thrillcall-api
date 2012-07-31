@@ -290,6 +290,26 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Optional for registering a user.
 
+- <a name="address1" />**address1** _string_
+
+    Optional for registering a user.
+
+- <a name="address2" />**address2** _string_
+
+    Optional for registering a user.
+
+- <a name="city" />**city** _string_
+
+    Optional for registering a user.
+
+- <a name="state" />**state** _string_
+
+    Optional for registering a user.
+
+- <a name="zip_code" />**zip_code** _string (format: length >= 5)_
+
+    Required for registering a user
+
 - <a name="location_name" />**location\_name** _string (format: "City, ST or City, State", length > 0))_
     
     The name of the user's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
@@ -1249,6 +1269,50 @@ Returns: Person _Hash_
         "small_thumb": "http://i.development.tc-core.com/person/_default/default-small_thumb.jpg",
         "thumbnail": "http://i.development.tc-core.com/person/_default/default-thumbnail.jpg",
         "medium": "http://i.development.tc-core.com/person/_default/default-medium.jpg"
+      }
+    }
+```
+
+### PUT /person/:id
+Params:
+
+- **[email](#email)**
+- **[first\_name](#first_name)**
+- **[last\_name](#last_name)**
+- **[address1](#address1)**
+- **[address2](#address2)**
+- **[city](#city)**
+- **[state](#state)**
+- **[zip_code](#zip_code)**
+- **[gender](#gender)**
+
+Returns: Person _Hash_
+
+``` js
+    // Example: PUT /api/v3/person/49?&first_name=John&api_key=1234567890abcdef
+
+    {
+      "address1": null,
+      "address2": null,
+      "city": "Santa Rosa",
+      "country_code": "US",
+      "created_at": "2011-10-17T18:54:31Z",
+      "first_name": "John",
+      "gender": "m",
+      "id": 49,
+      "last_name": "Doe",
+      "login": "bogus@bogus.com",
+      "state": "CA",
+      "time_zone": "America/Los_Angeles",
+      "timezone": "-7",
+      "updated_at": "2012-03-28T16:07:16Z",
+      "referral_code": null,
+      "referral_credits": 0,
+      "postalcode": "95407",
+      "photos": {
+        "small_thumb": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
+        "thumbnail": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
+        "medium": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-medium.jpg?1324568419"
       }
     }
 ```
