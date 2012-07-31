@@ -51,7 +51,7 @@ This document describes the Thrillcall API v3, and usage for the provided Ruby A
     # POST and PUT are explicit methods
     #---------------------------------------------------------------#
     artist = tc.artist.post(:name => "Bleeding Chest Wounds")
-    # => {"id" => 3, "name" => "The Bleeding Chest Wounds", ...}
+    # => {"id" => 3, "name" => "Bleeding Chest Wounds", ...}
     
     artist = tc.artist(3).put(:name => "Grizzle and The Plenty")
     # => {"id" => 3, "name" => "Grizzle and The Plenty", ...}
@@ -222,14 +222,6 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Used in conjunction with **[postalcode](#postalcode)**
     
-- <a name="use_partner_id" />**use\_partner\_id** _boolean_
-    
-    _Default: false_
-    
-    If set to _true_ or _1_, instead of using Thrillcall internal IDs, treat any IDs in a request as belonging to your partner definition.
-    
-    Contact us to set up a list of definitions.
-    
 - <a name="ticket_type" />**ticket\_type** _string (format: "primary" or "resale")_
     
     _Default: both_
@@ -325,6 +317,32 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="wikipedia_url" />**wikipedia\_url** _string (format: "http://en.wikipedia.org/wiki/Lady_Gaga")_
     
     Wikipedia URL for the Artist.
+
+- <a name="mappings" />**mappings** _string or array (format: ["myspace", "livenation"])_ 
+    
+    Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
+
+- <a name="partner_id" />**partner\_id** _string_
+    
+    Name of the partner for foreign ID mappings, e.g. "myspace"
+
+- <a name="partner_obj_id" />**partner\_obj\_id** _string or integer_
+    
+    Foreign ID for mappings, can be a string or integer.
+
+- <a name="partner_display_name" />**partner\_display\_name** _string_
+    
+    Name of the object from the partner's perspective, optional.
+    Use to specify a name other than the one supplied in the Thrillcall object.
+
+- <a name="tc_obj_id" />**tc\_obj\_id** _integer_
+    
+    Thrillcall ID for foreign ID mappings.
+
+- <a name="obj_type" />**obj\_type** _string_
+    
+    Object type for foreign ID mappings, e.g. "artist"
+
 
 ## Artists
 Fields:
@@ -423,7 +441,7 @@ Returns:  Artist _Hash_
 
 Params:
 
-- **[use\_partner\_id](#use_partner_id)**
+- None
 
 Returns:  Artist _Hash_
 
@@ -508,7 +526,6 @@ Params:
 - **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
-- **[use\_partner\_id](#use_partner_id)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
 - **[show\_disabled\_events](#show_disabled_events)**
@@ -1113,7 +1130,7 @@ Fields:
 ### GET /person/:id
 Params:
 
-- None.
+- None
 
 Returns: Person _Hash_
 
@@ -1320,7 +1337,7 @@ Returns:  _Array_ of Venues _Hash_
 
 Params:
 
-- **[use\_partner\_id](#use_partner_id)**
+- None
 
 Returns:  Venue _Hash_
 
@@ -1371,7 +1388,6 @@ Params:
 - **[max\_date](#max_date)**
 - **[min\_updated\_at](#min_updated_at)**
 - **[max\_updated\_at](#max_updated_at)**
-- **[use\_partner\_id](#use_partner_id)**
 - **[ticket\_type](#ticket_type)**
 - **[must\_have\_tickets](#must_have_tickets)**
 - **[show\_disabled\_events](#show_disabled_events)**
@@ -1567,4 +1583,129 @@ Returns:  Ticket _Hash_
       "updated_at": "2012-03-02T18:06:14Z",
       "url": "http://ticketsus.at/thrillcall?CTY=39&DURL=http://www.ticketmaster.com/event/1C00486178A1251A?camefrom=CFC_BUYAT&brand=[=BRAND=]"
     }
+```
+
+## Mappings
+Fields:
+
+- **created\_at**            _string_   ISO 8601 representation the time this object was created
+- **id**                     _integer_  Thrillcall ID of the mapping, not the referenced object
+- **obj\_type**              _integer_  Type of the referenced object, e.g. "artist"
+- **partner\_display\_name** _string_   The name of the object according to the partner, if different
+- **partner\_id**            _string_   The name of the partner for this foreign mapping, e.g. "myspace"
+- **partner\_obj\_id**       _string_   Partner's ID for the referenced object
+- **tc_obj_id**              _integer_  Thrillcall ID of the referenced object
+- **updated\_at**            _string_   ISO 8601 representation of last time this object was updated
+
+### GET /mappings
+
+Params:
+
+- None
+
+Returns:  _Array_ of Mappings _Hash_
+
+``` js
+  // Example: GET /mappings?api_key=1234567890abcdef
+  
+  [
+    {
+      "created_at": "2009-08-13T01:51:23Z",
+      "id": 1,
+      "obj_type": "artist",
+      "partner_display_name": "3",
+      "partner_id": "livenation",
+      "partner_obj_id": "448380",
+      "tc_obj_id": 17498,
+      "updated_at": "2012-07-18T00:10:15Z"
+    },
+    {
+      ...
+    },
+    ...
+  ]
+```
+
+### GET /mapping/:id
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- None
+
+Returns:  Mapping _Hash_
+
+``` js
+  // Example: GET /mapping/1?api_key=1234567890abcdef
+  
+  {
+    "created_at": "2009-08-13T01:51:23Z",
+    "id": 1,
+    "obj_type": "artist",
+    "partner_display_name": "3",
+    "partner_id": "livenation",
+    "partner_obj_id": "448380",
+    "tc_obj_id": 17498,
+    "updated_at": "2012-07-18T00:10:15Z"
+  }
+```
+
+
+### POST /mapping
+
+Create a new foreign ID mapping
+
+Params:
+
+- **[obj\_type](#obj_type)**                              _integer_  Type of the referenced object, e.g. "artist"
+- **[partner\_display\_name](#partner_display_name])**    _string_   The name of the object according to the partner, if different
+- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace"
+- **[partner\_obj\_id](#partner_obj_id)**                 _string_   Partner's ID for the referenced object
+- **[tc\_obj\_id](#tc_obj_id)**                           _integer_  Thrillcall ID of the referenced object
+
+Returns:  Mapping _Hash_
+
+``` js
+  // Example: POST /mapping?obj_type=artist&partner_id=myspace&partner_obj_id=1&tc_obj_id=2000&api_key=1234567890abcdef
+  
+  {
+    "created_at": "2009-08-13T01:51:23Z",
+    "id": 39821,
+    "obj_type": "artist",
+    "partner_display_name": null,
+    "partner_id": "myspace",
+    "partner_obj_id": "1",
+    "tc_obj_id": 2000,
+    "updated_at": "2012-07-18T00:10:15Z"
+  }
+```
+
+### PUT /mapping/:id
+**:id** _integer_  Thrillcall ID
+
+Edit an existing foreign ID mapping.
+
+Params:
+
+- **[obj\_type](#obj_type)**                              _integer_  Type of the referenced object, e.g. "artist"
+- **[partner\_display\_name](#partner_display_name])**    _string_   The name of the object according to the partner, if different
+- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace"
+- **[partner\_obj\_id](#partner_obj_id)**                 _string_   Partner's ID for the referenced object
+- **[tc\_obj\_id](#tc_obj_id)**                           _integer_  Thrillcall ID of the referenced object
+
+Returns:  Mapping _Hash_
+
+``` js
+  // Example: PUT /mapping/1?partner_obj_id=1000&api_key=1234567890abcdef
+  
+  {
+    "created_at": "2009-08-13T01:51:23Z",
+    "id": 39821,
+    "obj_type": "artist",
+    "partner_display_name": null,
+    "partner_id": "myspace",
+    "partner_obj_id": "1000",
+    "tc_obj_id": 2000,
+    "updated_at": "2012-07-18T00:10:15Z"
+  }
 ```

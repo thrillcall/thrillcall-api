@@ -117,7 +117,7 @@
     <span class="c1"># POST and PUT are explicit methods</span>
     <span class="c1">#---------------------------------------------------------------#</span>
     <span class="n">artist</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Bleeding Chest Wounds"</span><span class="p">)</span>
-    <span class="c1"># =&gt; {"id" =&gt; 3, "name" =&gt; "The Bleeding Chest Wounds", ...}</span>
+    <span class="c1"># =&gt; {"id" =&gt; 3, "name" =&gt; "Bleeding Chest Wounds", ...}</span>
 
     <span class="n">artist</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Grizzle and The Plenty"</span><span class="p">)</span>
     <span class="c1"># =&gt; {"id" =&gt; 3, "name" =&gt; "Grizzle and The Plenty", ...}</span>
@@ -305,15 +305,6 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Used in conjunction with <strong><a href="#postalcode">postalcode</a></strong></p>
 </li>
 <li>
-<p><a name="use_partner_id"></a><strong>use_partner_id</strong> <em>boolean</em></p>
-
-<p><em>Default: false</em></p>
-
-<p>If set to <em>true</em> or <em>1</em>, instead of using Thrillcall internal IDs, treat any IDs in a request as belonging to your partner definition.</p>
-
-<p>Contact us to set up a list of definitions.</p>
-</li>
-<li>
 <p><a name="ticket_type"></a><strong>ticket_type</strong> <em>string (format: "primary" or "resale")</em></p>
 
 <p><em>Default: both</em></p>
@@ -429,6 +420,37 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p><a name="wikipedia_url"></a><strong>wikipedia_url</strong> <em>string (format: "http://en.wikipedia.org/wiki/Lady</em>Gaga")_</p>
 
 <p>Wikipedia URL for the Artist.</p>
+</li>
+<li>
+<p><a name="mappings"></a><strong>mappings</strong> <em>string or array (format: ["myspace", "livenation"])</em> </p>
+
+<p>Foreign ID mappings for the specified partners, if available, will be provided along with the object data.</p>
+</li>
+<li>
+<p><a name="partner_id"></a><strong>partner_id</strong> <em>string</em></p>
+
+<p>Name of the partner for foreign ID mappings, e.g. "myspace"</p>
+</li>
+<li>
+<p><a name="partner_obj_id"></a><strong>partner_obj_id</strong> <em>string or integer</em></p>
+
+<p>Foreign ID for mappings, can be a string or integer.</p>
+</li>
+<li>
+<p><a name="partner_display_name"></a><strong>partner_display_name</strong> <em>string</em></p>
+
+<p>Name of the object from the partner's perspective, optional.
+Use to specify a name other than the one supplied in the Thrillcall object.</p>
+</li>
+<li>
+<p><a name="tc_obj_id"></a><strong>tc_obj_id</strong> <em>integer</em></p>
+
+<p>Thrillcall ID for foreign ID mappings.</p>
+</li>
+<li>
+<p><a name="obj_type"></a><strong>obj_type</strong> <em>string</em></p>
+
+<p>Object type for foreign ID mappings, e.g. "artist"</p>
 </li>
 </ul><h2>Artists</h2>
 
@@ -547,7 +569,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Params:</p>
 
 <ul>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li>None</li>
 </ul><p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
@@ -638,7 +660,6 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#long">long</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
 <li><strong><a href="#radius">radius</a></strong></li>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
@@ -1338,7 +1359,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Params:</p>
 
 <ul>
-<li>None.</li>
+<li>None</li>
 </ul><p>Returns: Person <em>Hash</em></p>
 
 <div class="highlight">
@@ -1573,7 +1594,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <p>Params:</p>
 
 <ul>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
+<li>None</li>
 </ul><p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
@@ -1627,7 +1648,6 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li><strong><a href="#max_date">max_date</a></strong></li>
 <li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
 <li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
-<li><strong><a href="#use_partner_id">use_partner_id</a></strong></li>
 <li><strong><a href="#ticket_type">ticket_type</a></strong></li>
 <li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
@@ -1845,5 +1865,158 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
       <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://ticketsus.at/thrillcall?CTY=39&amp;DURL=http://www.ticketmaster.com/event/1C00486178A1251A?camefrom=CFC_BUYAT&amp;brand=[=BRAND=]"</span>
     <span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>Mappings</h2>
+
+<p>Fields:</p>
+
+<ul>
+<li>
+<strong>created_at</strong>            <em>string</em>   ISO 8601 representation the time this object was created</li>
+<li>
+<strong>id</strong>                     <em>integer</em>  Thrillcall ID of the mapping, not the referenced object</li>
+<li>
+<strong>obj_type</strong>              <em>integer</em>  Type of the referenced object, e.g. "artist"</li>
+<li>
+<strong>partner_display_name</strong> <em>string</em>   The name of the object according to the partner, if different</li>
+<li>
+<strong>partner_id</strong>            <em>string</em>   The name of the partner for this foreign mapping, e.g. "myspace"</li>
+<li>
+<strong>partner_obj_id</strong>       <em>string</em>   Partner's ID for the referenced object</li>
+<li>
+<strong>tc<em>obj</em>id</strong>              <em>integer</em>  Thrillcall ID of the referenced object</li>
+<li>
+<strong>updated_at</strong>            <em>string</em>   ISO 8601 representation of last time this object was updated</li>
+</ul><h3>GET /mappings</h3>
+
+<p>Params:</p>
+
+<ul>
+<li>None</li>
+</ul><p>Returns:  <em>Array</em> of Mappings <em>Hash</em></p>
+
+<div class="highlight">
+<pre>  <span class="c1">// Example: GET /mappings?api_key=1234567890abcdef</span>
+
+  <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
+      <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"3"</span><span class="p">,</span>
+      <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
+      <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"448380"</span><span class="p">,</span>
+      <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">17498</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /mapping/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li>None</li>
+</ul><p>Returns:  Mapping <em>Hash</em></p>
+
+<div class="highlight">
+<pre>  <span class="c1">// Example: GET /mapping/1?api_key=1234567890abcdef</span>
+
+  <span class="p">{</span>
+    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
+    <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"3"</span><span class="p">,</span>
+    <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
+    <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"448380"</span><span class="p">,</span>
+    <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">17498</span><span class="p">,</span>
+    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
+  <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>POST /mapping</h3>
+
+<p>Create a new foreign ID mapping</p>
+
+<p>Params:</p>
+
+<ul>
+<li>
+<strong><a href="#obj_type">obj_type</a></strong>                              <em>integer</em>  Type of the referenced object, e.g. "artist"</li>
+<li>
+<strong><a href="#partner_display_name%5D">partner_display_name</a></strong>    <em>string</em>   The name of the object according to the partner, if different</li>
+<li>
+<strong><a href="#partner_id">partner_id</a></strong>                          <em>string</em>   The name of the partner for this foreign mapping, e.g. "myspace"</li>
+<li>
+<strong><a href="#partner_obj_id">partner_obj_id</a></strong>                 <em>string</em>   Partner's ID for the referenced object</li>
+<li>
+<strong><a href="#tc_obj_id">tc_obj_id</a></strong>                           <em>integer</em>  Thrillcall ID of the referenced object</li>
+</ul><p>Returns:  Mapping <em>Hash</em></p>
+
+<div class="highlight">
+<pre>  <span class="c1">// Example: POST /mapping?obj_type=artist&amp;partner_id=myspace&amp;partner_obj_id=1&amp;tc_obj_id=2000&amp;api_key=1234567890abcdef</span>
+
+  <span class="p">{</span>
+    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">39821</span><span class="p">,</span>
+    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
+    <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"myspace"</span><span class="p">,</span>
+    <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"1"</span><span class="p">,</span>
+    <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">2000</span><span class="p">,</span>
+    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
+  <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>PUT /mapping/:id</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Edit an existing foreign ID mapping.</p>
+
+<p>Params:</p>
+
+<ul>
+<li>
+<strong><a href="#obj_type">obj_type</a></strong>                              <em>integer</em>  Type of the referenced object, e.g. "artist"</li>
+<li>
+<strong><a href="#partner_display_name%5D">partner_display_name</a></strong>    <em>string</em>   The name of the object according to the partner, if different</li>
+<li>
+<strong><a href="#partner_id">partner_id</a></strong>                          <em>string</em>   The name of the partner for this foreign mapping, e.g. "myspace"</li>
+<li>
+<strong><a href="#partner_obj_id">partner_obj_id</a></strong>                 <em>string</em>   Partner's ID for the referenced object</li>
+<li>
+<strong><a href="#tc_obj_id">tc_obj_id</a></strong>                           <em>integer</em>  Thrillcall ID of the referenced object</li>
+</ul><p>Returns:  Mapping <em>Hash</em></p>
+
+<div class="highlight">
+<pre>  <span class="c1">// Example: PUT /mapping/1?partner_obj_id=1000&amp;api_key=1234567890abcdef</span>
+
+  <span class="p">{</span>
+    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">39821</span><span class="p">,</span>
+    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
+    <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"myspace"</span><span class="p">,</span>
+    <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"1000"</span><span class="p">,</span>
+    <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">2000</span><span class="p">,</span>
+    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
+  <span class="p">}</span>
 </pre>
 </div>
