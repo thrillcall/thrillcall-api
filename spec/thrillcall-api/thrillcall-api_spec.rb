@@ -158,6 +158,14 @@ describe "ThrillcallAPI" do
       @metro_area_id        = @venue["metro_area_id"]
       @metro_area_time_zone = @tc.metro_area(@metro_area_id)["time_zone"]
 
+      mappings              = @tc.mappings(:obj_type => "artist")
+      mappings.length
+
+      @mapping_id             = mappings.first["id"]
+      @mapping_partner_id     = mappings.first["partner_id"]
+      @mapping_partner_obj_id = mappings.first["partner_obj_id"]
+      @mapping_tc_id          = mappings.first["tc_obj_id"]
+
       puts "Using Thrillcall objects:"
       puts "Event:    #{@event_id}"
       puts "Artist:   #{@artist_id} #{@artist_norm_name}"
@@ -165,6 +173,7 @@ describe "ThrillcallAPI" do
       puts "Ticket:   #{@ticket_id}"
       puts "Metro:    #{@metro_area_id}"
       puts "Genre:    #{@genre_id}"
+      puts "Mapping:  #{@mapping_id} : #{@mapping_partner_id} id=#{@mapping_partner_obj_id} tc=#{@mapping_tc_id}"
     end
   end
 
@@ -473,6 +482,26 @@ describe "ThrillcallAPI" do
         a["id"].should == @artist_id
       end
 
+      it "should get a specific artist using the mapping syntax" do
+        a = @tc.artist("#{@mapping_partner_id}:artist:#{@mapping_partner_obj_id}")
+        a["id"].should == @mapping_tc_id
+      end
+
+      it "should return foreign ID mappings when the mappings param is provided" do
+        a = @tc.artist(@mapping_tc_id, :mappings => [@mapping_partner_id])
+        a["id"].should == @mapping_tc_id
+        a["foreign_mappings"].should_not be_nil
+        (a["foreign_mappings"].is_a? Array).should be_true
+        found = false
+        a["foreign_mappings"].each do |m|
+          if (m["partner_id"] == @mapping_partner_id) && (m["partner_obj_id"] == @mapping_partner_obj_id)
+            found = true
+            break
+          end
+        end
+        found.should be_true
+      end
+
       it "should get a list of events for a specific artist" do
         a = @tc.artist(@artist_id).events
         found = false
@@ -612,6 +641,41 @@ describe "ThrillcallAPI" do
       it "should get a list of artists for a specific genre" do
         g = @tc.genre(@genre_id).artists
         g.first["primary_genre_id"].should == @genre_id
+      end
+    end
+
+    context "accesing the foreign ID mapping endpoint" do
+      it "should get a list of mappings" do
+        m = @tc.mappings
+        m.length.should > 0
+      end
+
+      it "should get a specific mapping" do
+        m = @tc.mapping(@mapping_id)
+        m["id"].should == @mapping_id
+        m["tc_obj_id"].should == @mapping_tc_id
+      end
+
+      it "should be able to create a mapping using the post /mapping endpoint" do
+        r = rand(10000).to_s
+        params = {
+                    "obj_type" => "artist",
+                  "partner_id" => "test",
+              "partner_obj_id" => r,
+                   "tc_obj_id" => @mapping_tc_id
+        }
+
+        mark_pending_if_nil_value(params)
+        p = @tc.mapping.post(params)
+        p["partner_obj_id"].should == r
+      end
+
+      it "should be able to update a mapping using the put /mapping/:id endpoint" do
+        r = rand(10000).to_s
+        params = {"partner_obj_id" => r}
+        mark_pending_if_nil_value(params)
+        p = @tc.mapping(@mapping_id).put(params)
+        p["partner_obj_id"].should == r
       end
     end
 

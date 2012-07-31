@@ -51,7 +51,7 @@ This document describes the Thrillcall API v3, and usage for the provided Ruby A
     # POST and PUT are explicit methods
     #---------------------------------------------------------------#
     artist = tc.artist.post(:name => "Bleeding Chest Wounds")
-    # => {"id" => 3, "name" => "The Bleeding Chest Wounds", ...}
+    # => {"id" => 3, "name" => "Bleeding Chest Wounds", ...}
     
     artist = tc.artist(3).put(:name => "Grizzle and The Plenty")
     # => {"id" => 3, "name" => "Grizzle and The Plenty", ...}
