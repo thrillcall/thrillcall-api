@@ -757,30 +757,27 @@ describe "ThrillcallAPI" do
         }.should raise_error
       end
 
-      it "should be able to update a person using the put /person/:id endpoint" do
+      it "should be able to update a person first_name using put on /person/:id endpoint with no errors" do
         params = {
-          :first_name => "test",
-          :last_name => "test"
+          :first_name => "test"
         }
-        lambda {
-          p = @tc.person.put(params)
-        }
+        p = @tc.person(1).put(params)
+        p["first_name"].should == "test"
       end
 
-      it "should be able to update all available put options using the put /person/:id endpoint" do
+      it "should be able to update all params using put on /person/:id endpoint with no errors" do
         params = {
           :first_name => "test",
           :last_name => "test",
-          :address1 => "test address",
-          :address2 => "test address2",
+          :address1 => "test",
+          :address2 => "test",
           :city => "test",
           :state => "ca",
           :zip_code => "94080",
           :gender => "m"
         }
-        lambda {
-          p = @tc.person.put(params)
-        }
+        p = @tc.person(1).put(params)
+        p["address1"].should == "test"
       end
 
       it "should return a proper error message using put /person/:id endpoint with invalid first_name" do
@@ -788,7 +785,7 @@ describe "ThrillcallAPI" do
           :first_name => "t"
         }
         lambda {
-          p = @tc.person.put(params)
+          p = @tc.person(1).put(params)
         }.should raise_error
       end
 
