@@ -3,6 +3,7 @@ require 'thrillcall-api'
 require 'ap'
 require 'faker'
 require 'tzinfo'
+require 'date'
 
 # Set to one of :development, :staging, :production
 TEST_ENV                  = :development
@@ -135,6 +136,7 @@ describe "ThrillcallAPI" do
 
       @event                = events.first
       @event_id             = @event["id"]
+      @known_date           = Date.parse(@event["updated_at"]).to_s
 
       @ticket               = @tc.event(@event_id).tickets.first
       @artist               = @tc.event(@event_id).artists.first
@@ -373,6 +375,14 @@ describe "ThrillcallAPI" do
         e.length.should == TINY_LIMIT
         e.each do |ev|
           DateTime.parse(ev["updated_at"]).should < (DateTime.parse(@max_date) + 1)
+        end
+      end
+
+      it "should verify the behavior of min and max updated at" do
+        e = @tc.events(:limit => TINY_LIMIT, :min_updated_at => @known_date, :max_updated_at => @known_date)
+        e.length.should >= 1
+        e.each do |ev|
+          Date.parse(ev["updated_at"]).to_s.should == @known_date
         end
       end
 
@@ -667,7 +677,7 @@ describe "ThrillcallAPI" do
 
         mark_pending_if_nil_value(params)
         p = @tc.mapping.post(params)
-        p["partner_obj_id"].should == r
+        p["partner_obj_id"].to_s.should == r
       end
 
       it "should be able to update a mapping using the put /mapping/:id endpoint" do
@@ -675,7 +685,7 @@ describe "ThrillcallAPI" do
         params = {"partner_obj_id" => r}
         mark_pending_if_nil_value(params)
         p = @tc.mapping(@mapping_id).put(params)
-        p["partner_obj_id"].should == r
+        p["partner_obj_id"].to_s.should == r
       end
     end
 
