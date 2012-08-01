@@ -449,7 +449,8 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <p><a name="mappings"></a><strong>mappings</strong> <em>string or array (format: ["myspace", "livenation"])</em> </p>
 
-<p>Foreign ID mappings for the specified partners, if available, will be provided along with the object data.</p>
+<p>Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
+Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&amp;mappings[]=livenation").</p>
 </li>
 <li>
 <p><a name="partner_id"></a><strong>partner_id</strong> <em>string</em></p>
@@ -516,10 +517,11 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
 <li><strong><a href="#primary_genre_id">primary_genre_id</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artists?limit=14&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/artists?mappings=ticketmaster&amp;limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -531,10 +533,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-26T16:49:20Z"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-mobile.jpg"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-mobile.jpg"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Hyler_Jones_Proteges"</span>
       <span class="p">},</span>
@@ -577,10 +579,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://test.com"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/artist/_default/default-mobile.jpg"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-mobile.jpg"</span>
       <span class="p">}</span>
     <span class="p">}</span>
 </pre>
@@ -594,31 +596,50 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <p>Params:</p>
 
 <ul>
-<li>None</li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artist/12569?api_key=1234567890abcdef</span>
-
+<pre>    <span class="c1">// Example: GET /api/v3/artist/12?mappings=livenation&amp;api_key=1234567890abcdef</span>
     <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-05-08T18:33:35Z"</span><span class="p">,</span>
       <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
+      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"classic rock"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/southsidejohnnyandtheasburyjukes"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Southside Johnny And The Asbury Jukes"</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.southsidejohnny.com/"</span><span class="p">,</span>
       <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
-      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-06-18T07:49:24Z"</span><span class="p">,</span>
+      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Southside_Johnny_%26_The_Asbury_Jukes"</span><span class="p">,</span>
+      <span class="s2">"foreign_mappings"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T04:41:27Z"</span><span class="p">,</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">11504</span><span class="p">,</span>
+          <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
+          <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"Southside Johnny"</span><span class="p">,</span>
+          <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
+          <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"28610"</span><span class="p">,</span>
+          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:19:25Z"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T04:41:27Z"</span><span class="p">,</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">11505</span><span class="p">,</span>
+          <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
+          <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"Southside Johnny &amp; The Asbury Jukes"</span><span class="p">,</span>
+          <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
+          <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"6208"</span><span class="p">,</span>
+          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:19:25Z"</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-thumbnail.jpg?1324557379"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-medium.jpg?1324557379"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-large.jpg?1324557379"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-mobile.jpg?1324557379"</span>
       <span class="p">},</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://localhost:3000/artist/Southside_Johnny_And_The_Asbury_Jukes"</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -636,6 +657,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#myspace_url">myspace_url</a></strong></li>
 <li><strong><a href="#official_url">official_url</a></strong></li>
 <li><strong><a href="#wikipedia_url">wikipedia_url</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Updates the provided fields on Artist <strong>:id</strong>.</p>
 
 <p>Returns:  Artist <em>Hash</em></p>
@@ -656,10 +678,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
       <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://test.com"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
       <span class="p">},</span>
       <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
     <span class="p">}</span>
@@ -690,6 +712,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
@@ -710,9 +733,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
         <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
@@ -744,6 +767,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
@@ -763,10 +787,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
         <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
       <span class="p">},</span>
@@ -873,9 +897,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
         <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
@@ -933,10 +957,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
       <span class="p">},</span>
       <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
       <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
@@ -954,6 +978,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
@@ -973,10 +998,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
         <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
       <span class="p">},</span>
@@ -996,7 +1021,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <p>Params:</p>
 
 <ul>
-<li>None</li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
@@ -1024,10 +1049,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
       <span class="p">},</span>
       <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
       <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
@@ -1153,6 +1178,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <ul>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
@@ -1172,10 +1198,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-05-31T09:16:49Z"</span><span class="p">,</span>
         <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/index.html?curid=4735724"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-medium.jpg?1328344246"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-large.jpg?1328344246"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-mobile.jpg?1328344246"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-medium.jpg?1328344246"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-large.jpg?1328344246"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-mobile.jpg?1328344246"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Espers"</span>
       <span class="p">},</span>
@@ -1303,6 +1329,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Note:  Time Zone is set as the time zone of the Metro Area and cannot be overridden.</p>
 
 <p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
@@ -1325,9 +1352,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:19:31Z"</span><span class="p">,</span>
         <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">47273</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1011386"</span><span class="p">,</span>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-01-07T00:00:04-08:00"</span><span class="p">,</span>
@@ -1409,9 +1436,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
       <span class="p">}</span>
     <span class="p">}</span>
 </pre>
@@ -1461,9 +1488,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-medium.jpg"</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-medium.jpg"</span>
       <span class="p">}</span>
     <span class="p">}</span>
 </pre>
@@ -1505,9 +1532,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/person/_default/default-medium.jpg"</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-medium.jpg"</span>
       <span class="p">}</span>
     <span class="p">}</span>
 </pre>
@@ -1552,9 +1579,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
       <span class="p">}</span>
     <span class="p">}</span>
 </pre>
@@ -1614,6 +1641,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#long">long</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
 <li><strong><a href="#radius">radius</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul><p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
 <div class="highlight">
@@ -1642,10 +1670,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-04-20T19:08:53Z"</span><span class="p">,</span>
         <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"0"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-mobile.jpg"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-mobile.jpg"</span>
         <span class="p">},</span>
         <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Fbolko_in_Guadalajara"</span>
@@ -1694,10 +1722,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
       <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:37:30Z"</span><span class="p">,</span>
       <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94102"</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"</span>
       <span class="p">},</span>
       <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
       <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"</span>
@@ -1745,9 +1773,9 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
         <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
         <span class="p">},</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
@@ -1811,10 +1839,10 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
         <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-06-06T03:05:53Z"</span><span class="p">,</span>
         <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"45405"</span><span class="p">,</span>
         <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i.development.tc-core.com/venue/_default/default-mobile.jpg"</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-mobile.jpg"</span>
         <span class="p">},</span>
         <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">134</span><span class="p">,</span>
         <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Dayton_Masonic_Center_in_Dayton_OH"</span>

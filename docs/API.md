@@ -179,7 +179,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     Optional for registering a user.
 
-- <a name="zip_code" />**zip_code** _string (format: length >= 5)_
+- <a name="zip_code" />**zip\_code** _string (format: length >= 5)_
 
     Required for registering a user
 
@@ -214,6 +214,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="mappings" />**mappings** _string or array (format: ["myspace", "livenation"])_ 
     
     Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
+    Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&mappings[]=livenation").
 
 - <a name="partner_id" />**partner\_id** _string_
     
@@ -261,11 +262,12 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[primary\_genre\_id](#primary_genre_id)**
+- **[mappings](#mappings)**
 
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v3/artists?limit=14&api_key=1234567890abcdef
+    // Example: GET /api/v3/artists?mappings=ticketmaster&limit=14&api_key=1234567890abcdef
     
     [
       {
@@ -277,10 +279,10 @@ Returns:  _Array_ of Artists _Hash_
         "upcoming_events_count": 0,
         "updated_at": "2010-03-26T16:49:20Z",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg",
-          "medium": "http://i.development.tc-core.com/artist/_default/default-medium.jpg",
-          "large": "http://i.development.tc-core.com/artist/_default/default-large.jpg",
-          "mobile": "http://i.development.tc-core.com/artist/_default/default-mobile.jpg"
+          "thumbnail": "http://i1.tc-core.com/artist/_default/default-thumbnail.jpg",
+          "medium": "http://i1.tc-core.com/artist/_default/default-medium.jpg",
+          "large": "http://i1.tc-core.com/artist/_default/default-large.jpg",
+          "mobile": "http://i1.tc-core.com/artist/_default/default-mobile.jpg"
         },
         "url": "http://thrillcall.com/artist/Hyler_Jones_Proteges"
       },
@@ -321,10 +323,10 @@ Returns:  Artist _Hash_
       "updated_at": null,
       "wikipedia_url": "http://test.com",
       "photos": {
-        "thumbnail": "http://i.development.tc-core.com/artist/_default/default-thumbnail.jpg",
-        "medium": "http://i.development.tc-core.com/artist/_default/default-medium.jpg",
-        "large": "http://i.development.tc-core.com/artist/_default/default-large.jpg",
-        "mobile": "http://i.development.tc-core.com/artist/_default/default-mobile.jpg"
+        "thumbnail": "http://i1.tc-core.com/artist/_default/default-thumbnail.jpg",
+        "medium": "http://i1.tc-core.com/artist/_default/default-medium.jpg",
+        "large": "http://i1.tc-core.com/artist/_default/default-large.jpg",
+        "mobile": "http://i1.tc-core.com/artist/_default/default-mobile.jpg"
       }
     }
 ```
@@ -334,32 +336,51 @@ Returns:  Artist _Hash_
 
 Params:
 
-- None
+- **[mappings](#mappings)**
 
 Returns:  Artist _Hash_
 
 ``` js
-    // Example: GET /api/v3/artist/12569?api_key=1234567890abcdef
-    
+    // Example: GET /api/v3/artist/12?mappings=livenation&api_key=1234567890abcdef
     {
-      "created_at": "2008-04-21T16:53:17Z",
+      "created_at": "2008-05-08T18:33:35Z",
       "facebook_url": null,
-      "genre_tags": "acoustic;Country;Rock;rockabilly",
-      "id": 12569,
-      "myspace_url": "http://www.myspace.com/chrisisaak",
-      "name": "Chris Isaak",
-      "official_url": "http://www.chrisisaak.com/",
+      "genre_tags": "classic rock",
+      "id": 12,
+      "myspace_url": "http://www.myspace.com/southsidejohnnyandtheasburyjukes",
+      "name": "Southside Johnny And The Asbury Jukes",
+      "official_url": "http://www.southsidejohnny.com/",
       "primary_genre_id": 27,
-      "upcoming_events_count": 58,
-      "updated_at": "2012-07-02T09:55:40Z",
-      "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
+      "upcoming_events_count": 9,
+      "updated_at": "2012-06-18T07:49:24Z",
+      "wikipedia_url": "http://en.wikipedia.org/wiki/Southside_Johnny_%26_The_Asbury_Jukes",
+      "foreign_mappings": [
+        {
+          "created_at": "2009-08-13T04:41:27Z",
+          "id": 11504,
+          "obj_type": "artist",
+          "partner_display_name": "Southside Johnny",
+          "partner_id": "livenation",
+          "partner_obj_id": "28610",
+          "updated_at": "2012-07-18T00:19:25Z"
+        },
+        {
+          "created_at": "2009-08-13T04:41:27Z",
+          "id": 11505,
+          "obj_type": "artist",
+          "partner_display_name": "Southside Johnny & The Asbury Jukes",
+          "partner_id": "livenation",
+          "partner_obj_id": "6208",
+          "updated_at": "2012-07-18T00:19:25Z"
+        }
+      ],
       "photos": {
-        "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
-        "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
-        "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
-        "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
+        "thumbnail": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-thumbnail.jpg?1324557379",
+        "medium": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-medium.jpg?1324557379",
+        "large": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-large.jpg?1324557379",
+        "mobile": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-mobile.jpg?1324557379"
       },
-      "url": "http://thrillcall.com/artist/Chris_Isaak"
+      "url": "http://localhost:3000/artist/Southside_Johnny_And_The_Asbury_Jukes"
     }
 ```
 
@@ -373,6 +394,7 @@ Params:
 - **[myspace\_url](#myspace_url)**
 - **[official\_url](#official_url)**
 - **[wikipedia\_url](#wikipedia_url)**
+- **[mappings](#mappings)**
 
 Updates the provided fields on Artist **:id**.
 
@@ -394,10 +416,10 @@ Returns:  Artist _Hash_
       "updated_at": "2012-07-02T09:55:40Z",
       "wikipedia_url": "http://test.com",
       "photos": {
-        "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
-        "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
-        "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
-        "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
+        "thumbnail": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
+        "medium": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
+        "large": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
+        "mobile": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
       },
       "url": "http://thrillcall.com/artist/Chris_Isaak"
     }
@@ -424,6 +446,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[mappings](#mappings)**
 
 Returns:  _Array_ of Events _Hash_
 
@@ -445,9 +468,9 @@ Returns:  _Array_ of Events _Hash_
         "updated_at": "2012-03-29T01:35:57Z",
         "venue_id": 63279,
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "large": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
+          "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
+          "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
         },
         "url": "http://thrillcall.com/event/1047075",
         "starts_at_local": "2012-09-29T19:30:04-07:00",
@@ -476,6 +499,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[mappings](#mappings)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -496,10 +520,10 @@ Returns:  _Array_ of Artists _Hash_
         "updated_at": "2012-07-02T09:55:40Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
-          "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
-          "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
-          "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
+          "thumbnail": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
+          "medium": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
+          "large": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
+          "mobile": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
         },
         "url": "http://thrillcall.com/artist/Chris_Isaak"
       },
@@ -577,9 +601,9 @@ Returns:  _Array_ of Events _Hash_
         "updated_at": "2012-03-29T01:35:57Z",
         "venue_id": 63279,
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "large": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
+          "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
+          "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
         },
         "url": "http://thrillcall.com/event/1047075",
         "starts_at_local": "2012-09-29T19:30:04-07:00",
@@ -634,10 +658,10 @@ Returns:  Event _Hash_
       "updated_at": "2012-07-03T09:41:24Z",
       "postalcode": "94108",
       "photos": {
-        "thumbnail": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
-        "medium": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
-        "large": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
-        "mobile": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
+        "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
+        "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
+        "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
+        "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
       },
       "metro_area_id": 105,
       "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
@@ -651,6 +675,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[mappings](#mappings)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -671,10 +696,10 @@ Returns:  _Array_ of Artists _Hash_
         "updated_at": "2012-07-02T09:55:40Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
-          "medium": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
-          "large": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
-          "mobile": "http://i.development.tc-core.com/dan/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
+          "thumbnail": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
+          "medium": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
+          "large": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547",
+          "mobile": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"
         },
         "url": "http://thrillcall.com/artist/Chris_Isaak"
       },
@@ -690,7 +715,7 @@ Returns:  _Array_ of Artists _Hash_
 
 Params:
 
-- None
+- **[mappings](#mappings)**
 
 Returns:  Venue _Hash_
 
@@ -719,10 +744,10 @@ Returns:  Venue _Hash_
       "updated_at": "2012-07-03T09:41:24Z",
       "postalcode": "94108",
       "photos": {
-        "thumbnail": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
-        "medium": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
-        "large": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
-        "mobile": "http://i.development.tc-core.com/dan/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
+        "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
+        "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
+        "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
+        "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
       },
       "metro_area_id": 105,
       "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
@@ -829,6 +854,7 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[mappings](#mappings)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -849,10 +875,10 @@ Returns:  _Array_ of Artists _Hash_
         "updated_at": "2012-05-31T09:16:49Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/index.html?curid=4735724",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246",
-          "medium": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-medium.jpg?1328344246",
-          "large": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-large.jpg?1328344246",
-          "mobile": "http://i.development.tc-core.com/dan/artist/2/15306/1328344246/espers-mobile.jpg?1328344246"
+          "thumbnail": "http://i1.tc-core.com/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246",
+          "medium": "http://i1.tc-core.com/artist/2/15306/1328344246/espers-medium.jpg?1328344246",
+          "large": "http://i1.tc-core.com/artist/2/15306/1328344246/espers-large.jpg?1328344246",
+          "mobile": "http://i1.tc-core.com/artist/2/15306/1328344246/espers-mobile.jpg?1328344246"
         },
         "url": "http://thrillcall.com/artist/Espers"
       },
@@ -957,6 +983,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[mappings](#mappings)**
 
 Note:  Time Zone is set as the time zone of the Metro Area and cannot be overridden.
 
@@ -980,9 +1007,9 @@ Returns:  _Array_ of Metro Areas _Hash_
         "updated_at": "2012-03-29T01:19:31Z",
         "venue_id": 47273,
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566",
-          "large": "http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566",
-          "mobile": "http://i.development.tc-core.com/dan/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"
+          "thumbnail": "http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566",
+          "large": "http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566",
+          "mobile": "http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"
         },
         "url": "http://thrillcall.com/event/1011386",
         "starts_at_local": "2012-01-07T00:00:04-08:00",
@@ -1049,9 +1076,9 @@ Returns: Person _Hash_
       "referral_credits": 0,
       "postalcode": "95407",
       "photos": {
-        "small_thumb": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-        "thumbnail": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-        "medium": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-medium.jpg?1324568419"
+        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
+        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
+        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
       }
     }
 ```
@@ -1098,9 +1125,9 @@ Returns: Person _Hash_
       "referral_credits": 0,
       "postalcode": null,
       "photos": {
-        "small_thumb": "http://i.development.tc-core.com/person/_default/default-small_thumb.jpg",
-        "thumbnail": "http://i.development.tc-core.com/person/_default/default-thumbnail.jpg",
-        "medium": "http://i.development.tc-core.com/person/_default/default-medium.jpg"
+        "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
+        "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
+        "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
       }
     }
 ```
@@ -1139,9 +1166,9 @@ Returns: Person _Hash_
       "referral_credits": 0,
       "postalcode": null,
       "photos": {
-        "small_thumb": "http://i.development.tc-core.com/person/_default/default-small_thumb.jpg",
-        "thumbnail": "http://i.development.tc-core.com/person/_default/default-thumbnail.jpg",
-        "medium": "http://i.development.tc-core.com/person/_default/default-medium.jpg"
+        "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
+        "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
+        "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
       }
     }
 ```
@@ -1183,9 +1210,9 @@ Returns: Person _Hash_
       "referral_credits": 0,
       "postalcode": "95407",
       "photos": {
-        "small_thumb": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-        "thumbnail": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-        "medium": "http://i.development.tc-core.com/dan/person/164761/1324568419/19154-medium.jpg?1324568419"
+        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
+        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
+        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
       }
     }
 ```
@@ -1224,6 +1251,7 @@ Params:
 - **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
+- **[mappings](#mappings)**
 
 Returns:  _Array_ of Venues _Hash_
 
@@ -1253,10 +1281,10 @@ Returns:  _Array_ of Venues _Hash_
         "updated_at": "2012-04-20T19:08:53Z",
         "postalcode": "0",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg",
-          "medium": "http://i.development.tc-core.com/venue/_default/default-medium.jpg",
-          "large": "http://i.development.tc-core.com/venue/_default/default-large.jpg",
-          "mobile": "http://i.development.tc-core.com/venue/_default/default-mobile.jpg"
+          "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
+          "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
+          "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
+          "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
         },
         "metro_area_id": null,
         "url": "http://thrillcall.com/venue/Fbolko_in_Guadalajara"
@@ -1303,10 +1331,10 @@ Returns:  Venue _Hash_
       "updated_at": "2012-07-03T09:37:30Z",
       "postalcode": "94102",
       "photos": {
-        "thumbnail": "http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154",
-        "medium": "http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154",
-        "large": "http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154",
-        "mobile": "http://i.development.tc-core.com/dan/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"
+        "thumbnail": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154",
+        "medium": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154",
+        "large": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154",
+        "mobile": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"
       },
       "metro_area_id": 105,
       "url": "http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"
@@ -1351,9 +1379,9 @@ Returns:  _Array_ of Events _Hash_
         "updated_at": "2012-03-29T01:35:57Z",
         "venue_id": 63279,
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "large": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i.development.tc-core.com/dan/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
+          "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
+          "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
         },
         "url": "http://thrillcall.com/event/1047075",
         "starts_at_local": "2012-09-29T19:30:04-07:00",
@@ -1414,10 +1442,10 @@ Returns:  _Array_ of Venues _Hash_
         "updated_at": "2012-06-06T03:05:53Z",
         "postalcode": "45405",
         "photos": {
-          "thumbnail": "http://i.development.tc-core.com/venue/_default/default-thumbnail.jpg",
-          "medium": "http://i.development.tc-core.com/venue/_default/default-medium.jpg",
-          "large": "http://i.development.tc-core.com/venue/_default/default-large.jpg",
-          "mobile": "http://i.development.tc-core.com/venue/_default/default-mobile.jpg"
+          "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
+          "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
+          "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
+          "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
         },
         "metro_area_id": 134,
         "url": "http://thrillcall.com/venue/Dayton_Masonic_Center_in_Dayton_OH"
