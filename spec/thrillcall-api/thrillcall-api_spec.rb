@@ -1020,14 +1020,20 @@ describe "ThrillcallAPI" do
 
         describe "updating a venue" do
           it "with an invalid url" do
-            params = {:official_url => "bogus"}
+            params = {
+              :official_url   => "bogus",
+              :test           => true,
+            }
             lambda {
               @tc.venue(@venue_id).put(params)
             }.should raise_error
           end
 
           it "if no name was provided" do
-            params = {:name => nil}
+            params = {
+              :name => nil,
+              :test => true,
+            }
             lambda {
               @tc.venue(@venue_id).put(params)
             }.should raise_error
@@ -1035,14 +1041,20 @@ describe "ThrillcallAPI" do
 
           it "with an address matching an existing venue" do
             pending "Need a second venue to match against"
-            params = {:address1 => @venue_address1}
+            params = {
+              :address1 => @venue_address1,
+              :test     => true,
+            }
             lambda {
               @tc.venue(@venue_id).put(params)
             }.should raise_error
           end
 
           it "with an invalid country code" do
-            params = {:country => "XX"}
+            params = {
+              :country  => "XX",
+              :test     => true,
+            }
             lambda {
               @tc.venue(@venue_id).put(params)
             }.should raise_error
