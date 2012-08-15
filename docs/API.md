@@ -86,8 +86,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     _Default: none_
     
-    Results will be within the **[radius](#radius)** of this postal code.
-    If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, this will be ignored.
+    For GET requests:
+        Results will be within the **[radius](#radius)** of this postal code.
+        If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, this will be ignored.
+    
+    For POST / PUT requests:
+        Required for creating or updating a Person or Venue.
     
 - <a name="radius" />**radius** _float_
     
@@ -133,11 +137,11 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="email" />**email** _string_
     
-    The email address associated with a user, required for registration.
+    The email address associated with a Person, required for registration.
 
 - <a name="password" />**password** _string (format: 40 >= length >= 5)_
     
-    The user's password.  Must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
+    The Person's password.  Must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
 
 - <a name="provider" />**provider** _string_
     
@@ -145,59 +149,59 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="uid" />**uid** _string_
     
-    The user's ID with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
+    The Person's ID with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
 
 - <a name="token" />**token** _string_
     
-    The user's authentication token with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[uid](#uid)** unless using **[email](#email)**/**[password](#password)** auth.
+    The Person's authentication token with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[uid](#uid)** unless using **[email](#email)**/**[password](#password)** auth.
 
 - <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
     
-    Required to register a user.
+    Required to register a Person.
 
 - <a name="last_name" />**last\_name** _string (format: 50 >= length >= 2)_
     
-    Optional for registering a user.
+    Optional for creating or updating a Person.
 
 - <a name="gender" />**gender** _string (format: length == 1)_
     
-    Optional for registering a user.
+    Optional for creating or updating a Person.
 
 - <a name="address1" />**address1** _string_
 
-    Optional for registering a user.
+    Optional for creating or updating a Person, required for Venues.
 
 - <a name="address2" />**address2** _string_
 
-    Optional for registering a user.
+    Optional parameter for Person or Venue.
 
 - <a name="city" />**city** _string_
 
-    Optional for registering a user.
+    Optional for creating or updating a Person, required for Venues.
 
 - <a name="state" />**state** _string_
 
-    Optional for registering a user.
+    Optional for creating or updating a Person, required for Venues.
 
-- <a name="zip_code" />**zip\_code** _string (format: length >= 5)_
+- <a name="country" />**country** _string (format: "US" length == 2)_
 
-    Required for registering a user
+    Country code, required for Venues.
 
 - <a name="location_name" />**location\_name** _string (format: "City, ST or City, State", length > 0))_
     
-    The name of the user's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
+    The name of the Person's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
 
 - <a name="referral_code" />**referral\_code** _string_
     
-    The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a referral credit point.
+    The referral code to be used during registration.  Both the owner of the code as well as the new Person will receive a referral credit point.
 
 - <a name="name" />**name** _string_
     
-    Name of the Artist.
+    Name of the Artist or Venue.
 
 - <a name="facebook_url" />**facebook\_url** _string (format: "http://facebook.com/ladygaga")_
     
-    Facebook URL for the Artist.
+    Facebook URL for the Artist or Venue.
 
 - <a name="myspace_url" />**myspace\_url** _string (format: "http://myspace.com/ladygaga")_
     
@@ -205,7 +209,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="official_url" />**official\_url** _string (format: "http://www.ladygaga.com/")_
     
-    Official URL for the Artist.
+    Official URL for the Artist or Venue.
 
 - <a name="wikipedia_url" />**wikipedia\_url** _string (format: "http://en.wikipedia.org/wiki/Lady_Gaga")_
     
@@ -1183,7 +1187,7 @@ Params:
 - **[address2](#address2)**
 - **[city](#city)**
 - **[state](#state)**
-- **[zip_code](#zip_code)**
+- **[postalcode](#postalcode)**
 - **[gender](#gender)**
 
 Returns: Person _Hash_
@@ -1296,6 +1300,55 @@ Returns:  _Array_ of Venues _Hash_
     ]
 ```
 
+### POST /venue
+Params:
+
+- **[name](#name)**
+- **[address1](#address1)**
+- **[address2](#address2)**
+- **[city](#city)**
+- **[state](#state)**
+- **[postalcode](#postalcode)**
+- **[country](#country)**
+- **[facebook_url](#facebook_url)**
+- **[official_url](#official_url)**
+
+Returns:  Venue _Hash_
+
+``` js
+    // Example: POST /api/v3/venue?name=Test%20Venue&city=Guerneville&state=CA&country=US&address1=123%20Main%20St&postalcode=95446&api_key=1234567890abcdef
+    
+    {
+      "address1": "123 Main St",
+      "address2": null,
+      "city": "Guerneville",
+      "country": "US",
+      "created_at": "2012-08-14T00:15:23Z",
+      "facebook_url": null,
+      "hide_resale_tickets": false,
+      "id": 108951,
+      "latitude": 38.50223159790039,
+      "long_description": null,
+      "longitude": -122.99627685546875,
+      "myspace_url": null,
+      "name": "Test Venue",
+      "official_url": null,
+      "phone_number": null,
+      "state": "CA",
+      "time_zone": "America/Los_Angeles",
+      "upcoming_events_count": 0,
+      "updated_at": "2012-08-14T00:15:23Z",
+      "postalcode": "95446",
+      "photos": {
+        "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
+        "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
+        "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
+        "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
+      },
+      "metro_area_id": null,
+      "url": "http://thrillcall.com/venue/Test_Venue_in_Guerneville_CA"
+    }
+```
 
 ### GET /venue/:id
 **:id** _integer_  Thrillcall or Partner ID
@@ -1311,6 +1364,56 @@ Returns:  Venue _Hash_
     
     {
       "address1": "201 Van Ness Avenue",
+      "address2": null,
+      "city": "San Francisco",
+      "country": "US",
+      "created_at": "2008-04-28T17:59:32Z",
+      "facebook_url": "http://www.facebook.com/sfsymphony",
+      "hide_resale_tickets": false,
+      "id": 51886,
+      "latitude": 37.777402,
+      "long_description": null,
+      "longitude": -122.419815,
+      "myspace_url": null,
+      "name": "Davies Symphony Hall",
+      "official_url": "http://www.sfsymphony.org/",
+      "phone_number": "+1 (415) 864-6000",
+      "state": "CA",
+      "time_zone": "America/Los_Angeles",
+      "upcoming_events_count": 17,
+      "updated_at": "2012-07-03T09:37:30Z",
+      "postalcode": "94102",
+      "photos": {
+        "thumbnail": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154",
+        "medium": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154",
+        "large": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154",
+        "mobile": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"
+      },
+      "metro_area_id": 105,
+      "url": "http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"
+    }
+```
+
+### PUT /venue/:id
+Params:
+
+- **[name](#name)**
+- **[address1](#address1)**
+- **[address2](#address2)**
+- **[city](#city)**
+- **[state](#state)**
+- **[postalcode](#postalcode)**
+- **[country](#country)**
+- **[facebook_url](#facebook_url)**
+- **[official_url](#official_url)**
+
+Returns:  Venue _Hash_
+
+``` js
+    // Example: PUT /api/v3/venue/51886?address1=202%20Van%20Ness%20Avenue&api_key=1234567890abcdef
+    
+    {
+      "address1": "202 Van Ness Avenue",
       "address2": null,
       "city": "San Francisco",
       "country": "US",

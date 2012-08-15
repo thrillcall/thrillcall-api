@@ -147,7 +147,11 @@ describe "ThrillcallAPI" do
 
       @venue_id             = @venue["id"]
       @venue_norm_name      = @venue["name"]
+      @venue_city           = @venue["city"]
+      @venue_state          = @venue["state"]
+      @venue_country        = @venue["country"]
       @venue_zip            = @venue["postalcode"]
+      @venue_address1       = @venue["address1"]
 
       @event_zip            = @venue_zip
 
@@ -171,7 +175,7 @@ describe "ThrillcallAPI" do
       puts "Using Thrillcall objects:"
       puts "Event:    #{@event_id}"
       puts "Artist:   #{@artist_id} #{@artist_norm_name}"
-      puts "Venue:    #{@venue_id} #{@venue_norm_name}"
+      puts "Venue:    #{@venue_id} #{@venue_norm_name} (#{@venue})"
       puts "Ticket:   #{@ticket_id}"
       puts "Metro:    #{@metro_area_id}"
       puts "Genre:    #{@genre_id}"
@@ -918,6 +922,141 @@ describe "ThrillcallAPI" do
             mark_pending_if_nil_value(params)
             lambda {
               @tc.artist(@artist_id).put(params)
+            }.should raise_error
+          end
+        end
+      end
+    end
+  end
+
+  context "an authenticated user with api_venue permission" do
+    before :all do
+      setup_key
+      setup_read
+    end
+
+    before :each do
+      mark_pending_if_no_permission(:api_venue)
+      @new_name = @venue_norm_name + "#{rand(10000)}"
+      @test_url = "http://test.com?#{rand(10000)}"
+
+      # Create a random address near the existing address
+      m = @venue_address1.match(/(\d+)(.*)/)
+      if m && m[2]
+        addr    = m[1]
+        street  = m[2]
+      else
+        addr    = "1234"
+        street  = " Main St."
+      end
+      @params   = {
+        :name           => Faker::Lorem.words(3).join(' '),
+        :city           => @venue_city,
+        :state          => @venue_state,
+        :country        => @venue_country,
+        :postalcode     => @venue_zip,
+        :address1       => "#{addr[0]}#{sprintf("%0#{(addr.length - 1)}d", rand(10 ** (addr.length - 1)))}#{street}",
+        :official_url   => @test_url,
+        :test           => true
+      }
+      # params[:address1] should now have the same starting digit as
+      # @venue_address1 with a random number behind it of the same length
+    end
+
+    context "accesing the venue endpoint" do
+      it "should be able to create a venue using the post /venue endpoint" do
+        mark_pending_if_nil_value(@params)
+        p = @tc.venue.post(@params)
+        p["name"].should == @params[:name]
+      end
+
+      it "should be able to update a venue using the put /venue/:id endpoint" do
+        params = {
+          :name           => @new_name,
+          :official_url   => @test_url,
+          :test           => true
+        }
+        mark_pending_if_nil_value(params)
+        p = @tc.venue(@venue_id).put(params)
+
+        p["name"].should          == @new_name
+        p["official_url"].should  == @test_url
+      end
+
+      describe "should raise an error" do
+        describe "creating a venue" do
+          it "with an existing name" do
+            @params[:name] = @venue_norm_name
+            mark_pending_if_nil_value(@params)
+            lambda {
+              @tc.venue.post(@params)
+            }.should raise_error
+          end
+
+          it "if no name was provided" do
+            mark_pending_if_nil_value(@params)
+            @params[:name] = nil
+            lambda {
+              @tc.venue.post(@params)
+            }.should raise_error
+          end
+
+          it "with an address matching an existing venue" do
+            mark_pending_if_nil_value(@params)
+            @params[:address1] = @venue_address1
+            lambda {
+              @tc.venue.post(@params)
+            }.should raise_error
+          end
+
+          it "with an invalid country code" do
+            mark_pending_if_nil_value(@params)
+            @params[:country] = "XX"
+            lambda {
+              @tc.venue.post(@params)
+            }.should raise_error
+          end
+        end
+
+        describe "updating a venue" do
+          it "with an invalid url" do
+            params = {
+              :official_url   => "bogus",
+              :test           => true,
+            }
+            lambda {
+              @tc.venue(@venue_id).put(params)
+            }.should raise_error
+          end
+
+          it "if no name was provided" do
+            params = {
+              :name => nil,
+              :test => true,
+            }
+            lambda {
+              @tc.venue(@venue_id).put(params)
+            }.should raise_error
+          end
+
+          it "with an address matching an existing venue" do
+            pending "Need a second venue to match against"
+            params = {
+              :address1 => @venue_address1,
+              :test     => true,
+            }
+            lambda {
+              @tc.venue(@venue_id).put(params)
+            }.should raise_error
+          end
+
+          it "with an invalid country code" do
+            params = {
+              :country  => "XX",
+              :test     => true,
+            }
+            lambda {
+              @tc.venue(@venue_id).put(params)
             }.should raise_error
           end
         end

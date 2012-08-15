@@ -294,8 +294,12 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 
 <p><em>Default: none</em></p>
 
-<p>Results will be within the <strong><a href="#radius">radius</a></strong> of this postal code.
-If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a href="#long">long</a></strong>) if both are specified, this will be ignored.</p>
+<p>For GET requests:
+    Results will be within the <strong><a href="#radius">radius</a></strong> of this postal code.
+    If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a href="#long">long</a></strong>) if both are specified, this will be ignored.</p>
+
+<p>For POST / PUT requests:
+    Required for creating or updating a Person or Venue.</p>
 </li>
 <li>
 <p><a name="radius"></a><strong>radius</strong> <em>float</em></p>
@@ -349,12 +353,12 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <p><a name="email"></a><strong>email</strong> <em>string</em></p>
 
-<p>The email address associated with a user, required for registration.</p>
+<p>The email address associated with a Person, required for registration.</p>
 </li>
 <li>
 <p><a name="password"></a><strong>password</strong> <em>string (format: 40 &gt;= length &gt;= 5)</em></p>
 
-<p>The user's password.  Must be supplied along with <strong><a href="#email">email</a></strong> unless using <strong><a href="#provider">provider</a></strong> / <strong><a href="#uid">uid</a></strong> / <strong><a href="#token">token</a></strong> auth.</p>
+<p>The Person's password.  Must be supplied along with <strong><a href="#email">email</a></strong> unless using <strong><a href="#provider">provider</a></strong> / <strong><a href="#uid">uid</a></strong> / <strong><a href="#token">token</a></strong> auth.</p>
 </li>
 <li>
 <p><a name="provider"></a><strong>provider</strong> <em>string</em></p>
@@ -364,72 +368,72 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <p><a name="uid"></a><strong>uid</strong> <em>string</em></p>
 
-<p>The user's ID with <strong><a href="#provider">provider</a></strong>.  Must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#token">token</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
+<p>The Person's ID with <strong><a href="#provider">provider</a></strong>.  Must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#token">token</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
 </li>
 <li>
 <p><a name="token"></a><strong>token</strong> <em>string</em></p>
 
-<p>The user's authentication token with <strong><a href="#provider">provider</a></strong>.  Must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#uid">uid</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
+<p>The Person's authentication token with <strong><a href="#provider">provider</a></strong>.  Must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#uid">uid</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
 </li>
 <li>
 <p><a name="first_name"></a><strong>first_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
 
-<p>Required to register a user.</p>
+<p>Required to register a Person.</p>
 </li>
 <li>
 <p><a name="last_name"></a><strong>last_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
 
-<p>Optional for registering a user.</p>
+<p>Optional for creating or updating a Person.</p>
 </li>
 <li>
 <p><a name="gender"></a><strong>gender</strong> <em>string (format: length == 1)</em></p>
 
-<p>Optional for registering a user.</p>
+<p>Optional for creating or updating a Person.</p>
 </li>
 <li>
 <p><a name="address1"></a><strong>address1</strong> <em>string</em></p>
 
-<p>Optional for registering a user.</p>
+<p>Optional for creating or updating a Person, required for Venues.</p>
 </li>
 <li>
 <p><a name="address2"></a><strong>address2</strong> <em>string</em></p>
 
-<p>Optional for registering a user.</p>
+<p>Optional parameter for Person or Venue.</p>
 </li>
 <li>
 <p><a name="city"></a><strong>city</strong> <em>string</em></p>
 
-<p>Optional for registering a user.</p>
+<p>Optional for creating or updating a Person, required for Venues.</p>
 </li>
 <li>
 <p><a name="state"></a><strong>state</strong> <em>string</em></p>
 
-<p>Optional for registering a user.</p>
+<p>Optional for creating or updating a Person, required for Venues.</p>
 </li>
 <li>
-<p><a name="zip_code"></a><strong>zip_code</strong> <em>string (format: length &gt;= 5)</em></p>
+<p><a name="country"></a><strong>country</strong> <em>string (format: "US" length == 2)</em></p>
 
-<p>Required for registering a user</p>
+<p>Country code, required for Venues.</p>
 </li>
 <li>
 <p><a name="location_name"></a><strong>location_name</strong> <em>string (format: "City, ST or City, State", length &gt; 0))</em></p>
 
-<p>The name of the user's location when auto-registering.  Either this or <strong><a href="#lat">lat</a></strong> / <strong><a href="#long">long</a></strong> must be provided.</p>
+<p>The name of the Person's location when auto-registering.  Either this or <strong><a href="#lat">lat</a></strong> / <strong><a href="#long">long</a></strong> must be provided.</p>
 </li>
 <li>
 <p><a name="referral_code"></a><strong>referral_code</strong> <em>string</em></p>
 
-<p>The referral code to be used during registration.  Both the owner of the code as well as the new user will receive a referral credit point.</p>
+<p>The referral code to be used during registration.  Both the owner of the code as well as the new Person will receive a referral credit point.</p>
 </li>
 <li>
 <p><a name="name"></a><strong>name</strong> <em>string</em></p>
 
-<p>Name of the Artist.</p>
+<p>Name of the Artist or Venue.</p>
 </li>
 <li>
 <p><a name="facebook_url"></a><strong>facebook_url</strong> <em>string (format: "http://facebook.com/ladygaga")</em></p>
 
-<p>Facebook URL for the Artist.</p>
+<p>Facebook URL for the Artist or Venue.</p>
 </li>
 <li>
 <p><a name="myspace_url"></a><strong>myspace_url</strong> <em>string (format: "http://myspace.com/ladygaga")</em></p>
@@ -439,7 +443,7 @@ If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a 
 <li>
 <p><a name="official_url"></a><strong>official_url</strong> <em>string (format: "http://www.ladygaga.com/")</em></p>
 
-<p>Official URL for the Artist.</p>
+<p>Official URL for the Artist or Venue.</p>
 </li>
 <li>
 <p><a name="wikipedia_url"></a><strong>wikipedia_url</strong> <em>string (format: "http://en.wikipedia.org/wiki/Lady</em>Gaga")_</p>
@@ -1553,7 +1557,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#address2">address2</a></strong></li>
 <li><strong><a href="#city">city</a></strong></li>
 <li><strong><a href="#state">state</a></strong></li>
-<li><strong><a href="#zip_code">zip_code</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
 <li><strong><a href="#gender">gender</a></strong></li>
 </ul><p>Returns: Person <em>Hash</em></p>
 
@@ -1687,6 +1691,59 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 </div>
 
 
+<h3>POST /venue</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#name">name</a></strong></li>
+<li><strong><a href="#address1">address1</a></strong></li>
+<li><strong><a href="#address2">address2</a></strong></li>
+<li><strong><a href="#city">city</a></strong></li>
+<li><strong><a href="#state">state</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#country">country</a></strong></li>
+<li><strong><a href="#facebook_url">facebook_url</a></strong></li>
+<li><strong><a href="#official_url">official_url</a></strong></li>
+</ul><p>Returns:  Venue <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: POST /api/v3/venue?name=Test%20Venue&amp;city=Guerneville&amp;state=CA&amp;country=US&amp;address1=123%20Main%20St&amp;postalcode=95446&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"123 Main St"</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Guerneville"</span><span class="p">,</span>
+      <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-08-14T00:15:23Z"</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">108951</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">38.50223159790039</span><span class="p">,</span>
+      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.99627685546875</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Test Venue"</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-08-14T00:15:23Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95446"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-mobile.jpg"</span>
+      <span class="p">},</span>
+      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Test_Venue_in_Guerneville_CA"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
 <h3>GET /venue/:id</h3>
 
 <p><strong>:id</strong> <em>integer</em>  Thrillcall or Partner ID</p>
@@ -1702,6 +1759,59 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 
     <span class="p">{</span>
       <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"201 Van Ness Avenue"</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
+      <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T17:59:32Z"</span><span class="p">,</span>
+      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/sfsymphony"</span><span class="p">,</span>
+      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.777402</span><span class="p">,</span>
+      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.419815</span><span class="p">,</span>
+      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Davies Symphony Hall"</span><span class="p">,</span>
+      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.sfsymphony.org/"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (415) 864-6000"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:37:30Z"</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94102"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"</span>
+      <span class="p">},</span>
+      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>PUT /venue/:id</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#name">name</a></strong></li>
+<li><strong><a href="#address1">address1</a></strong></li>
+<li><strong><a href="#address2">address2</a></strong></li>
+<li><strong><a href="#city">city</a></strong></li>
+<li><strong><a href="#state">state</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#country">country</a></strong></li>
+<li><strong><a href="#facebook_url">facebook_url</a></strong></li>
+<li><strong><a href="#official_url">official_url</a></strong></li>
+</ul><p>Returns:  Venue <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: PUT /api/v3/venue/51886?address1=202%20Van%20Ness%20Avenue&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"202 Van Ness Avenue"</span><span class="p">,</span>
       <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
       <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
