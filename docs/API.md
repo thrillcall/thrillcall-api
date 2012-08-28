@@ -241,6 +241,21 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Object type for foreign ID mappings, e.g. "artist"
 
+- <a name="sort" />**sort** _string_
+    
+    The name of the field you wish to sort by, e.g. "created\_at".
+    
+    When searching by radius, or from the Metro Area endpoint, you can also specify "distance," although this value is not directly exposed.
+    
+    Calls for Artists, Genres, Tickets, Venues, and all Search endpoints default to using the "name" field.
+    Calls for Events default to the "starts\_at" field.
+    Calls for Metro Areas default to the "city" field.
+    Calls for Mappings default to the "partner\_id" field.
+
+- <a name="order" />**order** _string: "ASC" or "DESC"_
+    
+    The direction you wish to sort the results.  Default: DESC for events, ASC otherwise
+
 
 ## Artists
 Fields:
@@ -267,6 +282,8 @@ Params:
 - **[page](#page)**
 - **[primary\_genre\_id](#primary_genre_id)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -451,6 +468,8 @@ Params:
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Events _Hash_
 
@@ -504,6 +523,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -559,9 +580,9 @@ Fields:
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
 - **artists**                     _array_   An array of hashes, each representing an artist at this event.
-  - **id**                        _integer_ Thrillcall ID for the artist
-  - **name**                      _string_  Artist name
-  - **headliner**                 _boolean_ Is this artist a headliner on the bill?
+- **id**                          _integer_ Thrillcall ID for the artist
+- **name**                        _string_  Artist name
+- **headliner**                   _boolean_ Is this artist a headliner on the bill?
 - **url**                         _string_  URL for this object on Thrillcall
 
 
@@ -584,6 +605,8 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Events _Hash_
 
@@ -680,6 +703,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -766,6 +791,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[ticket\_type](#ticket_type)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Tickets _Hash_
 
@@ -809,6 +836,8 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Genres _Hash_
 
@@ -859,6 +888,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -914,6 +945,8 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Metro Areas _Hash_
 
@@ -988,6 +1021,8 @@ Params:
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Note:  Time Zone is set as the time zone of the Metro Area and cannot be overridden.
 
@@ -1256,6 +1291,8 @@ Params:
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Venues _Hash_
 
@@ -1461,6 +1498,8 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Events _Hash_
 
@@ -1516,6 +1555,8 @@ Params:
 - **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Venues _Hash_
 
@@ -1595,6 +1636,8 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Tickets _Hash_
 
@@ -1669,7 +1712,8 @@ Fields:
 
 Params:
 
-- None
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Mappings _Hash_
 

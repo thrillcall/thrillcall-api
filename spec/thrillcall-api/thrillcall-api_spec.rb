@@ -453,7 +453,7 @@ describe "ThrillcallAPI" do
       end
 
       it "should verify the behavior of the postalcode param" do
-        e = @tc.events(:limit => TINY_LIMIT, :postalcode => POSTAL_CODE)
+        e = @tc.events(:limit => TINY_LIMIT, :postalcode => POSTAL_CODE, :radius => 0.5)
         e.length.should <= TINY_LIMIT
         e.each do |ev|
           ev["venue_id"].should_not be_nil
@@ -483,6 +483,32 @@ describe "ThrillcallAPI" do
       end
       #################
 
+      it "should verify the behavior of the sort and order params" do
+        e = @tc.events(:limit => TINY_LIMIT, :sort => "id", :order => "ASC")
+        e.length.should == TINY_LIMIT
+        old_id = 0
+        e.each do |ev|
+          ev["id"].to_i.should > old_id
+          old_id = ev["id"].to_i
+        end
+        ###
+        e = @tc.search.venues("Pub", :limit => TINY_LIMIT, :sort => "id", :order => "DESC")
+        e.length.should == TINY_LIMIT
+        old_id = 10**10
+        e.each do |ev|
+          ev["id"].to_i.should < old_id
+          old_id = ev["id"].to_i
+        end
+        ###
+        e = @tc.artists(:limit => TINY_LIMIT, :sort => "created_at", :order => "ASC")
+        e.length.should == TINY_LIMIT
+        old_created_at = DateTime.new
+        e.each do |ev|
+          cur = DateTime.parse(ev["created_at"])
+          old_created_at.should <= cur
+          old_created_at = cur
+        end
+      end
     end
 
     context "accessing the artist endpoint" do
