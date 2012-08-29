@@ -422,7 +422,7 @@ describe "ThrillcallAPI" do
       end
 
       it "should verify the behavior of the show_disabled_events param" do
-        e = @tc.events(:limit => MAX_LIMIT, :show_disabled_events => false)
+        e = @tc.events(:limit => LIMIT, :show_disabled_events => false)
         e.each do |ev|
           ev["event_status"].should_not == "disabled"
         end
@@ -447,8 +447,8 @@ describe "ThrillcallAPI" do
       it "should verify the behavior of the lat long params" do
         e = @tc.events(:limit => TINY_LIMIT, :lat => @lat, :long => @long, :radius => 0)
         e.each do |ev|
-          (@tc.event(ev["id"]).venue["latitude"].to_f - @lat).should   <= 1.0
-          (@tc.event(ev["id"]).venue["longitude"].to_f - @long).should <= 1.0
+          (@tc.event(ev["id"]).venue["latitude"].to_f - @lat).should   <= 2.0
+          (@tc.event(ev["id"]).venue["longitude"].to_f - @long).should <= 2.0
         end
       end
 
