@@ -557,6 +557,15 @@ describe "ThrillcallAPI" do
         e.length.should > 0
       end
 
+      it "should get proper amount of results with leading comma in ids=" do
+        ids = [55555,55556,55557]
+        v = @tc.venues(:ids => ids.join(",").gsub(/^/,','))
+        v.length.should == 3
+        v.each do |venue|
+          (ids.include? venue["id"].to_i).should be_true
+        end
+      end
+
     end
 
     context "accessing the ticket endpoint" do
