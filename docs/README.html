@@ -1632,6 +1632,60 @@ Calls for Mappings default to the "partner_id" field.</p>
 </div>
 
 
+<h3>GET /people/tracking/:class</h3>
+
+<p><strong>:class</strong> <em>string</em>  One of: "genres", "events", "artists", "people", "venues"</p>
+
+<p>Params:</p>
+
+<ul>
+<li>
+<strong><a href="#ids">ids</a></strong> <em>Required</em>
+</li>
+</ul><p>Returns: <em>Array</em> of <em>Hash</em> containing id, name, and count for each tracked <strong>:class</strong> ordered by count descending.</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v3/people/tracking/artist?ids=2,4,321&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
+        <span class="s2">"count"</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18927</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Radiohead"</span><span class="p">,</span>
+        <span class="s2">"count"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2687</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<h3>GET /person/:id/:class</h3>
+
+<p><strong>:class</strong> <em>string</em>  One of: "genres", "events", "artists", "people", "venues"</p>
+
+<p>Params:</p>
+
+<ul>
+<li>None.</li>
+</ul><p>Returns: <em>Hash</em> of tracked <strong>:class</strong> IDs mapped to <strong>:class</strong> names for this person.</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v3/person/2/artists?&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="mi">2687</span><span class="o">:</span> <span class="s2">"Radiohead"</span><span class="p">,</span>
+      <span class="mi">18927</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
+      <span class="p">...</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
 <h2>Venues</h2>
 
 <p>Fields:</p>

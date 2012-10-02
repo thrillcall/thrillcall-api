@@ -1236,7 +1236,7 @@ Returns: Person _Hash_
 
 ``` js
     // Example: PUT /api/v3/person/49?&first_name=John&api_key=1234567890abcdef
-
+    
     {
       "address1": null,
       "address2": null,
@@ -1260,6 +1260,53 @@ Returns: Person _Hash_
         "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
         "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
       }
+    }
+```
+
+### GET /people/tracking/:class
+**:class** _string_  One of: "genres", "events", "artists", "people", "venues"
+
+Params:
+
+- **[ids](#ids)** _Required_
+
+Returns: _Array_ of _Hash_ containing id, name, and count for each tracked **:class** ordered by count descending.
+
+``` js
+    // Example: GET /api/v3/people/tracking/artist?ids=2,4,321&api_key=1234567890abcdef
+    
+    [
+      {
+        "name": "M83",
+        "count": 3,
+        "id": 18927
+      },
+      {
+        "name": "Radiohead",
+        "count": 2,
+        "id": 2687
+      },
+      ...
+    ]
+```
+
+
+### GET /person/:id/:class
+**:class** _string_  One of: "genres", "events", "artists", "people", "venues"
+
+Params:
+
+- None.
+
+Returns: _Hash_ of tracked **:class** IDs mapped to **:class** names for this person.
+
+``` js
+    // Example: GET /api/v3/person/2/artists?&api_key=1234567890abcdef
+    
+    {
+      2687: "Radiohead",
+      18927: "M83",
+      ...
     }
 ```
 

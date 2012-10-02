@@ -819,6 +819,55 @@ describe "ThrillcallAPI" do
         }.should raise_error
       end
 
+      it "should be able to GET people/tracking/artists" do
+        lambda {
+          ["genres", "events", "artists", "people", "venues"].each do |klass|
+            p = @tc.people.tracking.send(klass, :ids => "#{PERSON_KNOWN_ID},2,4")
+            p.length.should >= 0
+            if p.length > 0
+              p.each do |entry|
+                entry["name"].should_not be_nil
+                entry["id"].should_not be_nil
+                entry["count"].should_not be_nil
+              end
+            end
+          end
+        }.should_not raise_error
+      end
+
+      it "should return a proper error message for GET people/tracking/bogus" do
+        lambda {
+          p = @tc.people.tracking.bogus(:ids => "#{PERSON_KNOWN_ID},2,4")
+          p.length
+        }.should raise_error
+      end
+
+      it "should return a proper error message for GET people/tracking/artists with no ids param" do
+        lambda {
+          p = @tc.people.tracking.artists(:ids => nil)
+          p.length
+        }.should raise_error
+      end
+
+      it "should be able to GET person/:id/artists" do
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).artists
+          if p.length > 0
+            p.each do |entry_id, entry_name|
+              entry_id.should_not be_nil
+              entry_name.should_not be_nil
+            end
+          end
+        }.should_not raise_error
+      end
+
+      it "should return a proper error message for GET person/:id/bogus" do
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).bogus
+          p.length
+        }.should raise_error
+      end
+
       context "autoregistration for unknown provider/uid" do
         it "should be able to create a person using location name" do
           params = {
