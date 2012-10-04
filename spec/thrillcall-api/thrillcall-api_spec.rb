@@ -422,7 +422,7 @@ describe "ThrillcallAPI" do
       end
 
       it "should verify the behavior of the show_disabled_events param" do
-        e = @tc.events(:limit => MAX_LIMIT, :show_disabled_events => false)
+        e = @tc.events(:limit => LIMIT, :show_disabled_events => false)
         e.each do |ev|
           ev["event_status"].should_not == "disabled"
         end
@@ -447,13 +447,13 @@ describe "ThrillcallAPI" do
       it "should verify the behavior of the lat long params" do
         e = @tc.events(:limit => TINY_LIMIT, :lat => @lat, :long => @long, :radius => 0)
         e.each do |ev|
-          (@tc.event(ev["id"]).venue["latitude"].to_f - @lat).should   <= 1.0
-          (@tc.event(ev["id"]).venue["longitude"].to_f - @long).should <= 1.0
+          (@tc.event(ev["id"]).venue["latitude"].to_f - @lat).should   <= 2.0
+          (@tc.event(ev["id"]).venue["longitude"].to_f - @long).should <= 2.0
         end
       end
 
       it "should verify the behavior of the postalcode param" do
-        e = @tc.events(:limit => TINY_LIMIT, :postalcode => POSTAL_CODE)
+        e = @tc.events(:limit => TINY_LIMIT, :postalcode => POSTAL_CODE, :radius => 0.5)
         e.length.should <= TINY_LIMIT
         e.each do |ev|
           ev["venue_id"].should_not be_nil
@@ -483,6 +483,32 @@ describe "ThrillcallAPI" do
       end
       #################
 
+      it "should verify the behavior of the sort and order params" do
+        e = @tc.events(:limit => TINY_LIMIT, :sort => "id", :order => "ASC")
+        e.length.should == TINY_LIMIT
+        old_id = 0
+        e.each do |ev|
+          ev["id"].to_i.should > old_id
+          old_id = ev["id"].to_i
+        end
+        ###
+        e = @tc.search.venues("Pub", :limit => TINY_LIMIT, :sort => "id", :order => "DESC")
+        e.length.should == TINY_LIMIT
+        old_id = 10**10
+        e.each do |ev|
+          ev["id"].to_i.should < old_id
+          old_id = ev["id"].to_i
+        end
+        ###
+        e = @tc.artists(:limit => TINY_LIMIT, :sort => "created_at", :order => "ASC")
+        e.length.should == TINY_LIMIT
+        old_created_at = DateTime.new
+        e.each do |ev|
+          cur = DateTime.parse(ev["created_at"])
+          old_created_at.should <= cur
+          old_created_at = cur
+        end
+      end
     end
 
     context "accessing the artist endpoint" do
@@ -799,6 +825,55 @@ describe "ThrillcallAPI" do
         }
         lambda {
           p = @tc.person(1).put(params)
+        }.should raise_error
+      end
+
+      it "should be able to GET people/tracking/artists" do
+        lambda {
+          ["genres", "events", "artists", "people", "venues"].each do |klass|
+            p = @tc.people.tracking.send(klass, :ids => "#{PERSON_KNOWN_ID},2,4")
+            p.length.should >= 0
+            if p.length > 0
+              p.each do |entry|
+                entry["name"].should_not be_nil
+                entry["id"].should_not be_nil
+                entry["count"].should_not be_nil
+              end
+            end
+          end
+        }.should_not raise_error
+      end
+
+      it "should return a proper error message for GET people/tracking/bogus" do
+        lambda {
+          p = @tc.people.tracking.bogus(:ids => "#{PERSON_KNOWN_ID},2,4")
+          p.length
+        }.should raise_error
+      end
+
+      it "should return a proper error message for GET people/tracking/artists with no ids param" do
+        lambda {
+          p = @tc.people.tracking.artists(:ids => nil)
+          p.length
+        }.should raise_error
+      end
+
+      it "should be able to GET person/:id/artists" do
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).artists
+          if p.length > 0
+            p.each do |entry_id, entry_name|
+              entry_id.should_not be_nil
+              entry_name.should_not be_nil
+            end
+          end
+        }.should_not raise_error
+      end
+
+      it "should return a proper error message for GET person/:id/bogus" do
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).bogus
+          p.length
         }.should raise_error
       end
 

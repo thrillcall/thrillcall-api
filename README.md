@@ -368,6 +368,21 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Object type for foreign ID mappings, e.g. "artist"
 
+- <a name="sort" />**sort** _string_
+    
+    The name of the field you wish to sort by, e.g. "created\_at".
+    
+    When searching by radius, or from the Metro Area endpoint, you can also specify "distance," although this value is not directly exposed.
+    
+    Calls for Artists, Genres, Tickets, Venues, and all Search endpoints default to using the "name" field.
+    Calls for Events default to the "starts\_at" field.
+    Calls for Metro Areas default to the "city" field.
+    Calls for Mappings default to the "partner\_id" field.
+
+- <a name="order" />**order** _string: "ASC" or "DESC"_
+    
+    The direction you wish to sort the results.  Default: DESC for events, ASC otherwise
+
 
 ## Artists
 Fields:
@@ -394,6 +409,8 @@ Params:
 - **[page](#page)**
 - **[primary\_genre\_id](#primary_genre_id)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -407,6 +424,7 @@ Returns:  _Array_ of Artists _Hash_
         "id": 1,
         "name": "Hyler Jones Proteges",
         "primary_genre_id": 61,
+        "popularity": 0.0,
         "upcoming_events_count": 0,
         "updated_at": "2010-03-26T16:49:20Z",
         "photos": {
@@ -448,6 +466,7 @@ Returns:  Artist _Hash_
       "myspace_url": null,
       "name": "Bleeding Chest Wounds",
       "official_url": null,
+      "popularity": 0.0,
       "permalink": null,
       "primary_genre_id": null,
       "upcoming_events_count": 0,
@@ -482,6 +501,7 @@ Returns:  Artist _Hash_
       "name": "Southside Johnny And The Asbury Jukes",
       "official_url": "http://www.southsidejohnny.com/",
       "primary_genre_id": 27,
+      "popularity": 0.0,
       "upcoming_events_count": 9,
       "updated_at": "2012-06-18T07:49:24Z",
       "wikipedia_url": "http://en.wikipedia.org/wiki/Southside_Johnny_%26_The_Asbury_Jukes",
@@ -543,6 +563,7 @@ Returns:  Artist _Hash_
       "name": "Chris Isaak",
       "official_url": "http://www.chrisisaak.com/",
       "primary_genre_id": 27,
+      "popularity": 0.0,
       "upcoming_events_count": 58,
       "updated_at": "2012-07-02T09:55:40Z",
       "wikipedia_url": "http://test.com",
@@ -578,6 +599,8 @@ Params:
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Events _Hash_
 
@@ -631,6 +654,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -647,6 +672,7 @@ Returns:  _Array_ of Artists _Hash_
         "name": "Chris Isaak",
         "official_url": "http://www.chrisisaak.com/",
         "primary_genre_id": 27,
+        "popularity": 0.0,
         "upcoming_events_count": 58,
         "updated_at": "2012-07-02T09:55:40Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
@@ -686,9 +712,9 @@ Fields:
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
 - **artists**                     _array_   An array of hashes, each representing an artist at this event.
-  - **id**                        _integer_ Thrillcall ID for the artist
-  - **name**                      _string_  Artist name
-  - **headliner**                 _boolean_ Is this artist a headliner on the bill?
+- **id**                          _integer_ Thrillcall ID for the artist
+- **name**                        _string_  Artist name
+- **headliner**                   _boolean_ Is this artist a headliner on the bill?
 - **url**                         _string_  URL for this object on Thrillcall
 
 
@@ -711,6 +737,8 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Events _Hash_
 
@@ -807,6 +835,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -823,6 +853,7 @@ Returns:  _Array_ of Artists _Hash_
         "name": "Chris Isaak",
         "official_url": "http://www.chrisisaak.com/",
         "primary_genre_id": 27,
+        "popularity": 0.0,
         "upcoming_events_count": 58,
         "updated_at": "2012-07-02T09:55:40Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
@@ -893,6 +924,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[ticket\_type](#ticket_type)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Tickets _Hash_
 
@@ -936,6 +969,8 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Genres _Hash_
 
@@ -986,6 +1021,8 @@ Params:
 - **[limit](#limit)**
 - **[page](#page)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Artists _Hash_
 
@@ -1002,6 +1039,7 @@ Returns:  _Array_ of Artists _Hash_
         "name": "Espers",
         "official_url": "http://www.espers.org",
         "primary_genre_id": 27,
+        "popularity": 0.0,
         "upcoming_events_count": 1,
         "updated_at": "2012-05-31T09:16:49Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/index.html?curid=4735724",
@@ -1041,6 +1079,8 @@ Params:
 
 - **[limit](#limit)**
 - **[page](#page)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Metro Areas _Hash_
 
@@ -1115,6 +1155,8 @@ Params:
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Note:  Time Zone is set as the time zone of the Metro Area and cannot be overridden.
 
@@ -1321,7 +1363,7 @@ Returns: Person _Hash_
 
 ``` js
     // Example: PUT /api/v3/person/49?&first_name=John&api_key=1234567890abcdef
-
+    
     {
       "address1": null,
       "address2": null,
@@ -1345,6 +1387,53 @@ Returns: Person _Hash_
         "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
         "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
       }
+    }
+```
+
+### GET /people/tracking/:class
+**:class** _string_  One of: "genres", "events", "artists", "people", "venues"
+
+Params:
+
+- **[ids](#ids)** _Required_
+
+Returns: _Array_ of _Hash_ containing id, name, and count for each tracked **:class** ordered by count descending.
+
+``` js
+    // Example: GET /api/v3/people/tracking/artist?ids=2,4,321&api_key=1234567890abcdef
+    
+    [
+      {
+        "name": "M83",
+        "count": 3,
+        "id": 18927
+      },
+      {
+        "name": "Radiohead",
+        "count": 2,
+        "id": 2687
+      },
+      ...
+    ]
+```
+
+
+### GET /person/:id/:class
+**:class** _string_  One of: "genres", "events", "artists", "people", "venues"
+
+Params:
+
+- None.
+
+Returns: _Hash_ of tracked **:class** IDs mapped to **:class** names for this person.
+
+``` js
+    // Example: GET /api/v3/person/2/artists?&api_key=1234567890abcdef
+    
+    {
+      2687: "Radiohead",
+      18927: "M83",
+      ...
     }
 ```
 
@@ -1383,6 +1472,8 @@ Params:
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
 - **[mappings](#mappings)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Venues _Hash_
 
@@ -1588,6 +1679,8 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Events _Hash_
 
@@ -1643,6 +1736,8 @@ Params:
 - **[long](#long)**
 - **[postalcode](#postalcode)**
 - **[radius](#radius)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Venues _Hash_
 
@@ -1722,6 +1817,8 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Tickets _Hash_
 
@@ -1796,7 +1893,8 @@ Fields:
 
 Params:
 
-- None
+- **[sort](#sort)**
+- **[order](#order)**
 
 Returns:  _Array_ of Mappings _Hash_
 
