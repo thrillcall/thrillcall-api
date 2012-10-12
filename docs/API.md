@@ -1310,6 +1310,57 @@ Returns: _Hash_ of tracked **:class** IDs mapped to **:class** names for this pe
     }
 ```
 
+### GET /tracks/:id
+
+Params:
+
+- **[obj\_type](#obj_type)**
+
+Returns: Person _Hash_
+
+``` js
+    // Example: GET /api/v3/person/tracks/24?&api_key=1234567890abcdef
+
+  {
+    "after_track_notification": false,
+    "created_at": "2012-10-08T23:32:51Z",
+    "display_index": 99999,
+    "id": 1212870,
+    "obj_id": 44,
+    "obj_type": "venue",
+    "person_id": 24,
+    "platform": "ios",
+    "relation_type_id": 21,
+    "updated_at": "2012-10-08T23:33:32Z"
+  }
+```
+
+### POST /person/:id/:action/:obj_type
+Params:
+
+- **[obj\_id](#obj_id)**
+- **[obj\_type](#obj_type)**
+- **[platform](#platform)**
+
+Returns: Person _Hash_
+
+``` js
+    // Example: POST /api/v3/person/24/track/artist?obj_id=44&platform=ios&api_key=1234567890abcdef
+
+  {
+    "after_track_notification": false,
+    "created_at": "2012-10-08T23:32:51Z",
+    "display_index": 99999,
+    "id": 1212870,
+    "obj_id": 44,
+    "obj_type": "venue",
+    "person_id": 24,
+    "platform": "ios",
+    "relation_type_id": 21,
+    "updated_at": "2012-10-08T23:33:32Z"
+  }
+```
+
 
 ## Venues
 Fields:

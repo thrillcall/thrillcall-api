@@ -877,6 +877,41 @@ describe "ThrillcallAPI" do
         }.should raise_error
       end
 
+      it "it should be able to get and list a particular tc users object relations" do
+        params = {
+          :id => PERSON_KNOWN_ID
+        }
+        results = @tc.person.tracks(params[:id])
+        results.count.should be > 0
+      end
+
+      it "it should be able to post a new person object relation correctly" do
+        params = {
+          :platform => "ios",
+          :obj_id => "24"
+        }
+        results = @tc.person(222).track.artist?.post(params)
+        results.count.should > 0
+      end
+
+      it "it should produce an error if the obj_type does not match a correct obj_id" do
+        params = {
+            :platform => "ios",
+            :obj_id => "333344455555"
+        }
+        results = @tc.person(223).track.artist?.post(params)
+        results.should be nil
+      end
+
+      it "it should produce an error if the platform type is not supported" do
+        params = {
+            :platform => "blackberry",
+            :obj_id => "24"
+        }
+        results = @tc.person(224).track.artist?.post(params)
+        results.should be nil
+      end
+
       context "autoregistration for unknown provider/uid" do
         it "should be able to create a person using location name" do
           params = {
