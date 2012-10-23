@@ -191,6 +191,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     The name of the Person's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
 
+- <a name="platform" />**platform** _string_
+
+    _Default: web_
+
+    Type of platform for tracking an object. Valid platforms include (IOS, Web, Android)
+
 - <a name="referral_code" />**referral\_code** _string_
     
     The referral code to be used during registration.  Both the owner of the code as well as the new Person will receive a referral credit point.
@@ -1090,6 +1096,7 @@ Fields:
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **referral\_code**          _string_    Referral code of the Person
 - **referral\_credits**       _integer_   Number of Referral credits the Person has (including bonus points)
+- **platform**                _string_    Type of platform for tracking an object. Valid platforms include (IOS, Web, Android)
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 
@@ -1102,7 +1109,7 @@ Returns: Person _Hash_
 
 ``` js
     // Example: GET /api/v3/person/49?api_key=1234567890abcdef
-    
+
     {
       "address1": null,
       "address2": null,
@@ -1310,55 +1317,23 @@ Returns: _Hash_ of tracked **:class** IDs mapped to **:class** names for this pe
     }
 ```
 
-### GET /tracks/:id
+### POST /person/:id/:action/:class
+**:class** _string_  One of: "genres", "events", "artists", "people", "venues"
 
 Params:
 
-- **[obj\_type](#obj_type)**
-
-Returns: Person _Hash_
-
-``` js
-    // Example: GET /api/v3/person/tracks/24?&api_key=1234567890abcdef
-
-  {
-    "after_track_notification": false,
-    "created_at": "2012-10-08T23:32:51Z",
-    "display_index": 99999,
-    "id": 1212870,
-    "obj_id": 44,
-    "obj_type": "venue",
-    "person_id": 24,
-    "platform": "ios",
-    "relation_type_id": 21,
-    "updated_at": "2012-10-08T23:33:32Z"
-  }
-```
-
-### POST /person/:id/:action/:obj_type
-Params:
-
-- **[obj\_id](#obj_id)**
-- **[obj\_type](#obj_type)**
+- **[ids](#ids)** _Required_
 - **[platform](#platform)**
 
-Returns: Person _Hash_
+Returns: Hash of new **:class** tracked or untracked IDs mapped for this person.
 
 ``` js
-    // Example: POST /api/v3/person/24/track/artist?obj_id=44&platform=ios&api_key=1234567890abcdef
+    // Example: POST /api/v3/person/24/track/artists?ids=44,45&platform=ios&api_key=1234567890abcdef
 
-  {
-    "after_track_notification": false,
-    "created_at": "2012-10-08T23:32:51Z",
-    "display_index": 99999,
-    "id": 1212870,
-    "obj_id": 44,
-    "obj_type": "venue",
-    "person_id": 24,
-    "platform": "ios",
-    "relation_type_id": 21,
-    "updated_at": "2012-10-08T23:33:32Z"
-  }
+    {
+      "44": "Paco Osuna",
+      "45": "Wanamaker"
+    }
 ```
 
 

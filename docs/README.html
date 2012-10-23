@@ -421,6 +421,13 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>The name of the Person's location when auto-registering.  Either this or <strong><a href="#lat">lat</a></strong> / <strong><a href="#long">long</a></strong> must be provided.</p>
 </li>
 <li>
+<p><a name="platform"></a><strong>platform</strong> <em>string</em></p>
+
+<p><em>Default: web</em></p>
+
+<p>Type of platform for tracking an object. Valid platforms include (IOS, Web, Android)</p>
+</li>
+<li>
 <p><a name="referral_code"></a><strong>referral_code</strong> <em>string</em></p>
 
 <p>The referral code to be used during registration.  Both the owner of the code as well as the new Person will receive a referral credit point.</p>
@@ -1447,6 +1454,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <strong>referral_credits</strong>       <em>integer</em>   Number of Referral credits the Person has (including bonus points)</li>
 <li>
+<strong>platform</strong>                <em>string</em>    Type of platform for tracking an object. Valid platforms include (IOS, Web, Android)</li>
+<li>
 <strong>postalcode</strong>              <em>string</em>    Postalcode of the Person</li>
 <li>
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
@@ -1686,58 +1695,26 @@ Calls for Mappings default to the "partner_id" field.</p>
 </div>
 
 
-<h3>GET /tracks/:id</h3>
+<h3>POST /person/:id/:action/:class</h3>
+
+<p><strong>:class</strong> <em>string</em>  One of: "genres", "events", "artists", "people", "venues"</p>
 
 <p>Params:</p>
 
 <ul>
-<li><strong><a href="#obj_type">obj_type</a></strong></li>
-</ul><p>Returns: Person <em>Hash</em></p>
-
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/person/tracks/24?&amp;api_key=1234567890abcdef</span>
-
-  <span class="p">{</span>
-    <span class="s2">"after_track_notification"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-10-08T23:32:51Z"</span><span class="p">,</span>
-    <span class="s2">"display_index"</span><span class="o">:</span> <span class="mi">99999</span><span class="p">,</span>
-    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1212870</span><span class="p">,</span>
-    <span class="s2">"obj_id"</span><span class="o">:</span> <span class="mi">44</span><span class="p">,</span>
-    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"venue"</span><span class="p">,</span>
-    <span class="s2">"person_id"</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
-    <span class="s2">"platform"</span><span class="o">:</span> <span class="s2">"ios"</span><span class="p">,</span>
-    <span class="s2">"relation_type_id"</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
-    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-10-08T23:33:32Z"</span>
-  <span class="p">}</span>
-</pre>
-</div>
-
-
-<h3>POST /person/:id/:action/:obj_type</h3>
-
-<p>Params:</p>
-
-<ul>
-<li><strong><a href="#obj_id">obj_id</a></strong></li>
-<li><strong><a href="#obj_type">obj_type</a></strong></li>
+<li>
+<strong><a href="#ids">ids</a></strong> <em>Required</em>
+</li>
 <li><strong><a href="#platform">platform</a></strong></li>
-</ul><p>Returns: Person <em>Hash</em></p>
+</ul><p>Returns: Hash of new <strong>:class</strong> tracked or untracked IDs mapped for this person.</p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/person/24/track/artist?obj_id=44&amp;platform=ios&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: POST /api/v3/person/24/track/artists?ids=44,45&amp;platform=ios&amp;api_key=1234567890abcdef</span>
 
-  <span class="p">{</span>
-    <span class="s2">"after_track_notification"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-10-08T23:32:51Z"</span><span class="p">,</span>
-    <span class="s2">"display_index"</span><span class="o">:</span> <span class="mi">99999</span><span class="p">,</span>
-    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1212870</span><span class="p">,</span>
-    <span class="s2">"obj_id"</span><span class="o">:</span> <span class="mi">44</span><span class="p">,</span>
-    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"venue"</span><span class="p">,</span>
-    <span class="s2">"person_id"</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
-    <span class="s2">"platform"</span><span class="o">:</span> <span class="s2">"ios"</span><span class="p">,</span>
-    <span class="s2">"relation_type_id"</span><span class="o">:</span> <span class="mi">21</span><span class="p">,</span>
-    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-10-08T23:33:32Z"</span>
-  <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="s2">"44"</span><span class="o">:</span> <span class="s2">"Paco Osuna"</span><span class="p">,</span>
+      <span class="s2">"45"</span><span class="o">:</span> <span class="s2">"Wanamaker"</span>
+    <span class="p">}</span>
 </pre>
 </div>
 
