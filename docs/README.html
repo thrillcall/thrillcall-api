@@ -425,7 +425,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 
 <p><em>Default: web</em></p>
 
-<p>Type of platform for tracking an object. Valid platforms include (IOS, Web, Android)</p>
+<p>Platform of origin for tracking an object.  Valid platforms: "ios", "web", "android"</p>
 </li>
 <li>
 <p><a name="referral_code"></a><strong>referral_code</strong> <em>string</em></p>
@@ -912,13 +912,17 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <strong>photos</strong>                      <em>hash</em>    A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
-<strong>artists</strong>                     <em>array</em>   An array of hashes, each representing an artist at this event.</li>
+<strong>artists</strong>                     <em>array</em>   An array of hashes, each representing an artist at this event, containing:
+
+<ul>
 <li>
-<strong>id</strong>                          <em>integer</em> Thrillcall ID for the artist</li>
+<strong>id</strong>                          <em>integer</em> Thrillcall ID for the Event</li>
 <li>
 <strong>name</strong>                        <em>string</em>  Artist name</li>
 <li>
 <strong>headliner</strong>                   <em>boolean</em> Is this artist a headliner on the bill?</li>
+</ul>
+</li>
 <li>
 <strong>url</strong>                         <em>string</em>  URL for this object on Thrillcall</li>
 </ul><h3>GET /events</h3>
@@ -1030,37 +1034,36 @@ Calls for Mappings default to the "partner_id" field.</p>
 </ul><p>Returns:  Event <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef</span>
-
+<pre>    <span class="c1">// Example: GET /api/v3/event/1047075?api_key=1234567890abcdef</span>
     <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-      <span class="s2">"country"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491"</span><span class="p">,</span>
-      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
-      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/masonicauditorium"</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.masonicauditorium.com/"</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (877) 598-8497"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
+      <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
+      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7915</span><span class="p">,</span>
+      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.413</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Masonic Center"</span><span class="p">,</span>
+      <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-09-30T02:30:04Z"</span><span class="p">,</span>
+      <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
+      <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
       <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
+        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
+        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
       <span class="p">},</span>
-      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
+      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
+      <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
+      <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
+          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
     <span class="p">}</span>
 </pre>
 </div>
