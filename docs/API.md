@@ -168,23 +168,23 @@ These are valid parameters for any endpoint, however, they will only be used by 
     Optional for creating or updating a Person.
 
 - <a name="address1" />**address1** _string_
-
+    
     Optional for creating or updating a Person, required for Venues.
 
 - <a name="address2" />**address2** _string_
-
+    
     Optional parameter for Person or Venue.
 
 - <a name="city" />**city** _string_
-
+    
     Optional for creating or updating a Person, required for Venues.
 
 - <a name="state" />**state** _string_
-
+    
     Optional for creating or updating a Person, required for Venues.
 
 - <a name="country" />**country** _string (format: "US" length == 2)_
-
+    
     Country code, required for Venues.
 
 - <a name="location_name" />**location\_name** _string (format: "City, ST or City, State", length > 0))_
@@ -192,10 +192,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
     The name of the Person's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
 
 - <a name="platform" />**platform** _string_
-
+    
     _Default: web_
-
-    Type of platform for tracking an object. Valid platforms include (IOS, Web, Android)
+    
+    Platform of origin for tracking an object.  Valid platforms: "ios", "web", "android"
 
 - <a name="referral_code" />**referral\_code** _string_
     
@@ -590,10 +590,10 @@ Fields:
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
-- **artists**                     _array_   An array of hashes, each representing an artist at this event.
-- **id**                          _integer_ Thrillcall ID for the artist
-- **name**                        _string_  Artist name
-- **headliner**                   _boolean_ Is this artist a headliner on the bill?
+- **artists**                     _array_   An array of hashes, each representing an artist at this event, containing:
+  - **id**                          _integer_ Thrillcall ID for the Event
+  - **name**                        _string_  Artist name
+  - **headliner**                   _boolean_ Is this artist a headliner on the bill?
 - **url**                         _string_  URL for this object on Thrillcall
 
 
@@ -672,37 +672,36 @@ Params:
 Returns:  Event _Hash_
 
 ``` js
-    // Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef
-    
+    // Example: GET /api/v3/event/1047075?api_key=1234567890abcdef
     {
-      "address1": "1111 California Street",
-      "address2": null,
-      "city": "San Francisco",
-      "country": "US",
-      "created_at": "2009-08-25T19:25:27Z",
-      "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
-      "hide_resale_tickets": false,
-      "id": 63279,
-      "latitude": 37.79153,
-      "long_description": null,
-      "longitude": -122.412757,
-      "myspace_url": "http://www.myspace.com/masonicauditorium",
-      "name": "Masonic Center",
-      "official_url": "http://www.masonicauditorium.com/",
-      "phone_number": "+1 (877) 598-8497",
-      "state": "CA",
-      "time_zone": "America/Los_Angeles",
-      "upcoming_events_count": 10,
-      "updated_at": "2012-07-03T09:41:24Z",
-      "postalcode": "94108",
+      "created_at": "2012-03-02T18:06:14Z",
+      "festival": false,
+      "id": 1047075,
+      "latitude": 37.7915,
+      "longitude": -122.413,
+      "name": "Il Volo @ Masonic Center",
+      "rumor": false,
+      "starts_at": "2012-09-30T02:30:04Z",
+      "starts_at_time_trusted": true,
+      "unconfirmed_location": 0,
+      "updated_at": "2012-03-29T01:35:57Z",
+      "venue_id": 63279,
       "photos": {
-        "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
-        "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
-        "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
-        "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
+        "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
+        "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
+        "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
       },
-      "metro_area_id": 105,
-      "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
+      "url": "http://thrillcall.com/event/1047075",
+      "starts_at_local": "2012-09-29T19:30:04-07:00",
+      "time_zone": "America/Los_Angeles",
+      "event_status": "confirmed",
+      "artists": [
+        {
+          "id": 378465,
+          "name": "Il Volo",
+          "headliner": false
+        }
+      ]
     }
 ```
 
