@@ -1543,8 +1543,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <strong>referral_credits</strong>       <em>integer</em>   Number of Referral credits the Person has (including bonus points)</li>
 <li>
-<strong>platform</strong>                <em>string</em>    Type of platform for tracking an object. Valid platforms include (IOS, Web, Android)</li>
-<li>
 <strong>postalcode</strong>              <em>string</em>    Postalcode of the Person</li>
 <li>
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
@@ -1700,7 +1698,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 </ul><p>Returns: Person <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: PUT /api/v3/person/49?&amp;first_name=John&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: PUT /api/v3/person/49&amp;first_name=John&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -1773,11 +1771,11 @@ Calls for Mappings default to the "partner_id" field.</p>
 </ul><p>Returns: <em>Hash</em> of tracked <strong>:class</strong> IDs mapped to <strong>:class</strong> names for this person.</p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/person/2/artists?&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: GET /api/v3/person/2/artists&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="mi">2687</span><span class="o">:</span> <span class="s2">"Radiohead"</span><span class="p">,</span>
-      <span class="mi">18927</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
+      <span class="s2">"2687"</span><span class="o">:</span> <span class="s2">"Radiohead"</span><span class="p">,</span>
+      <span class="s2">"18927"</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
       <span class="p">...</span>
     <span class="p">}</span>
 </pre>
@@ -1786,7 +1784,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <h3>POST /person/:id/:action/:class</h3>
 
-<p><strong>:class</strong> <em>string</em>  One of: "genres", "events", "artists", "people", "venues"</p>
+<p><strong>:action</strong> <em>string</em>  One of: "track", "untrack"
+<strong>:class</strong> <em>string</em>   One of: "genres", "events", "artists", "people", "venues"</p>
 
 <p>Params:</p>
 
@@ -1795,7 +1794,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <strong><a href="#ids">ids</a></strong> <em>Required</em>
 </li>
 <li><strong><a href="#platform">platform</a></strong></li>
-</ul><p>Returns: Hash of new <strong>:class</strong> tracked or untracked IDs mapped for this person.</p>
+</ul><p>Returns: Hash of <strong>:class</strong> tracked IDs mapped for this person after performing <strong>:action</strong>.</p>
 
 <div class="highlight">
 <pre>    <span class="c1">// Example: POST /api/v3/person/24/track/artists?ids=44,45&amp;platform=ios&amp;api_key=1234567890abcdef</span>
