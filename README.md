@@ -155,7 +155,7 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
   - **[POST /person/signin](#content_person_post_person_signin)**
   - **[POST /person/signup](#content_person_post_person_signup)**
   - **[PUT /person/:id](#content_person_put_person_id)**
-  - **[GET /people/:tracking/:class](#content_person_get_people_tracking_class)**
+  - **[GET /people/tracking/:class](#content_person_get_people_tracking_class)**
   - **[GET /person/:id/:class](#content_person_get_person_id_class)**
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
 - **[Venues](#content_venues)**
@@ -448,6 +448,7 @@ Fields:
 - **primary\_genre\_id**      _integer_   The Thrillcall ID for this artist's primary Genre
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
+- **popularity**              _float_     A number from 0.0 to 1.0 indicating relative popularity of the Artist, 1.0 being most popular
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 - **url**                     _string_    URL for this object on Thrillcall
 - **facebook\_url**           _string_    URL for this object on Facebook

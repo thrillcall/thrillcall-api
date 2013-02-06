@@ -141,7 +141,7 @@
 <li><strong><a href="#content_person_post_person_signin">POST /person/signin</a></strong></li>
 <li><strong><a href="#content_person_post_person_signup">POST /person/signup</a></strong></li>
 <li><strong><a href="#content_person_put_person_id">PUT /person/:id</a></strong></li>
-<li><strong><a href="#content_person_get_people_tracking_class">GET /people/:tracking/:class</a></strong></li>
+<li><strong><a href="#content_person_get_people_tracking_class">GET /people/tracking/:class</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_class">GET /person/:id/:class</a></strong></li>
 <li><strong><a href="#content_person_post_person_id_action_class">POST /person/:id/:action/:class</a></strong></li>
 </ul>
@@ -512,6 +512,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <strong>upcoming_events_count</strong> <em>integer</em>   Number of upcoming events associated with this object</li>
 <li>
 <strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>popularity</strong>              <em>float</em>     A number from 0.0 to 1.0 indicating relative popularity of the Artist, 1.0 being most popular</li>
 <li>
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
