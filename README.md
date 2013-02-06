@@ -127,10 +127,58 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
 
 # HTTPS Endpoints
 
+### Contents
+- **[Parameters](#content_parameters)**
+- **[Artists](#content_artists)**
+  - **[GET /artists](#content_artists_get_artists)**
+  - **[POST /artist](#content_artists_post_artist)**
+  - **[GET /artist/:id](#content_artists_get_artist_id)**
+  - **[PUT /artist/:id](#content_artists_put_artist_id)**
+  - **[GET /artist/:id/events](#content_artists_get_artist_id_events)**
+  - **[GET /search/artists/:term](#content_artists_get_search_artists_term)**
+- **[Events](#content_events)**
+  - **[GET /events](#content_events_get_events)**
+  - **[GET /event/:id](#content_events_get_event_id)**
+  - **[GET /event/:id/artists](#content_events_get_event_id_artists)**
+  - **[GET /event/:id/venue](#content_events_get_event_id_venue)**
+  - **[GET /event/:id/tickets](#content_events_get_event_id_tickets)**
+- **[Genre](#content_genre)**
+  - **[GET /genres](#content_genre_get_genres)**
+  - **[GET /genre/:id](#content_genre_get_genre_id)**
+  - **[GET /genre/:id/artists](#content_genre_get_genre_id_artists)**
+- **[Metro Area](#content_metro_area)**
+  - **[GET /metro_areas](#content_metro_area_get_metro_areas)**
+  - **[GET /metro_area/:id](#content_metro_area_get_metro_area_id)**
+  - **[GET /metro_area/:id/events](#content_metro_area_get_metro_area_id_events)**
+- **[Person](#content_person)**
+  - **[GET /person/:id](#content_person_get_person_id)**
+  - **[POST /person/signin](#content_person_post_person_signin)**
+  - **[POST /person/signup](#content_person_post_person_signup)**
+  - **[PUT /person/:id](#content_person_put_person_id)**
+  - **[GET /people/:tracking/:class](#content_person_get_people_tracking_class)**
+  - **[GET /person/:id/:class](#content_person_get_person_id_class)**
+  - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
+- **[Venues](#content_venues)**
+  - **[GET /venues](#content_venues_get_venues)**
+  - **[POST /venue](#content_venues_post_venue)**
+  - **[GET /venue/:id](#content_venues_get_venue_id)**
+  - **[PUT /venue/:id](#content_venues_put_venue_id)**
+  - **[GET /venue/:id/events](#content_venues_get_venue_id_events)**
+  - **[GET /search/venues/:term](#content_venues_get_search_venues_term)**
+- **[Tickets](#content_tickets)**
+  - **[GET /tickets](#content_tickets_get_tickets)**
+  - **[GET /ticket/:id](#content_tickets_get_ticket_id)**
+- **[Mappings](#content_mappings)**
+  - **[GET /mappings](#content_mappings_get_mappings)**
+  - **[GET /mapping/:id](#content_mappings_get_mapping_id)**
+  - **[POST /mapping](#content_mappings_post_mapping)**
+  - **[PUT /mapping/:id](#content_mappings_put_mapping_id)**
+
 ### SSL/TLS Endpoints Required:
 All API access must use the secure HTTPS endpoint : https://api.thrillcall.com:443
 Access over an insecure HTTP (port 80) endpoint is now deprecated and will be disabled.
 
+<a name="content_parameters" />
 ### Parameters
 These are valid parameters for any endpoint, however, they will only be used by the server where applicable.
 
@@ -389,7 +437,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     The direction you wish to sort the results.  Default: DESC for events, ASC otherwise
 
-
+<a name="content_artists" />
 ## Artists
 Fields:
 
@@ -408,6 +456,7 @@ Fields:
 - **wikipedia\_url**          _string_    Wikipedia URL for this object
 
 
+<a name="content_artists_get_artists" />
 ### GET /artists
 Params:
 
@@ -448,6 +497,7 @@ Returns:  _Array_ of Artists _Hash_
     ]
 ```
 
+<a name="content_artists_post_artist" />
 ### POST /artist
 
 Params:
@@ -487,8 +537,9 @@ Returns:  Artist _Hash_
     }
 ```
 
+<a name="content_artists_get_artist_id" />
 ### GET /artist/:id
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall or **[Mapping](#content_mappings)**
 
 Params:
 
@@ -541,8 +592,9 @@ Returns:  Artist _Hash_
     }
 ```
 
+<a name="content_artists_put_artist_id" />
 ### PUT /artist/:id
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall or **[Mapping](#content_mappings)**
 
 Params:
 
@@ -583,8 +635,9 @@ Returns:  Artist _Hash_
     }
 ```
 
+<a name="content_artists_get_artist_id_events" />
 ### GET /artist/:id/events
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall or **[Mapping](#content_mappings)**
 
 Params:
 
@@ -682,6 +735,7 @@ Returns:  _Array_ of Events _Hash_
 ```
 
 
+<a name="content_artists_get_search_artists_term" />
 ### GET /search/artists/:term
 **:term** _string_  Arbitrary search string on the **name** field.  (alphanumerics only, underscore matches underscore, use '+' for space)
 
@@ -727,6 +781,7 @@ Returns:  _Array_ of Artists _Hash_
     ]
 ```
 
+<a name="content_events" />
 ## Events
 Fields:
 
@@ -754,6 +809,7 @@ Fields:
 - **url**                         _string_  URL for this object on Thrillcall
 
 
+<a name="content_events_get_events" />
 ### GET /events
 Params:
 
@@ -849,6 +905,7 @@ Returns:  _Array_ of Events _Hash_
     ]
 ```
 
+<a name="content_events_get_event_id" />
 ### GET /event/:id
 **:id** _integer_  Thrillcall ID
 
@@ -892,6 +949,7 @@ Returns:  Event _Hash_
     }
 ```
 
+<a name="content_events_get_event_id_artists" />
 ### GET /event/:id/artists
 **:id** _integer_  Thrillcall ID
 
@@ -937,6 +995,7 @@ Returns:  _Array_ of Artists _Hash_
     ]
 ```
 
+<a name="content_events_get_event_id_venue" />
 ### GET /event/:id/venue
 **:id** _integer_  Thrillcall ID
 
@@ -981,6 +1040,7 @@ Returns:  Venue _Hash_
     }
 ```
 
+<a name="content_events_get_event_id_tickets" />
 ### GET /event/:id/tickets
 **:id** _integer_  Thrillcall ID
 
@@ -1020,6 +1080,7 @@ Returns:  _Array_ of Tickets _Hash_
     ]
 ```
 
+<a name="content_genre" />
 ## Genre
 Fields:
 
@@ -1029,6 +1090,7 @@ Fields:
 - **name**                    _string_    Name of the Genre
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 
+<a name="content_genre_get_genres" />
 ### GET /genres
 Params:
 
@@ -1057,6 +1119,7 @@ Returns:  _Array_ of Genres _Hash_
     ]
 ```
 
+<a name="content_genre_get_genre_id" />
 ### GET /genre/:id
 **:id** _integer_  Thrillcall ID
 
@@ -1078,6 +1141,7 @@ Returns: Genre _Hash_
     }
 ```
 
+<a name="content_genre_get_genre_id_artists" />
 ### GET /genre/:id/artists
 **:id** _integer_  Thrillcall ID
 
@@ -1123,6 +1187,7 @@ Returns:  _Array_ of Artists _Hash_
     ]
 ```
 
+<a name="content_metro_area" />
 ## Metro Area
 Fields:
 
@@ -1139,6 +1204,7 @@ Fields:
 - **url**                                 _string_    URL for this object on Thrillcall
 - **offers\_availability\_status\_code**  _integer_   Offers status for the Metro Area ( no\_offers = 0, available = 1, coming\_soon = 2)
 
+<a name="content_metro_area_get_metro_areas" />
 ### GET /metro_areas
 Params:
 
@@ -1174,6 +1240,7 @@ Returns:  _Array_ of Metro Areas _Hash_
     ]
 ```
 
+<a name="content_metro_area_get_metro_area_id" />
 ### GET /metro_area/:id
 **:id** _integer_  Thrillcall ID
 
@@ -1202,6 +1269,7 @@ Returns:  Metro Area _Hash_
     }
 ```
 
+<a name="content_metro_area_get_metro_area_id_events" />
 ### GET /metro_area/:id/events
 **:id** _integer_  Thrillcall ID
 
@@ -1294,6 +1362,7 @@ Returns:  _Array_ of Metro Areas _Hash_
     ]
 ```
 
+<a name="content_person" />
 ## Person
 **Note:** Your API key requires the api\_auth permission to access the endpoints associated with this object.
 
@@ -1311,6 +1380,7 @@ Fields:
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 
+<a name="content_person_get_person_id" />
 ### GET /person/:id
 Params:
 
@@ -1347,6 +1417,7 @@ Returns: Person _Hash_
     }
 ```
 
+<a name="content_person_post_person_signin" />
 ### POST /person/signin
 Params:
 
@@ -1396,6 +1467,7 @@ Returns: Person _Hash_
     }
 ```
 
+<a name="content_person_post_person_signup" />
 ### POST /person/signup
 Params:
 
@@ -1437,6 +1509,7 @@ Returns: Person _Hash_
     }
 ```
 
+<a name="content_person_put_person_id" />
 ### PUT /person/:id
 Params:
 
@@ -1481,6 +1554,7 @@ Returns: Person _Hash_
     }
 ```
 
+<a name="content_person_get_people_tracking_class" />
 ### GET /people/tracking/:class
 **:class** _string_  One of: "genres", "events", "artists", "people", "venues"
 
@@ -1509,6 +1583,7 @@ Returns: _Array_ of _Hash_ containing id, name, and count for each tracked **:cl
 ```
 
 
+<a name="content_person_get_person_id_class" />
 ### GET /person/:id/:class
 **:class** _string_  One of: "genres", "events", "artists", "people", "venues"
 
@@ -1528,6 +1603,7 @@ Returns: _Hash_ of tracked **:class** IDs mapped to **:class** names for this pe
     }
 ```
 
+<a name="content_person_post_person_id_action_class" />
 ### POST /person/:id/:action/:class
 **:action** _string_  One of: "track", "untrack"
 **:class** _string_   One of: "genres", "events", "artists", "people", "venues"
@@ -1549,6 +1625,7 @@ Returns: Hash of **:class** tracked IDs mapped for this person after performing 
 ```
 
 
+<a name="content_venues" />
 ## Venues
 Fields:
 
@@ -1572,6 +1649,7 @@ Fields:
 - **url**                     _string_    URL for this object on Thrillcall
 
 
+<a name="content_venues_get_venues" />
 ### GET /venues
 Params:
 
@@ -1629,6 +1707,7 @@ Returns:  _Array_ of Venues _Hash_
     ]
 ```
 
+<a name="content_venues_post_venue" />
 ### POST /venue
 Params:
 
@@ -1679,8 +1758,9 @@ Returns:  Venue _Hash_
     }
 ```
 
+<a name="content_venues_get_venue_id" />
 ### GET /venue/:id
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall or **[Mapping](#content_mappings)**
 
 Params:
 
@@ -1723,6 +1803,7 @@ Returns:  Venue _Hash_
     }
 ```
 
+<a name="content_venues_put_venue_id" />
 ### PUT /venue/:id
 Params:
 
@@ -1773,8 +1854,9 @@ Returns:  Venue _Hash_
     }
 ```
 
+<a name="content_venues_get_venue_id_events" />
 ### GET /venue/:id/events
-**:id** _integer_  Thrillcall or Partner ID
+**:id** _integer_  Thrillcall or **[Mapping](#content_mappings)**
 
 Params:
 
@@ -1866,6 +1948,7 @@ Returns:  _Array_ of Events _Hash_
     ]
 ```
 
+<a name="content_venues_get_search_venues_term" />
 ### GET /search/venues/:term
 **:term** _string_  Arbitrary search string on the **name** field.  (alphanumerics only, underscore matches underscore, use '+' for space)
 
@@ -1923,6 +2006,7 @@ Returns:  _Array_ of Venues _Hash_
     ]
 ```
 
+<a name="content_tickets" />
 ## Tickets
 Fields:
 
@@ -1940,6 +2024,7 @@ Fields:
 - **updated\_at**            _string_   ISO 8601 representation of last time this object was updated
 - **url**                    _string_   URL for this object on Thrillcall
 
+<a name="content_tickets_get_tickets" />
 ### GET /tickets
 Params:
 
@@ -1989,6 +2074,7 @@ Returns:  _Array_ of Tickets _Hash_
     ]
 ```
 
+<a name="content_tickets_get_ticket_id" />
 ### GET /ticket/:id
 **:id** _integer_  Thrillcall ID
 
@@ -2018,7 +2104,22 @@ Returns:  Ticket _Hash_
     }
 ```
 
+<a name="content_mappings" />
 ## Mappings
+Mappings provide a translation between a Thrillcall ID and an ID from another source (partner).
+
+They are used in place of IDs in the following format:
+
+``` js
+  partner_name:obj_type:partner_id
+```
+
+For example:
+
+``` js
+  GET /artist/myspace:artist:alicia_keys
+```
+
 Fields:
 
 - **created\_at**            _string_   ISO 8601 representation the time this object was created
@@ -2030,6 +2131,7 @@ Fields:
 - **tc_obj_id**              _integer_  Thrillcall ID of the referenced object
 - **updated\_at**            _string_   ISO 8601 representation of last time this object was updated
 
+<a name="content_mappings_get_mappings" />
 ### GET /mappings
 
 Params:
@@ -2060,6 +2162,7 @@ Returns:  _Array_ of Mappings _Hash_
   ]
 ```
 
+<a name="content_mappings_get_mapping_id" />
 ### GET /mapping/:id
 **:id** _integer_  Thrillcall ID
 
@@ -2085,6 +2188,7 @@ Returns:  Mapping _Hash_
 ```
 
 
+<a name="content_mappings_post_mapping" />
 ### POST /mapping
 
 Create a new foreign ID mapping
@@ -2114,6 +2218,7 @@ Returns:  Mapping _Hash_
   }
 ```
 
+<a name="content_mappings_put_mapping_id" />
 ### PUT /mapping/:id
 **:id** _integer_  Thrillcall ID
 

@@ -776,6 +776,7 @@ describe "ThrillcallAPI" do
       it "should be able to create a person using the registration endpoint" do
         params = {
           :first_name   => PERSON_CREATE_FIRSTNAME,
+          :last_name    => PERSON_CREATE_LASTNAME,
           :email        => PERSON_CREATE_EMAIL,
           :password     => PERSON_CREATE_PASSWORD,
           :postalcode   => PERSON_CREATE_POSTALCODE,
