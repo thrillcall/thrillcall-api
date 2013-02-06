@@ -776,6 +776,7 @@ describe "ThrillcallAPI" do
       it "should be able to create a person using the registration endpoint" do
         params = {
           :first_name   => PERSON_CREATE_FIRSTNAME,
+          :last_name    => PERSON_CREATE_LASTNAME,
           :email        => PERSON_CREATE_EMAIL,
           :password     => PERSON_CREATE_PASSWORD,
           :postalcode   => PERSON_CREATE_POSTALCODE,
@@ -877,39 +878,39 @@ describe "ThrillcallAPI" do
         }.should raise_error
       end
 
-      it "it should be able to get and list a particular tc users object relations" do
-        params = {
-          :id => PERSON_KNOWN_ID
-        }
-        results = @tc.person.tracks(params[:id])
-        results.count.should be > 0
-      end
-
       it "it should be able to post a new person object relation correctly" do
-        params = {
-          :platform => "ios",
-          :obj_id => "24"
-        }
-        results = @tc.person(222).track.artist?.post(params)
-        results.count.should > 0
+        ids = [44]
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post
+          p.include?("44")
+        }.should_not raise_error
       end
 
       it "it should produce an error if the obj_type does not match a correct obj_id" do
-        params = {
-            :platform => "ios",
-            :obj_id => "333344455555"
-        }
-        results = @tc.person(223).track.artist?.post(params)
-        results.should be nil
+        ids = [44444555555444444]
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post
+        }.should raise_error
       end
 
       it "it should produce an error if the platform type is not supported" do
+        ids = [44,45]
         params = {
             :platform => "blackberry",
-            :obj_id => "24"
         }
-        results = @tc.person(224).track.artist?.post(params)
-        results.should be nil
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post(params)
+        }.should raise_error
+      end
+
+      it "it should post the object with no errors if the platform type is supported" do
+        ids = [44,45]
+        params = {
+            :platform => "android",
+        }
+        lambda {
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post(params)
+        }.should_not raise_error
       end
 
       context "autoregistration for unknown provider/uid" do
