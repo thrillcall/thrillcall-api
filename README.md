@@ -690,6 +690,7 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -861,6 +862,7 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -940,6 +942,7 @@ Returns:  Event _Hash_
       "starts_at_local": "2012-09-29T19:30:04-07:00",
       "time_zone": "America/Los_Angeles",
       "event_status": "confirmed",
+      "name_modified": "false",
       "artists": [
         {
           "id": 378465,
@@ -1322,6 +1325,7 @@ Returns:  _Array_ of Metro Areas _Hash_
         "starts_at_local": "2012-01-07T00:00:04-08:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address2":null,"city":"San Francisco",
           "country":"US",
@@ -1904,6 +1908,7 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
