@@ -937,12 +937,15 @@ Returns:  _Array_ of Tickets _Hash_
     [
       {
         "created_at": "2012-03-02T18:06:14Z",
+        "currency": "USD",
         "description": null,
         "event_id": 1047075,
         "id": 819883,
         "marketing_text": null,
         "max_ticket_price": 85,
+        "max_ticket_price_cents": 8500,
         "min_ticket_price": 29,
+        "min_ticket_price_cents": 2900,
         "name": "Onsale to General Public",
         "on_sale_end_date": null,
         "on_sale_start_date": null,
@@ -1889,19 +1892,22 @@ Returns:  _Array_ of Venues _Hash_
 ## Tickets
 Fields:
 
-- **created\_at**            _string_   ISO 8601 representation the time this object was created
-- **description**            _string_   Long form description of the ticket
-- **event\_id**              _integer_  Thrillcall Event ID
-- **id**                     _integer_  Thrillcall ID
-- **marketing\_text**        _string_   Long form description of the ticket
-- **max\_ticket\_price**     _float_    Maximum price for this ticket
-- **min\_ticket\_price**     _float_    Minimum price for this ticket
-- **name**                   _string_   Name of this ticket
-- **on\_sale\_end\_date**    _string_   YYYY-MM-DD date when the ticket goes off sale
-- **on\_sale\_start\_date**  _string_   YYYY-MM-DD date when the ticket goes on sale
-- **seat\_info**             _string_   Additional info about the seat
-- **updated\_at**            _string_   ISO 8601 representation of last time this object was updated
-- **url**                    _string_   URL for this object on Thrillcall
+- **created\_at**                    _string_   ISO 8601 representation the time this object was created
+- **currency**                       _string_   Currency of the price
+- **description**                    _string_   Long form description of the ticket
+- **event\_id**                      _integer_  Thrillcall Event ID
+- **id**                             _integer_  Thrillcall ID
+- **marketing\_text**                _string_   Long form description of the ticket
+- **max\_ticket\_price**             _float_    Maximum price for this ticket
+- **max\_ticket\_price\_cents**      _integer_  Maximum price for this ticket in cents
+- **min\_ticket\_price**             _float_    Minimum price for this ticket
+- **min\_ticket\_price\_cents**      _integer_  Minimum price for this ticket in cents
+- **name**                           _string_   Name of this ticket
+- **on\_sale\_end\_date**            _string_   YYYY-MM-DD date when the ticket goes off sale
+- **on\_sale\_start\_date**          _string_   YYYY-MM-DD date when the ticket goes on sale
+- **seat\_info**                     _string_   Additional info about the seat
+- **updated\_at**                    _string_   ISO 8601 representation of last time this object was updated
+- **url**                            _string_   URL for this object on Thrillcall
 
 <a name="content_tickets_get_tickets" />
 ### GET /tickets
@@ -1933,12 +1939,15 @@ Returns:  _Array_ of Tickets _Hash_
     [
       {
         "created_at": "2008-12-06T00:19:59Z",
+        "currency": "USD",
         "description": null,
         "event_id": 455646,
         "id": 1,
         "marketing_text": null,
-        "max_ticket_price": null,
-        "min_ticket_price": null,
+        "max_ticket_price": 0,
+        "max_ticket_price_cents": 0,
+        "min_ticket_price": 0,
+        "min_ticket_price_cents": 0,
         "name": "General Onsale",
         "on_sale_end_date": null,
         "on_sale_start_date": null,
@@ -1968,12 +1977,15 @@ Returns:  Ticket _Hash_
     
     {
       "created_at": "2012-03-02T18:06:14Z",
+      "currency": "USD",
       "description": null,
       "event_id": 1047075,
       "id": 819883,
       "marketing_text": null,
       "max_ticket_price": 85,
+      "max_ticket_price_cents": 8500,
       "min_ticket_price": 29,
+      "min_ticket_price_cents": 2900,
       "name": "Onsale to General Public",
       "on_sale_end_date": null,
       "on_sale_start_date": null,

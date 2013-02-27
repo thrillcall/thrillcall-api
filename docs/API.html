@@ -1176,12 +1176,15 @@ Calls for Mappings default to the "partner_id" field.</p>
     <span class="p">[</span>
       <span class="p">{</span>
         <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
+        <span class="s2">"currency"</span><span class="o">:</span> <span class="s2">"USD"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">819883</span><span class="p">,</span>
         <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">85</span><span class="p">,</span>
+        <span class="s2">"max_ticket_price_cents"</span><span class="o">:</span> <span class="mi">8500</span><span class="p">,</span>
         <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="mi">29</span><span class="p">,</span>
+        <span class="s2">"min_ticket_price_cents"</span><span class="o">:</span> <span class="mi">2900</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Onsale to General Public"</span><span class="p">,</span>
         <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -2265,31 +2268,37 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <ul>
 <li>
-<strong>created_at</strong>            <em>string</em>   ISO 8601 representation the time this object was created</li>
+<strong>created_at</strong>                    <em>string</em>   ISO 8601 representation the time this object was created</li>
 <li>
-<strong>description</strong>            <em>string</em>   Long form description of the ticket</li>
+<strong>currency</strong>                       <em>string</em>   Currency of the price</li>
 <li>
-<strong>event_id</strong>              <em>integer</em>  Thrillcall Event ID</li>
+<strong>description</strong>                    <em>string</em>   Long form description of the ticket</li>
 <li>
-<strong>id</strong>                     <em>integer</em>  Thrillcall ID</li>
+<strong>event_id</strong>                      <em>integer</em>  Thrillcall Event ID</li>
 <li>
-<strong>marketing_text</strong>        <em>string</em>   Long form description of the ticket</li>
+<strong>id</strong>                             <em>integer</em>  Thrillcall ID</li>
 <li>
-<strong>max_ticket_price</strong>     <em>float</em>    Maximum price for this ticket</li>
+<strong>marketing_text</strong>                <em>string</em>   Long form description of the ticket</li>
 <li>
-<strong>min_ticket_price</strong>     <em>float</em>    Minimum price for this ticket</li>
+<strong>max_ticket_price</strong>             <em>float</em>    Maximum price for this ticket</li>
 <li>
-<strong>name</strong>                   <em>string</em>   Name of this ticket</li>
+<strong>max_ticket_price_cents</strong>      <em>integer</em>  Maximum price for this ticket in cents</li>
 <li>
-<strong>on_sale_end_date</strong>    <em>string</em>   YYYY-MM-DD date when the ticket goes off sale</li>
+<strong>min_ticket_price</strong>             <em>float</em>    Minimum price for this ticket</li>
 <li>
-<strong>on_sale_start_date</strong>  <em>string</em>   YYYY-MM-DD date when the ticket goes on sale</li>
+<strong>min_ticket_price_cents</strong>      <em>integer</em>  Minimum price for this ticket in cents</li>
 <li>
-<strong>seat_info</strong>             <em>string</em>   Additional info about the seat</li>
+<strong>name</strong>                           <em>string</em>   Name of this ticket</li>
 <li>
-<strong>updated_at</strong>            <em>string</em>   ISO 8601 representation of last time this object was updated</li>
+<strong>on_sale_end_date</strong>            <em>string</em>   YYYY-MM-DD date when the ticket goes off sale</li>
 <li>
-<strong>url</strong>                    <em>string</em>   URL for this object on Thrillcall</li>
+<strong>on_sale_start_date</strong>          <em>string</em>   YYYY-MM-DD date when the ticket goes on sale</li>
+<li>
+<strong>seat_info</strong>                     <em>string</em>   Additional info about the seat</li>
+<li>
+<strong>updated_at</strong>                    <em>string</em>   ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>url</strong>                            <em>string</em>   URL for this object on Thrillcall</li>
 </ul><p><a name="content_tickets_get_tickets"></a></p>
 
 <h3>GET /tickets</h3>
@@ -2322,12 +2331,15 @@ Calls for Mappings default to the "partner_id" field.</p>
     <span class="p">[</span>
       <span class="p">{</span>
         <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-12-06T00:19:59Z"</span><span class="p">,</span>
+        <span class="s2">"currency"</span><span class="o">:</span> <span class="s2">"USD"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">455646</span><span class="p">,</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"max_ticket_price_cents"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"min_ticket_price_cents"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"General Onsale"</span><span class="p">,</span>
         <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
         <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -2361,12 +2373,15 @@ Calls for Mappings default to the "partner_id" field.</p>
 
     <span class="p">{</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
+      <span class="s2">"currency"</span><span class="o">:</span> <span class="s2">"USD"</span><span class="p">,</span>
       <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">819883</span><span class="p">,</span>
       <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="mi">85</span><span class="p">,</span>
+      <span class="s2">"max_ticket_price_cents"</span><span class="o">:</span> <span class="mi">8500</span><span class="p">,</span>
       <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="mi">29</span><span class="p">,</span>
+      <span class="s2">"min_ticket_price_cents"</span><span class="o">:</span> <span class="mi">2900</span><span class="p">,</span>
       <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Onsale to General Public"</span><span class="p">,</span>
       <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
