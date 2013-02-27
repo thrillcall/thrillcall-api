@@ -10,6 +10,8 @@ TEST_ENV                  = :development
 #TEST_ENV                  = :staging
 #TEST_ENV                  = :production
 
+# Use 'passenger start' to start your local server.
+
 # For the environment specified in TEST_ENV, you must have set a few system environment variables.
 # For example, if your TEST_ENV is :development, you need:
 # TC_DEVELOPMENT_API_KEY        : your API key
@@ -26,10 +28,12 @@ TEST_ENV                  = :development
 # export TC_DEVELOPMENT_API_KEY="1234567890abcdef"
 # export TC_DEVELOPMENT_EMAIL="some_account@thrillcall.com"
 # export TC_DEVELOPMENT_PASSWORD="some_password"
+# export TC_DEVELOPMENT_KNOWN_ID="123456"
 # export TC_DEVELOPMENT_KNOWN_UID="12345679"
 # export TC_DEVELOPMENT_KNOWN_TOKEN="AAC93tkWRL4BAFzv8mYYZCEqbZCwvZBJGQ6rbCwwZCXhlcDMj4lI3lJRJzhd7FQPb9bK3J9155eVI0jIACZCoympMm1SYoEJajaRULY"
 # export TC_DEVELOPMENT_UNKNOWN_UID="123123bogus"
 # export TC_DEVELOPMENT_UNKNOWN_TOKEN="123123bogus"
+# export TC_DEVELOPMENT_UNKNOWN_EMAIL="bogus@thrillcall.com"
 
 # You should not have to edit anything below this line.
 #####################################################################
@@ -342,6 +346,11 @@ describe "ThrillcallAPI" do
       it "should get the venue for a specific event" do
         e = @tc.event(@event_id).venue
         e["id"].should == @venue_id
+      end
+
+      it "should return name_modified" do
+        e = @tc.event(@event_id)
+        e["name_modified"].should_not == nil
       end
 
       it "should verify the behavior of the limit maximum" do
