@@ -1069,10 +1069,8 @@ Returns:  _Array_ of Tickets _Hash_
         "event_id": 1047075,
         "id": 819883,
         "marketing_text": null,
-        "max_ticket_price": 85,
-        "max_ticket_price_cents": 8500,
-        "min_ticket_price": 29,
-        "min_ticket_price_cents": 2900,
+        "max_ticket_price": "85.00",
+        "min_ticket_price": "29.00",
         "name": "Onsale to General Public",
         "on_sale_end_date": null,
         "on_sale_start_date": null,
@@ -2025,10 +2023,8 @@ Fields:
 - **event\_id**                      _integer_  Thrillcall Event ID
 - **id**                             _integer_  Thrillcall ID
 - **marketing\_text**                _string_   Long form description of the ticket
-- **max\_ticket\_price**             _float_    Maximum price for this ticket
-- **max\_ticket\_price\_cents**      _integer_  Maximum price for this ticket in cents
-- **min\_ticket\_price**             _float_    Minimum price for this ticket
-- **min\_ticket\_price\_cents**      _integer_  Minimum price for this ticket in cents
+- **max\_ticket\_price**             _string_   Maximum price for this ticket
+- **min\_ticket\_price**             _string_   Minimum price for this ticket
 - **name**                           _string_   Name of this ticket
 - **on\_sale\_end\_date**            _string_   YYYY-MM-DD date when the ticket goes off sale
 - **on\_sale\_start\_date**          _string_   YYYY-MM-DD date when the ticket goes on sale
@@ -2071,10 +2067,8 @@ Returns:  _Array_ of Tickets _Hash_
         "event_id": 455646,
         "id": 1,
         "marketing_text": null,
-        "max_ticket_price": 0,
-        "max_ticket_price_cents": 0,
-        "min_ticket_price": 0,
-        "min_ticket_price_cents": 0,
+        "max_ticket_price": "0.00",
+        "min_ticket_price": "0.00",
         "name": "General Onsale",
         "on_sale_end_date": null,
         "on_sale_start_date": null,
@@ -2109,10 +2103,8 @@ Returns:  Ticket _Hash_
       "event_id": 1047075,
       "id": 819883,
       "marketing_text": null,
-      "max_ticket_price": 85,
-      "max_ticket_price_cents": 8500,
-      "min_ticket_price": 29,
-      "min_ticket_price_cents": 2900,
+      "max_ticket_price": "85.00",
+      "min_ticket_price": "29.00",
       "name": "Onsale to General Public",
       "on_sale_end_date": null,
       "on_sale_start_date": null,
