@@ -887,38 +887,38 @@ describe "ThrillcallAPI" do
         }.should raise_error
       end
 
-      it "it should be able to post a new person object relation correctly" do
+      it "should be able to post a new person object relation correctly" do
         ids = [44]
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post
           p.include?("44")
         }.should_not raise_error
       end
 
-      it "it should produce an error if the obj_type does not match a correct obj_id" do
+      it "should produce an error if the obj_type does not match a correct obj_id" do
         ids = [44444555555444444]
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post
         }.should raise_error
       end
 
-      it "it should produce an error if the platform type is not supported" do
+      it "should produce an error if the platform type is not supported" do
         ids = [44,45]
         params = {
             :platform => "blackberry",
         }
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post(params)
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post(params)
         }.should raise_error
       end
 
-      it "it should post the object with no errors if the platform type is supported" do
+      it "should post the object with no errors if the platform type is supported" do
         ids = [44,45]
         params = {
             :platform => "android",
         }
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post(params)
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post(params)
         }.should_not raise_error
       end
 
