@@ -153,7 +153,7 @@ describe "ThrillcallAPI" do
       @venue_norm_name      = @venue["name"]
       @venue_city           = @venue["city"]
       @venue_state          = @venue["state"]
-      @venue_country        = @venue["country"]
+      @venue_country        = @venue["country_code"]
       @venue_zip            = @venue["postalcode"]
       @venue_address1       = @venue["address1"]
 
@@ -1140,7 +1140,7 @@ describe "ThrillcallAPI" do
 
           it "with an invalid country code" do
             mark_pending_if_nil_value(@params)
-            @params[:country] = "XX"
+            @params[:country_code] = "XX"
             lambda {
               @tc.venue.post(@params)
             }.should raise_error
@@ -1181,8 +1181,8 @@ describe "ThrillcallAPI" do
 
           it "with an invalid country code" do
             params = {
-              :country  => "XX",
-              :test     => true,
+              :country_code   => "XX",
+              :test           => true,
             }
             lambda {
               @tc.venue(@venue_id).put(params)
