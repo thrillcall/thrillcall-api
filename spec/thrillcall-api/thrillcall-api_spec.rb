@@ -87,6 +87,8 @@ PERSON_CREATE_POSTALCODE  = POSTAL_CODE
 
 FLUSH_CACHE               = true # false
 
+puts "Thrillcall API Gem Test env params loaded"
+
 describe "ThrillcallAPI" do
 
   def setup_key
@@ -195,7 +197,7 @@ describe "ThrillcallAPI" do
           exec "echo 'flush_all' | nc localhost 11211"
         end
 
-        Process.wait
+        #Process.wait
       end
     end
   end
@@ -212,6 +214,8 @@ describe "ThrillcallAPI" do
   end
 
   it "should be able to retrieve the permissions for the api key" do
+    puts "do it..."
+    sleep 4
     tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST)
     tc_permissions = tc.api_key.permissions
     tc_permissions.length
@@ -661,14 +665,16 @@ describe "ThrillcallAPI" do
       end
 
       it "should get events based on the time zone of the metro" do
+        dt = DateTime.parse(@min_date)
         tz = TZInfo::Timezone.get(@metro_area_time_zone)
-        offset = (tz.current_period.offset.utc_offset / (60 * 60)) / 24.0
+        tz_offset = tz.period_for_local(dt).offset
+        offset = ((tz_offset.utc_offset + tz_offset.std_offset) / (60 * 60)) / 24.0
         puts "Time zone is: #{@metro_area_time_zone}, offset #{offset}"
 
         e = @tc.metro_area(@metro_area_id).events(:min_date => @min_date, :max_date => @max_date, :limit => TINY_LIMIT)
         e.first["venue_id"]
 
-        after = DateTime.parse(@min_date).new_offset(offset) - offset
+        after = dt.new_offset(offset) - offset
         before = (DateTime.parse(@max_date).new_offset(offset) + 1) - offset
 
         puts "min_date: #{@min_date} (#{after})"
