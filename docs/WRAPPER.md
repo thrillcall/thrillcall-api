@@ -68,13 +68,19 @@ Provide additional instantiation options:
     # The default SSL endpoint is "https://api.thrillcall.com/api/".
     # The default API version is 3.
     # By default, Faraday access logging is turned off.
-    # Override if necessary:
+    # If a connection attempt fails, we will retry 5 times with a
+    # timeout of 10 seconds.  We retry a boilerplate list of
+    # exceptions, such as Faraday::Error::ClientError.
+    # Override these if necessary:
     #---------------------------------------------------------------#
     tc = ThrillcallAPI.new(
       MY_API_KEY,
-      :base_url => "https://api.thrillcall.com/custom/",
-      :version  => 3,
-      :logger   => true
+      :base_url         => "https://api.thrillcall.com/custom/",
+      :version          => 3,
+      :logger           => true,
+      :retry_exceptions => [Timeout::Error],
+      :retry_tries      => 5,
+      :timeout          => 10
     )
     
 ```
