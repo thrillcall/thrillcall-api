@@ -3,8 +3,32 @@ require 'json'
 require "#{File.expand_path("../thrillcall-api/exceptions", __FILE__)}"
 require "#{File.expand_path("../thrillcall-api/result", __FILE__)}"
 require "#{File.expand_path("../thrillcall-api/version", __FILE__)}"
+require 'net/http'
+require 'retriable'
 
 module ThrillcallAPI
+
+  RETRY_ERRNO     = [Errno::ECONNREFUSED,
+                      Errno::ECONNRESET,
+                      Errno::EHOSTUNREACH,
+                      Errno::EHOSTDOWN,
+                      Errno::EINVAL]
+  RETRY_NET       = [Net::HTTPBadResponse,
+                      Net::HTTPRequestTimeOut,
+                      Net::HTTPServerError,          # 5xx
+                      Net::HTTPInternalServerError,  # 500
+                      Net::HTTPNotImplemented,       # 501
+                      Net::HTTPBadGateway,           # 502
+                      Net::HTTPServiceUnavailable,   # 503
+                      Net::HTTPGatewayTimeOut,       # 504
+                      Net::HTTPVersionNotSupported]  # 505
+  RETRY_FARADAY   = [Faraday::Error,
+                      Faraday::Error::ClientError]
+  RETRY_DEFAULT   = [Timeout::Error,
+                      EOFError,
+                      SocketError]
+  RETRY_ALL       = RETRY_DEFAULT + RETRY_ERRNO + RETRY_NET + RETRY_FARADAY
+
   class << self
     attr_accessor :cur_api_key, :base, :result, :conn
 
@@ -18,6 +42,10 @@ module ThrillcallAPI
       }
 
       opts = default_options.merge(options)
+
+      @retry_exceptions = opts[:retry_exceptions] || RETRY_ALL
+      @retry_tries      = opts[:retry_tries]      || 5
+      @retry_timeout    = opts[:timeout]          || 10
 
       @cur_api_key  = cur_api_key
       base_url      = opts[:base_url]
@@ -59,18 +87,31 @@ module ThrillcallAPI
       return self
     end
 
+    def on_retry_exception
+      Proc.new do |exception, tries|
+        msg = "ThrillcallAPI : #{exception.class}: '#{exception.message}' - #{tries} attempts."
+        @conn.send(:warn, msg)
+      end
+    end
+
     def get(endpoint, params)
-      r = @conn.get do |req|
-        req.url endpoint, params.merge(:api_key => @cur_api_key)
+      r = nil
+      retriable :on => @retry_exceptions, :tries => @retry_tries, :timeout => @retry_timeout, :on_retry => on_retry_exception do
+        r = @conn.get do |req|
+          req.url endpoint, params.merge(:api_key => @cur_api_key)
+        end
       end
       JSON.parse(r.body)
     end
 
     def post(endpoint, params, method = :post)
+      r = nil
       block = lambda do |req|
         req.url endpoint, params.merge(:api_key => @cur_api_key)
       end
-      r = @conn.send(method, &block)
+      retriable :on => @retry_exceptions, :tries => @retry_tries, :timeout => @retry_timeout, :on_retry => on_retry_exception do
+        r = @conn.send(method, &block)
+      end
       JSON.parse(r.body)
     end
 

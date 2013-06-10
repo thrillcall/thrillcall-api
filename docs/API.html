@@ -372,7 +372,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Optional for creating or updating a Person, required for Venues.</p>
 </li>
 <li>
-<p><a name="country"></a><strong>country</strong> <em>string (format: "US" length == 2)</em></p>
+<p><a name="country_code"></a><strong>country_code</strong> <em>string (format: "US" length == 2)</em></p>
 
 <p>Country code, required for Venues.</p>
 </li>
@@ -844,7 +844,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <strong>city</strong>                                <em>string</em>    City of the Metro Area</li>
 <li>
-<strong>country</strong>                             <em>string</em>    Country of the Metro Area</li>
+<strong>country_code</strong>                       <em>string</em>    Country of the Metro Area</li>
 <li>
 <strong>created_at</strong>                         <em>string</em>    ISO 8601 representation the time this object was created</li>
 <li>
@@ -1093,7 +1093,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <strong>city</strong>                    <em>string</em>    City the Venue is in</li>
 <li>
-<strong>country</strong>                 <em>string</em>    Country the Venue is in</li>
+<strong>country_code</strong>           <em>string</em>    Country the Venue is in</li>
 <li>
 <strong>created_at</strong>             <em>string</em>    ISO 8601 representation the time this object was created</li>
 <li>
@@ -1156,7 +1156,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#city">city</a></strong></li>
 <li><strong><a href="#state">state</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
-<li><strong><a href="#country">country</a></strong></li>
+<li><strong><a href="#country_code">country_code</a></strong></li>
 <li><strong><a href="#facebook_url">facebook_url</a></strong></li>
 <li><strong><a href="#official_url">official_url</a></strong></li>
 </ul><p>Returns:  Venue <em>Hash</em></p>
@@ -1190,7 +1190,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#city">city</a></strong></li>
 <li><strong><a href="#state">state</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
-<li><strong><a href="#country">country</a></strong></li>
+<li><strong><a href="#country_code">country_code</a></strong></li>
 <li><strong><a href="#facebook_url">facebook_url</a></strong></li>
 <li><strong><a href="#official_url">official_url</a></strong></li>
 </ul><p>Returns:  Venue <em>Hash</em></p>
@@ -1253,31 +1253,33 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <ul>
 <li>
-<strong>created_at</strong>            <em>string</em>   ISO 8601 representation the time this object was created</li>
+<strong>created_at</strong>                    <em>string</em>   ISO 8601 representation the time this object was created</li>
 <li>
-<strong>description</strong>            <em>string</em>   Long form description of the ticket</li>
+<strong>currency</strong>                       <em>string</em>   Currency of the price</li>
 <li>
-<strong>event_id</strong>              <em>integer</em>  Thrillcall Event ID</li>
+<strong>description</strong>                    <em>string</em>   Long form description of the ticket</li>
 <li>
-<strong>id</strong>                     <em>integer</em>  Thrillcall ID</li>
+<strong>event_id</strong>                      <em>integer</em>  Thrillcall Event ID</li>
 <li>
-<strong>marketing_text</strong>        <em>string</em>   Long form description of the ticket</li>
+<strong>id</strong>                             <em>integer</em>  Thrillcall ID</li>
 <li>
-<strong>max_ticket_price</strong>     <em>float</em>    Maximum price for this ticket</li>
+<strong>marketing_text</strong>                <em>string</em>   Long form description of the ticket</li>
 <li>
-<strong>min_ticket_price</strong>     <em>float</em>    Minimum price for this ticket</li>
+<strong>max_ticket_price</strong>             <em>string</em>   Maximum price for this ticket</li>
 <li>
-<strong>name</strong>                   <em>string</em>   Name of this ticket</li>
+<strong>min_ticket_price</strong>             <em>string</em>   Minimum price for this ticket</li>
 <li>
-<strong>on_sale_end_date</strong>    <em>string</em>   YYYY-MM-DD date when the ticket goes off sale</li>
+<strong>name</strong>                           <em>string</em>   Name of this ticket</li>
 <li>
-<strong>on_sale_start_date</strong>  <em>string</em>   YYYY-MM-DD date when the ticket goes on sale</li>
+<strong>on_sale_end_date</strong>            <em>string</em>   YYYY-MM-DD date when the ticket goes off sale</li>
 <li>
-<strong>seat_info</strong>             <em>string</em>   Additional info about the seat</li>
+<strong>on_sale_start_date</strong>          <em>string</em>   YYYY-MM-DD date when the ticket goes on sale</li>
 <li>
-<strong>updated_at</strong>            <em>string</em>   ISO 8601 representation of last time this object was updated</li>
+<strong>seat_info</strong>                     <em>string</em>   Additional info about the seat</li>
 <li>
-<strong>url</strong>                    <em>string</em>   URL for this object on Thrillcall</li>
+<strong>updated_at</strong>                    <em>string</em>   ISO 8601 representation of last time this object was updated</li>
+<li>
+<strong>url</strong>                            <em>string</em>   URL for this object on Thrillcall</li>
 </ul><p><a name="content_tickets_get_tickets"></a></p>
 
 <h3>GET /tickets</h3>

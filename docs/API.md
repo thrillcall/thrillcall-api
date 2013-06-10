@@ -231,7 +231,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Optional for creating or updating a Person, required for Venues.
 
-- <a name="country" />**country** _string (format: "US" length == 2)_
+- <a name="country_code" />**country_code** _string (format: "US" length == 2)_
     
     Country code, required for Venues.
 
@@ -563,11 +563,12 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
           "city": "San Francisco",
-          "country": "US",
+          "country_code": "US",
           "created_at": "2009-08-25T19:25:27Z",
           "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
           "hide_resale_tickets": false,
@@ -734,11 +735,12 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
           "city": "San Francisco",
-          "country": "US",
+          "country_code": "US",
           "created_at": "2009-08-25T19:25:27Z",
           "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
           "hide_resale_tickets": false,
@@ -813,6 +815,7 @@ Returns:  Event _Hash_
       "starts_at_local": "2012-09-29T19:30:04-07:00",
       "time_zone": "America/Los_Angeles",
       "event_status": "confirmed",
+      "name_modified": "false",
       "artists": [
         {
           "id": 378465,
@@ -886,7 +889,7 @@ Returns:  Venue _Hash_
       "address1": "1111 California Street",
       "address2": null,
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2009-08-25T19:25:27Z",
       "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
       "hide_resale_tickets": false,
@@ -934,12 +937,13 @@ Returns:  _Array_ of Tickets _Hash_
     [
       {
         "created_at": "2012-03-02T18:06:14Z",
+        "currency": "USD",
         "description": null,
         "event_id": 1047075,
         "id": 819883,
         "marketing_text": null,
-        "max_ticket_price": 85,
-        "min_ticket_price": 29,
+        "max_ticket_price": "85.00",
+        "min_ticket_price": "29.00",
         "name": "Onsale to General Public",
         "on_sale_end_date": null,
         "on_sale_start_date": null,
@@ -1066,7 +1070,7 @@ Returns:  _Array_ of Artists _Hash_
 Fields:
 
 - **city**                                _string_    City of the Metro Area
-- **country**                             _string_    Country of the Metro Area
+- **country\_code**                       _string_    Country of the Metro Area
 - **created\_at**                         _string_    ISO 8601 representation the time this object was created
 - **id**                                  _integer_   Thrillcall ID
 - **latitude**                            _float_     Latitude of the Metro Area
@@ -1095,7 +1099,7 @@ Returns:  _Array_ of Metro Areas _Hash_
     [
       {
         "city": "Chicago",
-        "country": "US",
+        "country_code": "US",
         "created_at": "2011-06-24T03:23:57Z",
         "id": 104,
         "latitude": 41.8842,
@@ -1129,7 +1133,7 @@ Returns:  Metro Area _Hash_
     
     {
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2011-06-24T03:23:57Z",
       "id": 105,
       "latitude": 37.7771,
@@ -1195,9 +1199,10 @@ Returns:  _Array_ of Metro Areas _Hash_
         "starts_at_local": "2012-01-07T00:00:04-08:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address2":null,"city":"San Francisco",
-          "country":"US",
+          "country_code":"US",
           "created_at":"2008-04-28T18:13:50Z",
           "facebook_url":"http://www.facebook.com/theendup",
           "hide_resale_tickets":false,
@@ -1506,7 +1511,7 @@ Fields:
 - **address1**                _string_    First address field for the Venue
 - **address2**                _string_    Second address field for the Venue
 - **city**                    _string_    City the Venue is in
-- **country**                 _string_    Country the Venue is in
+- **country\_code**           _string_    Country the Venue is in
 - **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **id**                      _integer_   Thrillcall ID
 - **latitude**                _float_     Approximate Latitude for the Venue
@@ -1548,7 +1553,7 @@ Returns:  _Array_ of Venues _Hash_
         "address1": null,
         "address2": null,
         "city": "Guadalajara",
-        "country": "MX",
+        "country_code": "MX",
         "created_at": "2008-05-09T09:29:23Z",
         "facebook_url": null,
         "hide_resale_tickets": false,
@@ -1591,20 +1596,20 @@ Params:
 - **[city](#city)**
 - **[state](#state)**
 - **[postalcode](#postalcode)**
-- **[country](#country)**
+- **[country_code](#country_code)**
 - **[facebook_url](#facebook_url)**
 - **[official_url](#official_url)**
 
 Returns:  Venue _Hash_
 
 ``` js
-    // Example: POST /api/v3/venue?name=Test%20Venue&city=Guerneville&state=CA&country=US&address1=123%20Main%20St&postalcode=95446&api_key=1234567890abcdef
+    // Example: POST /api/v3/venue?name=Test%20Venue&city=Guerneville&state=CA&country_code=US&address1=123%20Main%20St&postalcode=95446&api_key=1234567890abcdef
     
     {
       "address1": "123 Main St",
       "address2": null,
       "city": "Guerneville",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2012-08-14T00:15:23Z",
       "facebook_url": null,
       "hide_resale_tickets": false,
@@ -1649,7 +1654,7 @@ Returns:  Venue _Hash_
       "address1": "201 Van Ness Avenue",
       "address2": null,
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2008-04-28T17:59:32Z",
       "facebook_url": "http://www.facebook.com/sfsymphony",
       "hide_resale_tickets": false,
@@ -1687,7 +1692,7 @@ Params:
 - **[city](#city)**
 - **[state](#state)**
 - **[postalcode](#postalcode)**
-- **[country](#country)**
+- **[country_code](#country_code)**
 - **[facebook_url](#facebook_url)**
 - **[official_url](#official_url)**
 
@@ -1700,7 +1705,7 @@ Returns:  Venue _Hash_
       "address1": "202 Van Ness Avenue",
       "address2": null,
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2008-04-28T17:59:32Z",
       "facebook_url": "http://www.facebook.com/sfsymphony",
       "hide_resale_tickets": false,
@@ -1777,11 +1782,12 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
+        "name_modified": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
           "city": "San Francisco",
-          "country": "US",
+          "country_code": "US",
           "created_at": "2009-08-25T19:25:27Z",
           "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
           "hide_resale_tickets": false,
@@ -1847,7 +1853,7 @@ Returns:  _Array_ of Venues _Hash_
         "address1": "525 W Riverview Ave",
         "address2": null,
         "city": "Dayton",
-        "country": "US",
+        "country_code": "US",
         "created_at": "2008-06-12T14:12:53Z",
         "facebook_url": null,
         "hide_resale_tickets": false,
@@ -1884,19 +1890,20 @@ Returns:  _Array_ of Venues _Hash_
 ## Tickets
 Fields:
 
-- **created\_at**            _string_   ISO 8601 representation the time this object was created
-- **description**            _string_   Long form description of the ticket
-- **event\_id**              _integer_  Thrillcall Event ID
-- **id**                     _integer_  Thrillcall ID
-- **marketing\_text**        _string_   Long form description of the ticket
-- **max\_ticket\_price**     _float_    Maximum price for this ticket
-- **min\_ticket\_price**     _float_    Minimum price for this ticket
-- **name**                   _string_   Name of this ticket
-- **on\_sale\_end\_date**    _string_   YYYY-MM-DD date when the ticket goes off sale
-- **on\_sale\_start\_date**  _string_   YYYY-MM-DD date when the ticket goes on sale
-- **seat\_info**             _string_   Additional info about the seat
-- **updated\_at**            _string_   ISO 8601 representation of last time this object was updated
-- **url**                    _string_   URL for this object on Thrillcall
+- **created\_at**                    _string_   ISO 8601 representation the time this object was created
+- **currency**                       _string_   Currency of the price
+- **description**                    _string_   Long form description of the ticket
+- **event\_id**                      _integer_  Thrillcall Event ID
+- **id**                             _integer_  Thrillcall ID
+- **marketing\_text**                _string_   Long form description of the ticket
+- **max\_ticket\_price**             _string_   Maximum price for this ticket
+- **min\_ticket\_price**             _string_   Minimum price for this ticket
+- **name**                           _string_   Name of this ticket
+- **on\_sale\_end\_date**            _string_   YYYY-MM-DD date when the ticket goes off sale
+- **on\_sale\_start\_date**          _string_   YYYY-MM-DD date when the ticket goes on sale
+- **seat\_info**                     _string_   Additional info about the seat
+- **updated\_at**                    _string_   ISO 8601 representation of last time this object was updated
+- **url**                            _string_   URL for this object on Thrillcall
 
 <a name="content_tickets_get_tickets" />
 ### GET /tickets
@@ -1928,12 +1935,13 @@ Returns:  _Array_ of Tickets _Hash_
     [
       {
         "created_at": "2008-12-06T00:19:59Z",
+        "currency": "USD",
         "description": null,
         "event_id": 455646,
         "id": 1,
         "marketing_text": null,
-        "max_ticket_price": null,
-        "min_ticket_price": null,
+        "max_ticket_price": "0.00",
+        "min_ticket_price": "0.00",
         "name": "General Onsale",
         "on_sale_end_date": null,
         "on_sale_start_date": null,
@@ -1963,12 +1971,13 @@ Returns:  Ticket _Hash_
     
     {
       "created_at": "2012-03-02T18:06:14Z",
+      "currency": "USD",
       "description": null,
       "event_id": 1047075,
       "id": 819883,
       "marketing_text": null,
-      "max_ticket_price": 85,
-      "min_ticket_price": 29,
+      "max_ticket_price": "85.00",
+      "min_ticket_price": "29.00",
       "name": "Onsale to General Public",
       "on_sale_end_date": null,
       "on_sale_start_date": null,
