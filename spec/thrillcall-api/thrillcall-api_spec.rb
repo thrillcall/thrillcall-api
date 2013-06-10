@@ -87,6 +87,8 @@ PERSON_CREATE_POSTALCODE  = POSTAL_CODE
 
 FLUSH_CACHE               = true # false
 
+puts "Thrillcall API Gem Test env params loaded"
+
 describe "ThrillcallAPI" do
 
   def setup_key
@@ -153,7 +155,7 @@ describe "ThrillcallAPI" do
       @venue_norm_name      = @venue["name"]
       @venue_city           = @venue["city"]
       @venue_state          = @venue["state"]
-      @venue_country        = @venue["country"]
+      @venue_country        = @venue["country_code"]
       @venue_zip            = @venue["postalcode"]
       @venue_address1       = @venue["address1"]
 
@@ -195,7 +197,7 @@ describe "ThrillcallAPI" do
           exec "echo 'flush_all' | nc localhost 11211"
         end
 
-        Process.wait
+        #Process.wait
       end
     end
   end
@@ -661,14 +663,16 @@ describe "ThrillcallAPI" do
       end
 
       it "should get events based on the time zone of the metro" do
+        dt = DateTime.parse(@min_date)
         tz = TZInfo::Timezone.get(@metro_area_time_zone)
-        offset = (tz.current_period.offset.utc_offset / (60 * 60)) / 24.0
+        tz_offset = tz.period_for_local(dt).offset
+        offset = ((tz_offset.utc_offset + tz_offset.std_offset) / (60 * 60)) / 24.0
         puts "Time zone is: #{@metro_area_time_zone}, offset #{offset}"
 
         e = @tc.metro_area(@metro_area_id).events(:min_date => @min_date, :max_date => @max_date, :limit => TINY_LIMIT)
         e.first["venue_id"]
 
-        after = DateTime.parse(@min_date).new_offset(offset) - offset
+        after = dt.new_offset(offset) - offset
         before = (DateTime.parse(@max_date).new_offset(offset) + 1) - offset
 
         puts "min_date: #{@min_date} (#{after})"
@@ -887,38 +891,38 @@ describe "ThrillcallAPI" do
         }.should raise_error
       end
 
-      it "it should be able to post a new person object relation correctly" do
+      it "should be able to post a new person object relation correctly" do
         ids = [44]
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post
           p.include?("44")
         }.should_not raise_error
       end
 
-      it "it should produce an error if the obj_type does not match a correct obj_id" do
+      it "should produce an error if the obj_type does not match a correct obj_id" do
         ids = [44444555555444444]
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post
         }.should raise_error
       end
 
-      it "it should produce an error if the platform type is not supported" do
+      it "should produce an error if the platform type is not supported" do
         ids = [44,45]
         params = {
             :platform => "blackberry",
         }
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post(params)
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post(params)
         }.should raise_error
       end
 
-      it "it should post the object with no errors if the platform type is supported" do
+      it "should post the object with no errors if the platform type is supported" do
         ids = [44,45]
         params = {
             :platform => "android",
         }
         lambda {
-          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",").gsub(/^/,',')).post(params)
+          p = @tc.person(PERSON_KNOWN_ID).track.artists(:ids => ids.join(",")).post(params)
         }.should_not raise_error
       end
 
@@ -1140,7 +1144,7 @@ describe "ThrillcallAPI" do
 
           it "with an invalid country code" do
             mark_pending_if_nil_value(@params)
-            @params[:country] = "XX"
+            @params[:country_code] = "XX"
             lambda {
               @tc.venue.post(@params)
             }.should raise_error
@@ -1181,8 +1185,8 @@ describe "ThrillcallAPI" do
 
           it "with an invalid country code" do
             params = {
-              :country  => "XX",
-              :test     => true,
+              :country_code   => "XX",
+              :test           => true,
             }
             lambda {
               @tc.venue(@venue_id).put(params)

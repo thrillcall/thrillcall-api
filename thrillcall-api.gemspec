@@ -28,7 +28,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "faker",                  "~> 0.9.5"
   s.add_development_dependency  "tzinfo",                 "~> 0.3.31"
 
-  s.add_dependency              "faraday",                "~> 0.7.0"
+  s.add_dependency              "faraday",                "~> 0.8.7"
+  s.add_dependency              "retriable",              "~> 1.3.3"
 
   s.files = Dir['lib/**/*.rb'] + Dir['bin/*']
   s.require_path = 'lib'

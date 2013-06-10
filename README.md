@@ -68,13 +68,19 @@ Provide additional instantiation options:
     # The default SSL endpoint is "https://api.thrillcall.com/api/".
     # The default API version is 3.
     # By default, Faraday access logging is turned off.
-    # Override if necessary:
+    # If a connection attempt fails, we will retry 5 times with a
+    # timeout of 10 seconds.  We retry a boilerplate list of
+    # exceptions, such as Faraday::Error::ClientError.
+    # Override these if necessary:
     #---------------------------------------------------------------#
     tc = ThrillcallAPI.new(
       MY_API_KEY,
-      :base_url => "https://api.thrillcall.com/custom/",
-      :version  => 3,
-      :logger   => true
+      :base_url         => "https://api.thrillcall.com/custom/",
+      :version          => 3,
+      :logger           => true,
+      :retry_exceptions => [Timeout::Error],
+      :retry_tries      => 5,
+      :timeout          => 10
     )
     
 ```
@@ -358,7 +364,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
     
     Optional for creating or updating a Person, required for Venues.
 
-- <a name="country" />**country** _string (format: "US" length == 2)_
+- <a name="country_code" />**country_code** _string (format: "US" length == 2)_
     
     Country code, required for Venues.
 
@@ -695,7 +701,7 @@ Returns:  _Array_ of Events _Hash_
           "address1": "1111 California Street",
           "address2": null,
           "city": "San Francisco",
-          "country": "US",
+          "country_code": "US",
           "created_at": "2009-08-25T19:25:27Z",
           "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
           "hide_resale_tickets": false,
@@ -867,7 +873,7 @@ Returns:  _Array_ of Events _Hash_
           "address1": "1111 California Street",
           "address2": null,
           "city": "San Francisco",
-          "country": "US",
+          "country_code": "US",
           "created_at": "2009-08-25T19:25:27Z",
           "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
           "hide_resale_tickets": false,
@@ -1016,7 +1022,7 @@ Returns:  Venue _Hash_
       "address1": "1111 California Street",
       "address2": null,
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2009-08-25T19:25:27Z",
       "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
       "hide_resale_tickets": false,
@@ -1197,7 +1203,7 @@ Returns:  _Array_ of Artists _Hash_
 Fields:
 
 - **city**                                _string_    City of the Metro Area
-- **country**                             _string_    Country of the Metro Area
+- **country\_code**                       _string_    Country of the Metro Area
 - **created\_at**                         _string_    ISO 8601 representation the time this object was created
 - **id**                                  _integer_   Thrillcall ID
 - **latitude**                            _float_     Latitude of the Metro Area
@@ -1226,7 +1232,7 @@ Returns:  _Array_ of Metro Areas _Hash_
     [
       {
         "city": "Chicago",
-        "country": "US",
+        "country_code": "US",
         "created_at": "2011-06-24T03:23:57Z",
         "id": 104,
         "latitude": 41.8842,
@@ -1260,7 +1266,7 @@ Returns:  Metro Area _Hash_
     
     {
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2011-06-24T03:23:57Z",
       "id": 105,
       "latitude": 37.7771,
@@ -1329,7 +1335,7 @@ Returns:  _Array_ of Metro Areas _Hash_
         "name_modified": "false",
         "venue": {
           "address2":null,"city":"San Francisco",
-          "country":"US",
+          "country_code":"US",
           "created_at":"2008-04-28T18:13:50Z",
           "facebook_url":"http://www.facebook.com/theendup",
           "hide_resale_tickets":false,
@@ -1638,7 +1644,7 @@ Fields:
 - **address1**                _string_    First address field for the Venue
 - **address2**                _string_    Second address field for the Venue
 - **city**                    _string_    City the Venue is in
-- **country**                 _string_    Country the Venue is in
+- **country\_code**           _string_    Country the Venue is in
 - **created\_at**             _string_    ISO 8601 representation the time this object was created
 - **id**                      _integer_   Thrillcall ID
 - **latitude**                _float_     Approximate Latitude for the Venue
@@ -1680,7 +1686,7 @@ Returns:  _Array_ of Venues _Hash_
         "address1": null,
         "address2": null,
         "city": "Guadalajara",
-        "country": "MX",
+        "country_code": "MX",
         "created_at": "2008-05-09T09:29:23Z",
         "facebook_url": null,
         "hide_resale_tickets": false,
@@ -1723,20 +1729,20 @@ Params:
 - **[city](#city)**
 - **[state](#state)**
 - **[postalcode](#postalcode)**
-- **[country](#country)**
+- **[country_code](#country_code)**
 - **[facebook_url](#facebook_url)**
 - **[official_url](#official_url)**
 
 Returns:  Venue _Hash_
 
 ``` js
-    // Example: POST /api/v3/venue?name=Test%20Venue&city=Guerneville&state=CA&country=US&address1=123%20Main%20St&postalcode=95446&api_key=1234567890abcdef
+    // Example: POST /api/v3/venue?name=Test%20Venue&city=Guerneville&state=CA&country_code=US&address1=123%20Main%20St&postalcode=95446&api_key=1234567890abcdef
     
     {
       "address1": "123 Main St",
       "address2": null,
       "city": "Guerneville",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2012-08-14T00:15:23Z",
       "facebook_url": null,
       "hide_resale_tickets": false,
@@ -1781,7 +1787,7 @@ Returns:  Venue _Hash_
       "address1": "201 Van Ness Avenue",
       "address2": null,
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2008-04-28T17:59:32Z",
       "facebook_url": "http://www.facebook.com/sfsymphony",
       "hide_resale_tickets": false,
@@ -1819,7 +1825,7 @@ Params:
 - **[city](#city)**
 - **[state](#state)**
 - **[postalcode](#postalcode)**
-- **[country](#country)**
+- **[country_code](#country_code)**
 - **[facebook_url](#facebook_url)**
 - **[official_url](#official_url)**
 
@@ -1832,7 +1838,7 @@ Returns:  Venue _Hash_
       "address1": "202 Van Ness Avenue",
       "address2": null,
       "city": "San Francisco",
-      "country": "US",
+      "country_code": "US",
       "created_at": "2008-04-28T17:59:32Z",
       "facebook_url": "http://www.facebook.com/sfsymphony",
       "hide_resale_tickets": false,
@@ -1914,7 +1920,7 @@ Returns:  _Array_ of Events _Hash_
           "address1": "1111 California Street",
           "address2": null,
           "city": "San Francisco",
-          "country": "US",
+          "country_code": "US",
           "created_at": "2009-08-25T19:25:27Z",
           "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
           "hide_resale_tickets": false,
@@ -1980,7 +1986,7 @@ Returns:  _Array_ of Venues _Hash_
         "address1": "525 W Riverview Ave",
         "address2": null,
         "city": "Dayton",
-        "country": "US",
+        "country_code": "US",
         "created_at": "2008-06-12T14:12:53Z",
         "facebook_url": null,
         "hide_resale_tickets": false,
