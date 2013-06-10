@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    thrillcall-api (0.0.7)
+    thrillcall-api (0.1.0)
       faraday (~> 0.8.7)
       retriable (~> 1.3.3)
 
