@@ -214,8 +214,6 @@ describe "ThrillcallAPI" do
   end
 
   it "should be able to retrieve the permissions for the api key" do
-    puts "do it..."
-    sleep 4
     tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST)
     tc_permissions = tc.api_key.permissions
     tc_permissions.length
