@@ -48,22 +48,22 @@ PERSON_KNOWN_ID           = ENV["TC_#{env_prefix}_KNOWN_ID"]
 PERSON_KNOWN_UID          = ENV["TC_#{env_prefix}_KNOWN_UID"]
 PERSON_KNOWN_TOKEN        = ENV["TC_#{env_prefix}_KNOWN_TOKEN"]
 PERSON_KNOWN_EMAIL        = ENV["TC_#{env_prefix}_KNOWN_EMAIL"]
-PERSON_UNKNOWN_UID        = ENV["TC_#{env_prefix}_UNKNOWN_UID"]
-PERSON_UNKNOWN_TOKEN      = ENV["TC_#{env_prefix}_UNKNOWN_TOKEN"]
-PERSON_UNKNOWN_EMAIL      = ENV["TC_#{env_prefix}_UNKNOWN_EMAIL"]
+PERSON_UNKNOWN_UID        = rand(100000).to_s + "_" + ENV["TC_#{env_prefix}_UNKNOWN_UID"]
+PERSON_UNKNOWN_TOKEN      = rand(100000).to_s + "_" + ENV["TC_#{env_prefix}_UNKNOWN_TOKEN"]
+PERSON_UNKNOWN_EMAIL      = rand(100000).to_s + "_" + ENV["TC_#{env_prefix}_UNKNOWN_EMAIL"]
 
 puts "Thrillcall API Gem Test running with these environment settings:"
 puts "Environment           = #{env_prefix}"
 puts "TEST_KEY              = #{ENV["TC_#{env_prefix}_API_KEY"]      }"
 puts "PERSON_EMAIL          = #{ENV["TC_#{env_prefix}_EMAIL"]        }"
 puts "PERSON_PASSWORD       = #{ENV["TC_#{env_prefix}_PASSWORD"]     }"
-puts "PERSON_KNOWN_ID       = #{ENV["TC_#{env_prefix}_KNOWN_ID"]     }"
-puts "PERSON_KNOWN_UID      = #{ENV["TC_#{env_prefix}_KNOWN_UID"]    }"
-puts "PERSON_KNOWN_TOKEN    = #{ENV["TC_#{env_prefix}_KNOWN_TOKEN"]  }"
-puts "PERSON_KNOWN_EMAIL    = #{ENV["TC_#{env_prefix}_KNOWN_EMAIL"]  }"
-puts "PERSON_UNKNOWN_UID    = #{ENV["TC_#{env_prefix}_UNKNOWN_UID"]  }"
-puts "PERSON_UNKNOWN_TOKEN  = #{ENV["TC_#{env_prefix}_UNKNOWN_TOKEN"]}"
-puts "PERSON_UNKNOWN_EMAIL  = #{ENV["TC_#{env_prefix}_UNKNOWN_EMAIL"]}"
+puts "PERSON_KNOWN_ID       = #{PERSON_KNOWN_ID     }"
+puts "PERSON_KNOWN_UID      = #{PERSON_KNOWN_UID    }"
+puts "PERSON_KNOWN_TOKEN    = #{PERSON_KNOWN_TOKEN  }"
+puts "PERSON_KNOWN_EMAIL    = #{PERSON_KNOWN_EMAIL  }"
+puts "PERSON_UNKNOWN_UID    = #{PERSON_UNKNOWN_UID  }"
+puts "PERSON_UNKNOWN_TOKEN  = #{PERSON_UNKNOWN_TOKEN}"
+puts "PERSON_UNKNOWN_EMAIL  = #{PERSON_UNKNOWN_EMAIL}"
 
 HOST                      = "http://localhost:3000/api/"                    if TEST_ENV == :development
 HOST                      = "https://secure-zion.thrillcall.com:443/api/"   if TEST_ENV == :staging        # SSL!
@@ -619,7 +619,7 @@ describe "ThrillcallAPI" do
 
     context "searching for an object with a term" do
       it "should find the right artists" do
-        a = @tc.search.artists(@artist_norm_name)
+        a = @tc.search.artists(@artist_norm_name, :sort => "upcoming_events_count", :order => "DESC")
         found = false
         a.each do |artist|
           if artist["id"] == @artist_id

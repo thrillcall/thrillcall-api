@@ -8,7 +8,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.6.2)
+    ZenTest (4.9.2)
     albino (1.3.3)
       posix-spawn (>= 0.3.6)
     autotest (4.4.6)
@@ -46,7 +46,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ZenTest (~> 4.6.2)
+  ZenTest (~> 4.9.2)
   albino (~> 1.3.3)
   autotest (~> 4.4.6)
   autotest-fsevent (~> 0.2.8)
