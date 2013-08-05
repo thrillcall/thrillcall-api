@@ -699,6 +699,7 @@ Returns:  _Array_ of Events _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -735,7 +736,8 @@ Returns:  _Array_ of Events _Hash_
             "name": "Il Volo",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {}
       },
       {
         ...
@@ -810,6 +812,7 @@ Fields:
 - **time\_zone**                  _string_  TZ Database string representing the time zone at the location of the event
 - **unconfirmed\_location**       _integer_ If 1, the location of this event is unconfirmed
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
+- **featured_event**              _boolean_ Is this a featured event?
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
 - **artists**                     _array_   An array of hashes, each representing an artist at this event, containing:
@@ -817,6 +820,12 @@ Fields:
   - **name**                        _string_  Artist name
   - **headliner**                   _boolean_ Is this artist a headliner on the bill?
 - **url**                         _string_  URL for this object on Thrillcall
+- **offer_details**                _hash_    A hash of of attributes consisting of offer details about an offer attached to an event, if present
+  - **id**                          _integer_ Offer ID
+  - **title**                       _string_  Offer title
+  - **short_description**           _string_  Short description of the offer
+  - **offer_type**                  _string_  Type of the offer ( contest, standard )
+  - **price_cents**                 _integer_ Price of the offer in cents
 
 
 <a name="content_events_get_events" />
@@ -871,6 +880,7 @@ Returns:  _Array_ of Events _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "true",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -907,7 +917,14 @@ Returns:  _Array_ of Events _Hash_
             "name": "Il Volo",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {
+          "id": 123,
+          "title": "Example Offer",
+          "short_description": "Win tickets for the show!",
+          "offer_type": "contest",
+          "price_cents": 0
+        }
       },
       {
         ...
@@ -951,13 +968,21 @@ Returns:  Event _Hash_
       "time_zone": "America/Los_Angeles",
       "event_status": "confirmed",
       "name_modified": "false",
+      "featured_event": "true",
       "artists": [
         {
           "id": 378465,
           "name": "Il Volo",
           "headliner": false
         }
-      ]
+      ],
+      "offer_details": {
+        "id": 123,
+        "title": "Example Offer",
+        "short_description": "Get tickets for tonight!",
+        "offer_type": "standard",
+        "price_cents": 2000
+      }
     }
 ```
 
@@ -1335,6 +1360,7 @@ Returns:  _Array_ of Metro Areas _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "false",
         "venue": {
           "address2":null,"city":"San Francisco",
           "country_code":"US",
@@ -1367,7 +1393,8 @@ Returns:  _Array_ of Metro Areas _Hash_
             "name": "Kontrol",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {}
       },
       {
         ...
@@ -1745,7 +1772,7 @@ Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked ar
             "headliner": false
           }
         ],
-        "offer_details": []
+        "offer_details": {}
       },
       {
         ...
@@ -1866,7 +1893,7 @@ Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's
           "headliner": false
           }
         ],
-        "offer_details": []
+        "offer_details": {}
       },
       {
         ...
@@ -2155,6 +2182,7 @@ Returns:  _Array_ of Events _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -2191,7 +2219,8 @@ Returns:  _Array_ of Events _Hash_
             "name": "Il Volo",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {}
       },
       {
         ...

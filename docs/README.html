@@ -907,6 +907,7 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
         <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
           <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -943,7 +944,8 @@ Calls for Mappings default to the "partner_id" field.</p>
             <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
             <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
           <span class="p">}</span>
-        <span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1044,6 +1046,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <strong>updated_at</strong>                 <em>string</em>  ISO 8601 representation of last time this object was updated</li>
 <li>
+<strong>featured_event</strong>              <em>boolean</em> Is this a featured event?</li>
+<li>
 <strong>venue_id</strong>                   <em>integer</em> Thrillcall Venue ID</li>
 <li>
 <strong>photos</strong>                      <em>hash</em>    A hash of image urls of the primary photo available for this object in different styles</li>
@@ -1061,6 +1065,22 @@ Calls for Mappings default to the "partner_id" field.</p>
 </li>
 <li>
 <strong>url</strong>                         <em>string</em>  URL for this object on Thrillcall</li>
+<li>
+<strong>offer_details</strong>                <em>hash</em>    A hash of of attributes consisting of offer details about an offer attached to an event, if present
+
+<ul>
+<li>
+<strong>id</strong>                          <em>integer</em> Offer ID</li>
+<li>
+<strong>title</strong>                       <em>string</em>  Offer title</li>
+<li>
+<strong>short_description</strong>           <em>string</em>  Short description of the offer</li>
+<li>
+<strong>offer_type</strong>                  <em>string</em>  Type of the offer ( contest, standard )</li>
+<li>
+<strong>price_cents</strong>                 <em>integer</em> Price of the offer in cents</li>
+</ul>
+</li>
 </ul>
 
 <p><a name="content_events_get_events"></a></p>
@@ -1119,6 +1139,7 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
         <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"true"</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
           <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -1155,7 +1176,14 @@ Calls for Mappings default to the "partner_id" field.</p>
             <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
             <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
           <span class="p">}</span>
-        <span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">123</span><span class="p">,</span>
+          <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"Example Offer"</span><span class="p">,</span>
+          <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Win tickets for the show!"</span><span class="p">,</span>
+          <span class="s2">"offer_type"</span><span class="o">:</span> <span class="s2">"contest"</span><span class="p">,</span>
+          <span class="s2">"price_cents"</span><span class="o">:</span> <span class="mi">0</span>
+        <span class="p">}</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -1205,13 +1233,21 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
       <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
       <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+      <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"true"</span><span class="p">,</span>
       <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
           <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
           <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
           <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
         <span class="p">}</span>
-      <span class="p">]</span>
+      <span class="p">],</span>
+      <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">123</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"Example Offer"</span><span class="p">,</span>
+        <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Get tickets for tonight!"</span><span class="p">,</span>
+        <span class="s2">"offer_type"</span><span class="o">:</span> <span class="s2">"standard"</span><span class="p">,</span>
+        <span class="s2">"price_cents"</span><span class="o">:</span> <span class="mi">2000</span>
+      <span class="p">}</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1668,6 +1704,7 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
         <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address2"</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"city"</span><span class="o">:</span><span class="s2">"San Francisco"</span><span class="p">,</span>
           <span class="s2">"country_code"</span><span class="o">:</span><span class="s2">"US"</span><span class="p">,</span>
@@ -1700,7 +1737,8 @@ Calls for Mappings default to the "partner_id" field.</p>
             <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Kontrol"</span><span class="p">,</span>
             <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
           <span class="p">}</span>
-        <span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -2144,7 +2182,7 @@ Calls for Mappings default to the "partner_id" field.</p>
             <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
           <span class="p">}</span>
         <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -2271,7 +2309,7 @@ Calls for Mappings default to the "partner_id" field.</p>
           <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
           <span class="p">}</span>
         <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">[]</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
@@ -2610,6 +2648,7 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
         <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
           <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -2646,7 +2685,8 @@ Calls for Mappings default to the "partner_id" field.</p>
             <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
             <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
           <span class="p">}</span>
-        <span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="p">...</span>
