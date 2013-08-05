@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 require 'spec_helper'
 require 'thrillcall-api'
 require 'ap'
@@ -93,11 +95,11 @@ describe "ThrillcallAPI" do
 
   def setup_key
     @tc = ThrillcallAPI.new(TEST_KEY, :base_url => HOST)
-    
+
     @tc_permissions = @tc.api_key.permissions
     @tc_permissions.length
     @tc_permissions = @tc_permissions.data
-    
+
     # api_auth permission allows you to access the Person endpoints.
     # api_read permission allows you to access all other endpoints.
     puts "Available permissions: #{@tc_permissions}"
@@ -926,6 +928,20 @@ describe "ThrillcallAPI" do
         }.should_not raise_error
       end
 
+      context "access recommended events from person endpoint" do
+        it "should retrive person's recommended_events" do
+          lambda {
+            e = @tc.person(PERSON_KNOWN_ID).recommended_events
+          }.should_not raise_error
+        end
+
+        it "should retrive person's discover_events" do
+          lambda {
+            e = @tc.person(PERSON_KNOWN_ID).discover_events
+          }.should_not raise_error
+        end
+      end
+
       context "autoregistration for unknown provider/uid" do
         it "should be able to create a person using location name" do
           params = {
@@ -945,7 +961,7 @@ describe "ThrillcallAPI" do
 
           p["first_name"].should == PERSON_CREATE_FIRSTNAME
         end
-        
+
         it "should be able to create a person using (lat, long) for location" do
           params = {
             :provider       => PERSON_PROVIDER,

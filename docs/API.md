@@ -31,6 +31,8 @@
   - **[GET /people/tracking/:class](#content_person_get_people_tracking_class)**
   - **[GET /person/:id/:class](#content_person_get_person_id_class)**
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
+  - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
+  - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
 - **[Venues](#content_venues)**
   - **[GET /venues](#content_venues_get_venues)**
   - **[POST /venue](#content_venues_post_venue)**
@@ -1501,6 +1503,243 @@ Returns: Hash of **:class** tracked IDs mapped for this person after performing 
       "44": "Paco Osuna",
       "45": "Wanamaker"
     }
+```
+
+<a name="content_person_get_person_id_recommended_events" />
+### GET /person/:id/recommended_events
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+- **[time\_zone](#time_zone)**
+- **[min\_date](#min_date)**
+- **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
+- **[lat](#lat)**
+- **[long](#long)**
+- **[postalcode](#postalcode)**
+- **[radius](#radius)**
+- **[ticket\_type](#ticket_type)**
+- **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
+- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
+- **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
+
+Note:  Postal code is set to person's zip code and radius is set to person's preferred radius by default.
+
+Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked artists is performing in an event
+
+``` js
+    // Example: GET /api/v3/person/24/recommended_events?api_key=1234567890abcdef
+
+    [
+      {
+        "id": 1291050,
+        "name": "T.I., Lil Wayne, 2 Chainz @ Sleep Train Pavilion At Concord",
+        "venue_id": 323,
+        "created_at": "2013-03-25T20:42:16Z",
+        "updated_at": "2013-06-12T22:20:41Z",
+        "festival": false,
+        "rumor": false,
+        "unconfirmed_location": 0,
+        "latitude": 37.9604,
+        "longitude": -121.94,
+        "starts_at": "2013-08-31T02:30:00Z",
+        "starts_at_time_trusted": true,
+        "skip_event_conflict_validation": false,
+        "distance": 30.608671818601927,
+        "bearing": "68.0",
+        "photos": {
+          "thumbnail": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-thumbnail.jpg?1324556348",
+          "large": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-large.jpg?1324556348",
+          "mobile": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-mobile.jpg?1324556348"
+        },
+        "url": "http://thrillcall.com/event/1291050",
+        "starts_at_local": "2013-08-30T19:30:00-07:00",
+        "time_zone": "America/Los_Angeles",
+        "event_status": "confirmed",
+        "name_modified": "false",
+        "featured_event": "false",
+        "venue": {
+          "id": 323,
+          "name": "Sleep Train Pavilion At Concord",
+          "address1": "2000 Kirker Pass Road",
+          "address2": null,
+          "city": "Concord",
+          "state": "CA",
+          "official_url": null,
+          "created_at": "2008-04-21T16:52:53Z",
+          "updated_at": "2013-06-24T09:00:13Z",
+          "latitude": 37.960354,
+          "longitude": -121.939659,
+          "country_code": "US",
+          "myspace_url": null,
+          "upcoming_events_count": 4,
+          "facebook_url": "http://www.facebook.com/pages/Sleep-Train-Pavilion/116238125066831",
+          "long_description": null,
+          "phone_number": "+1 (925) 676-8742",
+          "time_zone": "America/Los_Angeles",
+          "hide_resale_tickets": false,
+          "postalcode": "94521",
+          "photos": {
+            "thumbnail": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-thumbnail.jpg?1336436387",
+            "medium": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-medium.jpg?1336436387",
+            "large": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-large.jpg?1336436387",
+            "mobile": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-mobile.jpg?1336436387"
+          },
+          "metro_area_id": 105,
+          "url": "http://thrillcall.com/venue/Sleep_Train_Pavilion_At_Concord_in_Concord_CA"
+        },
+        "artists": [
+          {
+            "id": 34156,
+            "name": "Lil Wayne",
+            "headliner": true
+          },
+          {
+            "id": 28490,
+            "name": "T.I.",
+            "headliner": false
+          },
+          {
+            "id": 387608,
+            "name": "2 Chainz",
+            "headliner": false
+          }
+        ],
+        "offer_details": []
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
+<a name="content_person_get_person_id_discover_events" />
+### GET /person/:id/discover_events
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+- **[time\_zone](#time_zone)**
+- **[min\_date](#min_date)**
+- **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
+- **[lat](#lat)**
+- **[long](#long)**
+- **[postalcode](#postalcode)**
+- **[radius](#radius)**
+- **[ticket\_type](#ticket_type)**
+- **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
+- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
+- **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
+
+Note:  Postal code is set to person's zip code and radius is set to person's preferred radius by default.
+
+Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's tracked artists is performing in an event
+
+``` js
+    // Example: GET /api/v3/person/24/discover_events?api_key=1234567890abcdef
+
+    [
+      {
+        "id": 1308413,
+        "name": "My Morning Jacket, Wilco, Bob Dylan, Ryan Bingham @ Shoreline Amphitheatre at Mountain View",
+        "venue_id": 29474,
+        "created_at": "2013-04-22T20:54:34Z",
+        "updated_at": "2013-05-11T03:22:49Z",
+        "festival": false,
+        "rumor": false,
+        "unconfirmed_location": 0,
+        "latitude": 37.4234,
+        "longitude": -122.078,
+        "starts_at": "2013-08-05T00:30:00Z",
+        "starts_at_time_trusted": true,
+        "skip_event_conflict_validation": false,
+        "distance": 30.458803738929397,
+        "bearing": "133.0",
+        "photos": {
+          "thumbnail": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-thumbnail.jpg?1324556491",
+          "large": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-large.jpg?1324556491",
+          "mobile": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-mobile.jpg?1324556491"
+        },
+        "url": "http://thrillcall.com/event/1308413",
+        "starts_at_local": "2013-08-04T17:30:00-07:00",
+        "time_zone": "America/Los_Angeles",
+        "event_status": "confirmed",
+        "name_modified": "false",
+        "featured_event": "false",
+        "venue": {
+          "id": 29474,
+          "name": "Shoreline Amphitheatre at Mountain View",
+          "address1": "One Amphitheatre Parkway",
+          "address2": null,
+          "city": "Mountain View",
+          "state": "CA",
+          "official_url": "http://www.livenation.com/Shoreline-Amphitheatre-tickets-Mountain-View/venue/229414",
+          "created_at": "2008-04-21T16:52:54Z",
+          "updated_at": "2013-08-04T04:48:04Z",
+          "latitude": 37.4234,
+          "longitude": -122.078124,
+          "country_code": "US",
+          "myspace_url": null,
+          "upcoming_events_count": 25,
+          "facebook_url": "http://www.facebook.com/ShorelineAmphitheatre?sk=info",
+          "long_description": null,
+          "phone_number": "+1 (650) 967-3000",
+          "time_zone": "America/Los_Angeles",
+          "hide_resale_tickets": false,
+          "postalcode": "94043",
+          "photos": {
+            "thumbnail": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-thumbnail.jpg?1327616683",
+            "medium": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-medium.jpg?1327616683",
+            "large": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-large.jpg?1327616683",
+            "mobile": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-mobile.jpg?1327616683"
+          },
+          "metro_area_id": 141,
+          "url": "http://thrillcall.com/venue/Shoreline_Amphitheatre_at_Mountain_View_in_Mountain_View_CA"
+        },
+        "artists": [
+          {
+          "id": 28246,
+          "name": "Bob Dylan",
+          "headliner": true
+          },
+          {
+          "id": 16250,
+          "name": "Wilco",
+          "headliner": false
+          },
+          {
+          "id": 9271,
+          "name": "My Morning Jacket",
+          "headliner": false
+          },
+          {
+          "id": 53718,
+          "name": "Ryan Bingham",
+          "headliner": false
+          }
+        ],
+        "offer_details": []
+      },
+      {
+        ...
+      },
+      ...
+    ]
 ```
 
 

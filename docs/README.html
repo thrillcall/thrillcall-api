@@ -256,6 +256,8 @@
 <li><strong><a href="#content_person_get_people_tracking_class">GET /people/tracking/:class</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_class">GET /person/:id/:class</a></strong></li>
 <li><strong><a href="#content_person_post_person_id_action_class">POST /person/:id/:action/:class</a></strong></li>
+<li><strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong></li>
+<li><strong><a href="#content_person_get_person_id_discover_events">GET /person/:id/discover_events</a></strong></li>
 </ul>
 </li>
 <li>
@@ -2027,6 +2029,255 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"44"</span><span class="o">:</span> <span class="s2">"Paco Osuna"</span><span class="p">,</span>
       <span class="s2">"45"</span><span class="o">:</span> <span class="s2">"Wanamaker"</span>
     <span class="p">}</span>
+</pre>
+</div>
+
+
+<p><a name="content_person_get_person_id_recommended_events"></a></p>
+
+<h3>GET /person/:id/recommended_events</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#time_zone">time_zone</a></strong></li>
+<li><strong><a href="#min_date">min_date</a></strong></li>
+<li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
+<li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
+<li><strong><a href="#lat">lat</a></strong></li>
+<li><strong><a href="#long">long</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
+<li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
+<li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#sort">sort</a></strong></li>
+<li><strong><a href="#order">order</a></strong></li>
+</ul>
+
+<p>Note:  Postal code is set to person's zip code and radius is set to person's preferred radius by default.</p>
+
+<p>Returns:  <em>Array</em> of Events <em>Hash</em> where at least one of the person's tracked artists is performing in an event</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v3/person/24/recommended_events?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1291050</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"T.I., Lil Wayne, 2 Chainz @ Sleep Train Pavilion At Concord"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">323</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2013-03-25T20:42:16Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-06-12T22:20:41Z"</span><span class="p">,</span>
+        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.9604</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">121.94</span><span class="p">,</span>
+        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2013-08-31T02:30:00Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"skip_event_conflict_validation"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"distance"</span><span class="o">:</span> <span class="mf">30.608671818601927</span><span class="p">,</span>
+        <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"68.0"</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-thumbnail.jpg?1324556348"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-large.jpg?1324556348"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-mobile.jpg?1324556348"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1291050"</span><span class="p">,</span>
+        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-08-30T19:30:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">323</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Sleep Train Pavilion At Concord"</span><span class="p">,</span>
+          <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"2000 Kirker Pass Road"</span><span class="p">,</span>
+          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Concord"</span><span class="p">,</span>
+          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+          <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:53Z"</span><span class="p">,</span>
+          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-06-24T09:00:13Z"</span><span class="p">,</span>
+          <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.960354</span><span class="p">,</span>
+          <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">121.939659</span><span class="p">,</span>
+          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+          <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+          <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Sleep-Train-Pavilion/116238125066831"</span><span class="p">,</span>
+          <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (925) 676-8742"</span><span class="p">,</span>
+          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94521"</span><span class="p">,</span>
+          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-thumbnail.jpg?1336436387"</span><span class="p">,</span>
+            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-medium.jpg?1336436387"</span><span class="p">,</span>
+            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-large.jpg?1336436387"</span><span class="p">,</span>
+            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-mobile.jpg?1336436387"</span>
+          <span class="p">},</span>
+          <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
+          <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Sleep_Train_Pavilion_At_Concord_in_Concord_CA"</span>
+        <span class="p">},</span>
+        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">34156</span><span class="p">,</span>
+            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Lil Wayne"</span><span class="p">,</span>
+            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">true</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">28490</span><span class="p">,</span>
+            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"T.I."</span><span class="p">,</span>
+            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">387608</span><span class="p">,</span>
+            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"2 Chainz"</span><span class="p">,</span>
+            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">[]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<p><a name="content_person_get_person_id_discover_events"></a></p>
+
+<h3>GET /person/:id/discover_events</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#time_zone">time_zone</a></strong></li>
+<li><strong><a href="#min_date">min_date</a></strong></li>
+<li><strong><a href="#max_date">max_date</a></strong></li>
+<li><strong><a href="#min_updated_at">min_updated_at</a></strong></li>
+<li><strong><a href="#max_updated_at">max_updated_at</a></strong></li>
+<li><strong><a href="#lat">lat</a></strong></li>
+<li><strong><a href="#long">long</a></strong></li>
+<li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+<li><strong><a href="#ticket_type">ticket_type</a></strong></li>
+<li><strong><a href="#must_have_tickets">must_have_tickets</a></strong></li>
+<li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
+<li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
+<li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#sort">sort</a></strong></li>
+<li><strong><a href="#order">order</a></strong></li>
+</ul>
+
+<p>Note:  Postal code is set to person's zip code and radius is set to person's preferred radius by default.</p>
+
+<p>Returns:  <em>Array</em> of Events <em>Hash</em> where a similar artist to one of the person's tracked artists is performing in an event</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v3/person/24/discover_events?api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1308413</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"My Morning Jacket, Wilco, Bob Dylan, Ryan Bingham @ Shoreline Amphitheatre at Mountain View"</span><span class="p">,</span>
+        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">29474</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2013-04-22T20:54:34Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-05-11T03:22:49Z"</span><span class="p">,</span>
+        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.4234</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.078</span><span class="p">,</span>
+        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2013-08-05T00:30:00Z"</span><span class="p">,</span>
+        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"skip_event_conflict_validation"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"distance"</span><span class="o">:</span> <span class="mf">30.458803738929397</span><span class="p">,</span>
+        <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"133.0"</span><span class="p">,</span>
+        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-thumbnail.jpg?1324556491"</span><span class="p">,</span>
+          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-large.jpg?1324556491"</span><span class="p">,</span>
+          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-mobile.jpg?1324556491"</span>
+        <span class="p">},</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1308413"</span><span class="p">,</span>
+        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-08-04T17:30:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">29474</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Shoreline Amphitheatre at Mountain View"</span><span class="p">,</span>
+          <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"One Amphitheatre Parkway"</span><span class="p">,</span>
+          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Mountain View"</span><span class="p">,</span>
+          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+          <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.livenation.com/Shoreline-Amphitheatre-tickets-Mountain-View/venue/229414"</span><span class="p">,</span>
+          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:54Z"</span><span class="p">,</span>
+          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-08-04T04:48:04Z"</span><span class="p">,</span>
+          <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.4234</span><span class="p">,</span>
+          <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.078124</span><span class="p">,</span>
+          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+          <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">25</span><span class="p">,</span>
+          <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/ShorelineAmphitheatre?sk=info"</span><span class="p">,</span>
+          <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (650) 967-3000"</span><span class="p">,</span>
+          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94043"</span><span class="p">,</span>
+          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-thumbnail.jpg?1327616683"</span><span class="p">,</span>
+            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-medium.jpg?1327616683"</span><span class="p">,</span>
+            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-large.jpg?1327616683"</span><span class="p">,</span>
+            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-mobile.jpg?1327616683"</span>
+          <span class="p">},</span>
+          <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">141</span><span class="p">,</span>
+          <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Shoreline_Amphitheatre_at_Mountain_View_in_Mountain_View_CA"</span>
+        <span class="p">},</span>
+        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">28246</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Bob Dylan"</span><span class="p">,</span>
+          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">true</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">16250</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Wilco"</span><span class="p">,</span>
+          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">9271</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"My Morning Jacket"</span><span class="p">,</span>
+          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">53718</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Ryan Bingham"</span><span class="p">,</span>
+          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
+          <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">[]</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
 </pre>
 </div>
 
