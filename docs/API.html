@@ -324,7 +324,16 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <li>
 <p><a name="password"></a><strong>password</strong> <em>string (format: 40 &gt;= length &gt;= 5)</em></p>
 
-<p>The Person's password.  Must be supplied along with <strong><a href="#email">email</a></strong> unless using <strong><a href="#provider">provider</a></strong> / <strong><a href="#uid">uid</a></strong> / <strong><a href="#token">token</a></strong> auth.</p>
+<p>The Person's password.</p>
+
+<p>When creating a Person, this must be supplied along with <strong><a href="#email">email</a></strong> unless using <strong><a href="#provider">provider</a></strong> / <strong><a href="#uid">uid</a></strong> / <strong><a href="#token">token</a></strong> auth.</p>
+
+<p>When updating a Person, this will change the Person's password.  It must be supplied along with <strong><a href="#old_password">old_password</a></strong>.</p>
+</li>
+<li>
+<p><a name="old_password"></a><strong>old_password</strong> <em>string (format: 40 &gt;= length &gt;= 5)</em></p>
+
+<p>The Person's current password, supplied along with <strong><a href="#password">password</a></strong> to update a Person's password.</p>
 </li>
 <li>
 <p><a name="provider"></a><strong>provider</strong> <em>string</em></p>
@@ -1645,6 +1654,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <strong>postalcode</strong>              <em>string</em>    Postalcode of the Person</li>
 <li>
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
+<li>
+<strong>preferred_radius</strong>       <em>float</em>     Preference for radius in miles from the Person to search for events for that Person</li>
 </ul>
 
 <p><a name="content_person_get_person_id"></a></p>
@@ -1684,7 +1695,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
         <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
-      <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1740,7 +1752,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
         <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-medium.jpg"</span>
-      <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1760,6 +1773,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#password">password</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
 <li><strong><a href="#referral_code">referral_code</a></strong></li>
+<li><strong><a href="#preferred_radius">preferred_radius</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>
@@ -1788,7 +1802,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
         <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-medium.jpg"</span>
-      <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
     <span class="p">}</span>
 </pre>
 </div>
@@ -1810,6 +1825,9 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#state">state</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
 <li><strong><a href="#gender">gender</a></strong></li>
+<li><strong><a href="#password">password</a></strong></li>
+<li><strong><a href="#old_password">old_password</a></strong></li>
+<li><strong><a href="#preferred_radius">preferred_radius</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>
@@ -1839,7 +1857,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
         <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
         <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
-      <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
     <span class="p">}</span>
 </pre>
 </div>

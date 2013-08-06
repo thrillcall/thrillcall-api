@@ -191,7 +191,15 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="password" />**password** _string (format: 40 >= length >= 5)_
 
-    The Person's password.  Must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
+    The Person's password.
+
+    When creating a Person, this must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
+
+    When updating a Person, this will change the Person's password.  It must be supplied along with **[old\_password](#old_password)**.
+
+- <a name="old_password" />**old\_password** _string (format: 40 >= length >= 5)_
+
+    The Person's current password, supplied along with **[password](#password)** to update a Person's password.
 
 - <a name="provider" />**provider** _string_
 
@@ -1287,6 +1295,7 @@ Fields:
 - **referral\_credits**       _integer_   Number of Referral credits the Person has (including bonus points)
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
+- **preferred\_radius**       _float_     Preference for radius in miles from the Person to search for events for that Person
 
 <a name="content_person_get_person_id" />
 ### GET /person/:id
@@ -1321,7 +1330,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
         "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
         "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
@@ -1371,7 +1381,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
         "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
         "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
@@ -1386,6 +1397,7 @@ Params:
 - **[password](#password)**
 - **[postalcode](#postalcode)**
 - **[referral\_code](#referral_code)**
+- **[preferred\_radius](#preferred_radius)**
 
 Returns: Person _Hash_
 
@@ -1413,7 +1425,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
         "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
         "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
@@ -1430,6 +1443,9 @@ Params:
 - **[state](#state)**
 - **[postalcode](#postalcode)**
 - **[gender](#gender)**
+- **[password](#password)**
+- **[old\_password](#old_password)**
+- **[preferred\_radius](#preferred_radius)**
 
 Returns: Person _Hash_
 
@@ -1458,7 +1474,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
         "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
         "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
