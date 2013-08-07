@@ -31,6 +31,8 @@
   - **[GET /people/tracking/:class](#content_person_get_people_tracking_class)**
   - **[GET /person/:id/:class](#content_person_get_person_id_class)**
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
+  - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
+  - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
 - **[Venues](#content_venues)**
   - **[GET /venues](#content_venues_get_venues)**
   - **[POST /venue](#content_venues_post_venue)**
@@ -145,7 +147,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     _Default: 100.0_
 
-    Used in conjunction with **[postalcode](#postalcode)**
+    Used in conjunction with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)**
 
 - <a name="ticket_type" />**ticket\_type** _string (format: "primary" or "resale")_
 
@@ -189,7 +191,15 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="password" />**password** _string (format: 40 >= length >= 5)_
 
-    The Person's password.  Must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
+    The Person's password.
+
+    When creating a Person, this must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
+
+    When updating a Person, this will change the Person's password.  It must be supplied along with **[old\_password](#old_password)**.
+
+- <a name="old_password" />**old\_password** _string (format: 40 >= length >= 5)_
+
+    The Person's current password, supplied along with **[password](#password)** to update a Person's password.
 
 - <a name="provider" />**provider** _string_
 
@@ -248,6 +258,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="referral_code" />**referral\_code** _string_
 
     The referral code to be used during registration.  Both the owner of the code as well as the new Person will receive a referral credit point.
+
+- <a name="preferred_radius" />**preferred\_radius** _float_
+
+    _Default: 100.0_
+
+    Person's search radius preference, used as a default for Person endpoints such as **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**.
 
 - <a name="name" />**name** _string_
 
@@ -564,6 +580,7 @@ Returns:  _Array_ of Events _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -600,7 +617,8 @@ Returns:  _Array_ of Events _Hash_
             "name": "Il Volo",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {}
       },
       {
         ...
@@ -675,6 +693,7 @@ Fields:
 - **time\_zone**                  _string_  TZ Database string representing the time zone at the location of the event
 - **unconfirmed\_location**       _integer_ If 1, the location of this event is unconfirmed
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
+- **featured_event**              _boolean_ Is this a featured event?
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
 - **artists**                     _array_   An array of hashes, each representing an artist at this event, containing:
@@ -682,6 +701,12 @@ Fields:
   - **name**                        _string_  Artist name
   - **headliner**                   _boolean_ Is this artist a headliner on the bill?
 - **url**                         _string_  URL for this object on Thrillcall
+- **offer_details**                _hash_    A hash of of attributes consisting of offer details about an offer attached to an event, if present
+  - **id**                          _integer_ Offer ID
+  - **title**                       _string_  Offer title
+  - **short_description**           _string_  Short description of the offer
+  - **offer_type**                  _string_  Type of the offer ( contest, standard )
+  - **price_cents**                 _integer_ Price of the offer in cents
 
 
 <a name="content_events_get_events" />
@@ -736,6 +761,7 @@ Returns:  _Array_ of Events _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "true",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -772,7 +798,14 @@ Returns:  _Array_ of Events _Hash_
             "name": "Il Volo",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {
+          "id": 123,
+          "title": "Example Offer",
+          "short_description": "Win tickets for the show!",
+          "offer_type": "contest",
+          "price_cents": 0
+        }
       },
       {
         ...
@@ -816,13 +849,21 @@ Returns:  Event _Hash_
       "time_zone": "America/Los_Angeles",
       "event_status": "confirmed",
       "name_modified": "false",
+      "featured_event": "true",
       "artists": [
         {
           "id": 378465,
           "name": "Il Volo",
           "headliner": false
         }
-      ]
+      ],
+      "offer_details": {
+        "id": 123,
+        "title": "Example Offer",
+        "short_description": "Get tickets for tonight!",
+        "offer_type": "standard",
+        "price_cents": 2000
+      }
     }
 ```
 
@@ -1200,6 +1241,7 @@ Returns:  _Array_ of Metro Areas _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "false",
         "venue": {
           "address2":null,"city":"San Francisco",
           "country_code":"US",
@@ -1232,7 +1274,8 @@ Returns:  _Array_ of Metro Areas _Hash_
             "name": "Kontrol",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {}
       },
       {
         ...
@@ -1258,6 +1301,7 @@ Fields:
 - **referral\_credits**       _integer_   Number of Referral credits the Person has (including bonus points)
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
+- **preferred\_radius**       _float_     Preference for radius in miles from the Person to search for events for that Person
 
 <a name="content_person_get_person_id" />
 ### GET /person/:id
@@ -1292,7 +1336,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
         "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
         "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
@@ -1342,7 +1387,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
         "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
         "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
@@ -1357,6 +1403,7 @@ Params:
 - **[password](#password)**
 - **[postalcode](#postalcode)**
 - **[referral\_code](#referral_code)**
+- **[preferred\_radius](#preferred_radius)**
 
 Returns: Person _Hash_
 
@@ -1384,7 +1431,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
         "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
         "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
@@ -1401,6 +1449,9 @@ Params:
 - **[state](#state)**
 - **[postalcode](#postalcode)**
 - **[gender](#gender)**
+- **[password](#password)**
+- **[old\_password](#old_password)**
+- **[preferred\_radius](#preferred_radius)**
 
 Returns: Person _Hash_
 
@@ -1429,7 +1480,8 @@ Returns: Person _Hash_
         "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
         "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
         "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      }
+      },
+      "preferred_radius": 100.0
     }
 ```
 
@@ -1501,6 +1553,243 @@ Returns: Hash of **:class** tracked IDs mapped for this person after performing 
       "44": "Paco Osuna",
       "45": "Wanamaker"
     }
+```
+
+<a name="content_person_get_person_id_recommended_events" />
+### GET /person/:id/recommended_events
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+- **[time\_zone](#time_zone)**
+- **[min\_date](#min_date)**
+- **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
+- **[lat](#lat)**
+- **[long](#long)**
+- **[postalcode](#postalcode)**
+- **[radius](#radius)**
+- **[ticket\_type](#ticket_type)**
+- **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
+- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
+- **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
+
+Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
+
+Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked artists is performing in an event
+
+``` js
+    // Example: GET /api/v3/person/24/recommended_events?api_key=1234567890abcdef
+
+    [
+      {
+        "id": 1291050,
+        "name": "T.I., Lil Wayne, 2 Chainz @ Sleep Train Pavilion At Concord",
+        "venue_id": 323,
+        "created_at": "2013-03-25T20:42:16Z",
+        "updated_at": "2013-06-12T22:20:41Z",
+        "festival": false,
+        "rumor": false,
+        "unconfirmed_location": 0,
+        "latitude": 37.9604,
+        "longitude": -121.94,
+        "starts_at": "2013-08-31T02:30:00Z",
+        "starts_at_time_trusted": true,
+        "skip_event_conflict_validation": false,
+        "distance": 30.608671818601927,
+        "bearing": "68.0",
+        "photos": {
+          "thumbnail": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-thumbnail.jpg?1324556348",
+          "large": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-large.jpg?1324556348",
+          "mobile": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-mobile.jpg?1324556348"
+        },
+        "url": "http://thrillcall.com/event/1291050",
+        "starts_at_local": "2013-08-30T19:30:00-07:00",
+        "time_zone": "America/Los_Angeles",
+        "event_status": "confirmed",
+        "name_modified": "false",
+        "featured_event": "false",
+        "venue": {
+          "id": 323,
+          "name": "Sleep Train Pavilion At Concord",
+          "address1": "2000 Kirker Pass Road",
+          "address2": null,
+          "city": "Concord",
+          "state": "CA",
+          "official_url": null,
+          "created_at": "2008-04-21T16:52:53Z",
+          "updated_at": "2013-06-24T09:00:13Z",
+          "latitude": 37.960354,
+          "longitude": -121.939659,
+          "country_code": "US",
+          "myspace_url": null,
+          "upcoming_events_count": 4,
+          "facebook_url": "http://www.facebook.com/pages/Sleep-Train-Pavilion/116238125066831",
+          "long_description": null,
+          "phone_number": "+1 (925) 676-8742",
+          "time_zone": "America/Los_Angeles",
+          "hide_resale_tickets": false,
+          "postalcode": "94521",
+          "photos": {
+            "thumbnail": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-thumbnail.jpg?1336436387",
+            "medium": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-medium.jpg?1336436387",
+            "large": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-large.jpg?1336436387",
+            "mobile": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-mobile.jpg?1336436387"
+          },
+          "metro_area_id": 105,
+          "url": "http://thrillcall.com/venue/Sleep_Train_Pavilion_At_Concord_in_Concord_CA"
+        },
+        "artists": [
+          {
+            "id": 34156,
+            "name": "Lil Wayne",
+            "headliner": true
+          },
+          {
+            "id": 28490,
+            "name": "T.I.",
+            "headliner": false
+          },
+          {
+            "id": 387608,
+            "name": "2 Chainz",
+            "headliner": false
+          }
+        ],
+        "offer_details": {}
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
+<a name="content_person_get_person_id_discover_events" />
+### GET /person/:id/discover_events
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- **[limit](#limit)**
+- **[page](#page)**
+- **[time\_zone](#time_zone)**
+- **[min\_date](#min_date)**
+- **[max\_date](#max_date)**
+- **[min\_updated\_at](#min_updated_at)**
+- **[max\_updated\_at](#max_updated_at)**
+- **[lat](#lat)**
+- **[long](#long)**
+- **[postalcode](#postalcode)**
+- **[radius](#radius)**
+- **[ticket\_type](#ticket_type)**
+- **[must\_have\_tickets](#must_have_tickets)**
+- **[show\_disabled\_events](#show_disabled_events)**
+- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
+- **[show\_rumor\_events](#show_rumor_events)**
+- **[sort](#sort)**
+- **[order](#order)**
+
+Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
+
+Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's tracked artists is performing in an event
+
+``` js
+    // Example: GET /api/v3/person/24/discover_events?api_key=1234567890abcdef
+
+    [
+      {
+        "id": 1308413,
+        "name": "My Morning Jacket, Wilco, Bob Dylan, Ryan Bingham @ Shoreline Amphitheatre at Mountain View",
+        "venue_id": 29474,
+        "created_at": "2013-04-22T20:54:34Z",
+        "updated_at": "2013-05-11T03:22:49Z",
+        "festival": false,
+        "rumor": false,
+        "unconfirmed_location": 0,
+        "latitude": 37.4234,
+        "longitude": -122.078,
+        "starts_at": "2013-08-05T00:30:00Z",
+        "starts_at_time_trusted": true,
+        "skip_event_conflict_validation": false,
+        "distance": 30.458803738929397,
+        "bearing": "133.0",
+        "photos": {
+          "thumbnail": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-thumbnail.jpg?1324556491",
+          "large": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-large.jpg?1324556491",
+          "mobile": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-mobile.jpg?1324556491"
+        },
+        "url": "http://thrillcall.com/event/1308413",
+        "starts_at_local": "2013-08-04T17:30:00-07:00",
+        "time_zone": "America/Los_Angeles",
+        "event_status": "confirmed",
+        "name_modified": "false",
+        "featured_event": "false",
+        "venue": {
+          "id": 29474,
+          "name": "Shoreline Amphitheatre at Mountain View",
+          "address1": "One Amphitheatre Parkway",
+          "address2": null,
+          "city": "Mountain View",
+          "state": "CA",
+          "official_url": "http://www.livenation.com/Shoreline-Amphitheatre-tickets-Mountain-View/venue/229414",
+          "created_at": "2008-04-21T16:52:54Z",
+          "updated_at": "2013-08-04T04:48:04Z",
+          "latitude": 37.4234,
+          "longitude": -122.078124,
+          "country_code": "US",
+          "myspace_url": null,
+          "upcoming_events_count": 25,
+          "facebook_url": "http://www.facebook.com/ShorelineAmphitheatre?sk=info",
+          "long_description": null,
+          "phone_number": "+1 (650) 967-3000",
+          "time_zone": "America/Los_Angeles",
+          "hide_resale_tickets": false,
+          "postalcode": "94043",
+          "photos": {
+            "thumbnail": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-thumbnail.jpg?1327616683",
+            "medium": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-medium.jpg?1327616683",
+            "large": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-large.jpg?1327616683",
+            "mobile": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-mobile.jpg?1327616683"
+          },
+          "metro_area_id": 141,
+          "url": "http://thrillcall.com/venue/Shoreline_Amphitheatre_at_Mountain_View_in_Mountain_View_CA"
+        },
+        "artists": [
+          {
+          "id": 28246,
+          "name": "Bob Dylan",
+          "headliner": true
+          },
+          {
+          "id": 16250,
+          "name": "Wilco",
+          "headliner": false
+          },
+          {
+          "id": 9271,
+          "name": "My Morning Jacket",
+          "headliner": false
+          },
+          {
+          "id": 53718,
+          "name": "Ryan Bingham",
+          "headliner": false
+          }
+        ],
+        "offer_details": {}
+      },
+      {
+        ...
+      },
+      ...
+    ]
 ```
 
 
@@ -1783,6 +2072,7 @@ Returns:  _Array_ of Events _Hash_
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": "false",
+        "featured_event": "false",
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -1819,7 +2109,8 @@ Returns:  _Array_ of Events _Hash_
             "name": "Il Volo",
             "headliner": false
           }
-        ]
+        ],
+        "offer_details": {}
       },
       {
         ...
