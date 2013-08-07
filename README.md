@@ -392,6 +392,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     The referral code to be used during registration.  Both the owner of the code as well as the new Person will receive a referral credit point.
 
+- <a name="preferred_radius" />**preferred\_radius** _float_
+
+    _Default: 100.0_
+
+    Person's search radius preference, used as a default for Person endpoints such as **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**.
+
 - <a name="name" />**name** _string_
 
     Name of the Artist or Venue.
@@ -1707,7 +1713,7 @@ Params:
 - **[sort](#sort)**
 - **[order](#order)**
 
-Note:  Postal code is set to person's zip code and radius is set to person's preferred radius by default.
+Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
 
 Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked artists is performing in an event
 
@@ -1823,7 +1829,7 @@ Params:
 - **[sort](#sort)**
 - **[order](#order)**
 
-Note:  Postal code is set to person's zip code and radius is set to person's preferred radius by default.
+Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
 
 Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's tracked artists is performing in an event
 
