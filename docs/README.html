@@ -258,6 +258,7 @@
 <li><strong><a href="#content_person_post_person_id_action_class">POST /person/:id/:action/:class</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_discover_events">GET /person/:id/discover_events</a></strong></li>
+<li><strong><a href="#content_person_get_person_id_friends_events">GET /person/:id/friends_events</a></strong></li>
 </ul>
 </li>
 <li>
@@ -407,7 +408,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 
 <p><em>Default: 100.0</em></p>
 
-<p>Used in conjunction with <strong><a href="#postalcode">postalcode</a></strong></p>
+<p>Used in conjunction with <strong><a href="#lat">lat</a></strong>/<strong><a href="#long">long</a></strong> or <strong><a href="#postalcode">postalcode</a></strong></p>
 </li>
 <li>
 <p><a name="ticket_type"></a><strong>ticket_type</strong> <em>string (format: "primary" or "resale")</em></p>
@@ -2341,6 +2342,65 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="p">...</span>
       <span class="p">},</span>
       <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
+<p><a name="content_person_get_person_id_friends_events"></a></p>
+
+<h3>GET /person/:id/friends_events</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li>None.</li>
+</ul>
+
+<p>Returns: <em>Array</em> of <em>Hashes</em> containing Person <em>Hash</em> keyed on "friend" and <em>Array</em> of Event IDs keyed on "events"</p>
+
+<p>All people in the result set are friends (tracked Person objects) of the Person.</p>
+
+<p>Event IDs are future active events tracked by that friend.</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v3/person/2/artists&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"friend"</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
+          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
+          <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+          <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
+          <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+          <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
+          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+          <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
+          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
+          <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
+          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
+            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
+            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
+          <span class="p">},</span>
+          <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
+        <span class="p">},</span>
+        <span class="s2">"events"</span><span class="o">:</span> <span class="p">[</span>
+          <span class="mi">1308413</span><span class="p">,</span>
+          <span class="p">...</span>
+        <span class="p">],</span>
+        <span class="p">...</span>
+      <span class="p">}</span>
     <span class="p">]</span>
 </pre>
 </div>
