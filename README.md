@@ -1941,7 +1941,7 @@ All people in the result set are friends (tracked Person objects) of the Person.
 Event IDs are future active events tracked by that friend.
 
 ``` js
-    // Example: GET /api/v3/person/2/artists&api_key=1234567890abcdef
+    // Example: GET /api/v3/person/2/friends_events&api_key=1234567890abcdef
 
     [
       {
