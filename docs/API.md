@@ -580,8 +580,8 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -694,6 +694,7 @@ Fields:
 - **time\_zone**                  _string_  TZ Database string representing the time zone at the location of the event
 - **unconfirmed\_location**       _integer_ If 1, the location of this event is unconfirmed
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
+- **name_modified**               _boolean_ Has the event name been modified?
 - **featured_event**              _boolean_ Is this a featured event?
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
@@ -761,8 +762,8 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "true",
+        "name_modified": false,
+        "featured_event": true,
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -849,8 +850,8 @@ Returns:  Event _Hash_
       "starts_at_local": "2012-09-29T19:30:04-07:00",
       "time_zone": "America/Los_Angeles",
       "event_status": "confirmed",
-      "name_modified": "false",
-      "featured_event": "true",
+      "name_modified": false,
+      "featured_event": true,
       "artists": [
         {
           "id": 378465,
@@ -1241,8 +1242,8 @@ Returns:  _Array_ of Metro Areas _Hash_
         "starts_at_local": "2012-01-07T00:00:04-08:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "address2":null,"city":"San Francisco",
           "country_code":"US",
@@ -1614,8 +1615,8 @@ Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked ar
         "starts_at_local": "2013-08-30T19:30:00-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "id": 323,
           "name": "Sleep Train Pavilion At Concord",
@@ -1730,8 +1731,8 @@ Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's
         "starts_at_local": "2013-08-04T17:30:00-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "id": 29474,
           "name": "Shoreline Amphitheatre at Mountain View",
@@ -2125,8 +2126,8 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
