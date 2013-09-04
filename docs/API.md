@@ -180,6 +180,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     If set to _true_ or _1_, will not filter out events marked as rumored.
 
+- <a name="featured_events_only" />**featured\_events\_only** _boolean_
+
+    _Default: false_
+
+    If set to _true_ , will only return featured events.
+
 - <a name="primary_genre_id" />**primary\_genre\_id** _integer_
 
     _Default: none_
@@ -1208,6 +1214,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[mappings](#mappings)**
 - **[sort](#sort)**
 - **[order](#order)**
