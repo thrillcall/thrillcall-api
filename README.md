@@ -687,6 +687,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[mappings](#mappings)**
 - **[sort](#sort)**
 - **[order](#order)**
@@ -870,6 +871,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
@@ -1719,6 +1721,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
@@ -1835,6 +1838,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
@@ -2235,6 +2239,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
