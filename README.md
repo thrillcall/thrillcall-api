@@ -166,6 +166,7 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
   - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
+  - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
 - **[Venues](#content_venues)**
   - **[GET /venues](#content_venues_get_venues)**
   - **[POST /venue](#content_venues_post_venue)**
@@ -280,7 +281,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     _Default: 100.0_
 
-    Used in conjunction with **[postalcode](#postalcode)**
+    Used in conjunction with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)**
 
 - <a name="ticket_type" />**ticket\_type** _string (format: "primary" or "resale")_
 
@@ -311,6 +312,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
     _Default: false_
 
     If set to _true_ or _1_, will not filter out events marked as rumored.
+
+- <a name="featured_events_only" />**featured\_events\_only** _boolean_
+
+    _Default: false_
+
+    If set to _true_ , will only return featured events.
 
 - <a name="primary_genre_id" />**primary\_genre\_id** _integer_
 
@@ -680,6 +687,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[mappings](#mappings)**
 - **[sort](#sort)**
 - **[order](#order)**
@@ -712,8 +720,8 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -826,6 +834,7 @@ Fields:
 - **time\_zone**                  _string_  TZ Database string representing the time zone at the location of the event
 - **unconfirmed\_location**       _integer_ If 1, the location of this event is unconfirmed
 - **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
+- **name_modified**               _boolean_ Has the event name been modified?
 - **featured_event**              _boolean_ Is this a featured event?
 - **venue\_id**                   _integer_ Thrillcall Venue ID
 - **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
@@ -862,6 +871,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
@@ -893,8 +903,8 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "true",
+        "name_modified": false,
+        "featured_event": true,
         "venue": {
           "address1": "1111 California Street",
           "address2": null,
@@ -981,8 +991,8 @@ Returns:  Event _Hash_
       "starts_at_local": "2012-09-29T19:30:04-07:00",
       "time_zone": "America/Los_Angeles",
       "event_status": "confirmed",
-      "name_modified": "false",
-      "featured_event": "true",
+      "name_modified": false,
+      "featured_event": true,
       "artists": [
         {
           "id": 378465,
@@ -1339,6 +1349,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[mappings](#mappings)**
 - **[sort](#sort)**
 - **[order](#order)**
@@ -1373,8 +1384,8 @@ Returns:  _Array_ of Metro Areas _Hash_
         "starts_at_local": "2012-01-07T00:00:04-08:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "address2":null,"city":"San Francisco",
           "country_code":"US",
@@ -1710,6 +1721,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
@@ -1746,8 +1758,8 @@ Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked ar
         "starts_at_local": "2013-08-30T19:30:00-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "id": 323,
           "name": "Sleep Train Pavilion At Concord",
@@ -1826,6 +1838,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
@@ -1862,8 +1875,8 @@ Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's
         "starts_at_local": "2013-08-04T17:30:00-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "id": 29474,
           "name": "Shoreline Amphitheatre at Mountain View",
@@ -1922,6 +1935,59 @@ Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's
         ...
       },
       ...
+    ]
+```
+
+<a name="content_person_get_person_id_friends_events" />
+### GET /person/:id/friends_events
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- None.
+
+Returns: _Array_ of _Hashes_ containing Person _Hash_ keyed on "friend" and _Array_ of Event IDs keyed on "events"
+
+All people in the result set are friends (tracked Person objects) of the Person.
+
+Event IDs are future active events tracked by that friend.
+
+``` js
+    // Example: GET /api/v3/person/2/friends_events&api_key=1234567890abcdef
+
+    [
+      {
+        "friend": {
+          "address1": null,
+          "address2": null,
+          "city": "Santa Rosa",
+          "country_code": "US",
+          "created_at": "2011-10-17T18:54:31Z",
+          "first_name": "John",
+          "gender": "m",
+          "id": 49,
+          "last_name": "Doe",
+          "login": "bogus@bogus.com",
+          "state": "CA",
+          "time_zone": "America/Los_Angeles",
+          "timezone": "-7",
+          "updated_at": "2012-03-28T16:07:16Z",
+          "referral_code": null,
+          "referral_credits": 0,
+          "postalcode": "95407",
+          "photos": {
+            "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
+            "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
+            "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
+          },
+          "preferred_radius": 100.0
+        },
+        "events": [
+          1308413,
+          ...
+        ],
+        ...
+      }
     ]
 ```
 
@@ -2173,6 +2239,7 @@ Params:
 - **[show\_disabled\_events](#show_disabled_events)**
 - **[show\_unconfirmed\_events](#show_unconfirmed_events)**
 - **[show\_rumor\_events](#show_rumor_events)**
+- **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
 
@@ -2204,8 +2271,8 @@ Returns:  _Array_ of Events _Hash_
         "starts_at_local": "2012-09-29T19:30:04-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
-        "name_modified": "false",
-        "featured_event": "false",
+        "name_modified": false,
+        "featured_event": false,
         "venue": {
           "address1": "1111 California Street",
           "address2": null,

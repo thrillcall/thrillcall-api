@@ -928,16 +928,25 @@ describe "ThrillcallAPI" do
         }.should_not raise_error
       end
 
-      context "access recommended events from person endpoint" do
+      context "specialized event and friend endpoints" do
         it "should retrive person's recommended_events" do
           lambda {
             e = @tc.person(PERSON_KNOWN_ID).recommended_events
+            e.should_not be_nil
           }.should_not raise_error
         end
 
         it "should retrive person's discover_events" do
           lambda {
             e = @tc.person(PERSON_KNOWN_ID).discover_events
+            e.should_not be_nil
+          }.should_not raise_error
+        end
+
+        it "should retrive person's friends_events" do
+          lambda {
+            e = @tc.person(PERSON_KNOWN_ID).friends_events
+            e.should_not be_nil
           }.should_not raise_error
         end
       end
