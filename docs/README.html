@@ -447,6 +447,13 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>If set to <em>true</em> or <em>1</em>, will not filter out events marked as rumored.</p>
 </li>
 <li>
+<p><a name="featured_events_only"></a><strong>featured_events_only</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>If set to <em>true</em> , will only return featured events.</p>
+</li>
+<li>
 <p><a name="primary_genre_id"></a><strong>primary_genre_id</strong> <em>integer</em></p>
 
 <p><em>Default: none</em></p>
@@ -899,6 +906,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#featured_events_only">featured_events_only</a></strong></li>
 <li><strong><a href="#mappings">mappings</a></strong></li>
 <li><strong><a href="#sort">sort</a></strong></li>
 <li><strong><a href="#order">order</a></strong></li>
@@ -932,8 +940,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
           <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -1072,6 +1080,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <strong>updated_at</strong>                 <em>string</em>  ISO 8601 representation of last time this object was updated</li>
 <li>
+<strong>name_modified</strong>               <em>boolean</em> Has the event name been modified?</li>
+<li>
 <strong>featured_event</strong>              <em>boolean</em> Is this a featured event?</li>
 <li>
 <strong>venue_id</strong>                   <em>integer</em> Thrillcall Venue ID</li>
@@ -1132,6 +1142,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#featured_events_only">featured_events_only</a></strong></li>
 <li><strong><a href="#sort">sort</a></strong></li>
 <li><strong><a href="#order">order</a></strong></li>
 </ul>
@@ -1164,8 +1175,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"true"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
           <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -1258,8 +1269,8 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
       <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
       <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-      <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
-      <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"true"</span><span class="p">,</span>
+      <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
           <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
@@ -1694,6 +1705,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#featured_events_only">featured_events_only</a></strong></li>
 <li><strong><a href="#mappings">mappings</a></strong></li>
 <li><strong><a href="#sort">sort</a></strong></li>
 <li><strong><a href="#order">order</a></strong></li>
@@ -1729,8 +1741,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-01-07T00:00:04-08:00"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address2"</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"city"</span><span class="o">:</span><span class="s2">"San Francisco"</span><span class="p">,</span>
           <span class="s2">"country_code"</span><span class="o">:</span><span class="s2">"US"</span><span class="p">,</span>
@@ -2132,6 +2144,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#featured_events_only">featured_events_only</a></strong></li>
 <li><strong><a href="#sort">sort</a></strong></li>
 <li><strong><a href="#order">order</a></strong></li>
 </ul>
@@ -2169,8 +2182,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-08-30T19:30:00-07:00"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"id"</span><span class="o">:</span> <span class="mi">323</span><span class="p">,</span>
           <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Sleep Train Pavilion At Concord"</span><span class="p">,</span>
@@ -2254,6 +2267,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#featured_events_only">featured_events_only</a></strong></li>
 <li><strong><a href="#sort">sort</a></strong></li>
 <li><strong><a href="#order">order</a></strong></li>
 </ul>
@@ -2291,8 +2305,8 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-08-04T17:30:00-07:00"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"id"</span><span class="o">:</span> <span class="mi">29474</span><span class="p">,</span>
           <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Shoreline Amphitheatre at Mountain View"</span><span class="p">,</span>
@@ -2747,6 +2761,7 @@ are required.  The provider/person combination must be unique.</p>
 <li><strong><a href="#show_disabled_events">show_disabled_events</a></strong></li>
 <li><strong><a href="#show_unconfirmed_events">show_unconfirmed_events</a></strong></li>
 <li><strong><a href="#show_rumor_events">show_rumor_events</a></strong></li>
+<li><strong><a href="#featured_events_only">featured_events_only</a></strong></li>
 <li><strong><a href="#sort">sort</a></strong></li>
 <li><strong><a href="#order">order</a></strong></li>
 </ul>
@@ -2779,8 +2794,8 @@ are required.  The provider/person combination must be unique.</p>
         <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
         <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
         <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
           <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
