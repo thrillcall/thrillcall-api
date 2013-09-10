@@ -34,6 +34,7 @@
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
   - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
   - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
+  - **[POST /person/:id/add_credential](#content_person_post_person_id_add_credential)**
 - **[Venues](#content_venues)**
   - **[GET /venues](#content_venues_get_venues)**
   - **[POST /venue](#content_venues_post_venue)**
@@ -204,15 +205,23 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="provider" />**provider** _string_
 
-    The name of the authentication provider (e.g. "facebook").  Must be supplied along with **[uid](#uid)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
+    The name of the authentication provider (e.g. "facebook").
+
+    For registration, this must be supplied along with **[uid](#uid)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
 
 - <a name="uid" />**uid** _string_
 
-    The Person's ID with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
+    The Person's ID with **[provider](#provider)**.
+
+    For registration, this must be supplied along with **[provider](#provider)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
 
 - <a name="token" />**token** _string_
 
-    The Person's authentication token with **[provider](#provider)**.  Must be supplied along with **[provider](#provider)** and **[uid](#uid)** unless using **[email](#email)**/**[password](#password)** auth.
+    The Person's authentication token with **[provider](#provider)**.
+
+    For registration, this must be supplied along with **[provider](#provider)** and **[uid](#uid)** unless using **[email](#email)**/**[password](#password)** auth.
+
+    For additional credentials, this field is optional.
 
 - <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
 
@@ -1846,6 +1855,36 @@ Event IDs are future active events tracked by that friend.
     ]
 ```
 
+<a name="content_person_post_person_id_add_credential" />
+### POST /person/:id/add_credential
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- **[provider](#provider)**
+- **[uid](#uid)**
+- **[token](#token)**
+
+Returns: New credential _Hash_
+
+Credentials are stored tokens allowing us to authenticate on behalf of a Person.
+These are typically OAuth tokens, but can take any form.  Only provider and uid
+are required.  The provider/person combination must be unique.
+
+``` js
+    // Example: POST /api/v3/person/2/add_credential
+    // provider=spotify&uid=4321&token=abc123&api_key=1234567890abcdef
+
+    {
+      "id": 87008,
+      "person_id": 2,
+      "provider":"spotify",
+      "uid":"4321",
+      "token":"abc123",
+      "created_at":"2013-09-10T17:24:14Z",
+      "updated_at":"2013-09-10T17:24:14Z"
+    }
+```
 
 <a name="content_venues" />
 ## Venues

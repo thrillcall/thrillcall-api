@@ -949,6 +949,18 @@ describe "ThrillcallAPI" do
             e.should_not be_nil
           }.should_not raise_error
         end
+
+        it "should be able to post a new credential" do
+          params = {
+            :provider       => PERSON_PROVIDER,
+            :uid            => PERSON_UNKNOWN_UID,
+            :token          => PERSON_UNKNOWN_TOKEN,
+          }
+          lambda {
+            pc = @tc.person(PERSON_KNOWN_ID).add_credential.post(params)
+            pc.should_not be_nil
+          }.should_not raise_error
+        end
       end
 
       context "autoregistration for unknown provider/uid" do

@@ -259,6 +259,7 @@
 <li><strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_discover_events">GET /person/:id/discover_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_friends_events">GET /person/:id/friends_events</a></strong></li>
+<li><strong><a href="#content_person_post_person_id_add_credential">POST /person/:id/add_credential</a></strong></li>
 </ul>
 </li>
 <li>
@@ -474,17 +475,25 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <li>
 <p><a name="provider"></a><strong>provider</strong> <em>string</em></p>
 
-<p>The name of the authentication provider (e.g. "facebook").  Must be supplied along with <strong><a href="#uid">uid</a></strong> and <strong><a href="#token">token</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
+<p>The name of the authentication provider (e.g. "facebook").</p>
+
+<p>For registration, this must be supplied along with <strong><a href="#uid">uid</a></strong> and <strong><a href="#token">token</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
 </li>
 <li>
 <p><a name="uid"></a><strong>uid</strong> <em>string</em></p>
 
-<p>The Person's ID with <strong><a href="#provider">provider</a></strong>.  Must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#token">token</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
+<p>The Person's ID with <strong><a href="#provider">provider</a></strong>.</p>
+
+<p>For registration, this must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#token">token</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
 </li>
 <li>
 <p><a name="token"></a><strong>token</strong> <em>string</em></p>
 
-<p>The Person's authentication token with <strong><a href="#provider">provider</a></strong>.  Must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#uid">uid</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
+<p>The Person's authentication token with <strong><a href="#provider">provider</a></strong>.</p>
+
+<p>For registration, this must be supplied along with <strong><a href="#provider">provider</a></strong> and <strong><a href="#uid">uid</a></strong> unless using <strong><a href="#email">email</a></strong>/<strong><a href="#password">password</a></strong> auth.</p>
+
+<p>For additional credentials, this field is optional.</p>
 </li>
 <li>
 <p><a name="first_name"></a><strong>first_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
@@ -2402,6 +2411,43 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="p">...</span>
       <span class="p">}</span>
     <span class="p">]</span>
+</pre>
+</div>
+
+
+<p><a name="content_person_post_person_id_add_credential"></a></p>
+
+<h3>POST /person/:id/add_credential</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#provider">provider</a></strong></li>
+<li><strong><a href="#uid">uid</a></strong></li>
+<li><strong><a href="#token">token</a></strong></li>
+</ul>
+
+<p>Returns: New credential <em>Hash</em></p>
+
+<p>Credentials are stored tokens allowing us to authenticate on behalf of a Person.
+These are typically OAuth tokens, but can take any form.  Only provider and uid
+are required.  The provider/person combination must be unique.</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: POST /api/v3/person/2/add_credential</span>
+    <span class="c1">// provider=spotify&amp;uid=4321&amp;token=abc123&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">87008</span><span class="p">,</span>
+      <span class="s2">"person_id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"provider"</span><span class="o">:</span><span class="s2">"spotify"</span><span class="p">,</span>
+      <span class="s2">"uid"</span><span class="o">:</span><span class="s2">"4321"</span><span class="p">,</span>
+      <span class="s2">"token"</span><span class="o">:</span><span class="s2">"abc123"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span><span class="s2">"2013-09-10T17:24:14Z"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span><span class="s2">"2013-09-10T17:24:14Z"</span>
+    <span class="p">}</span>
 </pre>
 </div>
 
