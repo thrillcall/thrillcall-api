@@ -860,7 +860,7 @@ Fields:
   - **offer\_end\_at**                      _string_  ISO 8601 representation of the end of the Offer in UTC time
   - **offer\_starts\_at\_local**            _string_  ISO 8601 representation of the end of the Offer in local timezone
   - **offer\_sale\_starts\_at**             _string_  ISO 8601 representation of the start of the Offer sale in UTC time
-  - **offer\sale_\_starts\_at\_local**      _string_  ISO 8601 representation of the start of the Offer sale in local timezone
+  - **offer\_sale\_starts\_at\_local**      _string_  ISO 8601 representation of the start of the Offer sale in local timezone
   - **short_description**                   _string_  Short description of the offer
   - **offer_type**                          _string_  Type of the offer ( contest, standard )
   - **price_cents**                         _integer_ Price of the offer in cents
