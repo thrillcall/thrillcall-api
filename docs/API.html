@@ -915,71 +915,85 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <ul>
 <li>
-<strong>created_at</strong>                 <em>string</em>  ISO 8601 representation the time this object was created</li>
+<strong>created_at</strong>                         <em>string</em>  ISO 8601 representation the time this object was created</li>
 <li>
-<strong>festival</strong>                    <em>boolean</em> Is this event a festival?</li>
+<strong>festival</strong>                            <em>boolean</em> Is this event a festival?</li>
 <li>
-<strong>id</strong>                          <em>integer</em> Thrillcall ID</li>
+<strong>id</strong>                                  <em>integer</em> Thrillcall ID</li>
 <li>
-<strong>latitude</strong>                    <em>float</em>   Approximate latitude for the Event</li>
+<strong>latitude</strong>                            <em>float</em>   Approximate latitude for the Event</li>
 <li>
-<strong>longitude</strong>                   <em>float</em>   Approximate longitude for the Event</li>
+<strong>longitude</strong>                           <em>float</em>   Approximate longitude for the Event</li>
 <li>
-<strong>name</strong>                        <em>string</em>  Name of the Event</li>
+<strong>name</strong>                                <em>string</em>  Name of the Event</li>
 <li>
-<strong>on_sale_date</strong>              <em>string</em>  ISO 8601 representation of the date when tickets go on sale</li>
+<strong>on_sale_date</strong>                      <em>string</em>  ISO 8601 representation of the date when tickets go on sale</li>
 <li>
-<strong>rumor</strong>                       <em>boolean</em> Are the details for this event based on a rumor?</li>
+<strong>rumor</strong>                               <em>boolean</em> Are the details for this event based on a rumor?</li>
 <li>
-<strong>event_status</strong>               <em>string</em>  Status of the event (confirmed, unconfirmed, cancelled, or disabled)</li>
+<strong>event_status</strong>                       <em>string</em>  Status of the event (confirmed, unconfirmed, cancelled, or disabled)</li>
 <li>
-<strong>starts_at</strong>                  <em>string</em>  ISO 8601 representation of the start of the Event in UTC time</li>
+<strong>starts_at</strong>                          <em>string</em>  ISO 8601 representation of the start of the Event in UTC time</li>
 <li>
-<strong>starts_at_local</strong>           <em>string</em>  ISO 8601 representation of the start of the Event in the local timezone</li>
+<strong>starts_at_local</strong>                   <em>string</em>  ISO 8601 representation of the start of the Event in the local timezone</li>
 <li>
-<strong>starts_at_time_trusted</strong>   <em>boolean</em> Do we trust that the time of day component of <strong>starts_at</strong> is valid?</li>
+<strong>starts_at_time_trusted</strong>           <em>boolean</em> Do we trust that the time of day component of <strong>starts_at</strong> is valid?</li>
 <li>
-<strong>time_zone</strong>                  <em>string</em>  TZ Database string representing the time zone at the location of the event</li>
+<strong>time_zone</strong>                          <em>string</em>  TZ Database string representing the time zone at the location of the event</li>
 <li>
-<strong>unconfirmed_location</strong>       <em>integer</em> If 1, the location of this event is unconfirmed</li>
+<strong>unconfirmed_location</strong>               <em>integer</em> If 1, the location of this event is unconfirmed</li>
 <li>
-<strong>updated_at</strong>                 <em>string</em>  ISO 8601 representation of last time this object was updated</li>
+<strong>updated_at</strong>                         <em>string</em>  ISO 8601 representation of last time this object was updated</li>
 <li>
-<strong>name_modified</strong>               <em>boolean</em> Has the event name been modified?</li>
+<strong>name_modified</strong>                       <em>boolean</em> Has the event name been modified?</li>
 <li>
-<strong>featured_event</strong>              <em>boolean</em> Is this a featured event?</li>
+<strong>featured_event</strong>                      <em>boolean</em> Is this a featured event?</li>
 <li>
-<strong>venue_id</strong>                   <em>integer</em> Thrillcall Venue ID</li>
+<strong>venue_id</strong>                           <em>integer</em> Thrillcall Venue ID</li>
 <li>
-<strong>photos</strong>                      <em>hash</em>    A hash of image urls of the primary photo available for this object in different styles</li>
+<strong>photos</strong>                              <em>hash</em>    A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
-<strong>artists</strong>                     <em>array</em>   An array of hashes, each representing an artist at this event, containing:
+<strong>artists</strong>                             <em>array</em>   An array of hashes, each representing an artist at this event, containing:
 
 <ul>
 <li>
-<strong>id</strong>                          <em>integer</em> Thrillcall ID for the Event</li>
+<strong>id</strong>                                  <em>integer</em> Thrillcall ID for the Event</li>
 <li>
-<strong>name</strong>                        <em>string</em>  Artist name</li>
+<strong>name</strong>                                <em>string</em>  Artist name</li>
 <li>
-<strong>headliner</strong>                   <em>boolean</em> Is this artist a headliner on the bill?</li>
+<strong>headliner</strong>                           <em>boolean</em> Is this artist a headliner on the bill?</li>
 </ul>
 </li>
 <li>
-<strong>url</strong>                         <em>string</em>  URL for this object on Thrillcall</li>
+<strong>url</strong>                                 <em>string</em>  URL for this object on Thrillcall</li>
 <li>
-<strong>offer_details</strong>                <em>hash</em>    A hash of of attributes consisting of offer details about an offer attached to an event, if present
+<strong>offer_details</strong>                       <em>hash</em>    A hash of of attributes consisting of offer details about an offer attached to an event, if present
 
 <ul>
 <li>
-<strong>id</strong>                          <em>integer</em> Offer ID</li>
+<strong>id</strong>                                  <em>integer</em> Offer ID</li>
 <li>
-<strong>title</strong>                       <em>string</em>  Offer title</li>
+<strong>title</strong>                               <em>string</em>  Offer title</li>
 <li>
-<strong>short_description</strong>           <em>string</em>  Short description of the offer</li>
+<strong>offer_starts_at</strong>                   <em>string</em>  ISO 8601 representation of the start of the Offer in UTC time</li>
 <li>
-<strong>offer_type</strong>                  <em>string</em>  Type of the offer ( contest, standard )</li>
+<strong>offer_starts_at_local</strong>            <em>string</em>  ISO 8601 representation of the start of the Offer in local timezone</li>
 <li>
-<strong>price_cents</strong>                 <em>integer</em> Price of the offer in cents</li>
+<strong>offer_end_at</strong>                      <em>string</em>  ISO 8601 representation of the end of the Offer in UTC time</li>
+<li>
+<strong>offer_starts_at_local</strong>            <em>string</em>  ISO 8601 representation of the end of the Offer in local timezone</li>
+<li>
+<strong>offer_sale_starts_at</strong>             <em>string</em>  ISO 8601 representation of the start of the Offer sale in UTC time</li>
+<li>
+<strong>offer\sale__starts_at_local</strong>      <em>string</em>  ISO 8601 representation of the start of the Offer sale in local timezone</li>
+<li>
+<strong>short_description</strong>                   <em>string</em>  Short description of the offer</li>
+<li>
+<strong>offer_type</strong>                          <em>string</em>  Type of the offer ( contest, standard )</li>
+<li>
+<strong>price_cents</strong>                         <em>integer</em> Price of the offer in cents</li>
+<li>
+<strong>photos</strong>                              <em>hash</em>    A hash of offer photos (currently only returns 'mobile' style photos)</li>
 </ul>
 </li>
 </ul>
@@ -1082,6 +1096,12 @@ Calls for Mappings default to the "partner_id" field.</p>
         <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{</span>
           <span class="s2">"id"</span><span class="o">:</span> <span class="mi">123</span><span class="p">,</span>
           <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"Example Offer"</span><span class="p">,</span>
+          <span class="s2">"offer_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
+          <span class="s2">"offer_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
+          <span class="s2">"offer_ends_at"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
+          <span class="s2">"offer_ends_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
+          <span class="s2">"offer_sale_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
+          <span class="s2">"offer_sale_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
           <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Win tickets for the show!"</span><span class="p">,</span>
           <span class="s2">"offer_type"</span><span class="o">:</span> <span class="s2">"contest"</span><span class="p">,</span>
           <span class="s2">"price_cents"</span><span class="o">:</span> <span class="mi">0</span>
@@ -1146,6 +1166,12 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{</span>
         <span class="s2">"id"</span><span class="o">:</span> <span class="mi">123</span><span class="p">,</span>
         <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"Example Offer"</span><span class="p">,</span>
+        <span class="s2">"offer_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"offer_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"offer_ends_at"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"offer_ends_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"offer_sale_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
+        <span class="s2">"offer_sale_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
         <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Get tickets for tonight!"</span><span class="p">,</span>
         <span class="s2">"offer_type"</span><span class="o">:</span> <span class="s2">"standard"</span><span class="p">,</span>
         <span class="s2">"price_cents"</span><span class="o">:</span> <span class="mi">2000</span>

@@ -828,36 +828,43 @@ Returns:  _Array_ of Artists _Hash_
 ## Events
 Fields:
 
-- **created\_at**                 _string_  ISO 8601 representation the time this object was created
-- **festival**                    _boolean_ Is this event a festival?
-- **id**                          _integer_ Thrillcall ID
-- **latitude**                    _float_   Approximate latitude for the Event
-- **longitude**                   _float_   Approximate longitude for the Event
-- **name**                        _string_  Name of the Event
-- **on\_sale\_date**              _string_  ISO 8601 representation of the date when tickets go on sale
-- **rumor**                       _boolean_ Are the details for this event based on a rumor?
-- **event\_status**               _string_  Status of the event (confirmed, unconfirmed, cancelled, or disabled)
-- **starts\_at**                  _string_  ISO 8601 representation of the start of the Event in UTC time
-- **starts\_at\_local**           _string_  ISO 8601 representation of the start of the Event in the local timezone
-- **starts\_at\_time\_trusted**   _boolean_ Do we trust that the time of day component of **starts\_at** is valid?
-- **time\_zone**                  _string_  TZ Database string representing the time zone at the location of the event
-- **unconfirmed\_location**       _integer_ If 1, the location of this event is unconfirmed
-- **updated\_at**                 _string_  ISO 8601 representation of last time this object was updated
-- **name_modified**               _boolean_ Has the event name been modified?
-- **featured_event**              _boolean_ Is this a featured event?
-- **venue\_id**                   _integer_ Thrillcall Venue ID
-- **photos**                      _hash_    A hash of image urls of the primary photo available for this object in different styles
-- **artists**                     _array_   An array of hashes, each representing an artist at this event, containing:
-  - **id**                          _integer_ Thrillcall ID for the Event
-  - **name**                        _string_  Artist name
-  - **headliner**                   _boolean_ Is this artist a headliner on the bill?
-- **url**                         _string_  URL for this object on Thrillcall
-- **offer_details**                _hash_    A hash of of attributes consisting of offer details about an offer attached to an event, if present
-  - **id**                          _integer_ Offer ID
-  - **title**                       _string_  Offer title
-  - **short_description**           _string_  Short description of the offer
-  - **offer_type**                  _string_  Type of the offer ( contest, standard )
-  - **price_cents**                 _integer_ Price of the offer in cents
+- **created\_at**                         _string_  ISO 8601 representation the time this object was created
+- **festival**                            _boolean_ Is this event a festival?
+- **id**                                  _integer_ Thrillcall ID
+- **latitude**                            _float_   Approximate latitude for the Event
+- **longitude**                           _float_   Approximate longitude for the Event
+- **name**                                _string_  Name of the Event
+- **on\_sale\_date**                      _string_  ISO 8601 representation of the date when tickets go on sale
+- **rumor**                               _boolean_ Are the details for this event based on a rumor?
+- **event\_status**                       _string_  Status of the event (confirmed, unconfirmed, cancelled, or disabled)
+- **starts\_at**                          _string_  ISO 8601 representation of the start of the Event in UTC time
+- **starts\_at\_local**                   _string_  ISO 8601 representation of the start of the Event in the local timezone
+- **starts\_at\_time\_trusted**           _boolean_ Do we trust that the time of day component of **starts\_at** is valid?
+- **time\_zone**                          _string_  TZ Database string representing the time zone at the location of the event
+- **unconfirmed\_location**               _integer_ If 1, the location of this event is unconfirmed
+- **updated\_at**                         _string_  ISO 8601 representation of last time this object was updated
+- **name_modified**                       _boolean_ Has the event name been modified?
+- **featured_event**                      _boolean_ Is this a featured event?
+- **venue\_id**                           _integer_ Thrillcall Venue ID
+- **photos**                              _hash_    A hash of image urls of the primary photo available for this object in different styles
+- **artists**                             _array_   An array of hashes, each representing an artist at this event, containing:
+  - **id**                                  _integer_ Thrillcall ID for the Event
+  - **name**                                _string_  Artist name
+  - **headliner**                           _boolean_ Is this artist a headliner on the bill?
+- **url**                                 _string_  URL for this object on Thrillcall
+- **offer_details**                       _hash_    A hash of of attributes consisting of offer details about an offer attached to an event, if present
+  - **id**                                  _integer_ Offer ID
+  - **title**                               _string_  Offer title
+  - **offer\_starts\_at**                   _string_  ISO 8601 representation of the start of the Offer in UTC time
+  - **offer\_starts\_at\_local**            _string_  ISO 8601 representation of the start of the Offer in local timezone
+  - **offer\_end\_at**                      _string_  ISO 8601 representation of the end of the Offer in UTC time
+  - **offer\_starts\_at\_local**            _string_  ISO 8601 representation of the end of the Offer in local timezone
+  - **offer\_sale\_starts\_at**             _string_  ISO 8601 representation of the start of the Offer sale in UTC time
+  - **offer\sale_\_starts\_at\_local**      _string_  ISO 8601 representation of the start of the Offer sale in local timezone
+  - **short_description**                   _string_  Short description of the offer
+  - **offer_type**                          _string_  Type of the offer ( contest, standard )
+  - **price_cents**                         _integer_ Price of the offer in cents
+  - **photos**                              _hash_    A hash of offer photos (currently only returns 'mobile' style photos)
 
 
 <a name="content_events_get_events" />
@@ -954,6 +961,12 @@ Returns:  _Array_ of Events _Hash_
         "offer_details": {
           "id": 123,
           "title": "Example Offer",
+          "offer_starts_at": "2013-05-01T09:00:00-07:00",
+          "offer_starts_at_local": "2013-05-01T09:00:00-07:00",
+          "offer_ends_at": "2013-05-02T17:00:00-07:00",
+          "offer_ends_at_local": "2013-05-02T17:00:00-07:00",
+          "offer_sale_starts_at": "2013-05-01T09:00:00-07:00",
+          "offer_sale_starts_at_local": "2013-05-01T09:00:00-07:00",
           "short_description": "Win tickets for the show!",
           "offer_type": "contest",
           "price_cents": 0
@@ -1012,6 +1025,12 @@ Returns:  Event _Hash_
       "offer_details": {
         "id": 123,
         "title": "Example Offer",
+        "offer_starts_at": "2013-05-01T09:00:00-07:00",
+        "offer_starts_at_local": "2013-05-01T09:00:00-07:00",
+        "offer_ends_at": "2013-05-02T17:00:00-07:00",
+        "offer_ends_at_local": "2013-05-02T17:00:00-07:00",
+        "offer_sale_starts_at": "2013-05-01T09:00:00-07:00",
+        "offer_sale_starts_at_local": "2013-05-01T09:00:00-07:00",
         "short_description": "Get tickets for tonight!",
         "offer_type": "standard",
         "price_cents": 2000
