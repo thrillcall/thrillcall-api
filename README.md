@@ -851,6 +851,7 @@ Fields:
   - **id**                                  _integer_ Thrillcall ID for the Event
   - **name**                                _string_  Artist name
   - **headliner**                           _boolean_ Is this artist a headliner on the bill?
+  - **photos**                              _hash_    A hash of image urls of the primary photo available for this object in different styles
 - **url**                                 _string_  URL for this object on Thrillcall
 - **offer_details**                       _hash_    A hash of of attributes consisting of offer details about an offer attached to an event, if present
   - **id**                                  _integer_ Offer ID
