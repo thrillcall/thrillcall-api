@@ -1608,15 +1608,19 @@ Params:
 - **[artist\_names](#artist_names)** _Required_
 - **[platform](#platform)**
 
-Returns: _Hash_ of tracked artist IDs mapped to artist names for this person.
+Returns: _Array_ of hash with tracked artist IDs mapped to artist names for this person.
 
 ``` js
     // Example: POST /api/v3/person/24/track_artists_by_name?artist_names=Radiohead,M83&platform=ios&api_key=1234567890abcdef
 
-    {
-      "2687": "Radiohead",
-      "18927": "M83",
-    }
+    [
+      {
+        "2687": "Radiohead"
+      },
+      {
+        "18927": "M83",
+      }
+    ]
 ```
 
 <a name="content_person_get_person_id_recommended_events" />
