@@ -31,6 +31,7 @@
   - **[GET /people/tracking/:class](#content_person_get_people_tracking_class)**
   - **[GET /person/:id/:class](#content_person_get_person_id_class)**
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
+  - **[POST /person/:id/track\_artists\_by\_name](#content_person_post_person_id_track_artists_by_name)**
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
   - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
   - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
@@ -300,6 +301,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="wikipedia_url" />**wikipedia\_url** _string (format: "http://en.wikipedia.org/wiki/Lady_Gaga")_
 
     Wikipedia URL for the Artist.
+
+- <a name="artist_names" />**artist\_names** _string_
+
+    A list of comma separated artist names.
 
 - <a name="mappings" />**mappings** _string or array (format: ["myspace", "livenation"])_
 
@@ -1592,6 +1597,25 @@ Returns: Hash of **:class** tracked IDs mapped for this person after performing 
     {
       "44": "Paco Osuna",
       "45": "Wanamaker"
+    }
+```
+
+<a name="content_person_post_person_id_track_artists_by_name" />
+### POST /person/:id/track\_artists\_by\_name
+
+Params:
+
+- **[artist\_names](#artist_names)** _Required_
+- **[platform](#platform)**
+
+Returns: _Hash_ of tracked artist IDs mapped to artist names for this person.
+
+``` js
+    // Example: POST /api/v3/person/24/track_artists_by_name?artist_names=Radiohead,M83&platform=ios&api_key=1234567890abcdef
+
+    {
+      "2687": "Radiohead",
+      "18927": "M83",
     }
 ```
 

@@ -256,6 +256,7 @@
 <li><strong><a href="#content_person_get_people_tracking_class">GET /people/tracking/:class</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_class">GET /person/:id/:class</a></strong></li>
 <li><strong><a href="#content_person_post_person_id_action_class">POST /person/:id/:action/:class</a></strong></li>
+<li><strong><a href="#content_person_post_person_id_track_artists_by_name">POST /person/:id/track_artists_by_name</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_discover_events">GET /person/:id/discover_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_friends_events">GET /person/:id/friends_events</a></strong></li>
@@ -590,6 +591,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p><a name="wikipedia_url"></a><strong>wikipedia_url</strong> <em>string (format: "http://en.wikipedia.org/wiki/Lady</em>Gaga")_</p>
 
 <p>Wikipedia URL for the Artist.</p>
+</li>
+<li>
+<p><a name="artist_names"></a><strong>artist_names</strong> <em>string</em></p>
+
+<p>A list of comma separated artist names.</p>
 </li>
 <li>
 <p><a name="mappings"></a><strong>mappings</strong> <em>string or array (format: ["myspace", "livenation"])</em></p>
@@ -2142,6 +2148,32 @@ Calls for Mappings default to the "partner_id" field.</p>
     <span class="p">{</span>
       <span class="s2">"44"</span><span class="o">:</span> <span class="s2">"Paco Osuna"</span><span class="p">,</span>
       <span class="s2">"45"</span><span class="o">:</span> <span class="s2">"Wanamaker"</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<p><a name="content_person_post_person_id_track_artists_by_name"></a></p>
+
+<h3>POST /person/:id/track_artists_by_name</h3>
+
+<p>Params:</p>
+
+<ul>
+<li>
+<strong><a href="#artist_names">artist_names</a></strong> <em>Required</em>
+</li>
+<li><strong><a href="#platform">platform</a></strong></li>
+</ul>
+
+<p>Returns: <em>Hash</em> of tracked artist IDs mapped to artist names for this person.</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: POST /api/v3/person/24/track_artists_by_name?artist_names=Radiohead,M83&amp;platform=ios&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"2687"</span><span class="o">:</span> <span class="s2">"Radiohead"</span><span class="p">,</span>
+      <span class="s2">"18927"</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
     <span class="p">}</span>
 </pre>
 </div>
