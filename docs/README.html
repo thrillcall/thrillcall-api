@@ -260,7 +260,14 @@
 <li><strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_discover_events">GET /person/:id/discover_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_friends_events">GET /person/:id/friends_events</a></strong></li>
-<li><strong><a href="#content_person_post_person_id_add_credential">POST /person/:id/add_credential</a></strong></li>
+</ul>
+</li>
+<li>
+<strong><a href="#content_credential">Credential</a></strong>
+
+<ul>
+<li><strong><a href="#content_credential_post_credential">POST /credential</a></strong></li>
+<li><strong><a href="#content_credential_put_id_credential">PUT /credential/:id</a></strong></li>
 </ul>
 </li>
 <li>
@@ -504,6 +511,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>For additional credentials, this field is optional.</p>
 </li>
 <li>
+<p><a name="old_token"></a><strong>old_token</strong> <em>string</em></p>
+
+<p>The Credential's current token, must match record to perform Credential updates.</p>
+</li>
+<li>
 <p><a name="first_name"></a><strong>first_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
 
 <p>Required to register a Person.</p>
@@ -602,6 +614,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 
 <p>Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
 Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&amp;mappings[]=livenation").</p>
+</li>
+<li>
+<p><a name="person_id"></a><strong>person_id</strong> <em>string</em></p>
+
+<p>Thrillcall ID for the Person object.</p>
 </li>
 <li>
 <p><a name="partner_id"></a><strong>partner_id</strong> <em>string</em></p>
@@ -1877,6 +1894,14 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
       <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
+      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
+          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
+          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
       <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
       <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
@@ -1935,6 +1960,14 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"city"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"country_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
+          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
+          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
       <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"Mister"</span><span class="p">,</span>
       <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Bogus"</span><span class="p">,</span>
@@ -1985,6 +2018,14 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"city"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"country_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
+          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
+          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
       <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"Mister"</span><span class="p">,</span>
       <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
       <span class="s2">"last_name"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -2039,6 +2080,14 @@ Calls for Mappings default to the "partner_id" field.</p>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
       <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
+      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
+          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
+          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
       <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
       <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
@@ -2463,6 +2512,14 @@ Calls for Mappings default to the "partner_id" field.</p>
           <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
           <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
           <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
+          <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+              <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
+              <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
+              <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+              <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+          <span class="p">]</span>
           <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
           <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
           <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
@@ -2493,38 +2550,131 @@ Calls for Mappings default to the "partner_id" field.</p>
 </div>
 
 
-<p><a name="content_person_post_person_id_add_credential"></a></p>
+<p><a name="content_credential"></a></p>
 
-<h3>POST /person/:id/add_credential</h3>
+<h2>Credentials</h2>
+
+<p>Fields:</p>
+
+<p>N/A.  Always returns Person objects.  Credentials are nested inside Person objects.</p>
+
+<p><a name="content_credential_post_credential"></a></p>
+
+<h3>POST /credential</h3>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#person_id">person_id</a></strong></li>
+<li><strong><a href="#provider">provider</a></strong></li>
+<li><strong><a href="#uid">uid</a></strong></li>
+<li><strong><a href="#token">token</a></strong></li>
+</ul>
+
+<p>Returns: Person <em>Hash</em></p>
+
+<p>Credentials are stored tokens allowing us to authenticate on behalf of a Person.
+These are typically OAuth tokens, but can take any form.  The token itself is
+not required and may be left blank, the other parameters are required.</p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: POST /api/v3/credential</span>
+    <span class="c1">// person_id=49&amp;provider=spotify&amp;uid=4321&amp;token=abc123&amp;api_key=1234567890abcdef</span>
+
+    <span class="p">{</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
+      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
+      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18435</span><span class="p">,</span>
+          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"spotify"</span><span class="p">,</span>
+          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"4321"</span><span class="p">,</span>
+          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
+      <span class="p">},</span>
+      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<p><a name="content_credential_put_credential_id"></a></p>
+
+<h3>PUT /credential/:id</h3>
 
 <p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
 
 <p>Params:</p>
 
 <ul>
-<li><strong><a href="#provider">provider</a></strong></li>
 <li><strong><a href="#uid">uid</a></strong></li>
 <li><strong><a href="#token">token</a></strong></li>
+<li><strong><a href="#old_token">old_token</a></strong></li>
+<li><strong><a href="#old_password">old_password</a></strong></li>
 </ul>
 
-<p>Returns: New credential <em>Hash</em></p>
+<p>Returns: Person <em>Hash</em></p>
 
-<p>Credentials are stored tokens allowing us to authenticate on behalf of a Person.
-These are typically OAuth tokens, but can take any form.  Only provider and uid
-are required.  The provider/person combination must be unique.</p>
+<p>This endpoint allows you to change the UID or token of an existing credential.
+You must supply either the user's current password, or the existing token on the
+credential.</p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/person/2/add_credential</span>
-    <span class="c1">// provider=spotify&amp;uid=4321&amp;token=abc123&amp;api_key=1234567890abcdef</span>
+<pre>    <span class="c1">// Example: PUT /api/v3/credential/18435</span>
+    <span class="c1">// old_token=abc123&amp;token=&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">87008</span><span class="p">,</span>
-      <span class="s2">"person_id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="s2">"provider"</span><span class="o">:</span><span class="s2">"spotify"</span><span class="p">,</span>
-      <span class="s2">"uid"</span><span class="o">:</span><span class="s2">"4321"</span><span class="p">,</span>
-      <span class="s2">"token"</span><span class="o">:</span><span class="s2">"abc123"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span><span class="s2">"2013-09-10T17:24:14Z"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span><span class="s2">"2013-09-10T17:24:14Z"</span>
+      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
+      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
+      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18435</span><span class="p">,</span>
+          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"spotify"</span><span class="p">,</span>
+          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"4321"</span><span class="p">,</span>
+          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
+      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
+      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
+      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
+      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
+      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
+      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
+      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
+        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
+      <span class="p">},</span>
+      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
     <span class="p">}</span>
 </pre>
 </div>

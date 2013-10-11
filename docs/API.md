@@ -35,7 +35,9 @@
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
   - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
   - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
-  - **[POST /person/:id/add_credential](#content_person_post_person_id_add_credential)**
+- **[Credential](#content_credential)**
+  - **[POST /credential](#content_credential_post_credential)**
+  - **[PUT /credential/:id](#content_credential_put_id_credential)**
 - **[Venues](#content_venues)**
   - **[GET /venues](#content_venues_get_venues)**
   - **[POST /venue](#content_venues_post_venue)**
@@ -230,6 +232,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     For additional credentials, this field is optional.
 
+- <a name="old_token" />**old\_token** _string_
+
+    The Credential's current token, must match record to perform Credential updates.
+
 - <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
 
     Required to register a Person.
@@ -310,6 +316,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
     Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&mappings[]=livenation").
+
+- <a name="person_id" />**person\_id** _string_
+
+    Thrillcall ID for the Person object.
 
 - <a name="partner_id" />**partner\_id** _string_
 
@@ -1365,6 +1375,14 @@ Returns: Person _Hash_
       "city": "Santa Rosa",
       "country_code": "US",
       "created_at": "2011-10-17T18:54:31Z",
+      "credentials": [
+        {
+          "id": 18434,
+          "provider": "facebook",
+          "uid": "abc123",
+          "token_present": true
+        }
+      ]
       "first_name": "John",
       "gender": "m",
       "id": 49,
@@ -1417,6 +1435,14 @@ Returns: Person _Hash_
       "city": null,
       "country_code": null,
       "created_at": null,
+      "credentials": [
+        {
+          "id": 18434,
+          "provider": "facebook",
+          "uid": "abc123",
+          "token_present": true
+        }
+      ]
       "first_name": "Mister",
       "gender": null,
       "last_name": "Bogus",
@@ -1461,6 +1487,14 @@ Returns: Person _Hash_
       "city": null,
       "country_code": null,
       "created_at": null,
+      "credentials": [
+        {
+          "id": 18434,
+          "provider": "facebook",
+          "uid": "abc123",
+          "token_present": true
+        }
+      ]
       "first_name": "Mister",
       "gender": null,
       "last_name": null,
@@ -1509,6 +1543,14 @@ Returns: Person _Hash_
       "city": "Santa Rosa",
       "country_code": "US",
       "created_at": "2011-10-17T18:54:31Z",
+      "credentials": [
+        {
+          "id": 18434,
+          "provider": "facebook",
+          "uid": "abc123",
+          "token_present": true
+        }
+      ]
       "first_name": "John",
       "gender": "m",
       "id": 49,
@@ -1887,6 +1929,14 @@ Event IDs are future active events tracked by that friend.
           "city": "Santa Rosa",
           "country_code": "US",
           "created_at": "2011-10-17T18:54:31Z",
+          "credentials": [
+            {
+              "id": 18434,
+              "provider": "facebook",
+              "uid": "abc123",
+              "token_present": true
+            }
+          ]
           "first_name": "John",
           "gender": "m",
           "id": 49,
@@ -1915,34 +1965,121 @@ Event IDs are future active events tracked by that friend.
     ]
 ```
 
-<a name="content_person_post_person_id_add_credential" />
-### POST /person/:id/add_credential
-**:id** _integer_  Thrillcall ID
+
+<a name="content_credential" />
+## Credentials
+Fields:
+
+N/A.  Always returns Person objects.  Credentials are nested inside Person objects.
+
+<a name="content_credential_post_credential" />
+### POST /credential
 
 Params:
 
+- **[person_id](#person_id)**
 - **[provider](#provider)**
 - **[uid](#uid)**
 - **[token](#token)**
 
-Returns: New credential _Hash_
+Returns: Person _Hash_
 
 Credentials are stored tokens allowing us to authenticate on behalf of a Person.
-These are typically OAuth tokens, but can take any form.  Only provider and uid
-are required.  The provider/person combination must be unique.
+These are typically OAuth tokens, but can take any form.  The token itself is
+not required and may be left blank, the other parameters are required.
 
 ``` js
-    // Example: POST /api/v3/person/2/add_credential
-    // provider=spotify&uid=4321&token=abc123&api_key=1234567890abcdef
+    // Example: POST /api/v3/credential
+    // person_id=49&provider=spotify&uid=4321&token=abc123&api_key=1234567890abcdef
 
     {
-      "id": 87008,
-      "person_id": 2,
-      "provider":"spotify",
-      "uid":"4321",
-      "token":"abc123",
-      "created_at":"2013-09-10T17:24:14Z",
-      "updated_at":"2013-09-10T17:24:14Z"
+      "address1": null,
+      "address2": null,
+      "city": "Santa Rosa",
+      "country_code": "US",
+      "created_at": "2011-10-17T18:54:31Z",
+      "credentials": [
+        {
+          "id": 18435,
+          "provider": "spotify",
+          "uid": "4321",
+          "token_present": true
+        }
+      ]
+      "first_name": "John",
+      "gender": "m",
+      "id": 49,
+      "last_name": "Doe",
+      "login": "bogus@bogus.com",
+      "state": "CA",
+      "time_zone": "America/Los_Angeles",
+      "timezone": "-7",
+      "updated_at": "2012-03-28T16:07:16Z",
+      "referral_code": null,
+      "referral_credits": 0,
+      "postalcode": "95407",
+      "photos": {
+        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
+        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
+        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
+      },
+      "preferred_radius": 100.0
+    }
+```
+
+<a name="content_credential_put_credential_id" />
+### PUT /credential/:id
+**:id** _integer_  Thrillcall ID
+
+Params:
+
+- **[uid](#uid)**
+- **[token](#token)**
+- **[old_token](#old_token)**
+- **[old_password](#old_password)**
+
+Returns: Person _Hash_
+
+This endpoint allows you to change the UID or token of an existing credential.
+You must supply either the user's current password, or the existing token on the
+credential.
+
+``` js
+    // Example: PUT /api/v3/credential/18435
+    // old_token=abc123&token=&api_key=1234567890abcdef
+
+    {
+      "address1": null,
+      "address2": null,
+      "city": "Santa Rosa",
+      "country_code": "US",
+      "created_at": "2011-10-17T18:54:31Z",
+      "credentials": [
+        {
+          "id": 18435,
+          "provider": "spotify",
+          "uid": "4321",
+          "token_present": false
+        }
+      ]
+      "first_name": "John",
+      "gender": "m",
+      "id": 49,
+      "last_name": "Doe",
+      "login": "bogus@bogus.com",
+      "state": "CA",
+      "time_zone": "America/Los_Angeles",
+      "timezone": "-7",
+      "updated_at": "2012-03-28T16:07:16Z",
+      "referral_code": null,
+      "referral_credits": 0,
+      "postalcode": "95407",
+      "photos": {
+        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
+        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
+        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
+      },
+      "preferred_radius": 100.0
     }
 ```
 
