@@ -168,6 +168,7 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
   - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
   - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
+  - **[GET /person/:id/recommended_artists](#content_person_get_person_id_recommended_artists)**
 - **[Credential](#content_credential)**
   - **[POST /credential](#content_credential_post_credential)**
   - **[PUT /credential/:id](#content_credential_put_id_credential)**
@@ -489,6 +490,13 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="order" />**order** _string: "ASC" or "DESC"_
 
     The direction you wish to sort the results.  Default: DESC
+
+- <a name="polling_for" />**polling\_for** _string_
+
+    Comma-separated list of services to poll.
+
+    If specified, will only return recommended artists from these services.  Popular artists will be omitted.
+    If not specified, will return recommended artists from all available services, as well as popular artists.
 
 <a name="content_artists" />
 ## Artists
@@ -2097,7 +2105,65 @@ Event IDs are future active events tracked by that friend.
       }
     ]
 ```
+<a name="content_person_get_person_id_recommended_artists" />
+### GET /person/:id/recommended_artists
+**:id** _integer_  Thrillcall ID
 
+Params:
+- **[polling_for](#polling_for)**
+
+Returns: _Hash_
+The hash will contain the following keys.
+
+- **recommendations**: For each service and popular artists, an _Array_ of recommended artist _Hashes_.  If there is any error with the connection, an error message _string_ to present to the user will be here instead of the array.
+- **connected**: For each service, _boolean_ whether or not the user is connected
+- **autotrack**: For each service, _boolean_ whether or not the user is automatically tracking recommended artists
+
+In the recommendations hash, each artist is represented by a hash of the following key-value pairs:
+
+- **id**: Thrillcall ID
+- **title**: Name of the Artist
+- **tracking**: Boolean value indicating whether or not the user is tracking the Artist
+- **artist\_normalized\_name**
+- **artist\_upcoming\_shows**: The number of upcoming shows for this Artist
+- **url**: Artist photo URL
+
+``` js
+    // Example: GET /api/v3/person/2/recommended_artists?api_key=1234567890abcdef
+
+    {
+      "recommendations": {
+        "popular": [
+          {
+            "id": 17053,
+            "title": "Justin Timberlake",
+            "tracking": false,
+            "artist_normalized_name": "justintimberlake",
+            "artist_upcoming_shows": 70,
+            "url": "http://i.development.tc-core.com/artist/17053/1048/1324556871/justin-timberlake-medium.jpg?1324556871"
+          },
+          {
+            ...
+          },
+          ...
+        ],
+        "facebook": [
+          ...
+        ],
+        "pandora": "Failure: No Pandora user found named 'bogususername'.",
+        ...
+      },
+      "connected": {
+        "facebook": true,
+        "pandora": false,
+        ...
+      },
+      "autotrack": {
+        "facebook": false,
+        ...
+      }
+    }
+```
 
 <a name="content_credential" />
 ## Credentials
