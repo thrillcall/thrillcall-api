@@ -349,9 +349,13 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     When searching by radius, or from the Metro Area endpoint, you can also specify "distance," although this value is not directly exposed.
 
+
     Calls for Artists, Genres, Tickets, Venues, and all Search endpoints default to using the "name" field.
+
     Calls for Events default to the "starts\_at" field.
+
     Calls for Metro Areas default to the "city" field.
+
     Calls for Mappings default to the "partner\_id" field.
 
 - <a name="order" />**order** _string: "ASC" or "DESC"_
@@ -365,6 +369,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
     e.g. _"spotify,lastfm"_
 
     If specified, will only return recommended artists from these services.  Popular artists will be omitted.
+
     If not specified, will return recommended artists from all available services, as well as popular artists.
 
 <a name="content_artists" />
