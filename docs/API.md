@@ -360,7 +360,9 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
 - <a name="polling_for" />**polling\_for** _string_
 
-    Comma-separated list of services to poll.
+    Comma-separated list of services to poll.  Use this to decrease response time if recommendations from only one or two services need to be refreshed.
+
+    e.g. _"spotify,lastfm"_
 
     If specified, will only return recommended artists from these services.  Popular artists will be omitted.
     If not specified, will return recommended artists from all available services, as well as popular artists.

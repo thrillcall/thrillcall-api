@@ -556,7 +556,9 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li>
 <p><a name="polling_for"></a><strong>polling_for</strong> <em>string</em></p>
 
-<p>Comma-separated list of services to poll.</p>
+<p>Comma-separated list of services to poll.  Use this to decrease response time if recommendations from only one or two services need to be refreshed.</p>
+
+<p>e.g. <em>"spotify,lastfm"</em></p>
 
 <p>If specified, will only return recommended artists from these services.  Popular artists will be omitted.
 If not specified, will return recommended artists from all available services, as well as popular artists.</p>
