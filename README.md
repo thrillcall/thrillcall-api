@@ -529,6 +529,7 @@ Fields:
 ### GET /artists
 Params:
 
+- **[ids](#ids)**
 - **[limit](#limit)**
 - **[page](#page)**
 - **[primary\_genre\_id](#primary_genre_id)**
