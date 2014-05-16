@@ -768,67 +768,97 @@ Returns:  _Array_ of Events _Hash_
 
     [
       {
-        "created_at": "2012-03-02T18:06:14Z",
+        "id": 1462860,
+        "name": "Il Volo @ Freedom Hill Amphitheater",
+        "venue_id": 49270,
+        "created_at": "2014-04-01T22:38:41Z",
+        "updated_at": "2014-04-01T22:38:41Z",
         "festival": false,
-        "id": 1047075,
-        "latitude": 37.7915,
-        "longitude": -122.413,
-        "name": "Il Volo @ Masonic Center",
         "rumor": false,
-        "starts_at": "2012-09-30T02:30:04Z",
-        "starts_at_time_trusted": true,
         "unconfirmed_location": 0,
-        "updated_at": "2012-03-29T01:35:57Z",
-        "venue_id": 63279,
+        "latitude": null,
+        "longitude": null,
+        "starts_at": "2014-06-19T23:30:00Z",
+        "starts_at_time_trusted": true,
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-thumbnail.jpg?1360966614",
+          "large": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-large.jpg?1360966614",
+          "mobile": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-mobile.jpg?1360966614"
         },
-        "url": "http://thrillcall.com/event/1047075",
-        "starts_at_local": "2012-09-29T19:30:04-07:00",
-        "time_zone": "America/Los_Angeles",
+        "url": "http://thrillcall.com/event/1462860",
+        "starts_at_local": "2014-06-19T19:30:00-04:00",
+        "time_zone": "America/Detroit",
         "event_status": "confirmed",
         "name_modified": false,
         "featured_event": false,
         "venue": {
-          "address1": "1111 California Street",
+          "id": 49270,
+          "name": "Freedom Hill Amphitheater",
+          "address1": "Formerly known as Jerome Duncan Ford Theatre",
           "address2": null,
-          "city": "San Francisco",
+          "city": "Sterling Heights",
+          "state": "MI",
+          "official_url": "http://freedomhill.net/",
+          "created_at": "2008-06-07T03:55:39Z",
+          "updated_at": "2013-10-06T09:41:10Z",
+          "latitude": 42.5933,
+          "longitude": -83.013367,
           "country_code": "US",
-          "created_at": "2009-08-25T19:25:27Z",
-          "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
-          "hide_resale_tickets": false,
-          "id": 63279,
-          "latitude": 37.79153,
+          "myspace_url": null,
+          "upcoming_events_count": 0,
+          "facebook_url": "http://www.facebook.com/freedomhillMI",
           "long_description": null,
-          "longitude": -122.412757,
-          "myspace_url": "http://www.myspace.com/masonicauditorium",
-          "name": "Masonic Center",
-          "official_url": "http://www.masonicauditorium.com/",
-          "phone_number": "+1 (877) 598-8497",
-          "state": "CA",
-          "time_zone": "America/Los_Angeles",
-          "upcoming_events_count": 10,
-          "updated_at": "2012-07-03T09:41:24Z",
-          "postalcode": "94108",
+          "phone_number": null,
+          "time_zone": "America/Detroit",
+          "hide_resale_tickets": false,
+          "wikipedia_url": null,
           "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
-            "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
-            "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
-            "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
+            "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
+            "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
+            "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
+            "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
           },
-          "metro_area_id": 105,
-          "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
+          "postalcode": "48312",
+          "metro_area_id": 136,
+          "ticket_providers": [
+            {
+              "id": 1997,
+              "merchant_id": 2,
+
+   "name": "Ticketmaster",
+              "url": "http://ticketsus.at/thrillcall/65757.html",
+              "primary": true,
+              "tier": 0,
+              "display_index": 0,
+              "image": "http://i1.tc-core.com/merchant/2/1324584352/2-full.jpg?1324584352"
+            },
+            {
+              "id": 8732,
+              "merchant_id": 36,
+              "name": "AXS",
+              "url": "http://www.axs.com/venues/2327/freedom-hill-amphitheatre-sterling-heights-tickets",
+              "primary": true,
+              "tier": 0,
+              "display_index": 33,
+              "image": "http://i1.tc-core.com/merchant/36/1365101348/162-full.jpg?1365101348"
+            }
+          ],
+          "url": "http://thrillcall.com/venue/Freedom_Hill_Amphitheater_in_Sterling_Heights_MI"
         },
         "artists": [
           {
             "id": 378465,
             "name": "Il Volo",
-            "headliner": false
+            "headliner": false,
+            "photos": {
+              "thumbnail": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-thumbnail.jpg?1360966614",
+              "medium": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-medium.jpg?1360966614",
+              "large": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-large.jpg?1360966614",
+              "mobile": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-mobile.jpg?1360966614"
+            }
           }
         ],
-        "offer_details": {}
+        "offer_details": null
       },
       {
         ...
@@ -1960,84 +1990,103 @@ Note:  By default, this will search for events within the Person's **[preferred\
 Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked artists is performing in an event
 
 ``` js
-    // Example: GET /api/v3/person/24/recommended_events?api_key=1234567890abcdef
+    // Example: GET /api/v3/person/34850/recommended_events?api_key=1234567890abcdef
 
     [
       {
-        "id": 1291050,
-        "name": "T.I., Lil Wayne, 2 Chainz @ Sleep Train Pavilion At Concord",
-        "venue_id": 323,
-        "created_at": "2013-03-25T20:42:16Z",
-        "updated_at": "2013-06-12T22:20:41Z",
+        "id": 1462160,
+        "name": "Mogwai @ Roseland Theater",
+        "venue_id": 47425,
+        "created_at": "2014-03-24T22:34:54Z",
+        "updated_at": "2014-03-24T22:34:54Z",
         "festival": false,
         "rumor": false,
         "unconfirmed_location": 0,
-        "latitude": 37.9604,
-        "longitude": -121.94,
-        "starts_at": "2013-08-31T02:30:00Z",
+        "latitude": 45.5232,
+        "longitude": -122.676,
+        "starts_at": "2014-05-25T04:00:00Z",
         "starts_at_time_trusted": true,
-        "skip_event_conflict_validation": false,
-        "distance": 30.608671818601927,
-        "bearing": "68.0",
+        "distance": 1.6921186893745308,
+        "bearing": "286.0",
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-thumbnail.jpg?1324556348",
-          "large": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-large.jpg?1324556348",
-          "mobile": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-mobile.jpg?1324556348"
+          "thumbnail": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-thumbnail.jpg?1324556247",
+          "large": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-large.jpg?1324556247",
+          "mobile": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-mobile.jpg?1324556247"
         },
-        "url": "http://thrillcall.com/event/1291050",
-        "starts_at_local": "2013-08-30T19:30:00-07:00",
+        "url": "http://thrillcall.com/event/1462160",
+        "starts_at_local": "2014-05-24T21:00:00-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": false,
         "featured_event": false,
         "venue": {
-          "id": 323,
-          "name": "Sleep Train Pavilion At Concord",
-          "address1": "2000 Kirker Pass Road",
+          "id": 47425,
+          "name": "Roseland Theater",
+          "address1": "8 NW 6th Ave",
           "address2": null,
-          "city": "Concord",
-          "state": "CA",
-          "official_url": null,
-          "created_at": "2008-04-21T16:52:53Z",
-          "updated_at": "2013-06-24T09:00:13Z",
-          "latitude": 37.960354,
-          "longitude": -121.939659,
+          "city": "Portland",
+          "state": "OR",
+          "official_url": "http://www.roselandpdx.com/",
+          "created_at": "2008-05-08T17:00:43Z",
+
+      "updated_at": "2013-10-22T09:06:18Z",
+          "latitude": 45.523226,
+          "longitude": -122.676378,
           "country_code": "US",
-          "myspace_url": null,
-          "upcoming_events_count": 4,
-          "facebook_url": "http://www.facebook.com/pages/Sleep-Train-Pavilion/116238125066831",
+          "myspace_url": "http://www.myspace.com/roselandtheater",
+          "upcoming_events_count": 28,
+          "facebook_url": "http://www.facebook.com/roselandtheater",
           "long_description": null,
-          "phone_number": "+1 (925) 676-8742",
+          "phone_number": "+1 (503) 224-8499",
           "time_zone": "America/Los_Angeles",
           "hide_resale_tickets": false,
-          "postalcode": "94521",
+          "wikipedia_url": null,
           "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-thumbnail.jpg?1336436387",
-            "medium": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-medium.jpg?1336436387",
-            "large": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-large.jpg?1336436387",
-            "mobile": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-mobile.jpg?1336436387"
+            "thumbnail": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-thumbnail.jpg?1364254379",
+            "medium": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-medium.jpg?1364254379",
+            "large": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-large.jpg?1364254379",
+            "mobile": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-mobile.jpg?1364254379"
           },
-          "metro_area_id": 105,
-          "url": "http://thrillcall.com/venue/Sleep_Train_Pavilion_At_Concord_in_Concord_CA"
+          "postalcode": "97209",
+          "metro_area_id": 113,
+          "ticket_providers": [
+            {
+              "id": 371,
+              "merchant_id": 21,
+              "name": "TicketsWest",
+              "url": "http://ticketswest.rdln.com/Venue.aspx?ven=PC-ROS",
+              "primary": true,
+              "tier": 0,
+              "display_index": 9,
+              "image": "http://i1.tc-core.com/merchant/21/1324584355/19-full.jpg?1324584355"
+            },
+            {
+              "id": 8753,
+              "merchant_id": 36,
+              "name": "AXS",
+              "url": "http://www.axs.com/venues/102035/roseland-theater-portland-tickets",
+              "primary": true,
+              "tier": 0,
+              "display_index": 33,
+              "image": "http://i1.tc-core.com/merchant/36/1365101348/162-full.jpg?1365101348"
+            }
+          ],
+          "url": "http://thrillcall.com/venue/Roseland_Theater_in_Portland_OR"
         },
         "artists": [
           {
-            "id": 34156,
-            "name": "Lil Wayne",
-            "headliner": true
-          },
-          {
-            "id": 28490,
-            "name": "T.I.",
-            "headliner": false
-          },
-          {
-            "id": 387608,
-            "name": "2 Chainz",
-            "headliner": false
+            "id": 12978,
+            "name": "Mogwai",
+            "headliner": false,
+            "photos": {
+              "thumbnail": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-thumbnail.jpg?1324556247",
+              "medium": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-medium.jpg?1324556247",
+              "large": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-large.jpg?1324556247",
+              "mobile": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-mobile.jpg?1324556247"
+            }
           }
         ],
-        "offer_details": {}
+        "offer_details": null
       },
       {
         ...
@@ -2421,6 +2470,15 @@ Fields:
 - **name**                    _string_    Name of the Venue
 - **metro\_area\_id**         _integer_   Thrillcall ID of the Metro Area this Venue is in, if any
 - **state**                   _string_    State the Venue is in
+- **ticket\_providers**       _array_     List of standard ticket providers for this Venue
+  - **id**                      _integer_  Thrillcall ID of the Ticket Provider
+  - **merchant\_id**            _integer_  Thrillcall ID of the Merchant
+  - **name**                    _string_   Name of the Merchant
+  - **url**                     _string_   Generic ticketing link for this Venue from this Merchant
+  - **primary**                 _boolean_  Whether or not the merchant is a primary ticket source
+  - **tier**                    _integer_  Display tier relative to other Merchants
+  - **display\_index**          _integer_  Display index relative to other Merchants in this tier
+  - **image**                   _string_   Thumbnail image URL for this Merchant
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **postalcode**              _string_    Postal code for the Venue

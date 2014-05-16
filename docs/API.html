@@ -1504,6 +1504,28 @@ credential.</p>
 <li>
 <strong>state</strong>                   <em>string</em>    State the Venue is in</li>
 <li>
+<strong>ticket_providers</strong>       <em>array</em>     List of standard ticket providers for this Venue
+
+<ul>
+<li>
+<strong>id</strong>                      <em>integer</em>  Thrillcall ID of the Ticket Provider</li>
+<li>
+<strong>merchant_id</strong>            <em>integer</em>  Thrillcall ID of the Merchant</li>
+<li>
+<strong>name</strong>                    <em>string</em>   Name of the Merchant</li>
+<li>
+<strong>url</strong>                     <em>string</em>   Generic ticketing link for this Venue from this Merchant</li>
+<li>
+<strong>primary</strong>                 <em>boolean</em>  Whether or not the merchant is a primary ticket source</li>
+<li>
+<strong>tier</strong>                    <em>integer</em>  Display tier relative to other Merchants</li>
+<li>
+<strong>display_index</strong>          <em>integer</em>  Display index relative to other Merchants in this tier</li>
+<li>
+<strong>image</strong>                   <em>string</em>   Thumbnail image URL for this Merchant</li>
+</ul>
+</li>
+<li>
 <strong>upcoming_events_count</strong> <em>integer</em>   Number of upcoming events associated with this object</li>
 <li>
 <strong>updated_at</strong>             <em>string</em>    ISO 8601 representation of last time this object was updated</li>
