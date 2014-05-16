@@ -471,6 +471,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Wikipedia URL for the Artist.</p>
 </li>
 <li>
+<p><a name="youtube_url"></a><strong>youtube_url</strong> <em>string (format: "http://www.youtube.com/user/ladygagaofficial")</em></p>
+
+<p>YouTube URL for the Artist.</p>
+</li>
+<li>
 <p><a name="artist_names"></a><strong>artist_names</strong> <em>string</em></p>
 
 <p>A list of comma separated artist names.</p>
@@ -580,6 +585,8 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <strong>official_url</strong>           <em>string</em>    Official external URL for this object</li>
 <li>
 <strong>wikipedia_url</strong>          <em>string</em>    Wikipedia URL for this object</li>
+<li>
+<strong>youtube_url</strong>            <em>string</em>    YouTube URL for this object</li>
 </ul>
 
 <p><a name="content_artists_get_artists"></a></p>
@@ -614,6 +621,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#myspace_url">myspace_url</a></strong></li>
 <li><strong><a href="#official_url">official_url</a></strong></li>
 <li><strong><a href="#wikipedia_url">wikipedia_url</a></strong></li>
+<li><strong><a href="#youtube_url">youtube_url</a></strong></li>
 </ul>
 
 <p>Creates a new Artist record with the provided parameters.</p>
@@ -652,6 +660,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#myspace_url">myspace_url</a></strong></li>
 <li><strong><a href="#official_url">official_url</a></strong></li>
 <li><strong><a href="#wikipedia_url">wikipedia_url</a></strong></li>
+<li><strong><a href="#youtube_url">youtube_url</a></strong></li>
 <li><strong><a href="#mappings">mappings</a></strong></li>
 </ul>
 
@@ -759,6 +768,8 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <strong>featured_event</strong>                      <em>boolean</em> Is this a featured event?</li>
 <li>
 <strong>venue_id</strong>                           <em>integer</em> Thrillcall Venue ID</li>
+<li>
+<strong>venue</strong>                               <em>hash</em>    Thrillcall Venue</li>
 <li>
 <strong>photos</strong>                              <em>hash</em>    A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
