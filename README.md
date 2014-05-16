@@ -280,7 +280,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
         If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, this will be ignored.
 
     For POST / PUT requests:
-        Required for creating or updating a Person or Venue.
+        Optional for creating or updating a Person or Venue.
 
 - <a name="radius" />**radius** _float_
 
@@ -1766,6 +1766,8 @@ Params:
 - **[email](#email)**
 - **[password](#password)**
 - **[postalcode](#postalcode)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[referral\_code](#referral_code)**
 - **[preferred\_radius](#preferred_radius)**
 
@@ -1820,6 +1822,8 @@ Params:
 - **[city](#city)**
 - **[state](#state)**
 - **[postalcode](#postalcode)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[gender](#gender)**
 - **[password](#password)**
 - **[old\_password](#old_password)**
