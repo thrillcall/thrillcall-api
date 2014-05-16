@@ -691,8 +691,7 @@ Returns:  _Array_ of Events _Hash_
             {
               "id": 1997,
               "merchant_id": 2,
-
-   "name": "Ticketmaster",
+              "name": "Ticketmaster",
               "url": "http://ticketsus.at/thrillcall/65757.html",
               "primary": true,
               "tier": 0,
