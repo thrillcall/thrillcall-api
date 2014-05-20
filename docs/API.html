@@ -382,6 +382,13 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>The Credential's current token, must match record to perform Credential updates.</p>
 </li>
 <li>
+<p><a name="skip_autotrack"></a><strong>skip_autotrack</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>When creating or updating a Credential, the person will be set to automatically track artists recommended from this provider unless this parameter is set to true.</p>
+</li>
+<li>
 <p><a name="first_name"></a><strong>first_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
 
 <p>Required to register a Person.</p>
@@ -1443,6 +1450,7 @@ The hash will contain the following keys.</p>
 <li><strong><a href="#provider">provider</a></strong></li>
 <li><strong><a href="#uid">uid</a></strong></li>
 <li><strong><a href="#token">token</a></strong></li>
+<li><strong><a href="#skip_autotrack">skip_autotrack</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>
@@ -1466,6 +1474,7 @@ not required and may be left blank, the other parameters are required.</p>
 <li><strong><a href="#token">token</a></strong></li>
 <li><strong><a href="#old_token">old_token</a></strong></li>
 <li><strong><a href="#old_password">old_password</a></strong></li>
+<li><strong><a href="#skip_autotrack">skip_autotrack</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>

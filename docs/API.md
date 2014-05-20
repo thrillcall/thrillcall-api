@@ -237,6 +237,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     The Credential's current token, must match record to perform Credential updates.
 
+- <a name="skip_autotrack" />**skip\_autotrack** _boolean_
+
+    _Default: false_
+
+    When creating or updating a Credential, the person will be set to automatically track artists recommended from this provider unless this parameter is set to true.
+
 - <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
 
     Required to register a Person.
@@ -2222,6 +2228,7 @@ Params:
 - **[provider](#provider)**
 - **[uid](#uid)**
 - **[token](#token)**
+- **[skip_autotrack](#skip_autotrack)**
 
 Returns: Person _Hash_
 
@@ -2278,6 +2285,7 @@ Params:
 - **[token](#token)**
 - **[old_token](#old_token)**
 - **[old_password](#old_password)**
+- **[skip_autotrack](#skip_autotrack)**
 
 Returns: Person _Hash_
 
