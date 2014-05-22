@@ -168,6 +168,7 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
   - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
   - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
+  - **[GET /person/:id/recommended_artists](#content_person_get_person_id_recommended_artists)**
 - **[Credential](#content_credential)**
   - **[POST /credential](#content_credential_post_credential)**
   - **[PUT /credential/:id](#content_credential_put_id_credential)**
@@ -279,7 +280,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
         If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, this will be ignored.
 
     For POST / PUT requests:
-        Required for creating or updating a Person or Venue.
+        Optional for creating or updating a Person or Venue.
 
 - <a name="radius" />**radius** _float_
 
@@ -369,6 +370,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     The Credential's current token, must match record to perform Credential updates.
 
+- <a name="skip_autotrack" />**skip\_autotrack** _boolean_
+
+    _Default: false_
+
+    When creating or updating a Credential, the person will be set to automatically track artists recommended from this provider unless this parameter is set to true.
+
 - <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
 
     Required to register a Person.
@@ -441,6 +448,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     Wikipedia URL for the Artist.
 
+- <a name="youtube_url" />**youtube\_url** _string (format: "http://www.youtube.com/user/ladygagaofficial")_
+
+    YouTube URL for the Artist.
+
 - <a name="artist_names" />**artist\_names** _string_
 
     A list of comma separated artist names.
@@ -481,14 +492,28 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     When searching by radius, or from the Metro Area endpoint, you can also specify "distance," although this value is not directly exposed.
 
+
     Calls for Artists, Genres, Tickets, Venues, and all Search endpoints default to using the "name" field.
+
     Calls for Events default to the "starts\_at" field.
+
     Calls for Metro Areas default to the "city" field.
+
     Calls for Mappings default to the "partner\_id" field.
 
 - <a name="order" />**order** _string: "ASC" or "DESC"_
 
     The direction you wish to sort the results.  Default: DESC
+
+- <a name="polling_for" />**polling\_for** _string_
+
+    Comma-separated list of services to poll.  Use this to decrease response time if recommendations from only one or two services need to be refreshed.
+
+    e.g. _"spotify,lastfm"_
+
+    If specified, will only return recommended artists from these services.  Popular artists will be omitted.
+
+    If not specified, will return recommended artists from all available services, as well as popular artists.
 
 <a name="content_artists" />
 ## Artists
@@ -508,12 +533,14 @@ Fields:
 - **myspace\_url**            _string_    Myspace URL for this object
 - **official\_url**           _string_    Official external URL for this object
 - **wikipedia\_url**          _string_    Wikipedia URL for this object
+- **youtube\_url**            _string_    YouTube URL for this object
 
 
 <a name="content_artists_get_artists" />
 ### GET /artists
 Params:
 
+- **[ids](#ids)**
 - **[limit](#limit)**
 - **[page](#page)**
 - **[primary\_genre\_id](#primary_genre_id)**
@@ -524,25 +551,42 @@ Params:
 Returns:  _Array_ of Artists _Hash_
 
 ``` js
-    // Example: GET /api/v3/artists?mappings=ticketmaster&limit=14&api_key=1234567890abcdef
+    // Example: GET /api/v3/artists?mappings=livenation&page=60801&limit=5&api_key=1234567890abcdef
 
     [
       {
-        "created_at": "2008-04-29T10:19:45Z",
-        "genre_tags": "O",
-        "id": 1,
-        "name": "Hyler Jones Proteges",
-        "primary_genre_id": 61,
-        "popularity": 0.0,
-        "upcoming_events_count": 0,
-        "updated_at": "2010-03-26T16:49:20Z",
+        "id": 381,
+        "name": "Reverend Horton Heat",
+        "official_url": "http://www.reverendhortonheat.com/",
+        "wikipedia_url": "http://en.wikipedia.com/wiki/Reverend_Horton_Heat",
+        "myspace_url": "http://www.myspace.com/reverendhortonheat",
+        "created_at": "2008-04-21T16:53:40Z",
+        "updated_at": "2014-04-09T03:30:02Z",
+        "genre_tags": "psychobilly;Rock;rockabilly",
+        "primary_genre_id": 27,
+        "upcoming_events_count": 43,
+        "facebook_url": "http://www.facebook.com/reverendhortonheat",
+        "featured_at": null,
+        "youtube_url": null,
+        "foreign_mappings": [
+          {
+            "id": 10809,
+            "partner_id": "livenation",
+            "obj_type": "artist",
+            "partner_display_name": "Reverend Horton Heat",
+            "partner_obj_id": "700116",
+            "created_at": "2009-08-13T04:22:26Z",
+            "updated_at": "2012-08-07T02:54:25Z"
+          }
+        ],
+        "popularity": 0.447929,
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/_default/default-thumbnail.jpg",
-          "medium": "http://i1.tc-core.com/artist/_default/default-medium.jpg",
-          "large": "http://i1.tc-core.com/artist/_default/default-large.jpg",
-          "mobile": "http://i1.tc-core.com/artist/_default/default-mobile.jpg"
+          "thumbnail": "http://i1.tc-core.com/artist/381/1451/1324556983/reverend-horton-heat-thumbnail.jpg?1324556983",
+          "medium": "http://i1.tc-core.com/artist/381/1451/1324556983/reverend-horton-heat-medium.jpg?1324556983",
+          "large": "http://i1.tc-core.com/artist/381/1451/1324556983/reverend-horton-heat-large.jpg?1324556983",
+          "mobile": "http://i1.tc-core.com/artist/381/1451/1324556983/reverend-horton-heat-mobile.jpg?1324556983"
         },
-        "url": "http://thrillcall.com/artist/Hyler_Jones_Proteges"
+        "url": "http://thrillcall.com/artist/Reverend-Horton-Heat"
       },
       {
         ...
@@ -561,13 +605,14 @@ Params:
 - **[myspace\_url](#myspace_url)**
 - **[official\_url](#official_url)**
 - **[wikipedia\_url](#wikipedia_url)**
+- **[youtube\_url](#youtube_url)**
 
 Creates a new Artist record with the provided parameters.
 
 Returns:  Artist _Hash_
 
 ``` js
-    // Example: GET /api/v3/artist?name=Bleeding%20Chest%20Wounds&wikipedia_url=http%3A%2F%2Ftest.com&api_key=1234567890abcdef
+    // Example: POST /api/v3/artist?name=Bleeding%20Chest%20Wounds&wikipedia_url=http%3A%2F%2Ftest.com&api_key=1234567890abcdef
 
     {
       "created_at": null,
@@ -582,6 +627,7 @@ Returns:  Artist _Hash_
       "upcoming_events_count": 0,
       "updated_at": null,
       "wikipedia_url": "http://test.com",
+      "youtube_url": null,
       "photos": {
         "thumbnail": "http://i1.tc-core.com/artist/_default/default-thumbnail.jpg",
         "medium": "http://i1.tc-core.com/artist/_default/default-medium.jpg",
@@ -603,46 +649,49 @@ Returns:  Artist _Hash_
 
 ``` js
     // Example: GET /api/v3/artist/12?mappings=livenation&api_key=1234567890abcdef
+
     {
-      "created_at": "2008-05-08T18:33:35Z",
-      "facebook_url": null,
-      "genre_tags": "classic rock",
       "id": 12,
-      "myspace_url": "http://www.myspace.com/southsidejohnnyandtheasburyjukes",
       "name": "Southside Johnny And The Asbury Jukes",
       "official_url": "http://www.southsidejohnny.com/",
-      "primary_genre_id": 27,
-      "popularity": 0.0,
-      "upcoming_events_count": 9,
-      "updated_at": "2012-06-18T07:49:24Z",
       "wikipedia_url": "http://en.wikipedia.org/wiki/Southside_Johnny_%26_The_Asbury_Jukes",
+      "myspace_url": "http://www.myspace.com/southsidejohnnyandtheasburyjukes",
+      "created_at": "2008-05-08T18:33:35Z",
+      "updated_at": "2014-04-09T03:28:35Z",
+      "genre_tags": "classic rock",
+      "primary_genre_id": 27,
+      "upcoming_events_count": 10,
+      "facebook_url": null,
+      "featured_at": null,
+      "youtube_url": null,
       "foreign_mappings": [
         {
-          "created_at": "2009-08-13T04:41:27Z",
           "id": 11504,
+          "partner_id": "livenation",
           "obj_type": "artist",
           "partner_display_name": "Southside Johnny",
-          "partner_id": "livenation",
           "partner_obj_id": "28610",
-          "updated_at": "2012-07-18T00:19:25Z"
+          "created_at": "2009-08-13T04:41:27Z",
+          "updated_at": "2012-08-07T02:54:38Z"
         },
         {
-          "created_at": "2009-08-13T04:41:27Z",
           "id": 11505,
+          "partner_id": "livenation",
           "obj_type": "artist",
           "partner_display_name": "Southside Johnny & The Asbury Jukes",
-          "partner_id": "livenation",
           "partner_obj_id": "6208",
-          "updated_at": "2012-07-18T00:19:25Z"
+          "created_at": "2009-08-13T04:41:27Z",
+          "updated_at": "2012-08-07T02:54:38Z"
         }
       ],
+      "popularity": 0.42081,
       "photos": {
         "thumbnail": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-thumbnail.jpg?1324557379",
         "medium": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-medium.jpg?1324557379",
         "large": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-large.jpg?1324557379",
         "mobile": "http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-mobile.jpg?1324557379"
       },
-      "url": "http://localhost:3000/artist/Southside_Johnny_And_The_Asbury_Jukes"
+      "url": "http://thrillcall.com/artist/Southside-Johnny-And-The-Asbury-Jukes"
     }
 ```
 
@@ -657,6 +706,7 @@ Params:
 - **[myspace\_url](#myspace_url)**
 - **[official\_url](#official_url)**
 - **[wikipedia\_url](#wikipedia_url)**
+- **[youtube\_url](#youtube_url)**
 - **[mappings](#mappings)**
 
 Updates the provided fields on Artist **:id**.
@@ -679,6 +729,7 @@ Returns:  Artist _Hash_
       "upcoming_events_count": 58,
       "updated_at": "2012-07-02T09:55:40Z",
       "wikipedia_url": "http://test.com",
+      "youtube_url": null,
       "photos": {
         "thumbnail": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
         "medium": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
@@ -723,67 +774,96 @@ Returns:  _Array_ of Events _Hash_
 
     [
       {
-        "created_at": "2012-03-02T18:06:14Z",
+        "id": 1462860,
+        "name": "Il Volo @ Freedom Hill Amphitheater",
+        "venue_id": 49270,
+        "created_at": "2014-04-01T22:38:41Z",
+        "updated_at": "2014-04-01T22:38:41Z",
         "festival": false,
-        "id": 1047075,
-        "latitude": 37.7915,
-        "longitude": -122.413,
-        "name": "Il Volo @ Masonic Center",
         "rumor": false,
-        "starts_at": "2012-09-30T02:30:04Z",
-        "starts_at_time_trusted": true,
         "unconfirmed_location": 0,
-        "updated_at": "2012-03-29T01:35:57Z",
-        "venue_id": 63279,
+        "latitude": null,
+        "longitude": null,
+        "starts_at": "2014-06-19T23:30:00Z",
+        "starts_at_time_trusted": true,
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-thumbnail.jpg?1360966614",
+          "large": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-large.jpg?1360966614",
+          "mobile": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-mobile.jpg?1360966614"
         },
-        "url": "http://thrillcall.com/event/1047075",
-        "starts_at_local": "2012-09-29T19:30:04-07:00",
-        "time_zone": "America/Los_Angeles",
+        "url": "http://thrillcall.com/event/1462860",
+        "starts_at_local": "2014-06-19T19:30:00-04:00",
+        "time_zone": "America/Detroit",
         "event_status": "confirmed",
         "name_modified": false,
         "featured_event": false,
         "venue": {
-          "address1": "1111 California Street",
+          "id": 49270,
+          "name": "Freedom Hill Amphitheater",
+          "address1": "Formerly known as Jerome Duncan Ford Theatre",
           "address2": null,
-          "city": "San Francisco",
+          "city": "Sterling Heights",
+          "state": "MI",
+          "official_url": "http://freedomhill.net/",
+          "created_at": "2008-06-07T03:55:39Z",
+          "updated_at": "2013-10-06T09:41:10Z",
+          "latitude": 42.5933,
+          "longitude": -83.013367,
           "country_code": "US",
-          "created_at": "2009-08-25T19:25:27Z",
-          "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
-          "hide_resale_tickets": false,
-          "id": 63279,
-          "latitude": 37.79153,
+          "myspace_url": null,
+          "upcoming_events_count": 0,
+          "facebook_url": "http://www.facebook.com/freedomhillMI",
           "long_description": null,
-          "longitude": -122.412757,
-          "myspace_url": "http://www.myspace.com/masonicauditorium",
-          "name": "Masonic Center",
-          "official_url": "http://www.masonicauditorium.com/",
-          "phone_number": "+1 (877) 598-8497",
-          "state": "CA",
-          "time_zone": "America/Los_Angeles",
-          "upcoming_events_count": 10,
-          "updated_at": "2012-07-03T09:41:24Z",
-          "postalcode": "94108",
+          "phone_number": null,
+          "time_zone": "America/Detroit",
+          "hide_resale_tickets": false,
+          "wikipedia_url": null,
           "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
-            "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
-            "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
-            "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
+            "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
+            "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
+            "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
+            "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
           },
-          "metro_area_id": 105,
-          "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
+          "postalcode": "48312",
+          "metro_area_id": 136,
+          "ticket_providers": [
+            {
+              "id": 1997,
+              "merchant_id": 2,
+              "name": "Ticketmaster",
+              "url": "http://ticketsus.at/thrillcall/65757.html",
+              "primary": true,
+              "tier": 0,
+              "display_index": 0,
+              "image": "http://i1.tc-core.com/merchant/2/1324584352/2-full.jpg?1324584352"
+            },
+            {
+              "id": 8732,
+              "merchant_id": 36,
+              "name": "AXS",
+              "url": "http://www.axs.com/venues/2327/freedom-hill-amphitheatre-sterling-heights-tickets",
+              "primary": true,
+              "tier": 0,
+              "display_index": 33,
+              "image": "http://i1.tc-core.com/merchant/36/1365101348/162-full.jpg?1365101348"
+            }
+          ],
+          "url": "http://thrillcall.com/venue/Freedom_Hill_Amphitheater_in_Sterling_Heights_MI"
         },
         "artists": [
           {
             "id": 378465,
             "name": "Il Volo",
-            "headliner": false
+            "headliner": false,
+            "photos": {
+              "thumbnail": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-thumbnail.jpg?1360966614",
+              "medium": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-medium.jpg?1360966614",
+              "large": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-large.jpg?1360966614",
+              "mobile": "http://i1.tc-core.com/artist/378465/22623/1360966614/il-volo-mobile.jpg?1360966614"
+            }
           }
         ],
-        "offer_details": {}
+        "offer_details": null
       },
       {
         ...
@@ -824,6 +904,7 @@ Returns:  _Array_ of Artists _Hash_
         "upcoming_events_count": 58,
         "updated_at": "2012-07-02T09:55:40Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
+        "youtube_url": null,
         "photos": {
           "thumbnail": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
           "medium": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
@@ -861,6 +942,7 @@ Fields:
 - **name_modified**                       _boolean_ Has the event name been modified?
 - **featured_event**                      _boolean_ Is this a featured event?
 - **venue\_id**                           _integer_ Thrillcall Venue ID
+- **venue**                               _hash_    Thrillcall Venue
 - **photos**                              _hash_    A hash of image urls of the primary photo available for this object in different styles
 - **artists**                             _array_   An array of hashes, each representing an artist at this event, containing:
   - **id**                                  _integer_ Thrillcall ID for the Event
@@ -914,79 +996,88 @@ Returns:  _Array_ of Events _Hash_
 
     [
       {
-        "created_at": "2012-03-02T18:06:14Z",
+        "id": 1357825,
+        "name": "San Francisco Symphony @ Davies Symphony Hall",
+        "venue_id": 51886,
+        "created_at": "2013-06-26T19:31:36Z",
+        "updated_at": "2013-06-27T09:55:14Z",
         "festival": false,
-        "id": 1047075,
-        "latitude": 37.7915,
-        "longitude": -122.413,
-        "name": "Il Volo @ Masonic Center",
         "rumor": false,
-        "starts_at": "2012-09-30T02:30:04Z",
-        "starts_at_time_trusted": true,
         "unconfirmed_location": 0,
-        "updated_at": "2012-03-29T01:35:57Z",
-        "venue_id": 63279,
+        "latitude": 37.7774,
+        "longitude": -122.42,
+        "starts_at": "2014-05-15T03:00:00Z",
+        "starts_at_time_trusted": true,
+        "distance": 1.1199036357727454,
+        "bearing": "220.0",
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i1.tc-core.com/artist/13019/1405/1324556969/san-francisco-symphony-thumbnail.jpg?1324556969",
+          "large": "http://i1.tc-core.com/artist/13019/1405/1324556969/san-francisco-symphony-large.jpg?1324556969",
+          "mobile": "http://i1.tc-core.com/artist/13019/1405/1324556969/san-francisco-symphony-mobile.jpg?1324556969"
         },
-        "url": "http://thrillcall.com/event/1047075",
-        "starts_at_local": "2012-09-29T19:30:04-07:00",
+        "url": "http://thrillcall.com/event/1357825",
+        "starts_at_local": "2014-05-14T20:00:00-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": false,
-        "featured_event": true,
+        "featured_event": false,
         "venue": {
-          "address1": "1111 California Street",
+          "id": 51886,
+          "name": "Davies Symphony Hall",
+          "address1": "201 Van Ness Avenue",
           "address2": null,
           "city": "San Francisco",
-          "country_code": "US",
-          "created_at": "2009-08-25T19:25:27Z",
-          "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
-          "hide_resale_tickets": false,
-          "id": 63279,
-          "latitude": 37.79153,
-          "long_description": null,
-          "longitude": -122.412757,
-          "myspace_url": "http://www.myspace.com/masonicauditorium",
-          "name": "Masonic Center",
-          "official_url": "http://www.masonicauditorium.com/",
-          "phone_number": "+1 (877) 598-8497",
           "state": "CA",
+          "official_url": "http://www.sfsymphony.org/",
+          "created_at": "2008-04-28T17:59:32Z",
+          "updated_at": "2013-10-20T09:06:01Z",
+          "latitude": 37.777402,
+          "longitude": -122.419815,
+          "country_code": "US",
+          "myspace_url": null,
+          "upcoming_events_count": 93,
+          "facebook_url": "http://www.facebook.com/sfsymphony",
+          "long_description": null,
+          "phone_number": "+1 (415) 864-6000",
           "time_zone": "America/Los_Angeles",
-          "upcoming_events_count": 10,
-          "updated_at": "2012-07-03T09:41:24Z",
-          "postalcode": "94108",
+          "hide_resale_tickets": false,
+          "wikipedia_url": null,
           "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
-            "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
-            "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
-            "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
+            "thumbnail": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154",
+            "medium": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154",
+            "large": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154",
+            "mobile": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"
           },
+          "postalcode": "94102",
           "metro_area_id": 105,
-          "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
+          "ticket_providers": [
+            {
+              "id": 5637,
+              "merchant_id": 22,
+              "name": "IndieTickets",
+              "url": "http://www.sfsymphony.org/season/calendar.aspx",
+              "primary": true,
+              "tier": 0,
+              "display_index": 8,
+              "image": "http://i1.tc-core.com/merchant/22/1324584355/20-full.jpg?1324584355"
+            }
+          ],
+          "url": "http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"
         },
         "artists": [
           {
-            "id": 378465,
-            "name": "Il Volo",
-            "headliner": false
+            "id": 13019,
+            "name": "San Francisco Symphony",
+            "headliner": false,
+            "photos": {
+              "thumbnail": "http://i1.tc-core.com/artist/13019/1405/1324556969/san-francisco-symphony-thumbnail.jpg?1324556969",
+              "medium": "http://i1.tc-core.com/artist/13019/1405/1324556969/san-francisco-symphony-medium.jpg?1324556969",
+              "large": "http://i1.tc-core.com/artist/13019/1405/1324556969/san-francisco-symphony-large.jpg?1324556969",
+              "mobile": "http://i1.tc-core.com/artist/13019/1405/1324556969/san-francisco-symphony-mobile.jpg?1324556969"
+            }
           }
         ],
-        "offer_details": {
-          "id": 123,
-          "title": "Example Offer",
-          "offer_starts_at": "2013-05-01T09:00:00-07:00",
-          "offer_starts_at_local": "2013-05-01T09:00:00-07:00",
-          "offer_ends_at": "2013-05-02T17:00:00-07:00",
-          "offer_ends_at_local": "2013-05-02T17:00:00-07:00",
-          "offer_sale_starts_at": "2013-05-01T09:00:00-07:00",
-          "offer_sale_starts_at_local": "2013-05-01T09:00:00-07:00",
-          "short_description": "Win tickets for the show!",
-          "offer_type": "contest",
-          "price_cents": 0
-        }
+        "offer_details": null
       },
       {
         ...
@@ -1006,36 +1097,86 @@ Params:
 Returns:  Event _Hash_
 
 ``` js
-    // Example: GET /api/v3/event/1047075?api_key=1234567890abcdef
+    // Example: GET /api/v3/event/1412491?api_key=1234567890abcdef
+
     {
-      "created_at": "2012-03-02T18:06:14Z",
+      "id": 1412491,
+      "name": "Death Cab for Cutie @ McMenamins Edgefield Amphitheatre",
+      "venue_id": 61956,
+      "created_at": "2013-09-01T01:49:44Z",
+      "updated_at": "2013-09-01T11:51:50Z",
       "festival": false,
-      "id": 1047075,
-      "latitude": 37.7915,
-      "longitude": -122.413,
-      "name": "Il Volo @ Masonic Center",
       "rumor": false,
-      "starts_at": "2012-09-30T02:30:04Z",
-      "starts_at_time_trusted": true,
       "unconfirmed_location": 0,
-      "updated_at": "2012-03-29T01:35:57Z",
-      "venue_id": 63279,
+      "latitude": 45.5384,
+      "longitude": -122.408,
+      "starts_at": "2014-09-01T01:30:00Z",
+      "starts_at_time_trusted": true,
       "photos": {
-        "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-        "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-        "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+        "thumbnail": "http://i1.tc-core.com/artist/8912/850/1324556811/death-cab-for-cutie-thumbnail.jpg?1324556811",
+        "large": "http://i1.tc-core.com/artist/8912/850/1324556811/death-cab-for-cutie-large.jpg?1324556811",
+        "mobile": "http://i1.tc-core.com/artist/8912/850/1324556811/death-cab-for-cutie-mobile.jpg?1324556811"
       },
-      "url": "http://thrillcall.com/event/1047075",
-      "starts_at_local": "2012-09-29T19:30:04-07:00",
+      "url": "http://thrillcall.com/event/1412491",
+      "starts_at_local": "2014-08-31T18:30:00-07:00",
       "time_zone": "America/Los_Angeles",
       "event_status": "confirmed",
       "name_modified": false,
-      "featured_event": true,
+      "featured_event": false,
+      "venue": {
+        "id": 61956,
+        "name": "McMenamins Edgefield Amphitheatre",
+        "address1": "2126 SW Halsey Street",
+        "address2": null,
+        "city": "Troutdale",
+        "state": "OR",
+        "official_url": "http://www.mcmenamins.com/54-edgefield-home",
+        "created_at": "2009-03-25T20:57:27Z",
+        "updated_at": "2013-09-22T09:59:13Z",
+        "latitude": 45.538419,
+        "longitude": -122.40831,
+        "country_code": "US",
+        "myspace_url": null,
+        "upcoming_events_count": 1,
+        "facebook_url": "http://www.facebook.com/pages/McMenamins-Edgefield/145274282244744",
+        "long_description": null,
+        "phone_number": "+1 (503) 669-8610",
+        "time_zone": "America/Los_Angeles",
+        "hide_resale_tickets": false,
+        "wikipedia_url": null,
+        "photos": {
+          "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
+          "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
+          "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
+          "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
+        },
+        "postalcode": "97060",
+        "metro_area_id": 113,
+        "ticket_providers": [
+          {
+            "id": 8893,
+            "merchant_id": 20,
+            "name": "eTix",
+            "url": "https://www.etix.com/ticket/online/venueSearch.jsp?venue_id=7623&performance_id=1716840&cobrand=edgefieldconcerts&language=en&country=US",
+            "primary": true,
+            "tier": 0,
+            "display_index": 10,
+            "image": "http://i1.tc-core.com/merchant/20/1368590491/166-full.jpg?1368590500"
+          }
+        ],
+        "url": "http://thrillcall.com/venue/McMenamins_Edgefield_Amphitheatre_in_Troutdale_OR"
+      },
       "artists": [
         {
-          "id": 378465,
-          "name": "Il Volo",
-          "headliner": false
+          "id": 8912,
+          "name": "Death Cab for Cutie",
+          "headliner": false,
+          "photos": {
+            "thumbnail": "http://i1.tc-core.com/artist/8912/850/1324556811/death-cab-for-cutie-thumbnail.jpg?1324556811",
+            "medium": "http://i1.tc-core.com/artist/8912/850/1324556811/death-cab-for-cutie-medium.jpg?1324556811",
+            "large": "http://i1.tc-core.com/artist/8912/850/1324556811/death-cab-for-cutie-large.jpg?1324556811",
+            "mobile": "http://i1.tc-core.com/artist/8912/850/1324556811/death-cab-for-cutie-mobile.jpg?1324556811"
+          }
         }
       ],
       "offer_details": {
@@ -1085,6 +1226,7 @@ Returns:  _Array_ of Artists _Hash_
         "upcoming_events_count": 58,
         "updated_at": "2012-07-02T09:55:40Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/Chris_Isaak",
+        "youtube_url": null,
         "photos": {
           "thumbnail": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547",
           "medium": "http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547",
@@ -1114,33 +1256,56 @@ Returns:  Venue _Hash_
     // Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef
 
     {
+      "id": 63279,
+      "name": "Masonic Center",
       "address1": "1111 California Street",
       "address2": null,
       "city": "San Francisco",
-      "country_code": "US",
-      "created_at": "2009-08-25T19:25:27Z",
-      "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
-      "hide_resale_tickets": false,
-      "id": 63279,
-      "latitude": 37.79153,
-      "long_description": null,
-      "longitude": -122.412757,
-      "myspace_url": "http://www.myspace.com/masonicauditorium",
-      "name": "Masonic Center",
-      "official_url": "http://www.masonicauditorium.com/",
-      "phone_number": "+1 (877) 598-8497",
       "state": "CA",
+      "official_url": "http://www.masonicauditorium.com/",
+      "created_at": "2009-08-25T19:25:27Z",
+      "updated_at": "2013-10-19T09:54:04Z",
+      "latitude": 37.79153,
+      "longitude": -122.412757,
+      "country_code": "US",
+      "myspace_url": "http://www.myspace.com/masonicauditorium",
+      "upcoming_events_count": 4,
+      "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
+      "long_description": null,
+      "phone_number": "+1 (877) 598-8497",
       "time_zone": "America/Los_Angeles",
-      "upcoming_events_count": 10,
-      "updated_at": "2012-07-03T09:41:24Z",
-      "postalcode": "94108",
+      "hide_resale_tickets": false,
+      "wikipedia_url": null,
       "photos": {
         "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
         "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
         "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
         "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
       },
+      "postalcode": "94108",
       "metro_area_id": 105,
+      "ticket_providers": [
+        {
+          "id": 3001,
+          "merchant_id": 2,
+          "name": "Ticketmaster",
+          "url": "http://ticketsus.at/thrillcall/229776.html",
+          "primary": true,
+          "tier": 0,
+          "display_index": 0,
+          "image": "http://i1.tc-core.com/merchant/2/1324584352/2-full.jpg?1324584352"
+        },
+        {
+          "id": 5386,
+          "merchant_id": 22,
+          "name": "IndieTickets",
+          "url": "http://www.masonicauditorium.com/calendar/index.html",
+          "primary": true,
+          "tier": 0,
+          "display_index": 8,
+          "image": "http://i1.tc-core.com/merchant/22/1324584355/20-full.jpg?1324584355"
+        }
+      ],
       "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
     }
 ```
@@ -1278,6 +1443,7 @@ Returns:  _Array_ of Artists _Hash_
         "upcoming_events_count": 1,
         "updated_at": "2012-05-31T09:16:49Z",
         "wikipedia_url": "http://en.wikipedia.org/wiki/index.html?curid=4735724",
+        "youtube_url": null,
         "photos": {
           "thumbnail": "http://i1.tc-core.com/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246",
           "medium": "http://i1.tc-core.com/artist/2/15306/1328344246/espers-medium.jpg?1328344246",
@@ -1452,7 +1618,7 @@ Returns:  _Array_ of Metro Areas _Hash_
           "photos":{"thumbnail":"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566",
           "medium":"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-medium.jpg?1326489566",
           "large":"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566",
-          "mobile":"http://i.development.tc-core.com/noel/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"},
+          "mobile":"http://i1.tc-core.com/noel/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"},
           "metro_area_id":105,
           "url":"http://localhost:3000/venue/The_End_Up_in_San_Francisco_CA"
         },
@@ -1606,6 +1772,8 @@ Params:
 - **[email](#email)**
 - **[password](#password)**
 - **[postalcode](#postalcode)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[referral\_code](#referral_code)**
 - **[preferred\_radius](#preferred_radius)**
 
@@ -1660,6 +1828,8 @@ Params:
 - **[city](#city)**
 - **[state](#state)**
 - **[postalcode](#postalcode)**
+- **[lat](#lat)**
+- **[long](#long)**
 - **[gender](#gender)**
 - **[password](#password)**
 - **[old\_password](#old_password)**
@@ -1829,84 +1999,103 @@ Note:  By default, this will search for events within the Person's **[preferred\
 Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked artists is performing in an event
 
 ``` js
-    // Example: GET /api/v3/person/24/recommended_events?api_key=1234567890abcdef
+    // Example: GET /api/v3/person/34850/recommended_events?api_key=1234567890abcdef
 
     [
       {
-        "id": 1291050,
-        "name": "T.I., Lil Wayne, 2 Chainz @ Sleep Train Pavilion At Concord",
-        "venue_id": 323,
-        "created_at": "2013-03-25T20:42:16Z",
-        "updated_at": "2013-06-12T22:20:41Z",
+        "id": 1462160,
+        "name": "Mogwai @ Roseland Theater",
+        "venue_id": 47425,
+        "created_at": "2014-03-24T22:34:54Z",
+        "updated_at": "2014-03-24T22:34:54Z",
         "festival": false,
         "rumor": false,
         "unconfirmed_location": 0,
-        "latitude": 37.9604,
-        "longitude": -121.94,
-        "starts_at": "2013-08-31T02:30:00Z",
+        "latitude": 45.5232,
+        "longitude": -122.676,
+        "starts_at": "2014-05-25T04:00:00Z",
         "starts_at_time_trusted": true,
-        "skip_event_conflict_validation": false,
-        "distance": 30.608671818601927,
-        "bearing": "68.0",
+        "distance": 1.6921186893745308,
+        "bearing": "286.0",
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-thumbnail.jpg?1324556348",
-          "large": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-large.jpg?1324556348",
-          "mobile": "http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-mobile.jpg?1324556348"
+          "thumbnail": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-thumbnail.jpg?1324556247",
+          "large": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-large.jpg?1324556247",
+          "mobile": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-mobile.jpg?1324556247"
         },
-        "url": "http://thrillcall.com/event/1291050",
-        "starts_at_local": "2013-08-30T19:30:00-07:00",
+        "url": "http://thrillcall.com/event/1462160",
+        "starts_at_local": "2014-05-24T21:00:00-07:00",
         "time_zone": "America/Los_Angeles",
         "event_status": "confirmed",
         "name_modified": false,
         "featured_event": false,
         "venue": {
-          "id": 323,
-          "name": "Sleep Train Pavilion At Concord",
-          "address1": "2000 Kirker Pass Road",
+          "id": 47425,
+          "name": "Roseland Theater",
+          "address1": "8 NW 6th Ave",
           "address2": null,
-          "city": "Concord",
-          "state": "CA",
-          "official_url": null,
-          "created_at": "2008-04-21T16:52:53Z",
-          "updated_at": "2013-06-24T09:00:13Z",
-          "latitude": 37.960354,
-          "longitude": -121.939659,
+          "city": "Portland",
+          "state": "OR",
+          "official_url": "http://www.roselandpdx.com/",
+          "created_at": "2008-05-08T17:00:43Z",
+
+      "updated_at": "2013-10-22T09:06:18Z",
+          "latitude": 45.523226,
+          "longitude": -122.676378,
           "country_code": "US",
-          "myspace_url": null,
-          "upcoming_events_count": 4,
-          "facebook_url": "http://www.facebook.com/pages/Sleep-Train-Pavilion/116238125066831",
+          "myspace_url": "http://www.myspace.com/roselandtheater",
+          "upcoming_events_count": 28,
+          "facebook_url": "http://www.facebook.com/roselandtheater",
           "long_description": null,
-          "phone_number": "+1 (925) 676-8742",
+          "phone_number": "+1 (503) 224-8499",
           "time_zone": "America/Los_Angeles",
           "hide_resale_tickets": false,
-          "postalcode": "94521",
+          "wikipedia_url": null,
           "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-thumbnail.jpg?1336436387",
-            "medium": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-medium.jpg?1336436387",
-            "large": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-large.jpg?1336436387",
-            "mobile": "http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-mobile.jpg?1336436387"
+            "thumbnail": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-thumbnail.jpg?1364254379",
+            "medium": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-medium.jpg?1364254379",
+            "large": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-large.jpg?1364254379",
+            "mobile": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-mobile.jpg?1364254379"
           },
-          "metro_area_id": 105,
-          "url": "http://thrillcall.com/venue/Sleep_Train_Pavilion_At_Concord_in_Concord_CA"
+          "postalcode": "97209",
+          "metro_area_id": 113,
+          "ticket_providers": [
+            {
+              "id": 371,
+              "merchant_id": 21,
+              "name": "TicketsWest",
+              "url": "http://ticketswest.rdln.com/Venue.aspx?ven=PC-ROS",
+              "primary": true,
+              "tier": 0,
+              "display_index": 9,
+              "image": "http://i1.tc-core.com/merchant/21/1324584355/19-full.jpg?1324584355"
+            },
+            {
+              "id": 8753,
+              "merchant_id": 36,
+              "name": "AXS",
+              "url": "http://www.axs.com/venues/102035/roseland-theater-portland-tickets",
+              "primary": true,
+              "tier": 0,
+              "display_index": 33,
+              "image": "http://i1.tc-core.com/merchant/36/1365101348/162-full.jpg?1365101348"
+            }
+          ],
+          "url": "http://thrillcall.com/venue/Roseland_Theater_in_Portland_OR"
         },
         "artists": [
           {
-            "id": 34156,
-            "name": "Lil Wayne",
-            "headliner": true
-          },
-          {
-            "id": 28490,
-            "name": "T.I.",
-            "headliner": false
-          },
-          {
-            "id": 387608,
-            "name": "2 Chainz",
-            "headliner": false
+            "id": 12978,
+            "name": "Mogwai",
+            "headliner": false,
+            "photos": {
+              "thumbnail": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-thumbnail.jpg?1324556247",
+              "medium": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-medium.jpg?1324556247",
+              "large": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-large.jpg?1324556247",
+              "mobile": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-mobile.jpg?1324556247"
+            }
           }
         ],
-        "offer_details": {}
+        "offer_details": null
       },
       {
         ...
@@ -2097,7 +2286,65 @@ Event IDs are future active events tracked by that friend.
       }
     ]
 ```
+<a name="content_person_get_person_id_recommended_artists" />
+### GET /person/:id/recommended_artists
+**:id** _integer_  Thrillcall ID
 
+Params:
+- **[polling_for](#polling_for)**
+
+Returns: _Hash_
+The hash will contain the following keys.
+
+- **recommendations**: For each service and popular artists, an _Array_ of recommended artist _Hashes_.  If there is any error with the connection, an error message _string_ to present to the user will be here instead of the array.
+- **connected**: For each service, _boolean_ whether or not the user is connected
+- **autotrack**: For each service, _boolean_ whether or not the user is automatically tracking recommended artists
+
+In the recommendations hash, each artist is represented by a hash of the following key-value pairs:
+
+- **id**: Thrillcall ID
+- **title**: Name of the Artist
+- **tracking**: Boolean value indicating whether or not the user is tracking the Artist
+- **artist\_normalized\_name**
+- **artist\_upcoming\_shows**: The number of upcoming shows for this Artist
+- **url**: Artist photo URL
+
+``` js
+    // Example: GET /api/v3/person/2/recommended_artists?api_key=1234567890abcdef
+
+    {
+      "recommendations": {
+        "popular": [
+          {
+            "id": 17053,
+            "title": "Justin Timberlake",
+            "tracking": false,
+            "artist_normalized_name": "justintimberlake",
+            "artist_upcoming_shows": 70,
+            "url": "http://i1.tc-core.com/artist/17053/1048/1324556871/justin-timberlake-medium.jpg?1324556871"
+          },
+          {
+            ...
+          },
+          ...
+        ],
+        "facebook": [
+          ...
+        ],
+        "pandora": "Failure: No Pandora user found named 'bogususername'.",
+        ...
+      },
+      "connected": {
+        "facebook": true,
+        "pandora": false,
+        ...
+      },
+      "autotrack": {
+        "facebook": false,
+        ...
+      }
+    }
+```
 
 <a name="content_credential" />
 ## Credentials
@@ -2114,6 +2361,7 @@ Params:
 - **[provider](#provider)**
 - **[uid](#uid)**
 - **[token](#token)**
+- **[skip_autotrack](#skip_autotrack)**
 
 Returns: Person _Hash_
 
@@ -2170,6 +2418,7 @@ Params:
 - **[token](#token)**
 - **[old_token](#old_token)**
 - **[old_password](#old_password)**
+- **[skip_autotrack](#skip_autotrack)**
 
 Returns: Person _Hash_
 
@@ -2232,6 +2481,15 @@ Fields:
 - **name**                    _string_    Name of the Venue
 - **metro\_area\_id**         _integer_   Thrillcall ID of the Metro Area this Venue is in, if any
 - **state**                   _string_    State the Venue is in
+- **ticket\_providers**       _array_     List of standard ticket providers for this Venue
+  - **id**                      _integer_  Thrillcall ID of the Ticket Provider
+  - **merchant\_id**            _integer_  Thrillcall ID of the Merchant
+  - **name**                    _string_   Name of the Merchant
+  - **url**                     _string_   Generic ticketing link for this Venue from this Merchant
+  - **primary**                 _boolean_  Whether or not the merchant is a primary ticket source
+  - **tier**                    _integer_  Display tier relative to other Merchants
+  - **display\_index**          _integer_  Display index relative to other Merchants in this tier
+  - **image**                   _string_   Thumbnail image URL for this Merchant
 - **upcoming\_events\_count** _integer_   Number of upcoming events associated with this object
 - **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
 - **postalcode**              _string_    Postal code for the Venue
@@ -2258,38 +2516,40 @@ Params:
 Returns:  _Array_ of Venues _Hash_
 
 ``` js
-    // Example: GET /api/v3/venues?limit=14&api_key=1234567890abcdef
+    // Example: GET /api/v3/venues?limit=14&page=750&api_key=1234567890abcdef
 
     [
       {
-        "address1": null,
+        "id": 62514,
+        "name": "Colorado Convention Center",
+        "address1": "702 14th Street",
         "address2": null,
-        "city": "Guadalajara",
-        "country_code": "MX",
-        "created_at": "2008-05-09T09:29:23Z",
-        "facebook_url": null,
-        "hide_resale_tickets": false,
-        "id": 1,
-        "latitude": 20.666222,
-        "long_description": null,
-        "longitude": -103.352089,
+        "city": "Denver",
+        "state": "CO",
+        "official_url": "http://denverconvention.com/",
+        "created_at": "2009-08-25T19:10:02Z",
+        "updated_at": "2013-01-01T10:04:20Z",
+        "latitude": 39.743376,
+        "longitude": -104.9948,
+        "country_code": "US",
         "myspace_url": null,
-        "name": "Fbolko",
-        "official_url": null,
-        "phone_number": null,
-        "state": null,
-        "time_zone": "America/Mexico_City",
         "upcoming_events_count": 0,
-        "updated_at": "2012-04-20T19:08:53Z",
-        "postalcode": "0",
+        "facebook_url": null,
+        "long_description": null,
+        "phone_number": null,
+        "time_zone": "America/Denver",
+        "hide_resale_tickets": false,
+        "wikipedia_url": null,
         "photos": {
           "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
           "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
           "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
           "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
         },
-        "metro_area_id": null,
-        "url": "http://thrillcall.com/venue/Fbolko_in_Guadalajara"
+        "postalcode": "80202",
+        "metro_area_id": 114,
+        "ticket_providers": [],
+        "url": "http://thrillcall.com/venue/Colorado_Convention_Center_in_Denver_CO"
       },
       {
         ...
@@ -2344,6 +2604,7 @@ Returns:  Venue _Hash_
         "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
         "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
       },
+      "ticket_providers": [],
       "metro_area_id": null,
       "url": "http://thrillcall.com/venue/Test_Venue_in_Guerneville_CA"
     }
@@ -2360,37 +2621,51 @@ Params:
 Returns:  Venue _Hash_
 
 ``` js
-    // Example: GET /api/v3/venue/51886?api_key=1234567890abcdef
+    // Example: GET /api/v3/venue/707?api_key=1234567890abcdef
 
     {
-      "address1": "201 Van Ness Avenue",
+      "id": 707,
+      "name": "Long Center for the Performing Arts",
+      "address1": "701 West Riverside Drive",
       "address2": null,
-      "city": "San Francisco",
+      "city": "Austin",
+      "state": "TX",
+      "official_url": "http://www.thelongcenter.org/",
+      "created_at": "2008-06-07T02:38:31Z",
+      "updated_at": "2014-04-11T17:45:30Z",
+      "latitude": 30.259983,
+      "longitude": -97.751122,
       "country_code": "US",
-      "created_at": "2008-04-28T17:59:32Z",
-      "facebook_url": "http://www.facebook.com/sfsymphony",
-      "hide_resale_tickets": false,
-      "id": 51886,
-      "latitude": 37.777402,
+      "myspace_url": "http://www.myspace.com/thelongcenter",
+      "upcoming_events_count": 0,
+      "facebook_url": "http://www.facebook.com/pages/Long-Center-for-the-Performing-Arts/144535154289?ref=ts",
       "long_description": null,
-      "longitude": -122.419815,
-      "myspace_url": null,
-      "name": "Davies Symphony Hall",
-      "official_url": "http://www.sfsymphony.org/",
-      "phone_number": "+1 (415) 864-6000",
-      "state": "CA",
-      "time_zone": "America/Los_Angeles",
-      "upcoming_events_count": 17,
-      "updated_at": "2012-07-03T09:37:30Z",
-      "postalcode": "94102",
+      "phone_number": "+1 (512) 474-5664",
+      "time_zone": "America/Chicago",
+      "hide_resale_tickets": false,
+      "wikipedia_url": null,
       "photos": {
-        "thumbnail": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154",
-        "medium": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154",
-        "large": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154",
-        "mobile": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"
+        "thumbnail": "http://i1.tc-core.com/venue/707/762/1329867211/long-center-for-the-performing-arts-austin-tx-thumbnail.jpg?1329867211",
+        "medium": "http://i1.tc-core.com/venue/707/762/1329867211/long-center-for-the-performing-arts-austin-tx-medium.jpg?1329867211",
+        "large": "http://i1.tc-core.com/venue/707/762/1329867211/long-center-for-the-performing-arts-austin-tx-large.jpg?1329867211",
+        "mobile": "http://i1.tc-core.com/venue/707/762/1329867211/long-center-for-the-performing-arts-austin-tx-mobile.jpg?1329867211"
       },
-      "metro_area_id": 105,
-      "url": "http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"
+      "postalcode": "78704",
+      "metro_area_id": 106,
+      "ticket_providers": [
+        {
+          "id": 3609,
+          "merchant_id": 2,
+          "name": "Ticketmaster",
+          "url": "http://ticketsus.at/thrillcall/99165.html",
+          "primary": true,
+          "tier": 0,
+          "display_index": 0,
+          "image": "http://i1.tc-core.com/merchant/2/1324584352/2-full.jpg?1324584352"
+        },
+        ...
+      ],
+      "url": "http://localhost:3000/venue/Long-Center-for-the-Performing-Arts-Austin-TX?utm_source=thrillcall-mobile-app-never-remove&utm_medium=venue_707_long-center-for-the-performing-arts-austin-tx&utm_campaign=venue_707"
     }
 ```
 
@@ -2414,33 +2689,46 @@ Returns:  Venue _Hash_
     // Example: PUT /api/v3/venue/51886?address1=202%20Van%20Ness%20Avenue&api_key=1234567890abcdef
 
     {
+      "id": 51886,
+      "name": "Davies Symphony Hall",
       "address1": "202 Van Ness Avenue",
       "address2": null,
       "city": "San Francisco",
-      "country_code": "US",
-      "created_at": "2008-04-28T17:59:32Z",
-      "facebook_url": "http://www.facebook.com/sfsymphony",
-      "hide_resale_tickets": false,
-      "id": 51886,
-      "latitude": 37.777402,
-      "long_description": null,
-      "longitude": -122.419815,
-      "myspace_url": null,
-      "name": "Davies Symphony Hall",
-      "official_url": "http://www.sfsymphony.org/",
-      "phone_number": "+1 (415) 864-6000",
       "state": "CA",
+      "official_url": "http://www.sfsymphony.org/",
+      "created_at": "2008-04-28T17:59:32Z",
+      "updated_at": "2013-10-20T09:06:01Z",
+      "latitude": 37.777402,
+      "longitude": -122.419815,
+      "country_code": "US",
+      "myspace_url": null,
+      "upcoming_events_count": 93,
+      "facebook_url": "http://www.facebook.com/sfsymphony",
+      "long_description": null,
+      "phone_number": "+1 (415) 864-6000",
       "time_zone": "America/Los_Angeles",
-      "upcoming_events_count": 17,
-      "updated_at": "2012-07-03T09:37:30Z",
-      "postalcode": "94102",
+      "hide_resale_tickets": false,
+      "wikipedia_url": null,
       "photos": {
         "thumbnail": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154",
         "medium": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154",
         "large": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154",
         "mobile": "http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"
       },
+      "postalcode": "94102",
       "metro_area_id": 105,
+      "ticket_providers": [
+        {
+          "id": 5637,
+          "merchant_id": 22,
+          "name": "IndieTickets",
+          "url": "http://www.sfsymphony.org/season/calendar.aspx",
+          "primary": true,
+          "tier": 0,
+          "display_index": 8,
+          "image": "http://i1.tc-core.com/merchant/22/1324584355/20-full.jpg?1324584355"
+        }
+      ],
       "url": "http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"
     }
 ```
@@ -2470,71 +2758,100 @@ Params:
 Returns:  _Array_ of Events _Hash_
 
 ``` js
-    // Example: GET /api/v3/venue/63279/events?api_key=1234567890abcdef
+    // Example: GET /api/v3/venue/1904/events?api_key=1234567890abcdef
 
     [
       {
-        "created_at": "2012-03-02T18:06:14Z",
+        "id": 1257609,
+        "name": "Emanuel Ax @ Carnegie Hall",
+        "venue_id": 1904,
+        "created_at": "2013-02-06T09:08:46Z",
+        "updated_at": "2013-09-05T04:03:17Z",
         "festival": false,
-        "id": 1047075,
-        "latitude": 37.7915,
-        "longitude": -122.413,
-        "name": "Il Volo @ Masonic Center",
         "rumor": false,
-        "starts_at": "2012-09-30T02:30:04Z",
-        "starts_at_time_trusted": true,
         "unconfirmed_location": 0,
-        "updated_at": "2012-03-29T01:35:57Z",
-        "venue_id": 63279,
+        "latitude": 40.765,
+        "longitude": -73.9799,
+        "starts_at": "2014-05-16T00:00:00Z",
+        "starts_at_time_trusted": true,
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426",
-          "large": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426",
-          "mobile": "http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"
+          "thumbnail": "http://i1.tc-core.com/artist/37241/1509/1324556998/emanuel-ax-thumbnail.jpg?1324556998",
+          "large": "http://i1.tc-core.com/artist/37241/1509/1324556998/emanuel-ax-large.jpg?1324556998",
+          "mobile": "http://i1.tc-core.com/artist/37241/1509/1324556998/emanuel-ax-mobile.jpg?1324556998"
         },
-        "url": "http://thrillcall.com/event/1047075",
-        "starts_at_local": "2012-09-29T19:30:04-07:00",
-        "time_zone": "America/Los_Angeles",
+        "url": "http://thrillcall.com/event/1257609",
+        "starts_at_local": "2014-05-15T20:00:00-04:00",
+        "time_zone": "America/New_York",
         "event_status": "confirmed",
         "name_modified": false,
         "featured_event": false,
         "venue": {
-          "address1": "1111 California Street",
+          "id": 1904,
+          "name": "Carnegie Hall",
+          "address1": "881 Seventh Avenue",
           "address2": null,
-          "city": "San Francisco",
+          "city": "New York",
+          "state": "NY",
+          "official_url": "http://www.carnegiehall.org/",
+          "created_at": "2008-05-08T17:17:11Z",
+          "updated_at": "2014-04-11T18:42:42Z",
+          "latitude": 40.765018,
+          "longitude": -73.979912,
           "country_code": "US",
-          "created_at": "2009-08-25T19:25:27Z",
-          "facebook_url": "http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491",
-          "hide_resale_tickets": false,
-          "id": 63279,
-          "latitude": 37.79153,
+          "myspace_url": null,
+          "upcoming_events_count": 101,
+          "facebook_url": "http://www.facebook.com/carnegiehall",
           "long_description": null,
-          "longitude": -122.412757,
-          "myspace_url": "http://www.myspace.com/masonicauditorium",
-          "name": "Masonic Center",
-          "official_url": "http://www.masonicauditorium.com/",
-          "phone_number": "+1 (877) 598-8497",
-          "state": "CA",
-          "time_zone": "America/Los_Angeles",
-          "upcoming_events_count": 10,
-          "updated_at": "2012-07-03T09:41:24Z",
-          "postalcode": "94108",
+          "phone_number": "+1 (212) 247-7800",
+          "time_zone": "America/New_York",
+          "hide_resale_tickets": false,
+          "wikipedia_url": null,
           "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135",
-            "medium": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135",
-            "large": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135",
-            "mobile": "http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"
+            "thumbnail": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-thumbnail.jpg?1329527604",
+            "medium": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-medium.jpg?1329527604",
+            "large": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-large.jpg?1329527604",
+            "mobile": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-mobile.jpg?1329527604"
           },
-          "metro_area_id": 105,
-          "url": "http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"
+          "postalcode": "10019",
+          "metro_area_id": 107,
+          "ticket_providers": [
+            {
+              "id": 3580,
+              "merchant_id": 2,
+              "name": "Ticketmaster",
+              "url": "http://ticketsus.at/thrillcall/219.html",
+              "primary": true,
+              "tier": 0,
+              "display_index": 0,
+              "image": "http://i1.tc-core.com/merchant/2/1324584352/2-full.jpg?1324584352"
+            },
+            {
+              "id": 5658,
+              "merchant_id": 22,
+              "name": "IndieTickets",
+              "url": "http://www.carnegiehall.org/Calendar/",
+              "primary": true,
+              "tier": 0,
+              "display_index": 8,
+              "image": "http://i1.tc-core.com/merchant/22/1324584355/20-full.jpg?1324584355"
+            }
+          ],
+          "url": "http://thrillcall.com/venue/Carnegie-Hall-New-York-NY"
         },
         "artists": [
           {
-            "id": 378465,
-            "name": "Il Volo",
-            "headliner": false
+            "id": 37241,
+            "name": "Emanuel Ax",
+            "headliner": false,
+            "photos": {
+              "thumbnail": "http://i1.tc-core.com/artist/37241/1509/1324556998/emanuel-ax-thumbnail.jpg?1324556998",
+              "medium": "http://i1.tc-core.com/artist/37241/1509/1324556998/emanuel-ax-medium.jpg?1324556998",
+              "large": "http://i1.tc-core.com/artist/37241/1509/1324556998/emanuel-ax-large.jpg?1324556998",
+              "mobile": "http://i1.tc-core.com/artist/37241/1509/1324556998/emanuel-ax-mobile.jpg?1324556998"
+            }
           }
         ],
-        "offer_details": {}
+        "offer_details": null
       },
       {
         ...
@@ -2561,38 +2878,61 @@ Params:
 Returns:  _Array_ of Venues _Hash_
 
 ``` js
-    // Example: GET /api/v3/search/venues/Masonic%20Center?api_key=1234567890abcdef
+    // Example: GET /api/v3/search/venues/Carnegie?api_key=1234567890abcdef
 
     [
       {
-        "address1": "525 W Riverview Ave",
+        "id": 1904,
+        "name": "Carnegie Hall",
+        "address1": "881 Seventh Avenue",
         "address2": null,
-        "city": "Dayton",
+        "city": "New York",
+        "state": "NY",
+        "official_url": "http://www.carnegiehall.org/",
+        "created_at": "2008-05-08T17:17:11Z",
+        "updated_at": "2014-04-11T18:42:42Z",
+        "latitude": 40.765018,
+        "longitude": -73.979912,
         "country_code": "US",
-        "created_at": "2008-06-12T14:12:53Z",
-        "facebook_url": null,
-        "hide_resale_tickets": false,
-        "id": 33642,
-        "latitude": 39.765526,
-        "long_description": null,
-        "longitude": -84.203133,
         "myspace_url": null,
-        "name": "Dayton Masonic Center",
-        "official_url": null,
-        "phone_number": null,
-        "state": "OH",
+        "upcoming_events_count": 101,
+        "facebook_url": "http://www.facebook.com/carnegiehall",
+        "long_description": null,
+        "phone_number": "+1 (212) 247-7800",
         "time_zone": "America/New_York",
-        "upcoming_events_count": 0,
-        "updated_at": "2012-06-06T03:05:53Z",
-        "postalcode": "45405",
+        "hide_resale_tickets": false,
+        "wikipedia_url": null,
         "photos": {
-          "thumbnail": "http://i1.tc-core.com/venue/_default/default-thumbnail.jpg",
-          "medium": "http://i1.tc-core.com/venue/_default/default-medium.jpg",
-          "large": "http://i1.tc-core.com/venue/_default/default-large.jpg",
-          "mobile": "http://i1.tc-core.com/venue/_default/default-mobile.jpg"
+          "thumbnail": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-thumbnail.jpg?1329527604",
+          "medium": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-medium.jpg?1329527604",
+          "large": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-large.jpg?1329527604",
+          "mobile": "http://i1.tc-core.com/venue/1904/716/1329527604/carnegie-hall-new-york-ny-mobile.jpg?1329527604"
         },
-        "metro_area_id": 134,
-        "url": "http://thrillcall.com/venue/Dayton_Masonic_Center_in_Dayton_OH"
+        "postalcode": "10019",
+        "metro_area_id": 107,
+        "ticket_providers": [
+          {
+            "id": 3580,
+            "merchant_id": 2,
+            "name": "Ticketmaster",
+            "url": "http://ticketsus.at/thrillcall/219.html",
+            "primary": true,
+            "tier": 0,
+            "display_index": 0,
+            "image": "http://i1.tc-core.com/merchant/2/1324584352/2-full.jpg?1324584352"
+          },
+          {
+            "id": 5658,
+            "merchant_id": 22,
+            "name": "IndieTickets",
+            "url": "http://www.carnegiehall.org/Calendar/",
+            "primary": true,
+            "tier": 0,
+            "display_index": 8,
+            "image": "http://i1.tc-core.com/merchant/22/1324584355/20-full.jpg?1324584355"
+          }
+        ],
+        "url": "http://thrillcall.com/venue/Carnegie-Hall-New-York-NY"
       },
       {
         ...

@@ -71,131 +71,20 @@
 
 <h3>Usage:</h3>
 
-<div class="highlight">
-<pre>    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># First, require the gem:</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="nb">require</span> <span class="s1">'rubygems'</span>
-    <span class="nb">require</span> <span class="s1">'thrillcall-api'</span>
-
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># Instantiate with your Thrillcall API key:</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="no">MY_API_KEY</span> <span class="o">=</span> <span class="s2">"1234567890abcdef"</span>
-    <span class="n">tc</span> <span class="o">=</span> <span class="no">ThrillcallAPI</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">MY_API_KEY</span><span class="p">)</span>
-
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># Access any endpoint directly from the instance</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># This is like calling GET "/events"</span>
-    <span class="n">tc</span><span class="o">.</span><span class="n">events</span>
-    <span class="c1"># =&gt; [ {"id" =&gt; ... }, {...}, ...]</span>
-
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># Provide IDs as arguments</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># GET "/event/1"</span>
-    <span class="n">tc</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1"># =&gt; {"id" =&gt; 1, ...}</span>
-
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># Provide parameters as arguments</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># GET "/events?limit=5"</span>
-    <span class="n">events</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="ss">:limit</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="c1"># =&gt; [ {"id" =&gt; ... }, {...}, ...]</span>
-    <span class="n">events</span><span class="o">.</span><span class="n">length</span>
-    <span class="c1"># =&gt; 5</span>
-
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># Chain methods together for nested routes</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># GET "/search/venues/warfield?postalcode=94101&amp;radius=20"</span>
-    <span class="n">venues</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">venues</span><span class="p">(</span><span class="s2">"warfield"</span><span class="p">,</span> <span class="ss">:postalcode</span> <span class="o">=&gt;</span> <span class="s2">"94101"</span><span class="p">,</span> <span class="ss">:radius</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">)</span>
-    <span class="c1"># =&gt; [{"name" =&gt; "The Warfield", ...}]</span>
-
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># POST and PUT are explicit methods</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="n">artist</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Bleeding Chest Wounds"</span><span class="p">)</span>
-    <span class="c1"># =&gt; {"id" =&gt; 3, "name" =&gt; "Bleeding Chest Wounds", ...}</span>
-
-    <span class="n">artist</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">"Grizzle and The Plenty"</span><span class="p">)</span>
-    <span class="c1"># =&gt; {"id" =&gt; 3, "name" =&gt; "Grizzle and The Plenty", ...}</span>
-</pre>
-</div>
 
 
 <h3>Advanced Usage:</h3>
 
 <p>Provide additional instantiation options:</p>
 
-<div class="highlight">
-<pre>    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># The default SSL endpoint is "https://api.thrillcall.com/api/".</span>
-    <span class="c1"># The default API version is 3.</span>
-    <span class="c1"># By default, Faraday access logging is turned off.</span>
-    <span class="c1"># If a connection attempt fails, we will retry 5 times with a</span>
-    <span class="c1"># timeout of 10 seconds.  We retry a boilerplate list of</span>
-    <span class="c1"># exceptions, such as Faraday::Error::ClientError.</span>
-    <span class="c1"># Override these if necessary:</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="n">tc</span> <span class="o">=</span> <span class="no">ThrillcallAPI</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-      <span class="no">MY_API_KEY</span><span class="p">,</span>
-      <span class="ss">:base_url</span>         <span class="o">=&gt;</span> <span class="s2">"https://api.thrillcall.com/custom/"</span><span class="p">,</span>
-      <span class="ss">:version</span>          <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="ss">:logger</span>           <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span>
-      <span class="ss">:retry_exceptions</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">Timeout</span><span class="p">:</span><span class="ss">:Error</span><span class="o">]</span><span class="p">,</span>
-      <span class="ss">:retry_tries</span>      <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="ss">:timeout</span>          <span class="o">=&gt;</span> <span class="mi">10</span>
-    <span class="p">)</span>
-</pre>
-</div>
 
 
 <p>Internally, the wrapper returns a ThrillcallAPI::Result class for any call.  Data for the request is fetched only when used.  This allows you to build requests piecemeal before executing them.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="c1"># Build a partial request, add on to it later</span>
-    <span class="c1">#---------------------------------------------------------------#</span>
-    <span class="n">request</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="p">(</span><span class="mi">22210</span><span class="p">)</span> <span class="c1"># Lady Gaga</span>
-
-    <span class="c1"># GET "/artist/22210/events?limit=2"</span>
-    <span class="n">artist_events</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="ss">:limit</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">)</span>
-
-    <span class="n">artist_events</span><span class="o">.</span><span class="n">length</span>
-    <span class="c1"># =&gt; 2</span>
-</pre>
-</div>
 
 
 <p>This gem is a convenience wrapper around the excellent Faraday project.  If more complicated use cases are necessary, consider using Faraday directly.</p>
 
-<div class="highlight">
-<pre>    <span class="nb">require</span> <span class="s1">'faraday'</span>
-    <span class="nb">require</span> <span class="s1">'json'</span>
-
-    <span class="no">MY_API_KEY</span>  <span class="o">=</span> <span class="s2">"1234567890abcdef"</span>
-    <span class="no">BASE_URL</span>    <span class="o">=</span> <span class="s2">"https://api.thrillcall.com/api/v3/"</span>
-    <span class="no">HEADERS</span>     <span class="o">=</span> <span class="p">{</span> <span class="ss">:accept</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span> <span class="p">}</span>
-
-    <span class="n">connection</span>  <span class="o">=</span> <span class="no">Faraday</span><span class="o">.</span><span class="n">new</span><span class="p">(</span> <span class="ss">:url</span> <span class="o">=&gt;</span> <span class="no">BASE_URL</span><span class="p">,</span> <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="no">HEADERS</span> <span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
-      <span class="n">builder</span><span class="o">.</span><span class="n">adapter</span> <span class="no">Faraday</span><span class="o">.</span><span class="n">default_adapter</span>
-      <span class="n">builder</span><span class="o">.</span><span class="n">response</span> <span class="ss">:logger</span>
-      <span class="n">builder</span><span class="o">.</span><span class="n">response</span> <span class="ss">:raise_error</span>
-    <span class="k">end</span>
-
-    <span class="n">request</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">get</span> <span class="k">do</span> <span class="o">|</span><span class="n">req</span><span class="o">|</span>
-      <span class="n">req</span><span class="o">.</span><span class="n">url</span> <span class="s2">"artist/22210"</span><span class="p">,</span> <span class="p">{</span> <span class="ss">:api_key</span> <span class="o">=&gt;</span> <span class="no">MY_API_KEY</span> <span class="p">}</span>
-    <span class="k">end</span>
-
-    <span class="n">artist</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
-
-    <span class="n">artist</span><span class="o">[</span><span class="s2">"name"</span><span class="o">]</span>
-    <span class="c1"># =&gt; "Lady Gaga"</span>
-</pre>
-</div>
 
 
 <h1>HTTPS Endpoints</h1>
@@ -260,6 +149,7 @@
 <li><strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_discover_events">GET /person/:id/discover_events</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_friends_events">GET /person/:id/friends_events</a></strong></li>
+<li><strong><a href="#content_person_get_person_id_recommended_artists">GET /person/:id/recommended_artists</a></strong></li>
 </ul>
 </li>
 <li>
@@ -410,7 +300,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
     If latitude (<strong><a href="#lat">lat</a></strong>) and longitude (<strong><a href="#long">long</a></strong>) if both are specified, this will be ignored.</p>
 
 <p>For POST / PUT requests:
-    Required for creating or updating a Person or Venue.</p>
+    Optional for creating or updating a Person or Venue.</p>
 </li>
 <li>
 <p><a name="radius"></a><strong>radius</strong> <em>float</em></p>
@@ -516,6 +406,13 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>The Credential's current token, must match record to perform Credential updates.</p>
 </li>
 <li>
+<p><a name="skip_autotrack"></a><strong>skip_autotrack</strong> <em>boolean</em></p>
+
+<p><em>Default: false</em></p>
+
+<p>When creating or updating a Credential, the person will be set to automatically track artists recommended from this provider unless this parameter is set to true.</p>
+</li>
+<li>
 <p><a name="first_name"></a><strong>first_name</strong> <em>string (format: 50 &gt;= length &gt;= 2)</em></p>
 
 <p>Required to register a Person.</p>
@@ -605,6 +502,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Wikipedia URL for the Artist.</p>
 </li>
 <li>
+<p><a name="youtube_url"></a><strong>youtube_url</strong> <em>string (format: "http://www.youtube.com/user/ladygagaofficial")</em></p>
+
+<p>YouTube URL for the Artist.</p>
+</li>
+<li>
 <p><a name="artist_names"></a><strong>artist_names</strong> <em>string</em></p>
 
 <p>A list of comma separated artist names.</p>
@@ -653,15 +555,29 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 
 <p>When searching by radius, or from the Metro Area endpoint, you can also specify "distance," although this value is not directly exposed.</p>
 
-<p>Calls for Artists, Genres, Tickets, Venues, and all Search endpoints default to using the "name" field.
-Calls for Events default to the "starts_at" field.
-Calls for Metro Areas default to the "city" field.
-Calls for Mappings default to the "partner_id" field.</p>
+<p>Calls for Artists, Genres, Tickets, Venues, and all Search endpoints default to using the "name" field.</p>
+
+<p>Calls for Events default to the "starts_at" field.</p>
+
+<p>Calls for Metro Areas default to the "city" field.</p>
+
+<p>Calls for Mappings default to the "partner_id" field.</p>
 </li>
 <li>
 <p><a name="order"></a><strong>order</strong> <em>string: "ASC" or "DESC"</em></p>
 
 <p>The direction you wish to sort the results.  Default: DESC</p>
+</li>
+<li>
+<p><a name="polling_for"></a><strong>polling_for</strong> <em>string</em></p>
+
+<p>Comma-separated list of services to poll.  Use this to decrease response time if recommendations from only one or two services need to be refreshed.</p>
+
+<p>e.g. <em>"spotify,lastfm"</em></p>
+
+<p>If specified, will only return recommended artists from these services.  Popular artists will be omitted.</p>
+
+<p>If not specified, will return recommended artists from all available services, as well as popular artists.</p>
 </li>
 </ul>
 
@@ -700,6 +616,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <strong>official_url</strong>           <em>string</em>    Official external URL for this object</li>
 <li>
 <strong>wikipedia_url</strong>          <em>string</em>    Wikipedia URL for this object</li>
+<li>
+<strong>youtube_url</strong>            <em>string</em>    YouTube URL for this object</li>
 </ul>
 
 <p><a name="content_artists_get_artists"></a></p>
@@ -709,6 +627,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <p>Params:</p>
 
 <ul>
+<li><strong><a href="#ids">ids</a></strong></li>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
 <li><strong><a href="#primary_genre_id">primary_genre_id</a></strong></li>
@@ -719,34 +638,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artists?mappings=ticketmaster&amp;limit=14&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:19:45Z"</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"O"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Hyler Jones Proteges"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">61</span><span class="p">,</span>
-        <span class="s2">"popularity"</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-26T16:49:20Z"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-mobile.jpg"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Hyler_Jones_Proteges"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_artists_post_artist"></a></p>
@@ -761,37 +652,13 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#myspace_url">myspace_url</a></strong></li>
 <li><strong><a href="#official_url">official_url</a></strong></li>
 <li><strong><a href="#wikipedia_url">wikipedia_url</a></strong></li>
+<li><strong><a href="#youtube_url">youtube_url</a></strong></li>
 </ul>
 
 <p>Creates a new Artist record with the provided parameters.</p>
 
 <p>Returns:  Artist <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artist?name=Bleeding%20Chest%20Wounds&amp;wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Bleeding Chest Wounds"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"popularity"</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-      <span class="s2">"permalink"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://test.com"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-medium.jpg"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-large.jpg"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/_default/default-mobile.jpg"</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_artists_get_artist_id"></a></p>
@@ -808,51 +675,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  Artist <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artist/12?mappings=livenation&amp;api_key=1234567890abcdef</span>
-    <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-05-08T18:33:35Z"</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"classic rock"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/southsidejohnnyandtheasburyjukes"</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Southside Johnny And The Asbury Jukes"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.southsidejohnny.com/"</span><span class="p">,</span>
-      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="s2">"popularity"</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-06-18T07:49:24Z"</span><span class="p">,</span>
-      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Southside_Johnny_%26_The_Asbury_Jukes"</span><span class="p">,</span>
-      <span class="s2">"foreign_mappings"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T04:41:27Z"</span><span class="p">,</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">11504</span><span class="p">,</span>
-          <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
-          <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"Southside Johnny"</span><span class="p">,</span>
-          <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
-          <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"28610"</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:19:25Z"</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T04:41:27Z"</span><span class="p">,</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">11505</span><span class="p">,</span>
-          <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
-          <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"Southside Johnny &amp; The Asbury Jukes"</span><span class="p">,</span>
-          <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
-          <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"6208"</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:19:25Z"</span>
-        <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-thumbnail.jpg?1324557379"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-medium.jpg?1324557379"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-large.jpg?1324557379"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12/2778/1324557379/southside-johnny-and-the-asbury-jukes-mobile.jpg?1324557379"</span>
-      <span class="p">},</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://localhost:3000/artist/Southside_Johnny_And_The_Asbury_Jukes"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_artists_put_artist_id"></a></p>
@@ -869,6 +691,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#myspace_url">myspace_url</a></strong></li>
 <li><strong><a href="#official_url">official_url</a></strong></li>
 <li><strong><a href="#wikipedia_url">wikipedia_url</a></strong></li>
+<li><strong><a href="#youtube_url">youtube_url</a></strong></li>
 <li><strong><a href="#mappings">mappings</a></strong></li>
 </ul>
 
@@ -876,32 +699,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  Artist <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: PUT /api/v3/artist/12569?wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
-      <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="s2">"popularity"</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
-      <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://test.com"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
-      <span class="p">},</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_artists_get_artist_id_events"></a></p>
@@ -937,80 +734,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artist/378465/events?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7915</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.413</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Masonic Center"</span><span class="p">,</span>
-        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-09-30T02:30:04Z"</span><span class="p">,</span>
-        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
-        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
-          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
-          <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491"</span><span class="p">,</span>
-          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-          <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
-          <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
-          <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/masonicauditorium"</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
-          <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.masonicauditorium.com/"</span><span class="p">,</span>
-          <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (877) 598-8497"</span><span class="p">,</span>
-          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-          <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
-          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
-          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
-          <span class="p">},</span>
-          <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-          <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
-        <span class="p">},</span>
-        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
-            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_artists_get_search_artists_term"></a></p>
@@ -1031,38 +754,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/search/artists/Chris%20Isaak?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
-        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
-        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
-        <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-        <span class="s2">"popularity"</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
-        <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_events"></a></p>
@@ -1108,6 +799,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <strong>featured_event</strong>                      <em>boolean</em> Is this a featured event?</li>
 <li>
 <strong>venue_id</strong>                           <em>integer</em> Thrillcall Venue ID</li>
+<li>
+<strong>venue</strong>                               <em>hash</em>    Thrillcall Venue</li>
 <li>
 <strong>photos</strong>                              <em>hash</em>    A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
@@ -1188,92 +881,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/events?must_have_tickets=true&amp;postalcode=94108&amp;radius=10&amp;limit=3&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7915</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.413</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Masonic Center"</span><span class="p">,</span>
-        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-09-30T02:30:04Z"</span><span class="p">,</span>
-        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
-        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
-          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
-          <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491"</span><span class="p">,</span>
-          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-          <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
-          <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
-          <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/masonicauditorium"</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
-          <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.masonicauditorium.com/"</span><span class="p">,</span>
-          <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (877) 598-8497"</span><span class="p">,</span>
-          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-          <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
-          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
-          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
-          <span class="p">},</span>
-          <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-          <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
-        <span class="p">},</span>
-        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
-            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">123</span><span class="p">,</span>
-          <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"Example Offer"</span><span class="p">,</span>
-          <span class="s2">"offer_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-          <span class="s2">"offer_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-          <span class="s2">"offer_ends_at"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
-          <span class="s2">"offer_ends_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
-          <span class="s2">"offer_sale_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-          <span class="s2">"offer_sale_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-          <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Win tickets for the show!"</span><span class="p">,</span>
-          <span class="s2">"offer_type"</span><span class="o">:</span> <span class="s2">"contest"</span><span class="p">,</span>
-          <span class="s2">"price_cents"</span><span class="o">:</span> <span class="mi">0</span>
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_events_get_event_id"></a></p>
@@ -1290,55 +897,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  Event <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1047075?api_key=1234567890abcdef</span>
-    <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-      <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7915</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.413</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Masonic Center"</span><span class="p">,</span>
-      <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-09-30T02:30:04Z"</span><span class="p">,</span>
-      <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
-      <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
-      <span class="p">},</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
-      <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-      <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
-          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-        <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">123</span><span class="p">,</span>
-        <span class="s2">"title"</span><span class="o">:</span> <span class="s2">"Example Offer"</span><span class="p">,</span>
-        <span class="s2">"offer_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"offer_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"offer_ends_at"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"offer_ends_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-02T17:00:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"offer_sale_starts_at"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"offer_sale_starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-05-01T09:00:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Get tickets for tonight!"</span><span class="p">,</span>
-        <span class="s2">"offer_type"</span><span class="o">:</span> <span class="s2">"standard"</span><span class="p">,</span>
-        <span class="s2">"price_cents"</span><span class="o">:</span> <span class="mi">2000</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_events_get_event_id_artists"></a></p>
@@ -1359,38 +917,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/artists?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
-        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"acoustic;Country;Rock;rockabilly"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12569</span><span class="p">,</span>
-        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/chrisisaak"</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Chris Isaak"</span><span class="p">,</span>
-        <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.chrisisaak.com/"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-        <span class="s2">"popularity"</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">58</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-02T09:55:40Z"</span><span class="p">,</span>
-        <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/Chris_Isaak"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-thumbnail.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-medium.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-large.jpg?1324556547"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/12569/657/1324556547/chris-isaak-mobile.jpg?1324556547"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Chris_Isaak"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_events_get_event_id_venue"></a></p>
@@ -1407,41 +933,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  Venue <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491"</span><span class="p">,</span>
-      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
-      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/masonicauditorium"</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.masonicauditorium.com/"</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (877) 598-8497"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
-      <span class="p">},</span>
-      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_events_get_event_id_tickets"></a></p>
@@ -1462,33 +953,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1047075/tickets?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-        <span class="s2">"currency"</span><span class="o">:</span> <span class="s2">"USD"</span><span class="p">,</span>
-        <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">819883</span><span class="p">,</span>
-        <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="s2">"85.00"</span><span class="p">,</span>
-        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="s2">"29.00"</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Onsale to General Public"</span><span class="p">,</span>
-        <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://ticketsus.at/thrillcall?CTY=39&amp;DURL=http://www.ticketmaster.com/event/1C00486178A1251A?camefrom=CFC_BUYAT&amp;brand=[=BRAND=]"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_genre"></a></p>
@@ -1525,24 +989,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Genres <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/genres?limit=14&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
-        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Shawn Colvin, Loudon Wainwright III etc..."</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Folk"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:51:55Z"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_genre_get_genre_id"></a></p>
@@ -1559,18 +1005,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: Genre <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/genre/27?api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
-      <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"U2, 30 Seconds To Mars etc..."</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:52:21Z"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_genre_get_genre_id_artists"></a></p>
@@ -1591,38 +1025,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/genre/27/artists?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-29T10:06:05Z"</span><span class="p">,</span>
-        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"genre_tags"</span><span class="o">:</span> <span class="s2">"Folk;Other;psychedelic"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/espers"</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Espers"</span><span class="p">,</span>
-        <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.espers.org"</span><span class="p">,</span>
-        <span class="s2">"primary_genre_id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
-        <span class="s2">"popularity"</span><span class="o">:</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-05-31T09:16:49Z"</span><span class="p">,</span>
-        <span class="s2">"wikipedia_url"</span><span class="o">:</span> <span class="s2">"http://en.wikipedia.org/wiki/index.html?curid=4735724"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-thumbnail.jpg?1328344246"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-medium.jpg?1328344246"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-large.jpg?1328344246"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/2/15306/1328344246/espers-mobile.jpg?1328344246"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/artist/Espers"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_metro_area"></a></p>
@@ -1673,31 +1075,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/metro_areas?limit=14&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Chicago"</span><span class="p">,</span>
-        <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:23:57Z"</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">104</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">41.8842</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">87.6324</span><span class="p">,</span>
-        <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"IL"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Chicago"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-12-27T00:44:37Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/chicago"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_metro_area_get_metro_area_id"></a></p>
@@ -1714,25 +1091,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  Metro Area <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/metro_area/105?api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:23:57Z"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7771</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.42</span><span class="p">,</span>
-      <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-12-27T00:44:37Z"</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/san-francisco"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_metro_area_get_metro_area_id_events"></a></p>
@@ -1766,76 +1124,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/metro_area/105/events?min_date=2011-06-20&amp;max_date=2012-06-19&amp;limit=3&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-01-02T08:53:00Z"</span><span class="p">,</span>
-        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1011386</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7771</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.42</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Kontrol @ The End Up"</span><span class="p">,</span>
-        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-01-07T08:00:04Z"</span><span class="p">,</span>
-        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:19:31Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">47273</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1011386"</span><span class="p">,</span>
-        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-01-07T00:00:04-08:00"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"address2"</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"city"</span><span class="o">:</span><span class="s2">"San Francisco"</span><span class="p">,</span>
-          <span class="s2">"country_code"</span><span class="o">:</span><span class="s2">"US"</span><span class="p">,</span>
-          <span class="s2">"created_at"</span><span class="o">:</span><span class="s2">"2008-04-28T18:13:50Z"</span><span class="p">,</span>
-          <span class="s2">"facebook_url"</span><span class="o">:</span><span class="s2">"http://www.facebook.com/theendup"</span><span class="p">,</span>
-          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
-          <span class="s2">"id"</span><span class="o">:</span><span class="mi">47273</span><span class="p">,</span>
-          <span class="s2">"latitude"</span><span class="o">:</span><span class="mf">37.777243</span><span class="p">,</span>
-          <span class="s2">"long_description"</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"longitude"</span><span class="o">:-</span><span class="mf">122.403919</span><span class="p">,</span>
-          <span class="s2">"myspace_url"</span><span class="o">:</span><span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span><span class="s2">"The End Up"</span><span class="p">,</span>
-          <span class="s2">"official_url"</span><span class="o">:</span><span class="s2">"http://www.theendup.com"</span><span class="p">,</span>
-          <span class="s2">"phone_number"</span><span class="o">:</span><span class="s2">"+1 (415) 896-1075"</span><span class="p">,</span>
-          <span class="s2">"state"</span><span class="o">:</span><span class="s2">"CA"</span><span class="p">,</span>
-          <span class="s2">"time_zone"</span><span class="o">:</span><span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-          <span class="s2">"upcoming_events_count"</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span><span class="s2">"2012-08-19T11:29:19Z"</span><span class="p">,</span>
-          <span class="s2">"postalcode"</span><span class="o">:</span><span class="s2">"94708"</span><span class="p">,</span>
-          <span class="s2">"photos"</span><span class="o">:</span><span class="p">{</span><span class="s2">"thumbnail"</span><span class="o">:</span><span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-thumbnail.jpg?1326489566"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span><span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-medium.jpg?1326489566"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span><span class="s2">"http://i1.tc-core.com/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-large.jpg?1326489566"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span><span class="s2">"http://i.development.tc-core.com/noel/venue/47273/107/1326489566/the-end-up-in-san-francisco-ca-mobile.jpg?1326489566"</span><span class="p">},</span>
-          <span class="s2">"metro_area_id"</span><span class="o">:</span><span class="mi">105</span><span class="p">,</span>
-          <span class="s2">"url"</span><span class="o">:</span><span class="s2">"http://localhost:3000/venue/The_End_Up_in_San_Francisco_CA"</span>
-        <span class="p">},</span>
-        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2295</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Kontrol"</span><span class="p">,</span>
-            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_person"></a></p>
@@ -1885,44 +1173,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: Person <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/person/49?api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
-      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
-          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
-          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
-          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
-      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
-      <span class="p">},</span>
-      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_post_person_signin"></a></p>
@@ -1951,43 +1201,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: Person <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/person/signin?provider=facebook&amp;uid=123123bogus&amp;token=123123bogus&amp;email=123123bogus%40bogus.com&amp;first_name=Mister&amp;last_name=Bogus&amp;lat=38.5&amp;long=-123.0&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
-          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
-          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
-          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"Mister"</span><span class="p">,</span>
-      <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Bogus"</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"timezone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-medium.jpg"</span>
-      <span class="p">},</span>
-      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_post_person_signup"></a></p>
@@ -2003,49 +1216,14 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#email">email</a></strong></li>
 <li><strong><a href="#password">password</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#lat">lat</a></strong></li>
+<li><strong><a href="#long">long</a></strong></li>
 <li><strong><a href="#referral_code">referral_code</a></strong></li>
 <li><strong><a href="#preferred_radius">preferred_radius</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/person/signup?first_name=Mister&amp;email=bogus%40bogus.com&amp;password=bogus&amp;postalcode=94108&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
-          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
-          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
-          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"Mister"</span><span class="p">,</span>
-      <span class="s2">"gender"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"timezone"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-small_thumb.jpg"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/_default/default-medium.jpg"</span>
-      <span class="p">},</span>
-      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_put_person_id"></a></p>
@@ -2063,6 +1241,8 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#city">city</a></strong></li>
 <li><strong><a href="#state">state</a></strong></li>
 <li><strong><a href="#postalcode">postalcode</a></strong></li>
+<li><strong><a href="#lat">lat</a></strong></li>
+<li><strong><a href="#long">long</a></strong></li>
 <li><strong><a href="#gender">gender</a></strong></li>
 <li><strong><a href="#password">password</a></strong></li>
 <li><strong><a href="#old_password">old_password</a></strong></li>
@@ -2071,44 +1251,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: Person <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: PUT /api/v3/person/49&amp;first_name=John&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
-      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
-          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
-          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
-          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
-      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
-      <span class="p">},</span>
-      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_get_people_tracking_class"></a></p>
@@ -2127,24 +1269,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: <em>Array</em> of <em>Hash</em> containing id, name, and count for each tracked <strong>:class</strong> ordered by count descending.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/people/tracking/artist?ids=2,4,321&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
-        <span class="s2">"count"</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18927</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Radiohead"</span><span class="p">,</span>
-        <span class="s2">"count"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2687</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_get_person_id_class"></a></p>
@@ -2161,16 +1285,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: <em>Hash</em> of tracked <strong>:class</strong> IDs mapped to <strong>:class</strong> names for this person.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/person/2/artists&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"2687"</span><span class="o">:</span> <span class="s2">"Radiohead"</span><span class="p">,</span>
-      <span class="s2">"18927"</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
-      <span class="p">...</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_post_person_id_action_class"></a></p>
@@ -2191,15 +1305,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: Hash of <strong>:class</strong> tracked IDs mapped for this person after performing <strong>:action</strong>.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/person/24/track/artists?ids=44,45&amp;platform=ios&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"44"</span><span class="o">:</span> <span class="s2">"Paco Osuna"</span><span class="p">,</span>
-      <span class="s2">"45"</span><span class="o">:</span> <span class="s2">"Wanamaker"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_post_person_id_track_artists_by_name"></a></p>
@@ -2217,19 +1322,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns: <em>Array</em> of hash with tracked artist IDs mapped to artist names for this person.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/person/24/track_artists_by_name?artist_names=Radiohead,M83&amp;platform=ios&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"2687"</span><span class="o">:</span> <span class="s2">"Radiohead"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="s2">"18927"</span><span class="o">:</span> <span class="s2">"M83"</span><span class="p">,</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_get_person_id_recommended_events"></a></p>
@@ -2266,93 +1358,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Events <em>Hash</em> where at least one of the person's tracked artists is performing in an event</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/person/24/recommended_events?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1291050</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"T.I., Lil Wayne, 2 Chainz @ Sleep Train Pavilion At Concord"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">323</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2013-03-25T20:42:16Z"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-06-12T22:20:41Z"</span><span class="p">,</span>
-        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.9604</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">121.94</span><span class="p">,</span>
-        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2013-08-31T02:30:00Z"</span><span class="p">,</span>
-        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">"skip_event_conflict_validation"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"distance"</span><span class="o">:</span> <span class="mf">30.608671818601927</span><span class="p">,</span>
-        <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"68.0"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-thumbnail.jpg?1324556348"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-large.jpg?1324556348"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/34156/491/1324556348/lil-wayne-mobile.jpg?1324556348"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1291050"</span><span class="p">,</span>
-        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-08-30T19:30:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">323</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Sleep Train Pavilion At Concord"</span><span class="p">,</span>
-          <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"2000 Kirker Pass Road"</span><span class="p">,</span>
-          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Concord"</span><span class="p">,</span>
-          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-          <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:53Z"</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-06-24T09:00:13Z"</span><span class="p">,</span>
-          <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.960354</span><span class="p">,</span>
-          <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">121.939659</span><span class="p">,</span>
-          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-          <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-          <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Sleep-Train-Pavilion/116238125066831"</span><span class="p">,</span>
-          <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (925) 676-8742"</span><span class="p">,</span>
-          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94521"</span><span class="p">,</span>
-          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-thumbnail.jpg?1336436387"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-medium.jpg?1336436387"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-large.jpg?1336436387"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/323/1473/1336436387/sleep-train-pavilion-at-concord-in-concord-ca-mobile.jpg?1336436387"</span>
-          <span class="p">},</span>
-          <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-          <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Sleep_Train_Pavilion_At_Concord_in_Concord_CA"</span>
-        <span class="p">},</span>
-        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">34156</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Lil Wayne"</span><span class="p">,</span>
-            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">true</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">28490</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"T.I."</span><span class="p">,</span>
-            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">387608</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"2 Chainz"</span><span class="p">,</span>
-            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_get_person_id_discover_events"></a></p>
@@ -2389,98 +1394,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Returns:  <em>Array</em> of Events <em>Hash</em> where a similar artist to one of the person's tracked artists is performing in an event</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/person/24/discover_events?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1308413</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"My Morning Jacket, Wilco, Bob Dylan, Ryan Bingham @ Shoreline Amphitheatre at Mountain View"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">29474</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2013-04-22T20:54:34Z"</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-05-11T03:22:49Z"</span><span class="p">,</span>
-        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.4234</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.078</span><span class="p">,</span>
-        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2013-08-05T00:30:00Z"</span><span class="p">,</span>
-        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">"skip_event_conflict_validation"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"distance"</span><span class="o">:</span> <span class="mf">30.458803738929397</span><span class="p">,</span>
-        <span class="s2">"bearing"</span><span class="o">:</span> <span class="s2">"133.0"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-thumbnail.jpg?1324556491"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-large.jpg?1324556491"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-mobile.jpg?1324556491"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1308413"</span><span class="p">,</span>
-        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2013-08-04T17:30:00-07:00"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">29474</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Shoreline Amphitheatre at Mountain View"</span><span class="p">,</span>
-          <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"One Amphitheatre Parkway"</span><span class="p">,</span>
-          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Mountain View"</span><span class="p">,</span>
-          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-          <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.livenation.com/Shoreline-Amphitheatre-tickets-Mountain-View/venue/229414"</span><span class="p">,</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:52:54Z"</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2013-08-04T04:48:04Z"</span><span class="p">,</span>
-          <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.4234</span><span class="p">,</span>
-          <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.078124</span><span class="p">,</span>
-          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-          <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">25</span><span class="p">,</span>
-          <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/ShorelineAmphitheatre?sk=info"</span><span class="p">,</span>
-          <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (650) 967-3000"</span><span class="p">,</span>
-          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94043"</span><span class="p">,</span>
-          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-thumbnail.jpg?1327616683"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-medium.jpg?1327616683"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-large.jpg?1327616683"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-mobile.jpg?1327616683"</span>
-          <span class="p">},</span>
-          <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">141</span><span class="p">,</span>
-          <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Shoreline_Amphitheatre_at_Mountain_View_in_Mountain_View_CA"</span>
-        <span class="p">},</span>
-        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">28246</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Bob Dylan"</span><span class="p">,</span>
-          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">true</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">16250</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Wilco"</span><span class="p">,</span>
-          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">9271</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"My Morning Jacket"</span><span class="p">,</span>
-          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">},</span>
-          <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">53718</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Ryan Bingham"</span><span class="p">,</span>
-          <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_person_get_person_id_friends_events"></a></p>
@@ -2501,53 +1414,45 @@ Calls for Mappings default to the "partner_id" field.</p>
 
 <p>Event IDs are future active events tracked by that friend.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/person/2/friends_events&amp;api_key=1234567890abcdef</span>
 
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"friend"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
-          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
-          <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
-            <span class="p">{</span>
-              <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18434</span><span class="p">,</span>
-              <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"facebook"</span><span class="p">,</span>
-              <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
-              <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
-            <span class="p">}</span>
-          <span class="p">]</span>
-          <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
-          <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-          <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-          <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
-          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-          <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
-          <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
-          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
-          <span class="p">},</span>
-          <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
-        <span class="p">},</span>
-        <span class="s2">"events"</span><span class="o">:</span> <span class="p">[</span>
-          <span class="mi">1308413</span><span class="p">,</span>
-          <span class="p">...</span>
-        <span class="p">],</span>
-        <span class="p">...</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-</pre>
-</div>
+
+<p><a name="content_person_get_person_id_recommended_artists"></a></p>
+
+<h3>GET /person/:id/recommended_artists</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+
+<p>Params:
+- <strong><a href="#polling_for">polling_for</a></strong></p>
+
+<p>Returns: <em>Hash</em>
+The hash will contain the following keys.</p>
+
+<ul>
+<li>
+<strong>recommendations</strong>: For each service and popular artists, an <em>Array</em> of recommended artist <em>Hashes</em>.  If there is any error with the connection, an error message <em>string</em> to present to the user will be here instead of the array.</li>
+<li>
+<strong>connected</strong>: For each service, <em>boolean</em> whether or not the user is connected</li>
+<li>
+<strong>autotrack</strong>: For each service, <em>boolean</em> whether or not the user is automatically tracking recommended artists</li>
+</ul>
+
+<p>In the recommendations hash, each artist is represented by a hash of the following key-value pairs:</p>
+
+<ul>
+<li>
+<strong>id</strong>: Thrillcall ID</li>
+<li>
+<strong>title</strong>: Name of the Artist</li>
+<li>
+<strong>tracking</strong>: Boolean value indicating whether or not the user is tracking the Artist</li>
+<li><strong>artist_normalized_name</strong></li>
+<li>
+<strong>artist_upcoming_shows</strong>: The number of upcoming shows for this Artist</li>
+<li>
+<strong>url</strong>: Artist photo URL</li>
+</ul>
+
 
 
 <p><a name="content_credential"></a></p>
@@ -2569,6 +1474,7 @@ Calls for Mappings default to the "partner_id" field.</p>
 <li><strong><a href="#provider">provider</a></strong></li>
 <li><strong><a href="#uid">uid</a></strong></li>
 <li><strong><a href="#token">token</a></strong></li>
+<li><strong><a href="#skip_autotrack">skip_autotrack</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>
@@ -2577,45 +1483,6 @@ Calls for Mappings default to the "partner_id" field.</p>
 These are typically OAuth tokens, but can take any form.  The token itself is
 not required and may be left blank, the other parameters are required.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/credential</span>
-    <span class="c1">// person_id=49&amp;provider=spotify&amp;uid=4321&amp;token=abc123&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
-      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18435</span><span class="p">,</span>
-          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"spotify"</span><span class="p">,</span>
-          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"4321"</span><span class="p">,</span>
-          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
-      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
-      <span class="p">},</span>
-      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_credential_put_credential_id"></a></p>
@@ -2631,6 +1498,7 @@ not required and may be left blank, the other parameters are required.</p>
 <li><strong><a href="#token">token</a></strong></li>
 <li><strong><a href="#old_token">old_token</a></strong></li>
 <li><strong><a href="#old_password">old_password</a></strong></li>
+<li><strong><a href="#skip_autotrack">skip_autotrack</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>
@@ -2639,45 +1507,6 @@ not required and may be left blank, the other parameters are required.</p>
 You must supply either the user's current password, or the existing token on the
 credential.</p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: PUT /api/v3/credential/18435</span>
-    <span class="c1">// old_token=abc123&amp;token=&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Santa Rosa"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-10-17T18:54:31Z"</span><span class="p">,</span>
-      <span class="s2">"credentials"</span><span class="o">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18435</span><span class="p">,</span>
-          <span class="s2">"provider"</span><span class="o">:</span> <span class="s2">"spotify"</span><span class="p">,</span>
-          <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"4321"</span><span class="p">,</span>
-          <span class="s2">"token_present"</span><span class="o">:</span> <span class="kc">false</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-      <span class="s2">"first_name"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
-      <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"m"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">49</span><span class="p">,</span>
-      <span class="s2">"last_name"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
-      <span class="s2">"login"</span><span class="o">:</span> <span class="s2">"bogus@bogus.com"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"timezone"</span><span class="o">:</span> <span class="s2">"-7"</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-28T16:07:16Z"</span><span class="p">,</span>
-      <span class="s2">"referral_code"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"referral_credits"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95407"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"small_thumb"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"</span>
-      <span class="p">},</span>
-      <span class="s2">"preferred_radius"</span><span class="o">:</span> <span class="mf">100.0</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_venues"></a></p>
@@ -2711,6 +1540,28 @@ credential.</p>
 <strong>metro_area_id</strong>         <em>integer</em>   Thrillcall ID of the Metro Area this Venue is in, if any</li>
 <li>
 <strong>state</strong>                   <em>string</em>    State the Venue is in</li>
+<li>
+<strong>ticket_providers</strong>       <em>array</em>     List of standard ticket providers for this Venue
+
+<ul>
+<li>
+<strong>id</strong>                      <em>integer</em>  Thrillcall ID of the Ticket Provider</li>
+<li>
+<strong>merchant_id</strong>            <em>integer</em>  Thrillcall ID of the Merchant</li>
+<li>
+<strong>name</strong>                    <em>string</em>   Name of the Merchant</li>
+<li>
+<strong>url</strong>                     <em>string</em>   Generic ticketing link for this Venue from this Merchant</li>
+<li>
+<strong>primary</strong>                 <em>boolean</em>  Whether or not the merchant is a primary ticket source</li>
+<li>
+<strong>tier</strong>                    <em>integer</em>  Display tier relative to other Merchants</li>
+<li>
+<strong>display_index</strong>          <em>integer</em>  Display index relative to other Merchants in this tier</li>
+<li>
+<strong>image</strong>                   <em>string</em>   Thumbnail image URL for this Merchant</li>
+</ul>
+</li>
 <li>
 <strong>upcoming_events_count</strong> <em>integer</em>   Number of upcoming events associated with this object</li>
 <li>
@@ -2746,47 +1597,6 @@ credential.</p>
 
 <p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/venues?limit=14&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"address1"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Guadalajara"</span><span class="p">,</span>
-        <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"MX"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-05-09T09:29:23Z"</span><span class="p">,</span>
-        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">20.666222</span><span class="p">,</span>
-        <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">103.352089</span><span class="p">,</span>
-        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Fbolko"</span><span class="p">,</span>
-        <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Mexico_City"</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-04-20T19:08:53Z"</span><span class="p">,</span>
-        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"0"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-mobile.jpg"</span>
-        <span class="p">},</span>
-        <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Fbolko_in_Guadalajara"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_venues_post_venue"></a></p>
@@ -2809,41 +1619,6 @@ credential.</p>
 
 <p>Returns:  Venue <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/venue?name=Test%20Venue&amp;city=Guerneville&amp;state=CA&amp;country_code=US&amp;address1=123%20Main%20St&amp;postalcode=95446&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"123 Main St"</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Guerneville"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-08-14T00:15:23Z"</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">108951</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">38.50223159790039</span><span class="p">,</span>
-      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.99627685546875</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Test Venue"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-08-14T00:15:23Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"95446"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-mobile.jpg"</span>
-      <span class="p">},</span>
-      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Test_Venue_in_Guerneville_CA"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_venues_get_venue_id"></a></p>
@@ -2860,41 +1635,6 @@ credential.</p>
 
 <p>Returns:  Venue <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/venue/51886?api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"201 Van Ness Avenue"</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T17:59:32Z"</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/sfsymphony"</span><span class="p">,</span>
-      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.777402</span><span class="p">,</span>
-      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.419815</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Davies Symphony Hall"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.sfsymphony.org/"</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (415) 864-6000"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:37:30Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94102"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"</span>
-      <span class="p">},</span>
-      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_venues_put_venue_id"></a></p>
@@ -2917,41 +1657,6 @@ credential.</p>
 
 <p>Returns:  Venue <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: PUT /api/v3/venue/51886?address1=202%20Van%20Ness%20Avenue&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"202 Van Ness Avenue"</span><span class="p">,</span>
-      <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-      <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-28T17:59:32Z"</span><span class="p">,</span>
-      <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/sfsymphony"</span><span class="p">,</span>
-      <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
-      <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.777402</span><span class="p">,</span>
-      <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.419815</span><span class="p">,</span>
-      <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Davies Symphony Hall"</span><span class="p">,</span>
-      <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.sfsymphony.org/"</span><span class="p">,</span>
-      <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (415) 864-6000"</span><span class="p">,</span>
-      <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-      <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-      <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:37:30Z"</span><span class="p">,</span>
-      <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94102"</span><span class="p">,</span>
-      <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-thumbnail.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-medium.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-large.jpg?1326417154"</span><span class="p">,</span>
-        <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/51886/74/1326417154/davies-symphony-hall-in-san-francisco-ca-mobile.jpg?1326417154"</span>
-      <span class="p">},</span>
-      <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Davies_Symphony_Hall_in_San_Francisco_CA"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_venues_get_venue_id_events"></a></p>
@@ -2982,80 +1687,6 @@ credential.</p>
 
 <p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/venue/63279/events?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-        <span class="s2">"festival"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.7915</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.413</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo @ Masonic Center"</span><span class="p">,</span>
-        <span class="s2">"rumor"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"starts_at"</span><span class="o">:</span> <span class="s2">"2012-09-30T02:30:04Z"</span><span class="p">,</span>
-        <span class="s2">"starts_at_time_trusted"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">"unconfirmed_location"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-29T01:35:57Z"</span><span class="p">,</span>
-        <span class="s2">"venue_id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-thumbnail.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-large.jpg?1324561426"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/artist/378465/10658/1324561426/il-volo-mobile.jpg?1324561426"</span>
-        <span class="p">},</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/event/1047075"</span><span class="p">,</span>
-        <span class="s2">"starts_at_local"</span><span class="o">:</span> <span class="s2">"2012-09-29T19:30:04-07:00"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-        <span class="s2">"event_status"</span><span class="o">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
-        <span class="s2">"name_modified"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"featured_event"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"venue"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"1111 California Street"</span><span class="p">,</span>
-          <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
-          <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-          <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-25T19:25:27Z"</span><span class="p">,</span>
-          <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="s2">"http://www.facebook.com/pages/Nob-Hill-Masonic-Center/152483968103491"</span><span class="p">,</span>
-          <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-          <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
-          <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">37.79153</span><span class="p">,</span>
-          <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-          <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">122.412757</span><span class="p">,</span>
-          <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="s2">"http://www.myspace.com/masonicauditorium"</span><span class="p">,</span>
-          <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Masonic Center"</span><span class="p">,</span>
-          <span class="s2">"official_url"</span><span class="o">:</span> <span class="s2">"http://www.masonicauditorium.com/"</span><span class="p">,</span>
-          <span class="s2">"phone_number"</span><span class="o">:</span> <span class="s2">"+1 (877) 598-8497"</span><span class="p">,</span>
-          <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"CA"</span><span class="p">,</span>
-          <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Los_Angeles"</span><span class="p">,</span>
-          <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-          <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-03T09:41:24Z"</span><span class="p">,</span>
-          <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"94108"</span><span class="p">,</span>
-          <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-thumbnail.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-medium.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-large.jpg?1326419135"</span><span class="p">,</span>
-            <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/63279/87/1326419135/masonic-center-in-san-francisco-ca-mobile.jpg?1326419135"</span>
-          <span class="p">},</span>
-          <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">105</span><span class="p">,</span>
-          <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Masonic_Center_in_San_Francisco_CA"</span>
-        <span class="p">},</span>
-        <span class="s2">"artists"</span><span class="o">:</span> <span class="p">[</span>
-          <span class="p">{</span>
-            <span class="s2">"id"</span><span class="o">:</span> <span class="mi">378465</span><span class="p">,</span>
-            <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Il Volo"</span><span class="p">,</span>
-            <span class="s2">"headliner"</span><span class="o">:</span> <span class="kc">false</span>
-          <span class="p">}</span>
-        <span class="p">],</span>
-        <span class="s2">"offer_details"</span><span class="o">:</span> <span class="p">{}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_venues_get_search_venues_term"></a></p>
@@ -3079,47 +1710,6 @@ credential.</p>
 
 <p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/search/venues/Masonic%20Center?api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"525 W Riverview Ave"</span><span class="p">,</span>
-        <span class="s2">"address2"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Dayton"</span><span class="p">,</span>
-        <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-06-12T14:12:53Z"</span><span class="p">,</span>
-        <span class="s2">"facebook_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"hide_resale_tickets"</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">33642</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">39.765526</span><span class="p">,</span>
-        <span class="s2">"long_description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">84.203133</span><span class="p">,</span>
-        <span class="s2">"myspace_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Dayton Masonic Center"</span><span class="p">,</span>
-        <span class="s2">"official_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"phone_number"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"OH"</span><span class="p">,</span>
-        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/New_York"</span><span class="p">,</span>
-        <span class="s2">"upcoming_events_count"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-06-06T03:05:53Z"</span><span class="p">,</span>
-        <span class="s2">"postalcode"</span><span class="o">:</span> <span class="s2">"45405"</span><span class="p">,</span>
-        <span class="s2">"photos"</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">"thumbnail"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-thumbnail.jpg"</span><span class="p">,</span>
-          <span class="s2">"medium"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-medium.jpg"</span><span class="p">,</span>
-          <span class="s2">"large"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-large.jpg"</span><span class="p">,</span>
-          <span class="s2">"mobile"</span><span class="o">:</span> <span class="s2">"http://i1.tc-core.com/venue/_default/default-mobile.jpg"</span>
-        <span class="p">},</span>
-        <span class="s2">"metro_area_id"</span><span class="o">:</span> <span class="mi">134</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/venue/Dayton_Masonic_Center_in_Dayton_OH"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_tickets"></a></p>
@@ -3187,33 +1777,6 @@ credential.</p>
 
 <p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/tickets?limit=14&amp;api_key=1234567890abcdef</span>
-
-    <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-12-06T00:19:59Z"</span><span class="p">,</span>
-        <span class="s2">"currency"</span><span class="o">:</span> <span class="s2">"USD"</span><span class="p">,</span>
-        <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">455646</span><span class="p">,</span>
-        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="s2">"0.00"</span><span class="p">,</span>
-        <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="s2">"0.00"</span><span class="p">,</span>
-        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"General Onsale"</span><span class="p">,</span>
-        <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2009-09-22T22:58:37Z"</span><span class="p">,</span>
-        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://www.livenation.com/edp/eventId/335800/?c=api-000157"</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="p">...</span>
-      <span class="p">},</span>
-      <span class="p">...</span>
-    <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_tickets_get_ticket_id"></a></p>
@@ -3230,27 +1793,6 @@ credential.</p>
 
 <p>Returns:  Ticket <em>Hash</em></p>
 
-<div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/ticket/819883?api_key=1234567890abcdef</span>
-
-    <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-      <span class="s2">"currency"</span><span class="o">:</span> <span class="s2">"USD"</span><span class="p">,</span>
-      <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"event_id"</span><span class="o">:</span> <span class="mi">1047075</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">819883</span><span class="p">,</span>
-      <span class="s2">"marketing_text"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"max_ticket_price"</span><span class="o">:</span> <span class="s2">"85.00"</span><span class="p">,</span>
-      <span class="s2">"min_ticket_price"</span><span class="o">:</span> <span class="s2">"29.00"</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Onsale to General Public"</span><span class="p">,</span>
-      <span class="s2">"on_sale_end_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"on_sale_start_date"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"seat_info"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
-      <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://ticketsus.at/thrillcall?CTY=39&amp;DURL=http://www.ticketmaster.com/event/1C00486178A1251A?camefrom=CFC_BUYAT&amp;brand=[=BRAND=]"</span>
-    <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_mappings"></a></p>
@@ -3261,18 +1803,10 @@ credential.</p>
 
 <p>They are used in place of IDs in the following format:</p>
 
-<div class="highlight">
-<pre>  <span class="nx">partner_name</span><span class="o">:</span><span class="nx">obj_type</span><span class="o">:</span><span class="nx">partner_id</span>
-</pre>
-</div>
 
 
 <p>For example:</p>
 
-<div class="highlight">
-<pre>  <span class="nx">GET</span> <span class="o">/</span><span class="nx">artist</span><span class="o">/</span><span class="nx">myspace</span><span class="o">:</span><span class="nx">artist</span><span class="o">:</span><span class="nx">alicia_keys</span>
-</pre>
-</div>
 
 
 <p>Fields:</p>
@@ -3309,27 +1843,6 @@ credential.</p>
 
 <p>Returns:  <em>Array</em> of Mappings <em>Hash</em></p>
 
-<div class="highlight">
-<pre>  <span class="c1">// Example: GET /mappings?api_key=1234567890abcdef</span>
-
-  <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
-      <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
-      <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"3"</span><span class="p">,</span>
-      <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
-      <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"448380"</span><span class="p">,</span>
-      <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">17498</span><span class="p">,</span>
-      <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="p">...</span>
-    <span class="p">},</span>
-    <span class="p">...</span>
-  <span class="p">]</span>
-</pre>
-</div>
 
 
 <p><a name="content_mappings_get_mapping_id"></a></p>
@@ -3346,21 +1859,6 @@ credential.</p>
 
 <p>Returns:  Mapping <em>Hash</em></p>
 
-<div class="highlight">
-<pre>  <span class="c1">// Example: GET /mapping/1?api_key=1234567890abcdef</span>
-
-  <span class="p">{</span>
-    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
-    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
-    <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="s2">"3"</span><span class="p">,</span>
-    <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"livenation"</span><span class="p">,</span>
-    <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"448380"</span><span class="p">,</span>
-    <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">17498</span><span class="p">,</span>
-    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
-  <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_mappings_post_mapping"></a></p>
@@ -3386,21 +1884,6 @@ credential.</p>
 
 <p>Returns:  Mapping <em>Hash</em></p>
 
-<div class="highlight">
-<pre>  <span class="c1">// Example: POST /mapping?obj_type=artist&amp;partner_id=myspace&amp;partner_obj_id=1&amp;tc_obj_id=2000&amp;api_key=1234567890abcdef</span>
-
-  <span class="p">{</span>
-    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
-    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">39821</span><span class="p">,</span>
-    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
-    <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"myspace"</span><span class="p">,</span>
-    <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"1"</span><span class="p">,</span>
-    <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">2000</span><span class="p">,</span>
-    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
-  <span class="p">}</span>
-</pre>
-</div>
 
 
 <p><a name="content_mappings_put_mapping_id"></a></p>
@@ -3428,19 +1911,4 @@ credential.</p>
 
 <p>Returns:  Mapping <em>Hash</em></p>
 
-<div class="highlight">
-<pre>  <span class="c1">// Example: PUT /mapping/1?partner_obj_id=1000&amp;api_key=1234567890abcdef</span>
-
-  <span class="p">{</span>
-    <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
-    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">39821</span><span class="p">,</span>
-    <span class="s2">"obj_type"</span><span class="o">:</span> <span class="s2">"artist"</span><span class="p">,</span>
-    <span class="s2">"partner_display_name"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="s2">"partner_id"</span><span class="o">:</span> <span class="s2">"myspace"</span><span class="p">,</span>
-    <span class="s2">"partner_obj_id"</span><span class="o">:</span> <span class="s2">"1000"</span><span class="p">,</span>
-    <span class="s2">"tc_obj_id"</span><span class="o">:</span> <span class="mi">2000</span><span class="p">,</span>
-    <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2012-07-18T00:10:15Z"</span>
-  <span class="p">}</span>
-</pre>
-</div>
 
