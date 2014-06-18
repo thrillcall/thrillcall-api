@@ -453,6 +453,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Person's search radius preference, used as a default for Person endpoints such as <strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong>.</p>
 </li>
 <li>
+<p><a name="alert_email"></a><strong>alert_email</strong> <em>boolean</em></p>
+
+<p>Optional for updating a Person.  Turns on and off email alerts.</p>
+</li>
+<li>
 <p><a name="name"></a><strong>name</strong> <em>string</em></p>
 
 <p>Name of the Artist or Venue.</p>
@@ -1135,6 +1140,8 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
 <strong>preferred_radius</strong>       <em>float</em>     Preference for radius in miles from the Person to search for events for that Person</li>
+<li>
+<strong>alert_email</strong>            <em>boolean</em>   Preference for receiving email alerts for that Person</li>
 </ul>
 
 <p><a name="content_person_get_person_id"></a></p>
@@ -1223,6 +1230,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#password">password</a></strong></li>
 <li><strong><a href="#old_password">old_password</a></strong></li>
 <li><strong><a href="#preferred_radius">preferred_radius</a></strong></li>
+<li><strong><a href="#alert_email">alert_email</a></strong></li>
 </ul>
 
 <p>Returns: Person <em>Hash</em></p>

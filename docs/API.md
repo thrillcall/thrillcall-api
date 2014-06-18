@@ -295,6 +295,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     Person's search radius preference, used as a default for Person endpoints such as **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**.
 
+- <a name="alert_email" />**alert\_email** _boolean_
+
+    Optional for updating a Person.  Turns on and off email alerts.
+
 - <a name="name" />**name** _string_
 
     Name of the Artist or Venue.
@@ -1523,6 +1527,7 @@ Fields:
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 - **preferred\_radius**       _float_     Preference for radius in miles from the Person to search for events for that Person
+- **alert\_email**            _boolean_   Preference for receiving email alerts for that Person
 
 <a name="content_person_get_person_id" />
 ### GET /person/:id
@@ -1551,6 +1556,7 @@ Returns: Person _Hash_
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",
@@ -1611,6 +1617,7 @@ Returns: Person _Hash_
       ]
       "first_name": "Mister",
       "gender": null,
+      "alert_email": true,
       "last_name": "Bogus",
       "login": null,
       "state": null,
@@ -1665,6 +1672,7 @@ Returns: Person _Hash_
       ]
       "first_name": "Mister",
       "gender": null,
+      "alert_email": true,
       "last_name": null,
       "login": null,
       "state": null,
@@ -1701,6 +1709,7 @@ Params:
 - **[password](#password)**
 - **[old\_password](#old_password)**
 - **[preferred\_radius](#preferred_radius)**
+- **[alert\_email](#alert_email)**
 
 Returns: Person _Hash_
 
@@ -1723,6 +1732,7 @@ Returns: Person _Hash_
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",
@@ -2128,6 +2138,7 @@ Event IDs are future active events tracked by that friend.
           ]
           "first_name": "John",
           "gender": "m",
+          "alert_email": true,
           "id": 49,
           "last_name": "Doe",
           "login": "bogus@bogus.com",
@@ -2256,6 +2267,7 @@ not required and may be left blank, the other parameters are required.
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",
@@ -2313,6 +2325,7 @@ credential.
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",
