@@ -161,6 +161,7 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
   - **[POST /person/signin](#content_person_post_person_signin)**
   - **[POST /person/signup](#content_person_post_person_signup)**
   - **[PUT /person/:id](#content_person_put_person_id)**
+  - **[POST /person/:id/photo](#content_person_post_person_id_photo)**
   - **[GET /people/tracking/:class](#content_person_get_people_tracking_class)**
   - **[GET /person/:id/:class](#content_person_get_person_id_class)**
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
@@ -412,6 +413,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     The name of the Person's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
 
+- <a name="file" />**file** _image file_
+
+    Used with **[POST /person/:id/photo](#content_person_post_person_id_photo)**.  Uploads a new profile photo for the Person.
+
 - <a name="platform" />**platform** _string_
 
     _Default: web_
@@ -427,6 +432,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
     _Default: 100.0_
 
     Person's search radius preference, used as a default for Person endpoints such as **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**.
+
+- <a name="alert_email" />**alert\_email** _boolean_
+
+    Optional for updating a Person.  Turns on and off email alerts.
 
 - <a name="name" />**name** _string_
 
@@ -1656,6 +1665,7 @@ Fields:
 - **postalcode**              _string_    Postalcode of the Person
 - **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
 - **preferred\_radius**       _float_     Preference for radius in miles from the Person to search for events for that Person
+- **alert\_email**            _boolean_   Preference for receiving email alerts for that Person
 
 <a name="content_person_get_person_id" />
 ### GET /person/:id
@@ -1684,6 +1694,7 @@ Returns: Person _Hash_
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",
@@ -1744,6 +1755,7 @@ Returns: Person _Hash_
       ]
       "first_name": "Mister",
       "gender": null,
+      "alert_email": true,
       "last_name": "Bogus",
       "login": null,
       "state": null,
@@ -1798,6 +1810,7 @@ Returns: Person _Hash_
       ]
       "first_name": "Mister",
       "gender": null,
+      "alert_email": true,
       "last_name": null,
       "login": null,
       "state": null,
@@ -1834,6 +1847,7 @@ Params:
 - **[password](#password)**
 - **[old\_password](#old_password)**
 - **[preferred\_radius](#preferred_radius)**
+- **[alert\_email](#alert_email)**
 
 Returns: Person _Hash_
 
@@ -1856,6 +1870,7 @@ Returns: Person _Hash_
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",
@@ -1873,6 +1888,55 @@ Returns: Person _Hash_
       },
       "preferred_radius": 100.0
     }
+```
+
+<a name="content_person_post_person_id_photo" />
+### POST /person/:id/photo
+Params:
+
+- **[file](#file)** _Required_
+
+Uploads a new profile photo.  Replaces the old photo, if any.
+
+Returns: Person _Hash_
+
+``` js
+  // Example: POST /api/v3/person/49 api_key=1234567890abcdef file=@/myphoto.jpg
+
+  {
+    "address1": null,
+    "address2": null,
+    "city": "Santa Rosa",
+    "country_code": "US",
+    "created_at": "2011-10-17T18:54:31Z",
+    "credentials": [
+      {
+        "id": 18434,
+        "provider": "facebook",
+        "uid": "abc123",
+        "token_present": true
+      }
+    ]
+    "first_name": "John",
+    "gender": "m",
+    "alert_email": true,
+    "id": 49,
+    "last_name": "Doe",
+    "login": "bogus@bogus.com",
+    "state": "CA",
+    "time_zone": "America/Los_Angeles",
+    "timezone": "-7",
+    "updated_at": "2012-03-28T16:07:16Z",
+    "referral_code": null,
+    "referral_credits": 0,
+    "postalcode": "95407",
+    "photos": {
+      "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
+      "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
+      "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
+    },
+    "preferred_radius": 100.0
+  }
 ```
 
 <a name="content_person_get_people_tracking_class" />
@@ -2261,6 +2325,7 @@ Event IDs are future active events tracked by that friend.
           ]
           "first_name": "John",
           "gender": "m",
+          "alert_email": true,
           "id": 49,
           "last_name": "Doe",
           "login": "bogus@bogus.com",
@@ -2389,6 +2454,7 @@ not required and may be left blank, the other parameters are required.
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",
@@ -2446,6 +2512,7 @@ credential.
       ]
       "first_name": "John",
       "gender": "m",
+      "alert_email": true,
       "id": 49,
       "last_name": "Doe",
       "login": "bogus@bogus.com",

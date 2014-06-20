@@ -142,6 +142,7 @@
 <li><strong><a href="#content_person_post_person_signin">POST /person/signin</a></strong></li>
 <li><strong><a href="#content_person_post_person_signup">POST /person/signup</a></strong></li>
 <li><strong><a href="#content_person_put_person_id">PUT /person/:id</a></strong></li>
+<li><strong><a href="#content_person_post_person_id_photo">POST /person/:id/photo</a></strong></li>
 <li><strong><a href="#content_person_get_people_tracking_class">GET /people/tracking/:class</a></strong></li>
 <li><strong><a href="#content_person_get_person_id_class">GET /person/:id/:class</a></strong></li>
 <li><strong><a href="#content_person_post_person_id_action_class">POST /person/:id/:action/:class</a></strong></li>
@@ -458,6 +459,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>The name of the Person's location when auto-registering.  Either this or <strong><a href="#lat">lat</a></strong> / <strong><a href="#long">long</a></strong> must be provided.</p>
 </li>
 <li>
+<p><a name="file"></a><strong>file</strong> <em>image file</em></p>
+
+<p>Used with <strong><a href="#content_person_post_person_id_photo">POST /person/:id/photo</a></strong>.  Uploads a new profile photo for the Person.</p>
+</li>
+<li>
 <p><a name="platform"></a><strong>platform</strong> <em>string</em></p>
 
 <p><em>Default: web</em></p>
@@ -475,6 +481,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p><em>Default: 100.0</em></p>
 
 <p>Person's search radius preference, used as a default for Person endpoints such as <strong><a href="#content_person_get_person_id_recommended_events">GET /person/:id/recommended_events</a></strong>.</p>
+</li>
+<li>
+<p><a name="alert_email"></a><strong>alert_email</strong> <em>boolean</em></p>
+
+<p>Optional for updating a Person.  Turns on and off email alerts.</p>
 </li>
 <li>
 <p><a name="name"></a><strong>name</strong> <em>string</em></p>
@@ -1159,6 +1170,8 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <strong>photos</strong>                  <em>hash</em>      A hash of image urls of the primary photo available for this object in different styles</li>
 <li>
 <strong>preferred_radius</strong>       <em>float</em>     Preference for radius in miles from the Person to search for events for that Person</li>
+<li>
+<strong>alert_email</strong>            <em>boolean</em>   Preference for receiving email alerts for that Person</li>
 </ul>
 
 <p><a name="content_person_get_person_id"></a></p>
@@ -1247,7 +1260,26 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <li><strong><a href="#password">password</a></strong></li>
 <li><strong><a href="#old_password">old_password</a></strong></li>
 <li><strong><a href="#preferred_radius">preferred_radius</a></strong></li>
+<li><strong><a href="#alert_email">alert_email</a></strong></li>
 </ul>
+
+<p>Returns: Person <em>Hash</em></p>
+
+
+
+<p><a name="content_person_post_person_id_photo"></a></p>
+
+<h3>POST /person/:id/photo</h3>
+
+<p>Params:</p>
+
+<ul>
+<li>
+<strong><a href="#file">file</a></strong> <em>Required</em>
+</li>
+</ul>
+
+<p>Uploads a new profile photo.  Replaces the old photo, if any.</p>
 
 <p>Returns: Person <em>Hash</em></p>
 
