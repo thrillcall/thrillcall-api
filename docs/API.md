@@ -34,7 +34,6 @@
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
   - **[POST /person/:id/track\_artists\_by\_name](#content_person_post_person_id_track_artists_by_name)**
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
-  - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
   - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
   - **[GET /person/:id/recommended_artists](#content_person_get_person_id_recommended_artists)**
 - **[Credential](#content_credential)**
@@ -191,6 +190,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
     _Default: false_
 
     If set to _true_ , will only return featured events.
+
+- <a name="with_discover" />**with\_discover** _boolean_
+
+    _Default: false_
+
+    If set to _true_ in recommended_events endpoint, the list of events will include events from artists similar to the user's tracked artists.
 
 - <a name="primary_genre_id" />**primary\_genre\_id** _integer_
 
@@ -1924,6 +1929,7 @@ Params:
 - **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
+- **[with\_discover](#with_discover)**
 
 Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
 
@@ -2027,128 +2033,6 @@ Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked ar
           }
         ],
         "offer_details": null
-      },
-      {
-        ...
-      },
-      ...
-    ]
-```
-
-<a name="content_person_get_person_id_discover_events" />
-### GET /person/:id/discover_events
-**:id** _integer_  Thrillcall ID
-
-Params:
-
-- **[limit](#limit)**
-- **[page](#page)**
-- **[time\_zone](#time_zone)**
-- **[min\_date](#min_date)**
-- **[max\_date](#max_date)**
-- **[min\_updated\_at](#min_updated_at)**
-- **[max\_updated\_at](#max_updated_at)**
-- **[lat](#lat)**
-- **[long](#long)**
-- **[postalcode](#postalcode)**
-- **[radius](#radius)**
-- **[ticket\_type](#ticket_type)**
-- **[must\_have\_tickets](#must_have_tickets)**
-- **[show\_disabled\_events](#show_disabled_events)**
-- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
-- **[show\_rumor\_events](#show_rumor_events)**
-- **[featured\_events\_only](#featured_events_only)**
-- **[sort](#sort)**
-- **[order](#order)**
-
-Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
-
-Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's tracked artists is performing in an event
-
-``` js
-    // Example: GET /api/v3/person/24/discover_events?api_key=1234567890abcdef
-
-    [
-      {
-        "id": 1308413,
-        "name": "My Morning Jacket, Wilco, Bob Dylan, Ryan Bingham @ Shoreline Amphitheatre at Mountain View",
-        "venue_id": 29474,
-        "created_at": "2013-04-22T20:54:34Z",
-        "updated_at": "2013-05-11T03:22:49Z",
-        "festival": false,
-        "rumor": false,
-        "unconfirmed_location": 0,
-        "latitude": 37.4234,
-        "longitude": -122.078,
-        "starts_at": "2013-08-05T00:30:00Z",
-        "starts_at_time_trusted": true,
-        "skip_event_conflict_validation": false,
-        "distance": 30.458803738929397,
-        "bearing": "133.0",
-        "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-thumbnail.jpg?1324556491",
-          "large": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-large.jpg?1324556491",
-          "mobile": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-mobile.jpg?1324556491"
-        },
-        "url": "http://thrillcall.com/event/1308413",
-        "starts_at_local": "2013-08-04T17:30:00-07:00",
-        "time_zone": "America/Los_Angeles",
-        "event_status": "confirmed",
-        "name_modified": false,
-        "featured_event": false,
-        "venue": {
-          "id": 29474,
-          "name": "Shoreline Amphitheatre at Mountain View",
-          "address1": "One Amphitheatre Parkway",
-          "address2": null,
-          "city": "Mountain View",
-          "state": "CA",
-          "official_url": "http://www.livenation.com/Shoreline-Amphitheatre-tickets-Mountain-View/venue/229414",
-          "created_at": "2008-04-21T16:52:54Z",
-          "updated_at": "2013-08-04T04:48:04Z",
-          "latitude": 37.4234,
-          "longitude": -122.078124,
-          "country_code": "US",
-          "myspace_url": null,
-          "upcoming_events_count": 25,
-          "facebook_url": "http://www.facebook.com/ShorelineAmphitheatre?sk=info",
-          "long_description": null,
-          "phone_number": "+1 (650) 967-3000",
-          "time_zone": "America/Los_Angeles",
-          "hide_resale_tickets": false,
-          "postalcode": "94043",
-          "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-thumbnail.jpg?1327616683",
-            "medium": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-medium.jpg?1327616683",
-            "large": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-large.jpg?1327616683",
-            "mobile": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-mobile.jpg?1327616683"
-          },
-          "metro_area_id": 141,
-          "url": "http://thrillcall.com/venue/Shoreline_Amphitheatre_at_Mountain_View_in_Mountain_View_CA"
-        },
-        "artists": [
-          {
-          "id": 28246,
-          "name": "Bob Dylan",
-          "headliner": true
-          },
-          {
-          "id": 16250,
-          "name": "Wilco",
-          "headliner": false
-          },
-          {
-          "id": 9271,
-          "name": "My Morning Jacket",
-          "headliner": false
-          },
-          {
-          "id": 53718,
-          "name": "Ryan Bingham",
-          "headliner": false
-          }
-        ],
-        "offer_details": {}
       },
       {
         ...
