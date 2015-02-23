@@ -145,7 +145,7 @@
       <span class="ss">:base_url</span>         <span class="o">=&gt;</span> <span class="s2">"https://api.thrillcall.com/custom/"</span><span class="p">,</span>
       <span class="ss">:version</span>          <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
       <span class="ss">:logger</span>           <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span>
-      <span class="ss">:retry_exceptions</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">Timeout</span><span class="p">:</span><span class="ss">:Error</span><span class="o">]</span><span class="p">,</span>
+      <span class="ss">:retry_exceptions</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="no">Timeout</span><span class="o">::</span><span class="no">Error</span><span class="o">]</span><span class="p">,</span>
       <span class="ss">:retry_tries</span>      <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
       <span class="ss">:timeout</span>          <span class="o">=&gt;</span> <span class="mi">10</span>
     <span class="p">)</span>
@@ -642,8 +642,11 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <li>
 <p><a name="mappings"></a><strong>mappings</strong> <em>string or array (format: ["myspace", "livenation"])</em></p>
 
-<p>Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
-Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&amp;mappings[]=livenation").</p>
+<p>Foreign ID mappings for the specified partners, if available, will be provided along with the object data.</p>
+
+<p>Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&amp;mappings[]=livenation").</p>
+
+<p>Your API key requires the api_mappings_lookup permission to view mappings outside of your own partner ID.</p>
 </li>
 <li>
 <p><a name="person_id"></a><strong>person_id</strong> <em>string</em></p>
@@ -654,6 +657,8 @@ Can be provided as a single param ("mappings=myspace") or as an array ("mappings
 <p><a name="partner_id"></a><strong>partner_id</strong> <em>string</em></p>
 
 <p>Name of the partner for foreign ID mappings, e.g. "myspace"</p>
+
+<p>Your API key requires the api_mappings_lookup permission to create mappings outside of your own partner ID.</p>
 </li>
 <li>
 <p><a name="partner_obj_id"></a><strong>partner_obj_id</strong> <em>string or integer</em></p>
@@ -663,8 +668,9 @@ Can be provided as a single param ("mappings=myspace") or as an array ("mappings
 <li>
 <p><a name="partner_display_name"></a><strong>partner_display_name</strong> <em>string</em></p>
 
-<p>Name of the object from the partner's perspective, optional.
-Use to specify a name other than the one supplied in the Thrillcall object.</p>
+<p>Name of the object from the partner's perspective, optional.</p>
+
+<p>Use to specify a name other than the one supplied in the Thrillcall object.</p>
 </li>
 <li>
 <p><a name="tc_obj_id"></a><strong>tc_obj_id</strong> <em>integer</em></p>
@@ -1852,6 +1858,7 @@ Use to specify a name other than the one supplied in the Thrillcall object.</p>
 <p>Params:</p>
 
 <ul>
+<li><strong><a href="#ids">ids</a></strong></li>
 <li><strong><a href="#limit">limit</a></strong></li>
 <li><strong><a href="#page">page</a></strong></li>
 <li><strong><a href="#sort">sort</a></strong></li>
@@ -3637,7 +3644,10 @@ credential.</p>
 <ul>
 <li><strong><a href="#sort">sort</a></strong></li>
 <li><strong><a href="#order">order</a></strong></li>
+<li><strong><a href="#mappings">mappings</a></strong></li>
 </ul>
+
+<p>Your API key requires the api_mappings_lookup permission to view mappings outside of your own partner ID.</p>
 
 <p>Returns:  <em>Array</em> of Mappings <em>Hash</em></p>
 
@@ -3668,7 +3678,9 @@ credential.</p>
 
 <h3>GET /mapping/:id</h3>
 
-<p><strong>:id</strong> <em>integer</em>  Thrillcall ID</p>
+<p><strong>:id</strong> <em>integer</em>  Thrillcall ID for the Mapping record itself</p>
+
+<p>Your API key requires the api_mappings_lookup permission to view mappings outside of your own partner ID.</p>
 
 <p>Params:</p>
 
@@ -3701,6 +3713,8 @@ credential.</p>
 
 <p>Create a new foreign ID mapping</p>
 
+<p>Your API key requires the api_mappings_lookup permission to create mappings outside of your own partner ID.</p>
+
 <p>Params:</p>
 
 <ul>
@@ -3709,7 +3723,7 @@ credential.</p>
 <li>
 <strong><a href="#partner_display_name%5D">partner_display_name</a></strong>    <em>string</em>   The name of the object according to the partner, if different</li>
 <li>
-<strong><a href="#partner_id">partner_id</a></strong>                          <em>string</em>   The name of the partner for this foreign mapping, e.g. "myspace"</li>
+<strong><a href="#partner_id">partner_id</a></strong>                          <em>string</em>   The name of the partner for this foreign mapping, e.g. "myspace".  Requires api_mappings_lookup permission, otherwise defaults to your Partner ID.</li>
 <li>
 <strong><a href="#partner_obj_id">partner_obj_id</a></strong>                 <em>string</em>   Partner's ID for the referenced object</li>
 <li>
@@ -3751,7 +3765,7 @@ credential.</p>
 <li>
 <strong><a href="#partner_display_name%5D">partner_display_name</a></strong>    <em>string</em>   The name of the object according to the partner, if different</li>
 <li>
-<strong><a href="#partner_id">partner_id</a></strong>                          <em>string</em>   The name of the partner for this foreign mapping, e.g. "myspace"</li>
+<strong><a href="#partner_id">partner_id</a></strong>                          <em>string</em>   The name of the partner for this foreign mapping, e.g. "myspace".  Requires api_mappings_lookup permission, otherwise defaults to your Partner ID.</li>
 <li>
 <strong><a href="#partner_obj_id">partner_obj_id</a></strong>                 <em>string</em>   Partner's ID for the referenced object</li>
 <li>

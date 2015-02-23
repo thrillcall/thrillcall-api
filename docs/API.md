@@ -340,7 +340,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="mappings" />**mappings** _string or array (format: ["myspace", "livenation"])_
 
     Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
+
     Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&mappings[]=livenation").
+
+    Your API key requires the api\_mappings\_lookup permission to view mappings outside of your own partner ID.
 
 - <a name="person_id" />**person\_id** _string_
 
@@ -350,6 +353,8 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     Name of the partner for foreign ID mappings, e.g. "myspace"
 
+    Your API key requires the api\_mappings\_lookup permission to create mappings outside of your own partner ID.
+
 - <a name="partner_obj_id" />**partner\_obj\_id** _string or integer_
 
     Foreign ID for mappings, can be a string or integer.
@@ -357,6 +362,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="partner_display_name" />**partner\_display\_name** _string_
 
     Name of the object from the partner's perspective, optional.
+
     Use to specify a name other than the one supplied in the Thrillcall object.
 
 - <a name="tc_obj_id" />**tc\_obj\_id** _integer_
@@ -1361,6 +1367,7 @@ Fields:
 ### GET /metro_areas
 Params:
 
+- **[ids](#ids)**
 - **[limit](#limit)**
 - **[page](#page)**
 - **[sort](#sort)**
@@ -2894,6 +2901,9 @@ Params:
 
 - **[sort](#sort)**
 - **[order](#order)**
+- **[mappings](#mappings)**
+
+Your API key requires the api\_mappings\_lookup permission to view mappings outside of your own partner ID.
 
 Returns:  _Array_ of Mappings _Hash_
 
@@ -2920,7 +2930,9 @@ Returns:  _Array_ of Mappings _Hash_
 
 <a name="content_mappings_get_mapping_id" />
 ### GET /mapping/:id
-**:id** _integer_  Thrillcall ID
+**:id** _integer_  Thrillcall ID for the Mapping record itself
+
+Your API key requires the api\_mappings\_lookup permission to view mappings outside of your own partner ID.
 
 Params:
 
@@ -2949,11 +2961,13 @@ Returns:  Mapping _Hash_
 
 Create a new foreign ID mapping
 
+Your API key requires the api\_mappings\_lookup permission to create mappings outside of your own partner ID.
+
 Params:
 
 - **[obj\_type](#obj_type)**                              _integer_  Type of the referenced object, e.g. "artist"
 - **[partner\_display\_name](#partner_display_name])**    _string_   The name of the object according to the partner, if different
-- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace"
+- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace".  Requires api\_mappings\_lookup permission, otherwise defaults to your Partner ID.
 - **[partner\_obj\_id](#partner_obj_id)**                 _string_   Partner's ID for the referenced object
 - **[tc\_obj\_id](#tc_obj_id)**                           _integer_  Thrillcall ID of the referenced object
 
@@ -2984,7 +2998,7 @@ Params:
 
 - **[obj\_type](#obj_type)**                              _integer_  Type of the referenced object, e.g. "artist"
 - **[partner\_display\_name](#partner_display_name])**    _string_   The name of the object according to the partner, if different
-- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace"
+- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace".  Requires api\_mappings\_lookup permission, otherwise defaults to your Partner ID.
 - **[partner\_obj\_id](#partner_obj_id)**                 _string_   Partner's ID for the referenced object
 - **[tc\_obj\_id](#tc_obj_id)**                           _integer_  Thrillcall ID of the referenced object
 
