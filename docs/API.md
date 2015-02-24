@@ -34,7 +34,6 @@
   - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
   - **[POST /person/:id/track\_artists\_by\_name](#content_person_post_person_id_track_artists_by_name)**
   - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
-  - **[GET /person/:id/discover_events](#content_person_get_person_id_discover_events)**
   - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
   - **[GET /person/:id/recommended_artists](#content_person_get_person_id_recommended_artists)**
 - **[Credential](#content_credential)**
@@ -192,6 +191,12 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     If set to _true_ , will only return featured events.
 
+- <a name="with_discover" />**with\_discover** _boolean_
+
+    _Default: false_
+
+    If set to _true_ in recommended_events endpoint, the list of events will include events from artists similar to the user's tracked artists.
+
 - <a name="primary_genre_id" />**primary\_genre\_id** _integer_
 
     _Default: none_
@@ -335,7 +340,10 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="mappings" />**mappings** _string or array (format: ["myspace", "livenation"])_
 
     Foreign ID mappings for the specified partners, if available, will be provided along with the object data.
+
     Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&mappings[]=livenation").
+
+    Your API key requires the api\_mappings\_lookup permission to view mappings outside of your own partner ID.
 
 - <a name="person_id" />**person\_id** _string_
 
@@ -345,6 +353,8 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     Name of the partner for foreign ID mappings, e.g. "myspace"
 
+    Your API key requires the api\_mappings\_lookup permission to create mappings outside of your own partner ID.
+
 - <a name="partner_obj_id" />**partner\_obj\_id** _string or integer_
 
     Foreign ID for mappings, can be a string or integer.
@@ -352,6 +362,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 - <a name="partner_display_name" />**partner\_display\_name** _string_
 
     Name of the object from the partner's perspective, optional.
+
     Use to specify a name other than the one supplied in the Thrillcall object.
 
 - <a name="tc_obj_id" />**tc\_obj\_id** _integer_
@@ -1356,6 +1367,7 @@ Fields:
 ### GET /metro_areas
 Params:
 
+- **[ids](#ids)**
 - **[limit](#limit)**
 - **[page](#page)**
 - **[sort](#sort)**
@@ -1924,6 +1936,7 @@ Params:
 - **[featured\_events\_only](#featured_events_only)**
 - **[sort](#sort)**
 - **[order](#order)**
+- **[with\_discover](#with_discover)**
 
 Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
 
@@ -2027,128 +2040,6 @@ Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked ar
           }
         ],
         "offer_details": null
-      },
-      {
-        ...
-      },
-      ...
-    ]
-```
-
-<a name="content_person_get_person_id_discover_events" />
-### GET /person/:id/discover_events
-**:id** _integer_  Thrillcall ID
-
-Params:
-
-- **[limit](#limit)**
-- **[page](#page)**
-- **[time\_zone](#time_zone)**
-- **[min\_date](#min_date)**
-- **[max\_date](#max_date)**
-- **[min\_updated\_at](#min_updated_at)**
-- **[max\_updated\_at](#max_updated_at)**
-- **[lat](#lat)**
-- **[long](#long)**
-- **[postalcode](#postalcode)**
-- **[radius](#radius)**
-- **[ticket\_type](#ticket_type)**
-- **[must\_have\_tickets](#must_have_tickets)**
-- **[show\_disabled\_events](#show_disabled_events)**
-- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
-- **[show\_rumor\_events](#show_rumor_events)**
-- **[featured\_events\_only](#featured_events_only)**
-- **[sort](#sort)**
-- **[order](#order)**
-
-Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
-
-Returns:  _Array_ of Events _Hash_ where a similar artist to one of the person's tracked artists is performing in an event
-
-``` js
-    // Example: GET /api/v3/person/24/discover_events?api_key=1234567890abcdef
-
-    [
-      {
-        "id": 1308413,
-        "name": "My Morning Jacket, Wilco, Bob Dylan, Ryan Bingham @ Shoreline Amphitheatre at Mountain View",
-        "venue_id": 29474,
-        "created_at": "2013-04-22T20:54:34Z",
-        "updated_at": "2013-05-11T03:22:49Z",
-        "festival": false,
-        "rumor": false,
-        "unconfirmed_location": 0,
-        "latitude": 37.4234,
-        "longitude": -122.078,
-        "starts_at": "2013-08-05T00:30:00Z",
-        "starts_at_time_trusted": true,
-        "skip_event_conflict_validation": false,
-        "distance": 30.458803738929397,
-        "bearing": "133.0",
-        "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-thumbnail.jpg?1324556491",
-          "large": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-large.jpg?1324556491",
-          "mobile": "http://i1.tc-core.com/artist/28246/513/1324556491/bob-dylan-mobile.jpg?1324556491"
-        },
-        "url": "http://thrillcall.com/event/1308413",
-        "starts_at_local": "2013-08-04T17:30:00-07:00",
-        "time_zone": "America/Los_Angeles",
-        "event_status": "confirmed",
-        "name_modified": false,
-        "featured_event": false,
-        "venue": {
-          "id": 29474,
-          "name": "Shoreline Amphitheatre at Mountain View",
-          "address1": "One Amphitheatre Parkway",
-          "address2": null,
-          "city": "Mountain View",
-          "state": "CA",
-          "official_url": "http://www.livenation.com/Shoreline-Amphitheatre-tickets-Mountain-View/venue/229414",
-          "created_at": "2008-04-21T16:52:54Z",
-          "updated_at": "2013-08-04T04:48:04Z",
-          "latitude": 37.4234,
-          "longitude": -122.078124,
-          "country_code": "US",
-          "myspace_url": null,
-          "upcoming_events_count": 25,
-          "facebook_url": "http://www.facebook.com/ShorelineAmphitheatre?sk=info",
-          "long_description": null,
-          "phone_number": "+1 (650) 967-3000",
-          "time_zone": "America/Los_Angeles",
-          "hide_resale_tickets": false,
-          "postalcode": "94043",
-          "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-thumbnail.jpg?1327616683",
-            "medium": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-medium.jpg?1327616683",
-            "large": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-large.jpg?1327616683",
-            "mobile": "http://i1.tc-core.com/venue/29474/263/1327616683/shoreline-amphitheatre-at-mountain-view-in-mountain-view-ca-mobile.jpg?1327616683"
-          },
-          "metro_area_id": 141,
-          "url": "http://thrillcall.com/venue/Shoreline_Amphitheatre_at_Mountain_View_in_Mountain_View_CA"
-        },
-        "artists": [
-          {
-          "id": 28246,
-          "name": "Bob Dylan",
-          "headliner": true
-          },
-          {
-          "id": 16250,
-          "name": "Wilco",
-          "headliner": false
-          },
-          {
-          "id": 9271,
-          "name": "My Morning Jacket",
-          "headliner": false
-          },
-          {
-          "id": 53718,
-          "name": "Ryan Bingham",
-          "headliner": false
-          }
-        ],
-        "offer_details": {}
       },
       {
         ...
@@ -3010,6 +2901,9 @@ Params:
 
 - **[sort](#sort)**
 - **[order](#order)**
+- **[mappings](#mappings)**
+
+Your API key requires the api\_mappings\_lookup permission to view mappings outside of your own partner ID.
 
 Returns:  _Array_ of Mappings _Hash_
 
@@ -3036,7 +2930,9 @@ Returns:  _Array_ of Mappings _Hash_
 
 <a name="content_mappings_get_mapping_id" />
 ### GET /mapping/:id
-**:id** _integer_  Thrillcall ID
+**:id** _integer_  Thrillcall ID for the Mapping record itself
+
+Your API key requires the api\_mappings\_lookup permission to view mappings outside of your own partner ID.
 
 Params:
 
@@ -3065,11 +2961,13 @@ Returns:  Mapping _Hash_
 
 Create a new foreign ID mapping
 
+Your API key requires the api\_mappings\_lookup permission to create mappings outside of your own partner ID.
+
 Params:
 
 - **[obj\_type](#obj_type)**                              _integer_  Type of the referenced object, e.g. "artist"
 - **[partner\_display\_name](#partner_display_name])**    _string_   The name of the object according to the partner, if different
-- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace"
+- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace".  Requires api\_mappings\_lookup permission, otherwise defaults to your Partner ID.
 - **[partner\_obj\_id](#partner_obj_id)**                 _string_   Partner's ID for the referenced object
 - **[tc\_obj\_id](#tc_obj_id)**                           _integer_  Thrillcall ID of the referenced object
 
@@ -3100,7 +2998,7 @@ Params:
 
 - **[obj\_type](#obj_type)**                              _integer_  Type of the referenced object, e.g. "artist"
 - **[partner\_display\_name](#partner_display_name])**    _string_   The name of the object according to the partner, if different
-- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace"
+- **[partner\_id](#partner_id)**                          _string_   The name of the partner for this foreign mapping, e.g. "myspace".  Requires api\_mappings\_lookup permission, otherwise defaults to your Partner ID.
 - **[partner\_obj\_id](#partner_obj_id)**                 _string_   Partner's ID for the referenced object
 - **[tc\_obj\_id](#tc_obj_id)**                           _integer_  Thrillcall ID of the referenced object
 

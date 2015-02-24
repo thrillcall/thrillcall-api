@@ -172,13 +172,15 @@ describe "ThrillcallAPI" do
       @metro_area_id        = @venue["metro_area_id"]
       @metro_area_time_zone = @tc.metro_area(@metro_area_id)["time_zone"]
 
-      mappings              = @tc.mappings(:obj_type => "artist")
-      mappings.length
+      if has_permission? :api_mappings_lookup
+        mappings              = @tc.mappings(:obj_type => "artist")
+        mappings.length
 
-      @mapping_id             = mappings.first["id"]
-      @mapping_partner_id     = mappings.first["partner_id"]
-      @mapping_partner_obj_id = mappings.first["partner_obj_id"]
-      @mapping_tc_id          = mappings.first["tc_obj_id"]
+        @mapping_id             = mappings.first["id"]
+        @mapping_partner_id     = mappings.first["partner_id"]
+        @mapping_partner_obj_id = mappings.first["partner_obj_id"]
+        @mapping_tc_id          = mappings.first["tc_obj_id"]
+      end
 
       puts "Using Thrillcall objects:"
       puts "Event:    #{@event_id}"
@@ -536,11 +538,13 @@ describe "ThrillcallAPI" do
       end
 
       it "should get a specific artist using the mapping syntax" do
+        mark_pending_if_no_permission(:api_mappings_lookup)
         a = @tc.artist("#{@mapping_partner_id}:artist:#{@mapping_partner_obj_id}")
         a["id"].should == @mapping_tc_id
       end
 
       it "should return foreign ID mappings when the mappings param is provided" do
+        mark_pending_if_no_permission(:api_mappings_lookup)
         a = @tc.artist(@mapping_tc_id, :mappings => [@mapping_partner_id])
         a["id"].should == @mapping_tc_id
         a["foreign_mappings"].should_not be_nil
@@ -711,6 +715,9 @@ describe "ThrillcallAPI" do
     end
 
     context "accesing the foreign ID mapping endpoint" do
+      before :each do
+        mark_pending_if_no_permission(:api_mappings_lookup)
+      end
       it "should get a list of mappings" do
         m = @tc.mappings
         m.length.should > 0
