@@ -1759,6 +1759,47 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 </div>
 
 
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#lat">lat</a></strong></li>
+<li><strong><a href="#long">long</a></strong></li>
+<li><strong><a href="#radius">radius</a></strong></li>
+<li><strong><a href="#limit">limit</a></strong></li>
+<li><strong><a href="#page">page</a></strong></li>
+<li><strong><a href="#sort">sort</a></strong></li>
+<li><strong><a href="#order">order</a></strong></li>
+</ul>
+
+<p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
+
+<div class="highlight">
+<pre>    <span class="c1">// Example: GET /api/v3/metro_areas?&amp;api_key=1234567890abcdef&amp;&amp;lat=37.7833&amp;long=-122.4167&amp;radius=50`</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"Chicago"</span><span class="p">,</span>
+        <span class="s2">"country_code"</span><span class="o">:</span> <span class="s2">"US"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2011-06-24T03:23:57Z"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">104</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="o">:</span> <span class="mf">41.8842</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="o">:</span> <span class="o">-</span><span class="mf">87.6324</span><span class="p">,</span>
+        <span class="s2">"offers_availability_status_code"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"radius"</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="o">:</span> <span class="s2">"IL"</span><span class="p">,</span>
+        <span class="s2">"time_zone"</span><span class="o">:</span> <span class="s2">"America/Chicago"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2011-12-27T00:44:37Z"</span><span class="p">,</span>
+        <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"http://thrillcall.com/live-music/chicago"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="p">...</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
 <p><a name="content_metro_area_get_metro_area_id"></a></p>
 
 <h3>GET /metro_area/:id</h3>

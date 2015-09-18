@@ -1533,6 +1533,43 @@ Returns:  _Array_ of Metro Areas _Hash_
     ]
 ```
 
+Params:
+
+- **[lat](#lat)**
+- **[long](#long)**
+- **[radius](#radius)**
+- **[limit](#limit)**
+- **[page](#page)**
+- **[sort](#sort)**
+- **[order](#order)**
+
+Returns:  _Array_ of Metro Areas _Hash_
+
+``` js
+    // Example: GET /api/v3/metro_areas?&api_key=1234567890abcdef&&lat=37.7833&long=-122.4167&radius=50`
+
+    [
+      {
+        "city": "Chicago",
+        "country_code": "US",
+        "created_at": "2011-06-24T03:23:57Z",
+        "id": 104,
+        "latitude": 41.8842,
+        "longitude": -87.6324,
+        "offers_availability_status_code": 1,
+        "radius": 50,
+        "state": "IL",
+        "time_zone": "America/Chicago",
+        "updated_at": "2011-12-27T00:44:37Z",
+        "url": "http://thrillcall.com/live-music/chicago"
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
 <a name="content_metro_area_get_metro_area_id" />
 ### GET /metro_area/:id
 **:id** _integer_  Thrillcall ID
