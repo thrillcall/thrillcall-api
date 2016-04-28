@@ -156,22 +156,6 @@ This gem is a convenience wrapper around the excellent Faraday project.  If more
   - **[GET /metro_areas](#content_metro_area_get_metro_areas)**
   - **[GET /metro_area/:id](#content_metro_area_get_metro_area_id)**
   - **[GET /metro_area/:id/events](#content_metro_area_get_metro_area_id_events)**
-- **[Person](#content_person)**
-  - **[GET /person/:id](#content_person_get_person_id)**
-  - **[POST /person/signin](#content_person_post_person_signin)**
-  - **[POST /person/signup](#content_person_post_person_signup)**
-  - **[PUT /person/:id](#content_person_put_person_id)**
-  - **[POST /person/:id/photo](#content_person_post_person_id_photo)**
-  - **[GET /people/tracking/:class](#content_person_get_people_tracking_class)**
-  - **[GET /person/:id/:class](#content_person_get_person_id_class)**
-  - **[POST /person/:id/:action/:class](#content_person_post_person_id_action_class)**
-  - **[POST /person/:id/track\_artists\_by\_name](#content_person_post_person_id_track_artists_by_name)**
-  - **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**
-  - **[GET /person/:id/friends_events](#content_person_get_person_id_friends_events)**
-  - **[GET /person/:id/recommended_artists](#content_person_get_person_id_recommended_artists)**
-- **[Credential](#content_credential)**
-  - **[POST /credential](#content_credential_post_credential)**
-  - **[PUT /credential/:id](#content_credential_put_id_credential)**
 - **[Venues](#content_venues)**
   - **[GET /venues](#content_venues_get_venues)**
   - **[POST /venue](#content_venues_post_venue)**
@@ -249,7 +233,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     Results with updated_at columns before this date will not be returned.
 
-- <a name="max_date" />**max\_updated\_at** _string (format: "YYYY-MM-DD")_
+- <a name="max_updated_at" />**max\_updated\_at** _string (format: "YYYY-MM-DD")_
 
     _Default: none_
 
@@ -261,15 +245,11 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, results will be within **[radius](#radius)** of this location.
 
-    For Person queries, this specifies the latitude of the person's location.
-
 - <a name="long" />**long** _float_
 
     _Default: none_
 
     If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, results will be within **[radius](#radius)** of this location.
-
-    For Person queries, this specifies the longitude of the person's location.
 
 - <a name="postalcode" />**postalcode** _string (format: length >= 5)_
 
@@ -280,7 +260,7 @@ These are valid parameters for any endpoint, however, they will only be used by 
         If latitude (**[lat](#lat)**) and longitude (**[long](#long)**) if both are specified, this will be ignored.
 
     For POST / PUT requests:
-        Optional for creating or updating a Person or Venue.
+        Optional for creating or updating a Venue.
 
 - <a name="radius" />**radius** _float_
 
@@ -336,111 +316,25 @@ These are valid parameters for any endpoint, however, they will only be used by 
 
     If set, will filter Artist results to only those with the specified **[primary\_genre\_id](#primary_genre_id)**
 
-- <a name="email" />**email** _string_
-
-    The email address associated with a Person, required for registration.
-
-- <a name="password" />**password** _string (format: 40 >= length >= 5)_
-
-    The Person's password.
-
-    When creating a Person, this must be supplied along with **[email](#email)** unless using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** auth.
-
-    When updating a Person, this will change the Person's password.  It must be supplied along with **[old\_password](#old_password)**.
-
-- <a name="old_password" />**old\_password** _string (format: 40 >= length >= 5)_
-
-    The Person's current password, supplied along with **[password](#password)** to update a Person's password.
-
-- <a name="provider" />**provider** _string_
-
-    The name of the authentication provider (e.g. "facebook").
-
-    For registration, this must be supplied along with **[uid](#uid)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
-
-- <a name="uid" />**uid** _string_
-
-    The Person's ID with **[provider](#provider)**.
-
-    For registration, this must be supplied along with **[provider](#provider)** and **[token](#token)** unless using **[email](#email)**/**[password](#password)** auth.
-
-- <a name="token" />**token** _string_
-
-    The Person's authentication token with **[provider](#provider)**.
-
-    For registration, this must be supplied along with **[provider](#provider)** and **[uid](#uid)** unless using **[email](#email)**/**[password](#password)** auth.
-
-    For additional credentials, this field is optional.
-
-- <a name="old_token" />**old\_token** _string_
-
-    The Credential's current token, must match record to perform Credential updates.
-
-- <a name="skip_autotrack" />**skip\_autotrack** _boolean_
-
-    _Default: false_
-
-    When creating or updating a Credential, the person will be set to automatically track artists recommended from this provider unless this parameter is set to true.
-
-- <a name="first_name" />**first\_name** _string (format: 50 >= length >= 2)_
-
-    Required to register a Person.
-
-- <a name="last_name" />**last\_name** _string (format: 50 >= length >= 2)_
-
-    Optional for creating or updating a Person.
-
-- <a name="gender" />**gender** _string (format: length == 1)_
-
-    Optional for creating or updating a Person.
-
 - <a name="address1" />**address1** _string_
 
-    Optional for creating or updating a Person, required for Venues.
+    Required for creating or updating a Venue.
 
 - <a name="address2" />**address2** _string_
 
-    Optional parameter for Person or Venue.
+    Optional parameter for Venue.
 
 - <a name="city" />**city** _string_
 
-    Optional for creating or updating a Person, required for Venues.
+    Required for creating or updating a Venue.
 
 - <a name="state" />**state** _string_
 
-    Optional for creating or updating a Person, required for Venues.
+    Required for creating or updating a Venue.
 
 - <a name="country_code" />**country_code** _string (format: "US" length == 2)_
 
     Country code, required for Venues.
-
-- <a name="location_name" />**location\_name** _string (format: "City, ST or City, State", length > 0))_
-
-    The name of the Person's location when auto-registering.  Either this or **[lat](#lat)** / **[long](#long)** must be provided.
-
-- <a name="file" />**file** _image file_
-
-    Used with **[POST /person/:id/photo](#content_person_post_person_id_photo)**.  Uploads a new profile photo for the Person.
-
-- <a name="platform" />**platform** _string_
-
-    _Default: web_
-
-    Platform of origin for tracking an object.  Valid platforms: "ios", "web", "android"
-
-- <a name="referral_code" />**referral\_code** _string_
-
-    The referral code to be used during registration.  Both the owner of the code as well as the new Person will receive a referral credit point.
-
-- <a name="preferred_radius" />**preferred\_radius** _float_
-
-    _Default: 100.0_
-
-    Person's search radius preference, used as a default for Person endpoints such as **[GET /person/:id/recommended_events](#content_person_get_person_id_recommended_events)**.
-
-- <a name="alert_email" />**alert\_email** _boolean_
-
-    Optional for updating a Person.  Turns on and off email alerts.
 
 - <a name="name" />**name** _string_
 
@@ -477,10 +371,6 @@ These are valid parameters for any endpoint, however, they will only be used by 
     Can be provided as a single param ("mappings=myspace") or as an array ("mappings[]=myspace&mappings[]=livenation").
 
     Your API key requires the api\_mappings\_lookup permission to view mappings outside of your own partner ID.
-
-- <a name="person_id" />**person\_id** _string_
-
-    Thrillcall ID for the Person object.
 
 - <a name="partner_id" />**partner\_id** _string_
 
@@ -1533,6 +1423,43 @@ Returns:  _Array_ of Metro Areas _Hash_
     ]
 ```
 
+Params:
+
+- **[lat](#lat)**
+- **[long](#long)**
+- **[radius](#radius)**
+- **[limit](#limit)**
+- **[page](#page)**
+- **[sort](#sort)**
+- **[order](#order)**
+
+Returns:  _Array_ of Metro Areas _Hash_
+
+``` js
+    // Example: GET /api/v3/metro_areas?&api_key=1234567890abcdef&&lat=37.7833&long=-122.4167&radius=50`
+
+    [
+      {
+        "city": "Chicago",
+        "country_code": "US",
+        "created_at": "2011-06-24T03:23:57Z",
+        "id": 104,
+        "latitude": 41.8842,
+        "longitude": -87.6324,
+        "offers_availability_status_code": 1,
+        "radius": 50,
+        "state": "IL",
+        "time_zone": "America/Chicago",
+        "updated_at": "2011-12-27T00:44:37Z",
+        "url": "http://thrillcall.com/live-music/chicago"
+      },
+      {
+        ...
+      },
+      ...
+    ]
+```
+
 <a name="content_metro_area_get_metro_area_id" />
 ### GET /metro_area/:id
 **:id** _integer_  Thrillcall ID
@@ -1657,770 +1584,6 @@ Returns:  _Array_ of Metro Areas _Hash_
       },
       ...
     ]
-```
-
-<a name="content_person" />
-## Person
-**Note:** Your API key requires the api\_auth permission to access the endpoints associated with this object.
-
-Fields:
-
-- **created\_at**             _string_    ISO 8601 representation the time this object was created
-- **first\_name**             _string_    First name of the Person
-- **gender**                  _string_    Gender of the Person
-- **id**                      _integer_   Thrillcall ID
-- **last\_name**              _string_    Last name of the Person
-- **login**                   _string_    Login (Email Address) of the Person
-- **updated\_at**             _string_    ISO 8601 representation of last time this object was updated
-- **referral\_code**          _string_    Referral code of the Person
-- **referral\_credits**       _integer_   Number of Referral credits the Person has (including bonus points)
-- **postalcode**              _string_    Postalcode of the Person
-- **photos**                  _hash_      A hash of image urls of the primary photo available for this object in different styles
-- **preferred\_radius**       _float_     Preference for radius in miles from the Person to search for events for that Person
-- **alert\_email**            _boolean_   Preference for receiving email alerts for that Person
-
-<a name="content_person_get_person_id" />
-### GET /person/:id
-Params:
-
-- None
-
-Returns: Person _Hash_
-
-``` js
-    // Example: GET /api/v3/person/49?api_key=1234567890abcdef
-
-    {
-      "address1": null,
-      "address2": null,
-      "city": "Santa Rosa",
-      "country_code": "US",
-      "created_at": "2011-10-17T18:54:31Z",
-      "credentials": [
-        {
-          "id": 18434,
-          "provider": "facebook",
-          "uid": "abc123",
-          "token_present": true
-        }
-      ]
-      "first_name": "John",
-      "gender": "m",
-      "alert_email": true,
-      "id": 49,
-      "last_name": "Doe",
-      "login": "bogus@bogus.com",
-      "state": "CA",
-      "time_zone": "America/Los_Angeles",
-      "timezone": "-7",
-      "updated_at": "2012-03-28T16:07:16Z",
-      "referral_code": null,
-      "referral_credits": 0,
-      "postalcode": "95407",
-      "photos": {
-        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      },
-      "preferred_radius": 100.0
-    }
-```
-
-<a name="content_person_post_person_signin" />
-### POST /person/signin
-Params:
-
-- **[email](#email)**
-- **[password](#password)**
-- **[provider](#provider)**
-- **[uid](#uid)**
-- **[token](#token)**
-- **[first\_name](#first_name)**
-- **[last\_name](#last_name)**
-- **[location\_name](#location_name)**
-- **[lat](#lat)**
-- **[long](#long)**
-- **[referral\_code](#referral_code)**
-
-Use either **[email](#email)** / **[password](#password)** or **[provider](#provider)** / **[uid](#uid)** / **[token](#token)**.
-
-May perform registration ("signup") automatically if using **[provider](#provider)** / **[uid](#uid)** / **[token](#token)** when no match is found and name, location, and **[referral_code](#referral_code)** are also provided.
-
-Returns: Person _Hash_
-
-``` js
-    // Example: POST /api/v3/person/signin?provider=facebook&uid=123123bogus&token=123123bogus&email=123123bogus%40bogus.com&first_name=Mister&last_name=Bogus&lat=38.5&long=-123.0&api_key=1234567890abcdef
-
-    {
-      "address1": null,
-      "address2": null,
-      "city": null,
-      "country_code": null,
-      "created_at": null,
-      "credentials": [
-        {
-          "id": 18434,
-          "provider": "facebook",
-          "uid": "abc123",
-          "token_present": true
-        }
-      ]
-      "first_name": "Mister",
-      "gender": null,
-      "alert_email": true,
-      "last_name": "Bogus",
-      "login": null,
-      "state": null,
-      "time_zone": null,
-      "timezone": null,
-      "updated_at": null,
-      "referral_code": null,
-      "referral_credits": 0,
-      "postalcode": null,
-      "photos": {
-        "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
-        "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
-        "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
-      },
-      "preferred_radius": 100.0
-    }
-```
-
-<a name="content_person_post_person_signup" />
-### POST /person/signup
-Params:
-
-- **[first\_name](#first_name)**
-- **[last\_name](#last_name)**
-- **[gender](#gender)**
-- **[email](#email)**
-- **[password](#password)**
-- **[postalcode](#postalcode)**
-- **[lat](#lat)**
-- **[long](#long)**
-- **[referral\_code](#referral_code)**
-- **[preferred\_radius](#preferred_radius)**
-
-Returns: Person _Hash_
-
-``` js
-    // Example: POST /api/v3/person/signup?first_name=Mister&email=bogus%40bogus.com&password=bogus&postalcode=94108&api_key=1234567890abcdef
-
-    {
-      "address1": null,
-      "address2": null,
-      "city": null,
-      "country_code": null,
-      "created_at": null,
-      "credentials": [
-        {
-          "id": 18434,
-          "provider": "facebook",
-          "uid": "abc123",
-          "token_present": true
-        }
-      ]
-      "first_name": "Mister",
-      "gender": null,
-      "alert_email": true,
-      "last_name": null,
-      "login": null,
-      "state": null,
-      "time_zone": null,
-      "timezone": null,
-      "updated_at": null,
-      "referral_code": null,
-      "referral_credits": 0,
-      "postalcode": null,
-      "photos": {
-        "small_thumb": "http://i1.tc-core.com/person/_default/default-small_thumb.jpg",
-        "thumbnail": "http://i1.tc-core.com/person/_default/default-thumbnail.jpg",
-        "medium": "http://i1.tc-core.com/person/_default/default-medium.jpg"
-      },
-      "preferred_radius": 100.0
-    }
-```
-
-<a name="content_person_put_person_id" />
-### PUT /person/:id
-Params:
-
-- **[email](#email)**
-- **[first\_name](#first_name)**
-- **[last\_name](#last_name)**
-- **[address1](#address1)**
-- **[address2](#address2)**
-- **[city](#city)**
-- **[state](#state)**
-- **[postalcode](#postalcode)**
-- **[lat](#lat)**
-- **[long](#long)**
-- **[gender](#gender)**
-- **[password](#password)**
-- **[old\_password](#old_password)**
-- **[preferred\_radius](#preferred_radius)**
-- **[alert\_email](#alert_email)**
-
-Returns: Person _Hash_
-
-``` js
-    // Example: PUT /api/v3/person/49&first_name=John&api_key=1234567890abcdef
-
-    {
-      "address1": null,
-      "address2": null,
-      "city": "Santa Rosa",
-      "country_code": "US",
-      "created_at": "2011-10-17T18:54:31Z",
-      "credentials": [
-        {
-          "id": 18434,
-          "provider": "facebook",
-          "uid": "abc123",
-          "token_present": true
-        }
-      ]
-      "first_name": "John",
-      "gender": "m",
-      "alert_email": true,
-      "id": 49,
-      "last_name": "Doe",
-      "login": "bogus@bogus.com",
-      "state": "CA",
-      "time_zone": "America/Los_Angeles",
-      "timezone": "-7",
-      "updated_at": "2012-03-28T16:07:16Z",
-      "referral_code": null,
-      "referral_credits": 0,
-      "postalcode": "95407",
-      "photos": {
-        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      },
-      "preferred_radius": 100.0
-    }
-```
-
-<a name="content_person_post_person_id_photo" />
-### POST /person/:id/photo
-Params:
-
-- **[file](#file)** _Required_
-
-Uploads a new profile photo.  Replaces the old photo, if any.
-
-Returns: Person _Hash_
-
-``` js
-  // Example: POST /api/v3/person/49 api_key=1234567890abcdef file=@/myphoto.jpg
-
-  {
-    "address1": null,
-    "address2": null,
-    "city": "Santa Rosa",
-    "country_code": "US",
-    "created_at": "2011-10-17T18:54:31Z",
-    "credentials": [
-      {
-        "id": 18434,
-        "provider": "facebook",
-        "uid": "abc123",
-        "token_present": true
-      }
-    ]
-    "first_name": "John",
-    "gender": "m",
-    "alert_email": true,
-    "id": 49,
-    "last_name": "Doe",
-    "login": "bogus@bogus.com",
-    "state": "CA",
-    "time_zone": "America/Los_Angeles",
-    "timezone": "-7",
-    "updated_at": "2012-03-28T16:07:16Z",
-    "referral_code": null,
-    "referral_credits": 0,
-    "postalcode": "95407",
-    "photos": {
-      "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-      "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-      "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-    },
-    "preferred_radius": 100.0
-  }
-```
-
-<a name="content_person_get_people_tracking_class" />
-### GET /people/tracking/:class
-**:class** _string_  One of: "genres", "events", "artists", "people", "venues"
-
-Params:
-
-- **[ids](#ids)** _Required_
-
-Returns: _Array_ of _Hash_ containing id, name, and count for each tracked **:class** ordered by count descending.
-
-``` js
-    // Example: GET /api/v3/people/tracking/artist?ids=2,4,321&api_key=1234567890abcdef
-
-    [
-      {
-        "name": "M83",
-        "count": 3,
-        "id": 18927
-      },
-      {
-        "name": "Radiohead",
-        "count": 2,
-        "id": 2687
-      },
-      ...
-    ]
-```
-
-
-<a name="content_person_get_person_id_class" />
-### GET /person/:id/:class
-**:class** _string_  One of: "genres", "events", "artists", "people", "venues"
-
-Params:
-
-- None.
-
-Returns: _Hash_ of tracked **:class** IDs mapped to **:class** names for this person.
-
-``` js
-    // Example: GET /api/v3/person/2/artists&api_key=1234567890abcdef
-
-    {
-      "2687": "Radiohead",
-      "18927": "M83",
-      ...
-    }
-```
-
-<a name="content_person_post_person_id_action_class" />
-### POST /person/:id/:action/:class
-**:action** _string_  One of: "track", "untrack"
-**:class** _string_   One of: "genres", "events", "artists", "people", "venues"
-
-Params:
-
-- **[ids](#ids)** _Required_
-- **[platform](#platform)**
-
-Returns: Hash of **:class** tracked IDs mapped for this person after performing **:action**.
-
-``` js
-    // Example: POST /api/v3/person/24/track/artists?ids=44,45&platform=ios&api_key=1234567890abcdef
-
-    {
-      "44": "Paco Osuna",
-      "45": "Wanamaker"
-    }
-```
-
-<a name="content_person_post_person_id_track_artists_by_name" />
-### POST /person/:id/track\_artists\_by\_name
-
-Params:
-
-- **[artist\_names](#artist_names)** _Required_
-- **[platform](#platform)**
-
-Returns: _Array_ of hash with tracked artist IDs mapped to artist names for this person.
-
-``` js
-    // Example: POST /api/v3/person/24/track_artists_by_name?artist_names=Radiohead,M83&platform=ios&api_key=1234567890abcdef
-
-    [
-      {
-        "2687": "Radiohead"
-      },
-      {
-        "18927": "M83",
-      }
-    ]
-```
-
-<a name="content_person_get_person_id_recommended_events" />
-### GET /person/:id/recommended_events
-**:id** _integer_  Thrillcall ID
-
-Params:
-
-- **[limit](#limit)**
-- **[page](#page)**
-- **[time\_zone](#time_zone)**
-- **[min\_date](#min_date)**
-- **[max\_date](#max_date)**
-- **[min\_updated\_at](#min_updated_at)**
-- **[max\_updated\_at](#max_updated_at)**
-- **[lat](#lat)**
-- **[long](#long)**
-- **[postalcode](#postalcode)**
-- **[radius](#radius)**
-- **[ticket\_type](#ticket_type)**
-- **[must\_have\_tickets](#must_have_tickets)**
-- **[show\_disabled\_events](#show_disabled_events)**
-- **[show\_unconfirmed\_events](#show_unconfirmed_events)**
-- **[show\_rumor\_events](#show_rumor_events)**
-- **[featured\_events\_only](#featured_events_only)**
-- **[sort](#sort)**
-- **[order](#order)**
-- **[with\_discover](#with_discover)**
-
-Note:  By default, this will search for events within the Person's **[preferred\_radius](#preferred_radius)** of the Person's geolocation.  You may override these defaults with **[lat](#lat)**/**[long](#long)** or **[postalcode](#postalcode)** and **[radius](#radius)**.
-
-Returns:  _Array_ of Events _Hash_ where at least one of the person's tracked artists is performing in an event
-
-``` js
-    // Example: GET /api/v3/person/34850/recommended_events?api_key=1234567890abcdef
-
-    [
-      {
-        "id": 1462160,
-        "name": "Mogwai @ Roseland Theater",
-        "venue_id": 47425,
-        "created_at": "2014-03-24T22:34:54Z",
-        "updated_at": "2014-03-24T22:34:54Z",
-        "festival": false,
-        "rumor": false,
-        "unconfirmed_location": 0,
-        "latitude": 45.5232,
-        "longitude": -122.676,
-        "starts_at": "2014-05-25T04:00:00Z",
-        "starts_at_time_trusted": true,
-        "distance": 1.6921186893745308,
-        "bearing": "286.0",
-        "photos": {
-          "thumbnail": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-thumbnail.jpg?1324556247",
-          "large": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-large.jpg?1324556247",
-          "mobile": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-mobile.jpg?1324556247"
-        },
-        "url": "http://thrillcall.com/event/1462160",
-        "starts_at_local": "2014-05-24T21:00:00-07:00",
-        "time_zone": "America/Los_Angeles",
-        "event_status": "confirmed",
-        "name_modified": false,
-        "featured_event": false,
-        "venue": {
-          "id": 47425,
-          "name": "Roseland Theater",
-          "address1": "8 NW 6th Ave",
-          "address2": null,
-          "city": "Portland",
-          "state": "OR",
-          "official_url": "http://www.roselandpdx.com/",
-          "created_at": "2008-05-08T17:00:43Z",
-
-      "updated_at": "2013-10-22T09:06:18Z",
-          "latitude": 45.523226,
-          "longitude": -122.676378,
-          "country_code": "US",
-          "myspace_url": "http://www.myspace.com/roselandtheater",
-          "upcoming_events_count": 28,
-          "facebook_url": "http://www.facebook.com/roselandtheater",
-          "long_description": null,
-          "phone_number": "+1 (503) 224-8499",
-          "time_zone": "America/Los_Angeles",
-          "hide_resale_tickets": false,
-          "wikipedia_url": null,
-          "photos": {
-            "thumbnail": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-thumbnail.jpg?1364254379",
-            "medium": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-medium.jpg?1364254379",
-            "large": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-large.jpg?1364254379",
-            "mobile": "http://i1.tc-core.com/venue/47425/2783/1364254379/roseland-theater-in-portland-or-mobile.jpg?1364254379"
-          },
-          "postalcode": "97209",
-          "metro_area_id": 113,
-          "ticket_providers": [
-            {
-              "id": 371,
-              "merchant_id": 21,
-              "name": "TicketsWest",
-              "url": "http://ticketswest.rdln.com/Venue.aspx?ven=PC-ROS",
-              "primary": true,
-              "tier": 0,
-              "display_index": 9,
-              "image": "http://i1.tc-core.com/merchant/21/1324584355/19-full.jpg?1324584355"
-            },
-            {
-              "id": 8753,
-              "merchant_id": 36,
-              "name": "AXS",
-              "url": "http://www.axs.com/venues/102035/roseland-theater-portland-tickets",
-              "primary": true,
-              "tier": 0,
-              "display_index": 33,
-              "image": "http://i1.tc-core.com/merchant/36/1365101348/162-full.jpg?1365101348"
-            }
-          ],
-          "url": "http://thrillcall.com/venue/Roseland_Theater_in_Portland_OR"
-        },
-        "artists": [
-          {
-            "id": 12978,
-            "name": "Mogwai",
-            "headliner": false,
-            "photos": {
-              "thumbnail": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-thumbnail.jpg?1324556247",
-              "medium": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-medium.jpg?1324556247",
-              "large": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-large.jpg?1324556247",
-              "mobile": "http://i1.tc-core.com/artist/12978/189/1324556247/mogwai-mobile.jpg?1324556247"
-            }
-          }
-        ],
-        "offer_details": null
-      },
-      {
-        ...
-      },
-      ...
-    ]
-```
-
-<a name="content_person_get_person_id_friends_events" />
-### GET /person/:id/friends_events
-**:id** _integer_  Thrillcall ID
-
-Params:
-
-- None.
-
-Returns: _Array_ of _Hashes_ containing Person _Hash_ keyed on "friend" and _Array_ of Event IDs keyed on "events"
-
-All people in the result set are friends (tracked Person objects) of the Person.
-
-Event IDs are future active events tracked by that friend.
-
-``` js
-    // Example: GET /api/v3/person/2/friends_events&api_key=1234567890abcdef
-
-    [
-      {
-        "friend": {
-          "address1": null,
-          "address2": null,
-          "city": "Santa Rosa",
-          "country_code": "US",
-          "created_at": "2011-10-17T18:54:31Z",
-          "credentials": [
-            {
-              "id": 18434,
-              "provider": "facebook",
-              "uid": "abc123",
-              "token_present": true
-            }
-          ]
-          "first_name": "John",
-          "gender": "m",
-          "alert_email": true,
-          "id": 49,
-          "last_name": "Doe",
-          "login": "bogus@bogus.com",
-          "state": "CA",
-          "time_zone": "America/Los_Angeles",
-          "timezone": "-7",
-          "updated_at": "2012-03-28T16:07:16Z",
-          "referral_code": null,
-          "referral_credits": 0,
-          "postalcode": "95407",
-          "photos": {
-            "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-            "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-            "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-          },
-          "preferred_radius": 100.0
-        },
-        "events": [
-          1308413,
-          ...
-        ],
-        ...
-      }
-    ]
-```
-<a name="content_person_get_person_id_recommended_artists" />
-### GET /person/:id/recommended_artists
-**:id** _integer_  Thrillcall ID
-
-Params:
-- **[polling_for](#polling_for)**
-
-Returns: _Hash_
-The hash will contain the following keys.
-
-- **recommendations**: For each service and popular artists, an _Array_ of recommended artist _Hashes_.  If there is any error with the connection, an error message _string_ to present to the user will be here instead of the array.
-- **connected**: For each service, _boolean_ whether or not the user is connected
-- **autotrack**: For each service, _boolean_ whether or not the user is automatically tracking recommended artists
-
-In the recommendations hash, each artist is represented by a hash of the following key-value pairs:
-
-- **id**: Thrillcall ID
-- **title**: Name of the Artist
-- **tracking**: Boolean value indicating whether or not the user is tracking the Artist
-- **artist\_normalized\_name**
-- **artist\_upcoming\_shows**: The number of upcoming shows for this Artist
-- **url**: Artist photo URL
-
-``` js
-    // Example: GET /api/v3/person/2/recommended_artists?api_key=1234567890abcdef
-
-    {
-      "recommendations": {
-        "popular": [
-          {
-            "id": 17053,
-            "title": "Justin Timberlake",
-            "tracking": false,
-            "artist_normalized_name": "justintimberlake",
-            "artist_upcoming_shows": 70,
-            "url": "http://i1.tc-core.com/artist/17053/1048/1324556871/justin-timberlake-medium.jpg?1324556871"
-          },
-          {
-            ...
-          },
-          ...
-        ],
-        "facebook": [
-          ...
-        ],
-        "pandora": "Failure: No Pandora user found named 'bogususername'.",
-        ...
-      },
-      "connected": {
-        "facebook": true,
-        "pandora": false,
-        ...
-      },
-      "autotrack": {
-        "facebook": false,
-        ...
-      }
-    }
-```
-
-<a name="content_credential" />
-## Credentials
-Fields:
-
-N/A.  Always returns Person objects.  Credentials are nested inside Person objects.
-
-<a name="content_credential_post_credential" />
-### POST /credential
-
-Params:
-
-- **[person_id](#person_id)**
-- **[provider](#provider)**
-- **[uid](#uid)**
-- **[token](#token)**
-- **[skip_autotrack](#skip_autotrack)**
-
-Returns: Person _Hash_
-
-Credentials are stored tokens allowing us to authenticate on behalf of a Person.
-These are typically OAuth tokens, but can take any form.  The token itself is
-not required and may be left blank, the other parameters are required.
-
-``` js
-    // Example: POST /api/v3/credential
-    // person_id=49&provider=spotify&uid=4321&token=abc123&api_key=1234567890abcdef
-
-    {
-      "address1": null,
-      "address2": null,
-      "city": "Santa Rosa",
-      "country_code": "US",
-      "created_at": "2011-10-17T18:54:31Z",
-      "credentials": [
-        {
-          "id": 18435,
-          "provider": "spotify",
-          "uid": "4321",
-          "token_present": true
-        }
-      ]
-      "first_name": "John",
-      "gender": "m",
-      "alert_email": true,
-      "id": 49,
-      "last_name": "Doe",
-      "login": "bogus@bogus.com",
-      "state": "CA",
-      "time_zone": "America/Los_Angeles",
-      "timezone": "-7",
-      "updated_at": "2012-03-28T16:07:16Z",
-      "referral_code": null,
-      "referral_credits": 0,
-      "postalcode": "95407",
-      "photos": {
-        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      },
-      "preferred_radius": 100.0
-    }
-```
-
-<a name="content_credential_put_credential_id" />
-### PUT /credential/:id
-**:id** _integer_  Thrillcall ID
-
-Params:
-
-- **[uid](#uid)**
-- **[token](#token)**
-- **[old_token](#old_token)**
-- **[old_password](#old_password)**
-- **[skip_autotrack](#skip_autotrack)**
-
-Returns: Person _Hash_
-
-This endpoint allows you to change the UID or token of an existing credential.
-You must supply either the user's current password, or the existing token on the
-credential.
-
-``` js
-    // Example: PUT /api/v3/credential/18435
-    // old_token=abc123&token=&api_key=1234567890abcdef
-
-    {
-      "address1": null,
-      "address2": null,
-      "city": "Santa Rosa",
-      "country_code": "US",
-      "created_at": "2011-10-17T18:54:31Z",
-      "credentials": [
-        {
-          "id": 18435,
-          "provider": "spotify",
-          "uid": "4321",
-          "token_present": false
-        }
-      ]
-      "first_name": "John",
-      "gender": "m",
-      "alert_email": true,
-      "id": 49,
-      "last_name": "Doe",
-      "login": "bogus@bogus.com",
-      "state": "CA",
-      "time_zone": "America/Los_Angeles",
-      "timezone": "-7",
-      "updated_at": "2012-03-28T16:07:16Z",
-      "referral_code": null,
-      "referral_credits": 0,
-      "postalcode": "95407",
-      "photos": {
-        "small_thumb": "http://i1.tc-core.com/person/164761/1324568419/19154-small_thumb.jpg?1324568419",
-        "thumbnail": "http://i1.tc-core.com/person/164761/1324568419/19154-thumbnail.jpg?1324568419",
-        "medium": "http://i1.tc-core.com/person/164761/1324568419/19154-medium.jpg?1324568419"
-      },
-      "preferred_radius": 100.0
-    }
 ```
 
 <a name="content_venues" />
