@@ -78,6 +78,7 @@
 <li><strong><a href="#content_artists_get_artist_id">GET /artist/:id</a></strong></li>
 <li><strong><a href="#content_artists_put_artist_id">PUT /artist/:id</a></strong></li>
 <li><strong><a href="#content_artists_get_artist_id_events">GET /artist/:id/events</a></strong></li>
+<li><strong><a href="#content_artists_get_artist_id_genres">GET /artist/:id/genres</a></strong></li>
 <li><strong><a href="#content_artists_get_search_artists_term">GET /search/artists/:term</a></strong></li>
 </ul>
 </li>
@@ -500,7 +501,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artists?mappings=livenation&amp;page=60801&amp;limit=5&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/artists?mappings=livenation&amp;page=60801&amp;limit=5&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -566,7 +567,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/artist?name=Bleeding%20Chest%20Wounds&amp;wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: POST /api/v3/artist?name=Bleeding%20Chest%20Wounds&amp;wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -608,7 +609,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artist/12?mappings=livenation&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/artist/12?mappings=livenation&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>
@@ -680,7 +681,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Artist <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: PUT /api/v3/artist/12569?wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: PUT /api/v3/artist/12569?wikipedia_url=http%3A%2F%2Ftest.com&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-04-21T16:53:17Z"</span><span class="p">,</span>
@@ -742,7 +743,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/artist/378465/events?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/artist/378465/events?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -846,6 +847,69 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 </div>
 
 
+<p><a name="content_artists_get_artist_id_genres"></a></p>
+
+<h3>GET /artist/:id/events</h3>
+
+<p><strong>:id</strong> <em>integer</em>  Thrillcall or <strong><a href="#content_mappings">Mapping</a></strong></p>
+
+<p>Params:</p>
+
+<ul>
+<li><strong><a href="#category">category</a></strong></li>
+</ul>
+
+<p>Returns:  <em>Array</em> of Genres <em>Hash</em></p>
+
+<div class="highlight">
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/artist/378465/genres?api_key=1234567890abcdef&amp;category=main</span>
+
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Pop"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:52:08Z"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Lady GaGa, Justin Bieber etc..."</span><span class="p">,</span>
+        <span class="s2">"category"</span><span class="o">:</span> <span class="s2">"main"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">27</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Rock"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:52:21Z"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"U2, 30 Seconds To Mars etc..."</span><span class="p">,</span>
+        <span class="s2">"category"</span><span class="o">:</span> <span class="s2">"main"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">134</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Electronic"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-05-28T06:47:25Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:54:43Z"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Hot Chip, Passion Pit etc..."</span><span class="p">,</span>
+        <span class="s2">"category"</span><span class="o">:</span> <span class="s2">"main"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">137</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Dance"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-05-28T06:54:18Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2010-03-25T23:55:20Z"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="s2">"Daft Punk, Deadmau5 etc..."</span><span class="p">,</span>
+        <span class="s2">"category"</span><span class="o">:</span> <span class="s2">"main"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">338</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"dance pop"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2015-05-15T20:17:48Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="o">:</span> <span class="s2">"2015-05-15T20:17:48Z"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="s2">"category"</span><span class="o">:</span> <span class="s2">"subgenre"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+</pre>
+</div>
+
+
 <p><a name="content_artists_get_search_artists_term"></a></p>
 
 <h3>GET /search/artists/:term</h3>
@@ -865,7 +929,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/search/artists/Chris%20Isaak?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/search/artists/Chris%20Isaak?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1025,7 +1089,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/events?must_have_tickets=true&amp;postalcode=94108&amp;radius=10&amp;limit=3&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/events?must_have_tickets=true&amp;postalcode=94108&amp;radius=10&amp;limit=3&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1136,7 +1200,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Event <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1412491?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/event/1412491?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1412491</span><span class="p">,</span>
@@ -1255,7 +1319,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/artists?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/event/1113134/artists?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1304,7 +1368,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/event/1113134/venue?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">63279</span><span class="p">,</span>
@@ -1382,7 +1446,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/event/1047075/tickets?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/event/1047075/tickets?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1445,7 +1509,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Genres <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/genres?limit=14&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/genres?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1479,7 +1543,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns: Genre <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/genre/27?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/genre/27?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2008-07-09T19:17:45Z"</span><span class="p">,</span>
@@ -1511,7 +1575,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Artists <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/genre/27/artists?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/genre/27/artists?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1595,7 +1659,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/metro_areas?limit=14&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/metro_areas?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1636,7 +1700,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/metro_areas?&amp;api_key=1234567890abcdef&amp;&amp;lat=37.7833&amp;long=-122.4167&amp;radius=50`</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/metro_areas?&amp;api_key=1234567890abcdef&amp;&amp;lat=37.7833&amp;long=-122.4167&amp;radius=50`</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1677,7 +1741,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Metro Area <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/metro_area/105?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/metro_area/105?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"city"</span><span class="o">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
@@ -1729,7 +1793,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Metro Areas <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/metro_area/105/events?min_date=2011-06-20&amp;max_date=2012-06-19&amp;limit=3&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/metro_area/105/events?min_date=2011-06-20&amp;max_date=2012-06-19&amp;limit=3&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1889,7 +1953,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/venues?limit=14&amp;page=750&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/venues?limit=14&amp;page=750&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -1954,7 +2018,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: POST /api/v3/venue?name=Test%20Venue&amp;city=Guerneville&amp;state=CA&amp;country_code=US&amp;address1=123%20Main%20St&amp;postalcode=95446&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: POST /api/v3/venue?name=Test%20Venue&amp;city=Guerneville&amp;state=CA&amp;country_code=US&amp;address1=123%20Main%20St&amp;postalcode=95446&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"address1"</span><span class="o">:</span> <span class="s2">"123 Main St"</span><span class="p">,</span>
@@ -2006,7 +2070,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/venue/707?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/venue/707?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">707</span><span class="p">,</span>
@@ -2077,7 +2141,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Venue <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: PUT /api/v3/venue/51886?address1=202%20Van%20Ness%20Avenue&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: PUT /api/v3/venue/51886?address1=202%20Van%20Ness%20Avenue&amp;api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"id"</span><span class="o">:</span> <span class="mi">51886</span><span class="p">,</span>
@@ -2155,7 +2219,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Events <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/venue/1904/events?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/venue/1904/events?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -2281,7 +2345,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Venues <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/search/venues/Carnegie?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/search/venues/Carnegie?api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -2412,7 +2476,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Tickets <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/tickets?limit=14&amp;api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/tickets?limit=14&amp;api_key=1234567890abcdef</span>
 
     <span class="p">[</span>
       <span class="p">{</span>
@@ -2455,7 +2519,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Ticket <em>Hash</em></p>
 
 <div class="highlight">
-<pre>    <span class="c1">// Example: GET /api/v3/ticket/819883?api_key=1234567890abcdef</span>
+<pre><span></span>    <span class="c1">// Example: GET /api/v3/ticket/819883?api_key=1234567890abcdef</span>
 
     <span class="p">{</span>
       <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2012-03-02T18:06:14Z"</span><span class="p">,</span>
@@ -2486,7 +2550,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>They are used in place of IDs in the following format:</p>
 
 <div class="highlight">
-<pre>  <span class="nx">partner_name</span><span class="o">:</span><span class="nx">obj_type</span><span class="o">:</span><span class="nx">partner_id</span>
+<pre><span></span>  <span class="nx">partner_name</span><span class="o">:</span><span class="nx">obj_type</span><span class="o">:</span><span class="nx">partner_id</span>
 </pre>
 </div>
 
@@ -2494,7 +2558,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>For example:</p>
 
 <div class="highlight">
-<pre>  <span class="nx">GET</span> <span class="o">/</span><span class="nx">artist</span><span class="o">/</span><span class="nx">myspace</span><span class="o">:</span><span class="nx">artist</span><span class="o">:</span><span class="nx">alicia_keys</span>
+<pre><span></span>  <span class="nx">GET</span> <span class="o">/</span><span class="nx">artist</span><span class="o">/</span><span class="nx">myspace</span><span class="o">:</span><span class="nx">artist</span><span class="o">:</span><span class="nx">alicia_keys</span>
 </pre>
 </div>
 
@@ -2537,7 +2601,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  <em>Array</em> of Mappings <em>Hash</em></p>
 
 <div class="highlight">
-<pre>  <span class="c1">// Example: GET /mappings?api_key=1234567890abcdef</span>
+<pre><span></span>  <span class="c1">// Example: GET /mappings?api_key=1234567890abcdef</span>
 
   <span class="p">[</span>
     <span class="p">{</span>
@@ -2576,7 +2640,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Mapping <em>Hash</em></p>
 
 <div class="highlight">
-<pre>  <span class="c1">// Example: GET /mapping/1?api_key=1234567890abcdef</span>
+<pre><span></span>  <span class="c1">// Example: GET /mapping/1?api_key=1234567890abcdef</span>
 
   <span class="p">{</span>
     <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
@@ -2618,7 +2682,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Mapping <em>Hash</em></p>
 
 <div class="highlight">
-<pre>  <span class="c1">// Example: POST /mapping?obj_type=artist&amp;partner_id=myspace&amp;partner_obj_id=1&amp;tc_obj_id=2000&amp;api_key=1234567890abcdef</span>
+<pre><span></span>  <span class="c1">// Example: POST /mapping?obj_type=artist&amp;partner_id=myspace&amp;partner_obj_id=1&amp;tc_obj_id=2000&amp;api_key=1234567890abcdef</span>
 
   <span class="p">{</span>
     <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
@@ -2660,7 +2724,7 @@ Access over an insecure HTTP (port 80) endpoint is now deprecated and will be di
 <p>Returns:  Mapping <em>Hash</em></p>
 
 <div class="highlight">
-<pre>  <span class="c1">// Example: PUT /mapping/1?partner_obj_id=1000&amp;api_key=1234567890abcdef</span>
+<pre><span></span>  <span class="c1">// Example: PUT /mapping/1?partner_obj_id=1000&amp;api_key=1234567890abcdef</span>
 
   <span class="p">{</span>
     <span class="s2">"created_at"</span><span class="o">:</span> <span class="s2">"2009-08-13T01:51:23Z"</span><span class="p">,</span>
