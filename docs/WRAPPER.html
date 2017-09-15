@@ -72,7 +72,7 @@
 <h3>Usage:</h3>
 
 <div class="highlight">
-<pre>    <span class="c1">#---------------------------------------------------------------#</span>
+<pre><span></span>    <span class="c1">#---------------------------------------------------------------#</span>
     <span class="c1"># First, require the gem:</span>
     <span class="c1">#---------------------------------------------------------------#</span>
     <span class="nb">require</span> <span class="s1">'rubygems'</span>
@@ -131,7 +131,7 @@
 <p>Provide additional instantiation options:</p>
 
 <div class="highlight">
-<pre>    <span class="c1">#---------------------------------------------------------------#</span>
+<pre><span></span>    <span class="c1">#---------------------------------------------------------------#</span>
     <span class="c1"># The default SSL endpoint is "https://api.thrillcall.com/api/".</span>
     <span class="c1"># The default API version is 3.</span>
     <span class="c1"># By default, Faraday access logging is turned off.</span>
@@ -156,7 +156,7 @@
 <p>Internally, the wrapper returns a ThrillcallAPI::Result class for any call.  Data for the request is fetched only when used.  This allows you to build requests piecemeal before executing them.</p>
 
 <div class="highlight">
-<pre>    <span class="c1">#---------------------------------------------------------------#</span>
+<pre><span></span>    <span class="c1">#---------------------------------------------------------------#</span>
     <span class="c1"># Build a partial request, add on to it later</span>
     <span class="c1">#---------------------------------------------------------------#</span>
     <span class="n">request</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">artist</span><span class="p">(</span><span class="mi">22210</span><span class="p">)</span> <span class="c1"># Lady Gaga</span>
@@ -173,7 +173,7 @@
 <p>This gem is a convenience wrapper around the excellent Faraday project.  If more complicated use cases are necessary, consider using Faraday directly.</p>
 
 <div class="highlight">
-<pre>    <span class="nb">require</span> <span class="s1">'faraday'</span>
+<pre><span></span>    <span class="nb">require</span> <span class="s1">'faraday'</span>
     <span class="nb">require</span> <span class="s1">'json'</span>
 
     <span class="no">MY_API_KEY</span>  <span class="o">=</span> <span class="s2">"1234567890abcdef"</span>

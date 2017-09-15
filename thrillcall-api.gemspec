@@ -20,16 +20,16 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "ZenTest",                "~> 4.11.0"
   s.add_development_dependency  "autotest",               "~> 4.4.6"
   s.add_development_dependency  "autotest-growl",         "~> 0.2.16"
-  s.add_development_dependency  "autotest-fsevent",       "~> 0.2.10"
+  s.add_development_dependency  "autotest-fsevent",       "~> 0.2.12"
   s.add_development_dependency  "awesome_print",          "~> 1.0.1"
   s.add_development_dependency  "redcarpet",              "~> 1.17.2"
-  s.add_development_dependency  "nokogiri",               "~> 1.4.6"
-  s.add_development_dependency  "albino",                 "~> 1.3.3"
+  s.add_development_dependency  "nokogiri",               "~> 1.8.0"
+  s.add_development_dependency  "pygments.rb",            "~> 1.2.0"
   s.add_development_dependency  "faker",                  "~> 0.9.5"
   s.add_development_dependency  "tzinfo",                 "~> 0.3.31"
 
   s.add_dependency              "faraday",                "~> 0.8.7"
-  s.add_dependency              "retriable",              "~> 1.3.3"
+  s.add_dependency              "retriable",              "~> 3.1.1"
 
   s.files = Dir['lib/**/*.rb'] + Dir['bin/*']
   s.require_path = 'lib'

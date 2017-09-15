@@ -8,6 +8,7 @@
   - **[GET /artist/:id](#content_artists_get_artist_id)**
   - **[PUT /artist/:id](#content_artists_put_artist_id)**
   - **[GET /artist/:id/events](#content_artists_get_artist_id_events)**
+  - **[GET /artist/:id/genres](#content_artists_get_artist_id_genres)**
   - **[GET /search/artists/:term](#content_artists_get_search_artists_term)**
 - **[Events](#content_events)**
   - **[GET /events](#content_events_get_events)**
@@ -646,6 +647,64 @@ Returns:  _Array_ of Events _Hash_
         ...
       },
       ...
+    ]
+```
+
+
+<a name="content_artists_get_artist_id_genres" />
+### GET /artist/:id/events
+**:id** _integer_  Thrillcall or **[Mapping](#content_mappings)**
+
+Params:
+
+- **[category](#category)**
+
+Returns:  _Array_ of Genres _Hash_
+
+``` js
+    // Example: GET /api/v3/artist/378465/genres?api_key=1234567890abcdef&category=main
+
+    [
+      {
+        "id": 18,
+        "name": "Pop",
+        "created_at": "2008-07-09T19:17:45Z",
+        "updated_at": "2010-03-25T23:52:08Z",
+        "description": "Lady GaGa, Justin Bieber etc...",
+        "category": "main"
+      },
+      {
+        "id": 27,
+        "name": "Rock",
+        "created_at": "2008-07-09T19:17:45Z",
+        "updated_at": "2010-03-25T23:52:21Z",
+        "description": "U2, 30 Seconds To Mars etc...",
+        "category": "main"
+      },
+      {
+        "id": 134,
+        "name": "Electronic",
+        "created_at": "2009-05-28T06:47:25Z",
+        "updated_at": "2010-03-25T23:54:43Z",
+        "description": "Hot Chip, Passion Pit etc...",
+        "category": "main"
+      },
+      {
+        "id": 137,
+        "name": "Dance",
+        "created_at": "2009-05-28T06:54:18Z",
+        "updated_at": "2010-03-25T23:55:20Z",
+        "description": "Daft Punk, Deadmau5 etc...",
+        "category": "main"
+      },
+      {
+        "id": 338,
+        "name": "dance pop",
+        "created_at": "2015-05-15T20:17:48Z",
+        "updated_at": "2015-05-15T20:17:48Z",
+        "description": null,
+        "category": "subgenre"
+      }
     ]
 ```
 

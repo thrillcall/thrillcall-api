@@ -281,7 +281,7 @@ describe "ThrillcallAPI" do
       r["id"].should_not be_nil
 
       e = @tc.artist(r["id"])
-      (e.has_key? "genre_tags").should be_true
+      (e.has_key? "name").should be_true
     end
 
     it "should respond to methods from Enumerable" do

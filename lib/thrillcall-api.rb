@@ -4,30 +4,32 @@ require "#{File.expand_path("../thrillcall-api/exceptions", __FILE__)}"
 require "#{File.expand_path("../thrillcall-api/result", __FILE__)}"
 require "#{File.expand_path("../thrillcall-api/version", __FILE__)}"
 require 'net/http'
+require 'open-uri'
 require 'retriable'
+require 'retriable/core_ext/kernel'
 
 module ThrillcallAPI
 
-  RETRY_ERRNO     = [Errno::ECONNREFUSED,
-                      Errno::ECONNRESET,
-                      Errno::EHOSTUNREACH,
-                      Errno::EHOSTDOWN,
-                      Errno::EINVAL]
-  RETRY_NET       = [Net::HTTPBadResponse,
-                      Net::HTTPRequestTimeOut,
-                      Net::HTTPServerError,          # 5xx
-                      Net::HTTPInternalServerError,  # 500
-                      Net::HTTPNotImplemented,       # 501
-                      Net::HTTPBadGateway,           # 502
-                      Net::HTTPServiceUnavailable,   # 503
-                      Net::HTTPGatewayTimeOut,       # 504
-                      Net::HTTPVersionNotSupported]  # 505
-  RETRY_FARADAY   = [Faraday::Error,
-                      Faraday::Error::ClientError]
-  RETRY_DEFAULT   = [Timeout::Error,
-                      EOFError,
-                      SocketError]
-  RETRY_ALL       = RETRY_DEFAULT + RETRY_ERRNO + RETRY_NET + RETRY_FARADAY
+  RETRY_EXCEPTIONS = {
+    Errno::ECONNREFUSED           => nil,
+    Errno::ECONNRESET             => nil,
+    Errno::EHOSTUNREACH           => nil,
+    Errno::EHOSTDOWN              => nil,
+    Errno::EINVAL                 => nil,
+    Net::HTTPBadResponse          => nil,
+    Net::HTTPRequestTimeOut       => nil,
+    Net::HTTPServerError          => nil,   # 5xx
+    Net::HTTPInternalServerError  => nil,   # 500
+    Net::HTTPNotImplemented       => nil,   # 501
+    Net::HTTPBadGateway           => nil,   # 502
+    Net::HTTPServiceUnavailable   => nil,   # 503
+    Net::HTTPGatewayTimeOut       => nil,   # 504
+    Net::HTTPVersionNotSupported  => nil,   # 505
+    OpenURI::HTTPError            => /5[0-9][0-9]|400/,
+    Timeout::Error                => nil,
+    EOFError                      => nil,
+    SocketError                   => nil
+  }
 
   class << self
     attr_accessor :cur_api_key, :base, :result, :conn
@@ -43,7 +45,7 @@ module ThrillcallAPI
 
       opts = default_options.merge(options)
 
-      @retry_exceptions = opts[:retry_exceptions] || RETRY_ALL
+      @retry_exceptions = opts[:retry_exceptions] || RETRY_EXCEPTIONS
       @retry_tries      = opts[:retry_tries]      || 5
       @retry_timeout    = opts[:timeout]          || 10
 
@@ -101,7 +103,7 @@ module ThrillcallAPI
           req.url endpoint, params.merge(:api_key => @cur_api_key)
         end
       end
-      JSON.parse(r.body)
+      return JSON.parse(r.body)
     end
 
     def post(endpoint, params, method = :post)
