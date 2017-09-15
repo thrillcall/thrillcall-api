@@ -7,11 +7,11 @@ module ThrillcallAPI
   class Result
     attr_accessor :ran, :request_keys, :options, :set_methods, :http_method
     attr_reader :data
-    
+
     def initialize
       reset
     end
-    
+
     def reset
       if @set_methods
         unset_methods
@@ -24,7 +24,7 @@ module ThrillcallAPI
       @set_methods              = []
       @http_method              = :get
     end
-    
+
     # Removes any dynamically defined methods
     def unset_methods
       @set_methods.each do |s|
@@ -32,15 +32,15 @@ module ThrillcallAPI
           undef_method s
         end
       end
-      
+
       @set_methods = []
     end
-    
+
     # Dynamically defines any methods available to data.
     # i.e. it puts on a "#{data.class}" costume
     def reassign(data)
       unset_methods
-      
+
       data.public_methods.each do |meth|
         @set_methods << meth
         (class << self; self; end).class_eval do
@@ -50,18 +50,18 @@ module ThrillcallAPI
         end
       end
     end
-    
+
     # Append the name of the method and any args to the current
     # request being built
     def append(key, *args)
-      
+
       # If this is called but we've already fetched data, reset
       if @ran
         reset
       end
-      
+
       @request_keys << key
-      
+
       if args
         if args.is_a? Array
           args = args.flatten
@@ -81,7 +81,7 @@ module ThrillcallAPI
         end
       end
     end
-    
+
     def run(method, *args, &block)
       # Fetch data if necessary.  This will also "put on the
       # data.class costume" and allow the method to respond to a
@@ -89,24 +89,24 @@ module ThrillcallAPI
       if !@ran
         fetch_data
       end
-      
+
       # Send the requested method out to the newly defined method
       self.send(method, *args, &block)
     end
-    
+
     def fetch_data
       url = URI.escape(@request_keys.join("/"))
-      
+
       @data = ThrillcallAPI.send(@http_method, url, @options)
-      
+
       # Now we define the instance methods present in the data object
       # so that we can use this object *as if* we are using the data
       # object directly and we don't encounter method_missing
       reassign(@data)
-      
+
       @ran = true
     end
-    
+
     def post(args = {}, method = :post)
       if @ran
         raise ArgumentError, "This request has already been made!"
@@ -117,13 +117,13 @@ module ThrillcallAPI
       end
       @data
     end
-    
+
     def put(args = {})
       post(args, :put)
     end
-    
+
     def method_missing(method, *args, &block)
-      
+
       if @ran
         # NoMethodError
         super
@@ -141,6 +141,6 @@ module ThrillcallAPI
         end
       end
     end
-    
+
   end
 end

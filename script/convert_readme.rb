@@ -107,7 +107,7 @@ convert.each do |name, doc|
 
   doc.search('pre').each do |node|
     next unless lang = node['lang']
-    html = Albino.colorize(node.inner_text, lang)
+    html = Pygments.highlight(node.inner_text, :lexer => lang)
     node.replace(html)
   end
 
