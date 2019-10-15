@@ -20,7 +20,7 @@ GEM
       i18n (~> 0.4)
     faraday (0.8.11)
       multipart-post (~> 1.2.0)
-    ffi (1.9.14)
+    ffi (1.11.1)
     i18n (0.6.0)
     mini_portile2 (2.2.0)
     multi_json (1.12.2)
