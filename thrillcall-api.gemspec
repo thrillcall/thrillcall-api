@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "thrillcall-api"
 
   s.add_development_dependency  "bundler",                ">= 1.0.0"
-  s.add_development_dependency  "rake",                   "~> 0.9.2.2"
+  s.add_development_dependency  "rake",                   "~> 13.0.1"
   s.add_development_dependency  "rspec",                  "~> 2.7.0"
   s.add_development_dependency  "ZenTest",                "~> 4.11.0"
   s.add_development_dependency  "autotest",               "~> 4.4.6"
