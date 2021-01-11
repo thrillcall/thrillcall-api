@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "autotest-growl",         "~> 0.2.16"
   s.add_development_dependency  "autotest-fsevent",       "~> 0.2.12"
   s.add_development_dependency  "awesome_print",          "~> 1.0.1"
-  s.add_development_dependency  "redcarpet",              "~> 1.17.2"
+  s.add_development_dependency  "redcarpet",              "~> 3.5.1"
   s.add_development_dependency  "nokogiri",               "~> 1.8.0"
   s.add_development_dependency  "pygments.rb",            "~> 1.2.0"
   s.add_development_dependency  "faker",                  "~> 0.9.5"
