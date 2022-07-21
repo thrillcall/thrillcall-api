@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency  "nokogiri",               "~> 1.8.0"
   s.add_development_dependency  "pygments.rb",            "~> 1.2.0"
   s.add_development_dependency  "faker",                  "~> 0.9.5"
-  s.add_development_dependency  "tzinfo",                 "~> 0.3.31"
+  s.add_development_dependency  "tzinfo",                 "~> 2.0.5"
 
   s.add_dependency              "faraday",                "~> 0.8.7"
   s.add_dependency              "retriable",              "~> 3.1.1"
